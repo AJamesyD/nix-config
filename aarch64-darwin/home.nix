@@ -54,8 +54,6 @@
     (lib.hiPrio rust-analyzer)
     nixfmt-rfc-style
     nix-update
-    xsel
-    xclip
     htop
 
     shfmt
@@ -79,6 +77,7 @@
       cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
       doCheck = false;
     })
+    (pkgs.callPackage ../pkgs/bins { })
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -117,6 +116,56 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     HOMEBREW_NO_ANALYTICS = 1;
+  };
+
+  launchd = {
+    enable = true;
+    agents = {
+      pbcopy = {
+        enable = true;
+        config = {
+          inetdCompatibility = {
+            Wait = false;
+          };
+          KeepAlive = {
+            Crashed = true;
+            SuccessfulExit = false;
+          };
+          Label = "localhost.pbcopy";
+          ProcessType = "Background";
+          ProgramArguments = [ "/usr/bin/pbcopy" ];
+          RunAtLoad = true;
+          Sockets = {
+            Listener = {
+              SockNodeName = "127.0.0.1";
+              SockServiceName = "2224";
+            };
+          };
+        };
+      };
+      pbpaste = {
+        enable = true;
+        config = {
+          inetdCompatibility = {
+            Wait = false;
+          };
+          KeepAlive = {
+            Crashed = true;
+            SuccessfulExit = false;
+          };
+          Label = "localhost.pbpaste";
+          ProcessType = "Background";
+          ProgramArguments = [ "/usr/bin/pbpaste" ];
+          RunAtLoad = true;
+          Sockets = {
+            Listener = {
+              SockNodeName = "127.0.0.1";
+              SockServiceName = "2225";
+            };
+          };
+        };
+      };
+    };
   };
 
   programs = {
