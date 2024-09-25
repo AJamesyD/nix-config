@@ -1,5 +1,5 @@
 {
-  description = "My system configuration";
+  description = "My nix configuration(s)";
 
   nixConfig = {
     extra-trusted-substituters = [
@@ -11,6 +11,7 @@
   };
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,42 +24,41 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      home-manager,
-      nixpkgs,
-      nix-darwin,
-      ...
-    }:
-    let
-      homeManagerModule = import ./aarch64-darwin/home.nix;
-      configuration = import ./aarch64-darwin/configuration.nix {
-        inherit pkgs;
-        inherit self;
-        inherit system;
-      };
-      hostname = "80a99738471f";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      system = "aarch64-darwin";
-    in
-    {
-      darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
-        inherit system;
-        modules = [
-          configuration
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.angaidan = homeManagerModule;
-          }
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      toplevel@{ withSystem, ... }:
+      {
+        systems = [
+          "aarch64-darwin"
+          "aarch64-linux"
+          "x86_64-linux"
         ];
-      };
+        perSystem =
+          ctx@{
+            config,
+            self',
+            inputs',
+            pkgs,
+            system,
+            ...
+          }:
+          {
+            _module.args.pkgs = import inputs.nixpkgs {
+              config = {
+                allowUnfree = true;
+                allowAliases = true;
+              };
+              localSystem = system;
+            };
+            # packages = import ./nix/packages.nix toplevel ctx;
+          };
 
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.${hostname}.pkgs;
-    };
+        flake = {
+          hosts = import ./nix/hosts.nix;
+
+          darwinConfigurations = import ./nix/darwin-configuration.nix toplevel;
+          homeConfigurations = import ./nix/home-configuration.nix toplevel;
+        };
+      }
+    );
 }

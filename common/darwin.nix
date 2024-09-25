@@ -1,36 +1,12 @@
 {
-  pkgs,
   self,
-  system,
+  home-manager,
+  pkgs,
   ...
 }:
 {
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    bat
-    cachix
-    eza
-    fd
-    fzf
-    gh
-    git
-    git-lfs
-    htop
-    lazygit
-    luajitPackages.luarocks
-    neofetch
-    neovim
-    nixfmt-rfc-style
-    nodePackages.ts-node
-    ripgrep
-    rustup
-    shellcheck
-    shfmt
-    typescript
-    vim
-    zellij
-    zoxide
+  imports = [
+    home-manager.darwinModules.home-manager
   ];
 
   homebrew = {
@@ -48,6 +24,9 @@
       }
       {
         name = "caarlos0/tap";
+      }
+      {
+        name = "homebrew/services";
       }
       {
         name = "nikitabobko/tap";
@@ -97,7 +76,7 @@
   };
 
   # TODO: Is this safe to change?
-  networking.hostName = "80a99738471f";
+  # networking.hostName = "80a99738471f";
 
   nix = {
     gc = {
@@ -109,7 +88,6 @@
         Minute = 0;
       };
       options = "--delete-older-than 28";
-      user = "angaidan";
     };
 
     optimise = {
@@ -118,15 +96,8 @@
         Hour = 12;
         Minute = 0;
       };
-      user = "angaidan";
     };
-    # Necessary for using flakes on this system.
-    settings.experimental-features = "nix-command flakes";
   };
-
-  # The platform the configuration will be used on.
-  # If you're on an Intel system, replace with "x86_64-darwin"
-  nixpkgs.hostPlatform = "${system}";
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina

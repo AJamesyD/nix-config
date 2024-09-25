@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../aws.nix
+    ../../common/aws.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -77,7 +77,7 @@
       cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
       doCheck = false;
     })
-    (pkgs.callPackage ../pkgs/bins { })
+    (pkgs.callPackage ../../pkgs/bins { })
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -174,7 +174,6 @@
       enable = true;
     };
     alacritty = {
-      # TODO: Move to MacOS only config
       enable = true;
       settings = {
         import = [
@@ -360,9 +359,8 @@
           CURR_DIR="$(pwd)" &&
           cd ~/.config/nix
           ghauth &&
-          nix-channel --update --option access-tokens "github.com=$GITHUB_TOKEN" &&
           nix flake update --option access-tokens "github.com=$GITHUB_TOKEN" &&
-          darwin-rebuild switch --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN" &&
+          darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
           zsource
           cd $CURR_DIR &&
           unset CURR_DIR''; # Cannot have newline at end of command or else it won't be chainable
@@ -373,7 +371,7 @@
           nvim --headless "Lazy! sync" "+qa ";
           cd $CURR_DIR &&
           unset CURR_DIR'';
-        up = "rustup update && nixup && vup";
+        up = "rustup update && nixup && vup && toolbox update";
       };
       oh-my-zsh = {
         enable = true;
