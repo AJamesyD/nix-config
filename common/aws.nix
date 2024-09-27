@@ -41,9 +41,6 @@
         bbb = "brc --allPackages brazil-build";
         bbra = "bbr apollo-pkg";
 
-        # TODO: Parameterize, -o only for dev desktops
-        auth = "mwinit -f -s && kinit -f";
-
         devdesk = "ssh -XY $DEV_DESK_HOSTNAME";
         devdesk-arm = "ssh -XY $DEV_DESK_HOSTNAME_ARM";
       };
