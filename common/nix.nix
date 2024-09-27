@@ -9,10 +9,6 @@
       options = "--delete-older-than 28";
     };
 
-    optimise = {
-      automatic = true;
-    };
-
     package = pkgs.nixVersions.latest;
 
     settings = {

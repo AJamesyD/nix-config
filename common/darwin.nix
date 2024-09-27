@@ -9,6 +9,28 @@
     home-manager.darwinModules.home-manager
   ];
 
+  documentation = {
+    enable = true;
+    doc.enable = true;
+    info.enable = true;
+    man.enable = true;
+  };
+
+  environment = {
+    systemPackages = with pkgs; [
+      git
+      git-lfs
+      neofetch
+      neovim
+      rsync
+      vim
+    ];
+    variables = {
+      EDITOR = "nvim";
+      HOMEBREW_NO_ANALYTICS = "1";
+    };
+  };
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -18,36 +40,13 @@
     };
     taps = [
       {
-        name = "amazon/homebrew-amazon";
-        clone_target = "ssh://git.amazon.com/pkg/HomebrewAmazon";
-        force_auto_update = true;
-      }
-      {
-        name = "caarlos0/tap";
-      }
-      {
         name = "homebrew/services";
       }
-      {
-        name = "nikitabobko/tap";
-      }
     ];
-    brews = [
-      {
-        name = "xdg-open-svc";
-        restart_service = "changed";
-        start_service = true;
-      }
-    ];
+    brews =
+      [
+      ];
     casks = [
-      {
-        name = "aerospace";
-        greedy = true;
-      }
-      {
-        name = "amazon-acronyms";
-        greedy = true;
-      }
       {
         name = "obsidian";
         greedy = true;
@@ -61,41 +60,20 @@
         greedy = true;
       }
       {
-        name = "xquartz";
-        greedy = true;
-      }
-      {
         name = "zoom";
-        greedy = true;
-      }
-      {
-        name = "zulip";
         greedy = true;
       }
     ];
   };
 
-  # TODO: Is this safe to change?
-  # networking.hostName = "80a99738471f";
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 
   nix = {
-    gc = {
-      automatic = true;
-      interval = {
-        # Friday
-        Weekday = 5;
-        Hour = 12;
-        Minute = 0;
-      };
-      options = "--delete-older-than 28";
-    };
-
     optimise = {
       automatic = true;
-      interval = {
-        Hour = 12;
-        Minute = 0;
-      };
     };
   };
 
@@ -111,13 +89,6 @@
   };
 
   services = {
-    jankyborders = {
-      enable = true;
-      active_color = "0xffe1e3e4";
-      inactive_color = "0xff494d64";
-      hidpi = true;
-      width = 7.5;
-    };
     # Auto upgrade nix package and the daemon service.
     nix-daemon.enable = true;
   };
@@ -189,12 +160,6 @@
         minimize-to-application = true;
         mru-spaces = false;
         orientation = "left";
-        persistent-apps = [
-          "Applications/Microsoft Outlook.app"
-          "Applications/Amazon Chime.app"
-          "Applications/Slack.app"
-          "${pkgs.alacritty}/Applications/Alacritty.app"
-        ];
         show-recents = false;
         tilesize = 64;
         wvous-bl-corner = 1;
@@ -225,16 +190,6 @@
       remapCapsLockToEscape = true;
     };
 
-    # Used for backwards compatibility, please read the changelog before changing.
-    # $ darwin-rebuild changelog
-    stateVersion = 5;
-
     startup.chime = false;
-  };
-
-  # Declare the user that will be running `nix-darwin`.
-  users.users.angaidan = {
-    name = "angaidan";
-    home = "/Users/angaidan";
   };
 }
