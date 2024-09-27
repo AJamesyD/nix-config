@@ -12,7 +12,7 @@ let
     {
       type,
       hostPlatform,
-      homeDirectory ? null,
+      username ? null,
     }:
     if type == "nix-darwin" then
       assert (hasSuffix "darwin" hostPlatform);
@@ -23,12 +23,14 @@ let
           ;
       }
     else if type == "home-manager" then
-      assert homeDirectory != null;
+      assert username != null;
       {
+        # Assuming all Mac's will use nix-darwin and not home-manager alone
+        homeDirectory = "/home/${username}";
         inherit
           type
           hostPlatform
-          homeDirectory
+          username
           ;
       }
     else
@@ -39,16 +41,12 @@ in
   x86-dev-desk = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
-    homeDirectory = "/home/angaidan";
+    username = "angaidan";
   };
   arm-dev-desk = mkHost {
     type = "home-manager";
     hostPlatform = "aarch64-linux";
-    homeDirectory = "/home/angaidan";
-  };
-  "80a99738471f" = mkHost {
-    type = "nix-darwin";
-    hostPlatform = "aarch64-darwin";
+    username = "angaidan";
   };
   m3-work-laptop = mkHost {
     type = "nix-darwin";

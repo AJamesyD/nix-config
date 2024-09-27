@@ -5,7 +5,7 @@ let
 
   genModules =
     hostName:
-    { homeDirectory, ... }:
+    { homeDirectory, username, ... }:
     { config, pkgs, ... }:
     let
       powerlevel10k_path = pkgs.fetchFromGitHub {
@@ -20,6 +20,7 @@ let
 
       home = {
         inherit homeDirectory;
+        inherit username;
         # The home.packages option allows you to install Nix packages into your
         # environment.
         packages = with pkgs; [
@@ -47,8 +48,6 @@ let
           ripgrep
           bat
           fzf
-          lazygit
-          zellij
           rustup
           (lib.hiPrio rust-analyzer)
           nixfmt-rfc-style
@@ -56,11 +55,8 @@ let
           git
           git-lfs
           nix-update
-          zoxide
-          xdg-utils
-          xsel
-          xclip
           htop
+          xclip
 
           shfmt
           shellcheck
@@ -83,6 +79,13 @@ let
           #   cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
           #   doCheck = false;
           # })
+          (pkgs.fetchFromGitHub {
+            owner = "jdx";
+            repo = "usage";
+            rev = "v0.7.4";
+            sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
+          })
+          (pkgs.callPackage ../pkgs/bins { })
         ];
 
         sessionVariables = {
@@ -101,6 +104,14 @@ let
       programs = {
         home-manager = {
           enable = true;
+        };
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+        gh = {
+          enable = true;
+          settings.git_protocol = "ssh";
         };
         git = {
           enable = true;
@@ -141,15 +152,31 @@ let
             };
           };
         };
+        lazygit = {
+          enable = true;
+          settings = {
+            mouseEvents = false;
+            expandFocusedSidePanel = true;
+            nerdFontsVersion = "3";
+            showDivergenceFromBaseBranch = "onlyArrow";
+            git = {
+              mainBranches = [
+                "main"
+                "mainline"
+                "master"
+              ];
+            };
+            update.method = "background";
+            notARepository = "quit";
+          };
+        };
         mise = {
           enable = true;
           globalConfig = {
+            plugins = {
+              usage = "https://github.com/jdx/mise-usage.git";
+            };
             tools = {
-              node = [
-                "lts-gallium" # v16
-                "lts-hydrogen" # v18
-                "20" # iron
-              ];
               python = [
                 "3.8"
                 "3.9"
@@ -157,12 +184,24 @@ let
                 "3.11"
                 "3.12"
               ];
-            };
-            settings = {
-              legacy_version_file = false;
-              yes = true;
+              usage = [
+                "latest"
+              ];
             };
           };
+          settings = {
+            experimental = true;
+            legacy_version_file = false;
+            pipx_uvx = true;
+            yes = true;
+          };
+        };
+        zellij = {
+          enable = true;
+          enableZshIntegration = true;
+        };
+        zoxide = {
+          enable = true;
         };
         zsh = {
           enable = true;
@@ -185,7 +224,6 @@ let
             ll = "ls -lah";
 
             cat = "bat -p --paging=never";
-            auth = "mwinit -o && kinit -f";
 
             ghauth = ''
               unset GITHUB_TOKEN &&
@@ -224,14 +262,17 @@ let
             theme = "powerlevel10k";
             custom = "${powerlevel10k_path}";
             plugins = [
-              "git"
-              "gh"
-              "fzf"
-              "virtualenv"
-              "zoxide"
               "aws"
-              "rust"
+              "cp"
+              "eza"
+              "fzf"
+              "gh"
+              "git"
+              "git-auto-fetch"
+              "brew"
               "mise"
+              "rust"
+              "zoxide"
             ];
           };
           initExtraFirst = ''
@@ -252,13 +293,9 @@ let
 
             [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
           '';
-        };
-        gh = {
-          enable = true;
-          settings.git_protocol = "ssh";
-        };
-        zellij = {
-          enableZshIntegration = true;
+          envExtra = ''
+            export XDG_CONFIG_HOME="$HOME/.config"
+          '';
         };
       };
       xdg = {

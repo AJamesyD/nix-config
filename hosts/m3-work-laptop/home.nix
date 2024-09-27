@@ -41,15 +41,12 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    alacritty-theme
-    (nerdfonts.override { fonts = [ "IBMPlexMono" ]; })
     neovim
     fd
     eza
     ripgrep
     bat
     fzf
-    zellij
     rustup
     (lib.hiPrio rust-analyzer)
     nixfmt-rfc-style
@@ -291,6 +288,9 @@
     mise = {
       enable = true;
       globalConfig = {
+        plugins = {
+          usage = "https://github.com/jdx/mise-usage.git";
+        };
         tools = {
           node = [
             "lts-gallium" # v16
@@ -304,14 +304,20 @@
             "3.11"
             "3.12"
           ];
+          usage = [
+            "latest"
+          ];
         };
         settings = {
+          experimental = true;
           legacy_version_file = false;
+          pipx_uvx = true;
           yes = true;
         };
       };
     };
     zellij = {
+      enable = true;
       enableZshIntegration = true;
     };
     zoxide = {
