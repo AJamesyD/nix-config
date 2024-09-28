@@ -16,10 +16,6 @@ let
         packages = with pkgs; [
           neovim
         ];
-
-        sessionVariables = {
-          EDITOR = "nvim";
-        };
       };
 
       programs = {

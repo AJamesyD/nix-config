@@ -3,6 +3,10 @@
   ...
 }:
 {
+  imports = [
+    ./tmux.nix
+  ];
+
   home = {
     packages = with pkgs; [
       neovim
@@ -61,6 +65,9 @@
     };
     fzf = {
       enable = true;
+      tmux = {
+        enableShellIntegration = true;
+      };
     };
     gh = {
       enable = true;

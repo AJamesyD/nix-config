@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -13,14 +12,13 @@
     username = "angaidan";
     homeDirectory = "/Users/angaidan";
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    stateVersion = "24.05"; # Please read the comment before changing.
+    # Home Manager is pretty good at managing dotfiles. The primary way to manage
+    # plain files is through 'home.file'.
+    file = {
+      "${config.xdg.configHome}/aerospace/aerospace.toml" = {
+        source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
+      };
+    };
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -41,6 +39,7 @@
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
+
       (pkgs.nerdfonts.override {
         fonts = [
           "Hack"
@@ -62,13 +61,14 @@
       })
     ];
 
-    # Home Manager is pretty good at managing dotfiles. The primary way to manage
-    # plain files is through 'home.file'.
-    file = {
-      "${config.xdg.configHome}/aerospace/aerospace.toml" = {
-        source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
-      };
-    };
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    stateVersion = "24.05"; # Please read the comment before changing.
   };
 
   launchd = {
@@ -128,6 +128,9 @@
         import = [
           "${pkgs.alacritty-theme}/aura.toml"
         ];
+        env = {
+          TERM = "alacritty";
+        };
         window = {
           decorations = "Full";
           option_as_alt = "Both";
@@ -141,6 +144,9 @@
           size = 18.0;
         };
         colors = {
+          primary = {
+            background = "#000000";
+          };
           selection = {
             background = "#5f5987"; # Make Aura theme selections easier to read
           };

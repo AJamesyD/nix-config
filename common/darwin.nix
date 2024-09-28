@@ -1,6 +1,7 @@
 {
   self,
   home-manager,
+  lib,
   pkgs,
   ...
 }:
@@ -17,17 +18,41 @@
   };
 
   environment = {
+    extraSetup = ''
+      ln -sv ${pkgs.path} $out/nixpkgs
+    '';
+    pathsToLink = [
+      "/share/zsh"
+    ];
+    shells = with pkgs; [
+      zsh
+    ];
     systemPackages = with pkgs; [
+      coreutils
+      findutils
+      gawk
       git
       git-lfs
+      gnugrep
+      gnused
+      gnutar
+      gnutls
+      # required to make terminfo files available before zsh login
+      ncurses
       neofetch
       neovim
+      openssh
       rsync
       vim
+    ];
+    systemPath = lib.mkBefore [
+      "/opt/homebrew/bin"
+      "/opt/homebrew/sbin"
     ];
     variables = {
       EDITOR = "nvim";
       HOMEBREW_NO_ANALYTICS = "1";
+      SHELL = lib.getExe pkgs.zsh;
     };
   };
 
