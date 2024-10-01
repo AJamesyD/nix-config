@@ -13,9 +13,10 @@ let
       home = {
         inherit homeDirectory;
         inherit username;
-        packages = with pkgs; [
-          neovim
-        ];
+        packages =
+          with pkgs;
+          [
+          ];
       };
 
       programs = {

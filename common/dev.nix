@@ -9,13 +9,19 @@
 
   home = {
     packages = with pkgs; [
-      neovim
       netcat-gnu
+      (pkgs.callPackage ../pkgs/bins { })
+
       rustup
       (lib.hiPrio rust-analyzer)
+
       nix-update
       nixfmt-rfc-style
+
+      lua
       luajitPackages.luarocks
+      neovim
+
       # TODO: Renable once I figure out why this breaks CargoBrazil
       # (rustPlatform.buildRustPackage rec {
       #   pname = "ion-cli";
@@ -36,7 +42,6 @@
         rev = "v0.7.4";
         sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
       })
-      (pkgs.callPackage ../pkgs/bins { })
     ];
 
     sessionVariables = {

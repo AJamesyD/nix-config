@@ -40,9 +40,13 @@
       # required to make terminfo files available before zsh login
       ncurses
       neofetch
-      neovim
-      openssh
       rsync
+
+      openssh
+
+      lua
+      luajitPackages.luarocks
+      neovim
       vim
     ];
     systemPath = lib.mkBefore [
