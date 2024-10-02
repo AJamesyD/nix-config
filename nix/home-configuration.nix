@@ -13,14 +13,22 @@ let
       home = {
         inherit homeDirectory;
         inherit username;
+
         packages = with pkgs; [
           ncurses
         ];
+
+        sessionVariables = {
+          TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
+        };
       };
 
-      nix.registry = {
-        nixpkgs.flake = nixpkgs;
-        p.flake = nixpkgs;
+      nix = {
+        enable = true;
+        registry = {
+          nixpkgs.flake = nixpkgs;
+          p.flake = nixpkgs;
+        };
       };
 
       programs = {
