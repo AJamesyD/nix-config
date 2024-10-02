@@ -19,10 +19,21 @@ let
           ];
       };
 
+      nix.registry = {
+        nixpkgs.flake = nixpkgs;
+        p.flake = nixpkgs;
+      };
+
       programs = {
         home-manager = {
           enable = true;
         };
+      };
+      xdg = {
+        dataFile.nixpkgs.source = nixpkgs;
+        configFile."nix/nix.conf".text = ''
+          flake-registry = ${config.xdg.configHome}/nix/registry.json
+        '';
       };
     };
 

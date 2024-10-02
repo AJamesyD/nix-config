@@ -15,6 +15,7 @@
       rustup
       (lib.hiPrio rust-analyzer)
 
+      cachix
       nix-update
       nixfmt-rfc-style
 
