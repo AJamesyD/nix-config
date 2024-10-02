@@ -22,6 +22,7 @@
       ln -sv ${pkgs.path} $out/nixpkgs
     '';
     pathsToLink = [
+      "/share/bash-completion"
       "/share/zsh"
     ];
     shells = with pkgs; [

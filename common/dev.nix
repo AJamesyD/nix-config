@@ -50,6 +50,10 @@
   };
 
   programs = {
+    bash = {
+      enable = true;
+      enableVteIntegration = true;
+    };
     bat = {
       enable = true;
     };
@@ -185,6 +189,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
+      enableVteIntegration = true;
       autosuggestion = {
         enable = true;
         strategy = [
