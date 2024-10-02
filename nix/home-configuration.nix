@@ -13,10 +13,9 @@ let
       home = {
         inherit homeDirectory;
         inherit username;
-        packages =
-          with pkgs;
-          [
-          ];
+        packages = with pkgs; [
+          ncurses
+        ];
       };
 
       nix.registry = {
@@ -29,6 +28,9 @@ let
           enable = true;
         };
       };
+
+      targets.genericLinux.enable = true;
+
       xdg = {
         dataFile.nixpkgs.source = nixpkgs;
         configFile."nix/nix.conf".text = ''
