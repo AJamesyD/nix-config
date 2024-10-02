@@ -223,7 +223,7 @@
           CURR_DIR="$(pwd)" &&
           cd ~/.config/nvim &&
           (git restore lazy-lock.json && git pull -r || git rebase --abort);
-          nvim --headless "Lazy! sync" "+qa ";
+          nvim --headless "Lazy! update" "+qa ";
           cd $CURR_DIR &&
           unset CURR_DIR'';
         zja = ''

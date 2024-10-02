@@ -127,6 +127,12 @@
     }
     {
       "if" = {
+        window-title-regex-substring = "neovide";
+      };
+      run = "move-node-to-workspace dev";
+    }
+    {
+      "if" = {
         app-id = "com.amazon.Amazon-Chime";
       };
       run = "move-node-to-workspace chime";
