@@ -178,6 +178,19 @@
         ];
       };
     };
+    neovide = {
+      enable = true;
+      settings = {
+        fork = true;
+        idle = true; # TODO: best if false?
+        font = {
+          normal = [ "BlexMono Nerd Font" ];
+          size = 16.0;
+          edging = "antialias"; # TODO: try subpixelantialias?
+        };
+
+      };
+    };
     zsh = {
       enable = true;
       shellAliases = {
