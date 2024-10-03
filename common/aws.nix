@@ -5,6 +5,8 @@
       if !pkgs.stdenv.isDarwin then
         [
           # Ensure consumed envs end up on PATH
+
+          "${config.home.homeDirectory}/.toolbox/bin"
           "/apollo/env/bt-rust/bin"
         ]
       else
