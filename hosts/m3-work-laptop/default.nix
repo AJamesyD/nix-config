@@ -12,10 +12,9 @@
   # $ nix-env -qaP | grep wget
   environment = {
     # TODO: par down and move to home-manager installation
-    systemPackages =
-      with pkgs;
-      [
-      ];
+    systemPackages = with pkgs; [
+      (lib.hiPrio opensshWithKerberos)
+    ];
   };
 
   homebrew = {

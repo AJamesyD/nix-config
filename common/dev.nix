@@ -23,6 +23,7 @@
       luajitPackages.luarocks
       neovim
 
+      dust
       # TODO: Renable once I figure out why this breaks CargoBrazil
       # (rustPlatform.buildRustPackage rec {
       #   pname = "ion-cli";
