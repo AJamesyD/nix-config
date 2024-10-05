@@ -16,6 +16,10 @@
   };
 
   programs = {
+    git = {
+      userEmail = "angaidan@amazon.com";
+      userName = "Aidan De Angelis";
+    };
     zsh = {
       envExtra = ''
         export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
@@ -50,7 +54,12 @@
   };
 
   programs.zsh.initExtraBeforeCompInit = ''
-    fpath+=("${config.home.homeDirectory}/.zsh/completion")
-    fpath+=("${config.home.homeDirectory}/.brazil_completion/zsh_completion")
+    TOOLBOX_COMPLETION_DIR="${config.home.homeDirectory}/.zsh/completion"
+    mkdir -p $TOOLBOX_COMPLETION_DIR
+    toolbox completion zsh > "$TOOLBOX_COMPLETION_DIR/_toolbox"
+    path+=("$TOOLBOX_COMPLETION_DIR")
+    fpath+=("$TOOLBOX_COMPLETION_DIR")
+
+    source "${config.home.homeDirectory}/.brazil_completion/zsh_completion"
   '';
 }

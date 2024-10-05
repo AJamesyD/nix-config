@@ -11,6 +11,7 @@
   home = {
     packages = with pkgs; [
       netcat-gnu
+      libnotify
       (pkgs.callPackage ../pkgs/bins { })
 
       rustup
@@ -56,6 +57,16 @@
     bash = {
       enable = true;
       enableVteIntegration = pkgs.stdenv.isLinux;
+      bashrcExtra = ''
+        if [ -f /etc/bashrc ]; then
+          . /etc/bashrc
+        fi
+      '';
+      profileExtra = ''
+        if [ -f /etc/profile ]; then
+          . /etc/profile
+        fi
+      '';
     };
     bat = {
       enable = true;
@@ -201,14 +212,13 @@
           "completion"
         ];
       };
-      dotDir = "${config.xdg.configHome}/zsh";
+      dotDir = ".config/zsh";
       history = {
         expireDuplicatesFirst = true;
         path = "${config.xdg.dataHome}/zsh/history";
       };
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
-
       shellAliases = {
         cargo-brazil-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
         cat = "bat -p --paging=never";
@@ -240,15 +250,27 @@
         '';
         zsource = "source ${config.programs.zsh.dotDir}/.zshrc && source ${config.programs.zsh.dotDir}/.zshenv";
       };
+      plugins = [
+        {
+          name = "zsh-auto-notify";
+          file = "auto-notify.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "MichaelAquilina";
+            repo = "zsh-auto-notify";
+            rev = "0.10.1";
+            hash = "sha256-l5nXzCC7MT3hxRQPZv1RFalXZm7uKABZtfEZSMdVmro=";
+          };
+        }
+        {
+          name = "zsh-you-should-use";
+          file = "you-should-use.plugin.zsh";
+          src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+        }
+      ];
       oh-my-zsh = {
         enable = true;
         theme = "powerlevel10k";
-        custom = "${pkgs.fetchFromGitHub {
-          owner = "romkatv";
-          repo = "powerlevel10k";
-          rev = "v1.20.0";
-          sha256 = "1ha7qb601mk97lxvcj9dmbypwx7z5v0b7mkqahzsq073f4jnybhi";
-        }}";
+        custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         plugins = [
           "aws"
           "cp"
@@ -266,6 +288,9 @@
         if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
+      '';
+      initExtraBeforeCompInit = ''
+        fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
       '';
       initExtra = ''
         bindkey "^[[1;3D" backward-word
