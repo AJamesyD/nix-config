@@ -57,16 +57,18 @@
     bash = {
       enable = true;
       enableVteIntegration = pkgs.stdenv.isLinux;
-      bashrcExtra = ''
-        if [ -f /etc/bashrc ]; then
-          . /etc/bashrc
-        fi
-      '';
-      profileExtra = ''
-        if [ -f /etc/profile ]; then
-          . /etc/profile
-        fi
-      '';
+      bashrcExtra = # bash
+        ''
+          if [ -f /etc/bashrc ]; then
+            . /etc/bashrc
+          fi
+        '';
+      profileExtra = # bash
+        ''
+          if [ -f /etc/profile ]; then
+            . /etc/profile
+          fi
+        '';
     };
     bat = {
       enable = true;
@@ -168,7 +170,15 @@
     navi = {
       enable = true;
       settings = {
-
+        finder = {
+          command = "fzf";
+          # cheats = {
+          #   paths = [ ];
+          # };
+          client = {
+            tealdeer = true;
+          };
+        };
       };
     };
     mise = {
@@ -237,31 +247,36 @@
         cargo-brazil-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
         cat = "bat -p --paging=never";
         clr = "clear";
-        ghauth = ''
-          unset GITHUB_TOKEN &&
-          export GITHUB_TOKEN="$(gh auth token)"''; # Cannot have newline at end of command or else it won't be chainable
+        ghauth = # bash
+          ''
+            unset GITHUB_TOKEN &&
+            export GITHUB_TOKEN="$(gh auth token)"''; # Cannot have newline at end of command or else it won't be chainable
         v = "nvim";
         clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
-        mup = ''
-          mise plugin install node ssh://git.amazon.com/pkg/RtxNode &&
-          mise plugin install https://github.com/jdx/mise-usage.git &&
-          mise prune &&
-          mise install &&
-          mise upgrade'';
-        vup = ''
-          CURR_DIR="$(pwd)" &&
-          cd ~/.config/nvim &&
-          (git restore lazy-lock.json && git pull -r || git rebase --abort);
-          nvim --headless "Lazy! update" "+qa ";
-          cd $CURR_DIR &&
-          unset CURR_DIR'';
-        zja = ''
-          zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
-        '';
-        zjd = ''
-          zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
-        '';
+        mup = # bash
+          ''
+            mise plugin install node ssh://git.amazon.com/pkg/RtxNode &&
+            mise plugin install https://github.com/jdx/mise-usage.git &&
+            mise prune &&
+            mise install &&
+            mise upgrade'';
+        vup = # bash
+          ''
+            CURR_DIR="$(pwd)" &&
+            cd ~/.config/nvim &&
+            (git restore lazy-lock.json && git pull -r || git rebase --abort);
+            nvim --headless "Lazy! update" "+qa ";
+            cd $CURR_DIR &&
+            unset CURR_DIR'';
+        zja = # bash
+          ''
+            zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
+          '';
+        zjd = # bash
+          ''
+            zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
+          '';
         zsource = "source ${config.programs.zsh.dotDir}/.zshrc && source ${config.programs.zsh.dotDir}/.zshenv";
       };
       plugins = [
@@ -271,8 +286,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "MichaelAquilina";
             repo = "zsh-auto-notify";
-            rev = "0.10.1";
-            hash = "sha256-l5nXzCC7MT3hxRQPZv1RFalXZm7uKABZtfEZSMdVmro=";
+            rev = "27c07dddb42f05b199319a9b66473c8de7935856";
+            hash = "sha256-ScBwky33leI8mFMpAz3Ng2Z0Gbou4EWMOAhkcMZAWIc=";
           };
         }
         {
@@ -298,30 +313,37 @@
           "zoxide"
         ];
       };
-      initExtraFirst = ''
-        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-      '';
-      initExtraBeforeCompInit = ''
-        fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
-      '';
-      initExtra = ''
-        bindkey "^[[1;3D" backward-word
-        bindkey "^[[1;3C" forward-word
+      initExtraFirst = # bash
+        ''
+          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
+        '';
+      initExtraBeforeCompInit = # bash
+        ''
+          fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
+        '';
+      initExtra = # bash
+        ''
+          bindkey "^[[1;3D" backward-word
+          bindkey "^[[1;3C" forward-word
 
-        bindkey "^[[1;9D" beginning-of-line
-        bindkey "^[[1;9C" end-of-line
+          bindkey "^[[1;9D" beginning-of-line
+          bindkey "^[[1;9C" end-of-line
 
-        bindkey "^[[3;9~" kill-line
+          bindkey "^[[3;9~" kill-line
 
-        bindkey "^[[3;3~" kill-word
+          bindkey "^[[3;3~" kill-word
 
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      '';
-      envExtra = ''
-        export XDG_CONFIG_HOME="$HOME/.config"
-      '';
+          [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        '';
+      envExtra = # bash
+        ''
+          export XDG_CONFIG_HOME="$HOME/.config"
+
+          # zsh-auto-notify
+          export AUTO_NOTIFY_IGNORE+=("navi")
+        '';
     };
   };
   xdg = {

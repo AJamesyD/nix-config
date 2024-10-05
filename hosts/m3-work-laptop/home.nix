@@ -195,19 +195,21 @@
       enable = true;
       shellAliases = {
         auth = "mwinit -f -s && kinit -f";
-        nixup = ''
-          ghauth &&
-          nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-          darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
-          zsource''; # Cannot have newline at end of command or else it won't be chainable
+        nixup = # bash
+          ''
+            ghauth &&
+            nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
+            darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
+            zsource''; # Cannot have newline at end of command or else it won't be chainable
         up = "rustup update && nixup && vup && mup && toolbox update";
-        neovide-ssh = ''
-          rm /tmp/nvim.sock &>/dev/null;
-          (ssh -XY -L /tmp/nvim.sock:/tmp/nvim.sock $DEV_DESK_HOSTNAME \
-          'export PATH="/home/angaidan/.nix-profile/bin:$PATH" &&
-          nvim --headless --listen /tmp/nvim.sock' &) &&
-          sleep 3s &&
-          neovide --server=/tmp/nvim.sock'';
+        neovide-ssh = # bash
+          ''
+            rm /tmp/nvim.sock &>/dev/null;
+            (ssh -XY -L /tmp/nvim.sock:/tmp/nvim.sock $DEV_DESK_HOSTNAME \
+            'export PATH="/home/angaidan/.nix-profile/bin:$PATH" &&
+            nvim --headless --listen /tmp/nvim.sock' &) &&
+            sleep 3s &&
+            neovide --server=/tmp/nvim.sock'';
       };
     };
   };

@@ -19,9 +19,10 @@
   };
 
   environment = {
-    extraSetup = ''
-      ln -sv ${pkgs.path} $out/nixpkgs
-    '';
+    extraSetup = # bash
+      ''
+        ln -sv ${pkgs.path} $out/nixpkgs
+      '';
     pathsToLink = [
       "/share/bash-completion"
       "/share/zsh"
@@ -141,9 +142,10 @@
   # Enable sudo authentication with Touch ID.
   security = {
     pam.enableSudoTouchIdAuth = true;
-    sudo.extraConfig = ''
-      Defaults timestamp_timeout = 2
-    '';
+    sudo.extraConfig = # bash
+      ''
+        Defaults timestamp_timeout = 2
+      '';
   };
 
   services = {

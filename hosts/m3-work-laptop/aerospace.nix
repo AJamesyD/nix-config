@@ -51,22 +51,26 @@
         cmd-shift-alt-minus = "resize smart -50";
         cmd-shift-alt-equal = "resize smart +50";
 
-        cmd-shift-alt-ctrl-h = ''
-          exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-          aerospace move-node-to-monitor left && aerospace focus --window-id $var; unset var
-        '';
-        cmd-shift-alt-ctrl-j = ''
-          exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-          aerospace move-node-to-monitor down && aerospace focus --window-id $var; unset var
-        '';
-        cmd-shift-alt-ctrl-k = ''
-          exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-          aerospace move-node-to-monitor up && aerospace focus --window-id $var; unset var
-        '';
-        cmd-shift-alt-ctrl-l = ''
-          exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-          aerospace move-node-to-monitor right && aerospace focus --window-id $var; unset var
-        '';
+        cmd-shift-alt-ctrl-h = # bash
+          ''
+            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
+            aerospace move-node-to-monitor left && aerospace focus --window-id $var; unset var
+          '';
+        cmd-shift-alt-ctrl-j = # bash
+          ''
+            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
+            aerospace move-node-to-monitor down && aerospace focus --window-id $var; unset var
+          '';
+        cmd-shift-alt-ctrl-k = # bash
+          ''
+            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
+            aerospace move-node-to-monitor up && aerospace focus --window-id $var; unset var
+          '';
+        cmd-shift-alt-ctrl-l = # bash
+          ''
+            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
+            aerospace move-node-to-monitor right && aerospace focus --window-id $var; unset var
+          '';
         /*
           Workspace mapping
           1: Terminal (sometimes also firefox)
@@ -108,11 +112,12 @@
         shift-alt-s = "move-node-to-workspace slack";
         shift-alt-t = "move-node-to-workspace term";
 
-        cmd-shift-alt-ctrl-r = ''
-          exec-and-forget aerospace reload-config && \
-          aerospace enable off && \
-          aerospace enable on && \
-        '';
+        cmd-shift-alt-ctrl-r = # bash
+          ''
+            exec-and-forget aerospace reload-config && \
+            aerospace enable off && \
+            aerospace enable on && \
+          '';
         cmd-shift-alt-ctrl-q = "enable off";
         cmd-shift-alt-ctrl-s = "enable on";
       };

@@ -1,13 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   home = {
     sessionPath =
       if !pkgs.stdenv.isDarwin then
         [
           # Ensure consumed envs end up on PATH
-
-          "${config.home.homeDirectory}/.toolbox/bin"
           "/apollo/env/bt-rust/bin"
+          "${config.home.homeDirectory}/.toolbox/bin"
         ]
       else
         [
@@ -21,10 +24,11 @@
       userName = "Aidan De Angelis";
     };
     zsh = {
-      envExtra = ''
-        export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
-        export DEV_DESK_HOSTNAME_ARM='dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com'
-      '';
+      envExtra = # bash
+        ''
+          export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
+          export DEV_DESK_HOSTNAME_ARM='dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com'
+        '';
       sessionVariables = {
         BRAZIL_PLATFORM_OVERRIDE =
           if pkgs.stdenv.hostPlatform.isAarch64 then
@@ -51,15 +55,20 @@
         devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
       };
     };
+    initExtraBeforeCompInit = # bash
+      ''
+        TOOLBOX_COMPLETION_DIR="${config.home.homeDirectory}/.zsh/completion"
+        mkdir -p $TOOLBOX_COMPLETION_DIR
+        toolbox completion zsh > "$TOOLBOX_COMPLETION_DIR/_toolbox"
+        path+=("$TOOLBOX_COMPLETION_DIR")
+        fpath+=("$TOOLBOX_COMPLETION_DIR")
+
+        BRAZIL_COMPLETION_DIR="${config.home.homeDirectory}/.brazil_completion/zsh_completion"
+        if [[ -f "$BRAZIL_COMPLETION_DIR" ]]; then
+          source "$BRAZIL_COMPLETION_DIR"
+        else
+          echo "WARNING: brazil zsh completions have not been set up"
+        fi
+      '';
   };
-
-  programs.zsh.initExtraBeforeCompInit = ''
-    TOOLBOX_COMPLETION_DIR="${config.home.homeDirectory}/.zsh/completion"
-    mkdir -p $TOOLBOX_COMPLETION_DIR
-    toolbox completion zsh > "$TOOLBOX_COMPLETION_DIR/_toolbox"
-    path+=("$TOOLBOX_COMPLETION_DIR")
-    fpath+=("$TOOLBOX_COMPLETION_DIR")
-
-    source "${config.home.homeDirectory}/.brazil_completion/zsh_completion"
-  '';
 }

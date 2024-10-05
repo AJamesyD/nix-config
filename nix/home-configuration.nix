@@ -41,9 +41,10 @@ let
 
       xdg = {
         dataFile.nixpkgs.source = nixpkgs;
-        configFile."nix/nix.conf".text = ''
-          flake-registry = ${config.xdg.configHome}/nix/registry.json
-        '';
+        configFile."nix/nix.conf".text = # bash
+          ''
+            flake-registry = ${config.xdg.configHome}/nix/registry.json
+          '';
       };
     };
 

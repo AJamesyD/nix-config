@@ -109,7 +109,8 @@ in
         }
         {
           plugin = tmux-fzf;
-          extraConfig = '''';
+          extraConfig = # bash
+            '''';
         }
         vim-tmux-navigator
       ];
