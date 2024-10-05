@@ -165,6 +165,12 @@
         notARepository = "quit";
       };
     };
+    navi = {
+      enable = true;
+      settings = {
+
+      };
+    };
     mise = {
       enable = true;
       globalConfig = {
@@ -193,6 +199,14 @@
     };
     ripgrep = {
       enable = true;
+    };
+    tealdeer = {
+      enable = true;
+      settings = {
+        updates = {
+          auto_update = true;
+        };
+      };
     };
     zellij = {
       enable = true;
