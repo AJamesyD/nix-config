@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -54,7 +55,7 @@
   programs = {
     bash = {
       enable = true;
-      enableVteIntegration = true;
+      enableVteIntegration = pkgs.stdenv.isLinux;
     };
     bat = {
       enable = true;
@@ -191,7 +192,8 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      enableVteIntegration = true;
+      enableVteIntegration = pkgs.stdenv.isLinux;
+      autocd = true;
       autosuggestion = {
         enable = true;
         strategy = [
@@ -199,9 +201,12 @@
           "completion"
         ];
       };
+      dotDir = "${config.xdg.configHome}/zsh";
       history = {
         expireDuplicatesFirst = true;
+        path = "${config.xdg.dataHome}/zsh/history";
       };
+      historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
 
       shellAliases = {
@@ -233,7 +238,7 @@
         zjd = ''
           zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
         '';
-        zsource = "source ~/.zshrc && source ~/.zshenv";
+        zsource = "source ${config.programs.zsh.dotDir}/.zshrc && source ${config.programs.zsh.dotDir}/.zshenv";
       };
       oh-my-zsh = {
         enable = true;
