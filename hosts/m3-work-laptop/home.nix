@@ -178,6 +178,18 @@
         ];
       };
     };
+    mise = {
+      enable = true;
+      globalConfig = {
+        tools = {
+          node = [
+            "lts-gallium" # v16
+            "lts-hydrogen" # v18
+            "20" # iron
+          ];
+        };
+      };
+    };
     neovide = {
       enable = true;
       settings = {
@@ -201,7 +213,7 @@
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
             darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
             zsource''; # Cannot have newline at end of command or else it won't be chainable
-        up = "rustup update && nixup && vup && mup && toolbox update";
+        up = "rustup update && nixup";
         neovide-ssh = # bash
           ''
             rm /tmp/nvim.sock &>/dev/null;

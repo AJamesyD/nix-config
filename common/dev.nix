@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -9,6 +10,47 @@
   ];
 
   home = {
+    activation = {
+      envSetup =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+          ] # bash
+          ''
+            export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
+            export PATH="$PATH:${config.home.profileDirectory}/bin"
+          '';
+      mise =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "envSetup"
+          ]
+          # bash
+          (
+            lib.optionalString (!pkgs.stdenv.isDarwin) ''
+              run --quiet mise plugin install node ssh://git.amazon.com/pkg/RtxNode
+            ''
+            + ''
+              run --quiet mise plugin install https://github.com/jdx/mise-usage.git
+              run --quiet mise install
+              run --quiet mise upgrade
+              run --quiet mise prune
+            ''
+          );
+      neovim =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "envSetup"
+          ] # bash
+          ''
+            run --quiet nvim --headless -c "Lazy! update" -c "qa";
+          '';
+    };
+    extraActivationPath = with pkgs; [
+      curl
+    ];
     packages = with pkgs; [
       netcat-gnu
       libnotify
@@ -172,9 +214,6 @@
       settings = {
         finder = {
           command = "fzf";
-          # cheats = {
-          #   paths = [ ];
-          # };
           client = {
             tealdeer = true;
           };
@@ -254,21 +293,6 @@
         v = "nvim";
         clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
-        mup = # bash
-          ''
-            mise plugin install node ssh://git.amazon.com/pkg/RtxNode &&
-            mise plugin install https://github.com/jdx/mise-usage.git &&
-            mise prune &&
-            mise install &&
-            mise upgrade'';
-        vup = # bash
-          ''
-            CURR_DIR="$(pwd)" &&
-            cd ~/.config/nvim &&
-            (git restore lazy-lock.json && git pull -r || git rebase --abort);
-            nvim --headless "Lazy! update" "+qa ";
-            cd $CURR_DIR &&
-            unset CURR_DIR'';
         zja = # bash
           ''
             zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
@@ -277,7 +301,12 @@
           ''
             zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
           '';
-        zsource = "source ${config.programs.zsh.dotDir}/.zshrc && source ${config.programs.zsh.dotDir}/.zshenv";
+        zsource = # bash
+          ''
+            source "$ZDOTDIR/.zshrc"
+            source "$ZDOTDIR/.zshenv"
+            omz reload
+          '';
       };
       plugins = [
         {
@@ -325,6 +354,10 @@
         '';
       initExtra = # bash
         ''
+          # zsh-auto-notify
+          AUTO_NOTIFY_IGNORE+=("navi")
+
+          # Beloved key-binds
           bindkey "^[[1;3D" backward-word
           bindkey "^[[1;3C" forward-word
 
@@ -340,9 +373,6 @@
       envExtra = # bash
         ''
           export XDG_CONFIG_HOME="$HOME/.config"
-
-          # zsh-auto-notify
-          export AUTO_NOTIFY_IGNORE+=("navi")
         '';
     };
   };

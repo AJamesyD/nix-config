@@ -1,10 +1,47 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
+let
+  brazilCompletionDir = "${config.home.homeDirectory}/.brazil_completion";
+  toolboxCompletionDir =
+    "${config.home.homeDirectory}/"
+    + (
+      if config.programs.zsh.dotDir != null then
+        lib.escapeShellArg config.programs.zsh.dotDir + "/"
+      else
+        ""
+    )
+    + "plugins/bt-toolbox";
+in
 {
   home = {
+    activation = {
+      builderToolbox =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "envSetup"
+          ] # bash
+          ''
+            mkdir -p "${toolboxCompletionDir}"
+            run --quiet toolbox completion zsh > "${toolboxCompletionDir}/_toolbox"
+            run --quiet toolbox update
+            run --quiet toolbox clean
+          '';
+      brazil =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "builderToolbox"
+          ] # bash
+          ''
+            # Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
+            run --silence brazil setup completion --shell zsh
+          '';
+    };
     sessionPath =
       if !pkgs.stdenv.isDarwin then
         [
@@ -28,6 +65,18 @@
         ''
           export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
           export DEV_DESK_HOSTNAME_ARM='dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com'
+        '';
+      initExtraBeforeCompInit = # bash
+        ''
+          path+=("${toolboxCompletionDir}")
+          fpath+=("${toolboxCompletionDir}")
+
+          BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
+          if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
+            source "$BRAZIL_ZSH_COMPLETION"
+          else
+            echo "WARNING: brazil zsh completions have not been set up"
+          fi
         '';
       sessionVariables = {
         BRAZIL_PLATFORM_OVERRIDE =
@@ -55,20 +104,5 @@
         devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
       };
     };
-    initExtraBeforeCompInit = # bash
-      ''
-        TOOLBOX_COMPLETION_DIR="${config.home.homeDirectory}/.zsh/completion"
-        mkdir -p $TOOLBOX_COMPLETION_DIR
-        toolbox completion zsh > "$TOOLBOX_COMPLETION_DIR/_toolbox"
-        path+=("$TOOLBOX_COMPLETION_DIR")
-        fpath+=("$TOOLBOX_COMPLETION_DIR")
-
-        BRAZIL_COMPLETION_DIR="${config.home.homeDirectory}/.brazil_completion/zsh_completion"
-        if [[ -f "$BRAZIL_COMPLETION_DIR" ]]; then
-          source "$BRAZIL_COMPLETION_DIR"
-        else
-          echo "WARNING: brazil zsh completions have not been set up"
-        fi
-      '';
   };
 }
