@@ -59,6 +59,7 @@
       rustup
       (lib.hiPrio rust-analyzer)
 
+      devenv
       cachix
       nix-update
       nixfmt-rfc-style
@@ -331,6 +332,7 @@
         plugins = [
           "aws"
           "cp"
+          "direnv"
           "fzf"
           "gh"
           "git"
@@ -354,7 +356,7 @@
       initExtra = # bash
         ''
           # zsh-auto-notify
-          AUTO_NOTIFY_IGNORE+=("navi")
+          AUTO_NOTIFY_IGNORE+=("navi" "lazygit")
 
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word

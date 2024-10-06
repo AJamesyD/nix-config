@@ -1,2 +1,6 @@
+.direnv
+
+.pre-commit-config.yaml
+
 nix.conf
 registry.json

@@ -13,6 +13,10 @@
   };
 
   inputs = {
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -66,6 +70,8 @@
             };
 
             devShells = import ./nix/dev-shell.nix ctx;
+
+            packages = import ./nix/packages.nix toplevel ctx;
 
             pre-commit = {
               settings.hooks = {
