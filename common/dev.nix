@@ -305,8 +305,7 @@
           ''
             source "$ZDOTDIR/.zshrc"
             source "$ZDOTDIR/.zshenv"
-            omz reload
-          '';
+            omz reload'';
       };
       plugins = [
         {

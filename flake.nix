@@ -14,6 +14,10 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +27,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,6 +38,10 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       toplevel@{ withSystem, ... }:
       {
+        imports = [
+          inputs.git-hooks.flakeModule
+          inputs.treefmt-nix.flakeModule
+        ];
         systems = [
           "aarch64-darwin"
           "aarch64-linux"
@@ -52,7 +64,29 @@
               };
               localSystem = system;
             };
-            # packages = import ./nix/packages.nix toplevel ctx;
+
+            devShells = import ./nix/dev-shell.nix ctx;
+
+            pre-commit = {
+              settings.hooks = {
+                nil.enable = true;
+                shellcheck.enable = true;
+                statix.enable = true;
+                treefmt.enable = true;
+                trim-trailing-whitespace.enable = true;
+              };
+            };
+
+            treefmt = {
+              projectRootFile = "flake.nix";
+              programs = {
+                nixfmt.enable = true;
+                shfmt = {
+                  enable = true;
+                  indent_size = 0;
+                };
+              };
+            };
           };
 
         flake = {
