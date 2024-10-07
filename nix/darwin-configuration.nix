@@ -11,7 +11,7 @@ let
     hostname:
     { hostPlatform, type, ... }:
     withSystem hostPlatform (
-      ctx@{
+      {
         pkgs,
         system,
         ...

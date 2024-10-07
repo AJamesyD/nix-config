@@ -69,10 +69,8 @@
           "x86_64-linux"
         ];
         perSystem =
-          ctx@{
+          {
             config,
-            self',
-            inputs',
             pkgs,
             system,
             ...
@@ -97,14 +95,8 @@
                 nix-fast-build
                 nix-output-monitor
                 nix-tree
-
-                # Misc
-                pre-commit
               ];
-            };
-
-            pre-commit = {
-              settings = {
+              pre-commit = {
                 default_stages = [
                   "pre-commit"
                   "post-rewrite"
@@ -117,16 +109,26 @@
                   check-toml.enable = true;
                   end-of-file-fixer.enable = true;
                   nil.enable = true;
-                  treefmt.enable = true;
+                  treefmt = {
+                    enable = true;
+                    always_run = true;
+                    package = config.treefmt.build.wrapper;
+                  };
                   trim-trailing-whitespace.enable = true;
                 };
+                inherit (config.pre-commit.settings) run;
               };
             };
 
             treefmt = {
               projectRootFile = "flake.nix";
               programs = {
-                deadnix.enable = true;
+                deadnix = {
+                  enable = true;
+                  no-lambda-arg = true;
+                  no-lambda-pattern-names = true;
+                  no-underscore = true;
+                };
                 jsonfmt.enable = true;
                 nixfmt.enable = true;
                 shellcheck.enable = true;
