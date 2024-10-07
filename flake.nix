@@ -18,7 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    git-hooks = {
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -31,6 +35,18 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-fast-build = {
+      url = "github:Mic92/nix-fast-build";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    systems.url = "github:nix-systems/default";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +59,8 @@
       toplevel@{ withSystem, ... }:
       {
         imports = [
-          inputs.git-hooks.flakeModule
+          inputs.devenv.flakeModule
+          inputs.git-hooks-nix.flakeModule
           inputs.treefmt-nix.flakeModule
         ];
         systems = [
@@ -69,28 +86,56 @@
               localSystem = system;
             };
 
-            devShells = import ./nix/dev-shell.nix ctx;
+            devenv.shells.default = {
+              name = "nix-config";
+              languages = {
+                nix.enable = true;
+              };
+              packages = with pkgs; [
+                # Nix
+                cachix
+                nix-fast-build
+                nix-output-monitor
+                nix-tree
 
-            packages = import ./nix/packages.nix toplevel ctx;
+                # Misc
+                pre-commit
+              ];
+            };
 
             pre-commit = {
-              settings.hooks = {
-                nil.enable = true;
-                shellcheck.enable = true;
-                statix.enable = true;
-                treefmt.enable = true;
-                trim-trailing-whitespace.enable = true;
+              settings = {
+                default_stages = [
+                  "pre-commit"
+                  "post-rewrite"
+                ];
+                hooks = {
+                  check-added-large-files.enable = true;
+                  check-json.enable = true;
+                  check-merge-conflicts.enable = true;
+                  check-shebang-scripts-are-executable.enable = true;
+                  check-toml.enable = true;
+                  end-of-file-fixer.enable = true;
+                  nil.enable = true;
+                  treefmt.enable = true;
+                  trim-trailing-whitespace.enable = true;
+                };
               };
             };
 
             treefmt = {
               projectRootFile = "flake.nix";
               programs = {
+                deadnix.enable = true;
+                jsonfmt.enable = true;
                 nixfmt.enable = true;
+                shellcheck.enable = true;
                 shfmt = {
                   enable = true;
                   indent_size = 0;
                 };
+                statix.enable = true;
+                taplo.enable = true;
               };
             };
           };

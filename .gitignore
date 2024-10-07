@@ -1,6 +1,9 @@
 .direnv
+.devenv
 
 .pre-commit-config.yaml
 
 nix.conf
 registry.json
+
+nixos.qcow2

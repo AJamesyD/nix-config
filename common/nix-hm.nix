@@ -1,15 +1,9 @@
 {
-  pkgs,
-  ...
-}:
-{
   nix = {
     gc = {
       automatic = true;
       options = "--delete-older-than 28";
     };
-
-    package = pkgs.nixVersions.latest;
 
     settings = {
       accept-flake-config = true;

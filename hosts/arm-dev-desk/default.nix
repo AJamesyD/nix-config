@@ -6,7 +6,7 @@
   imports = [
     ../../common/aws.nix
     ../../common/dev.nix
-    ../../common/nix.nix
+    ../../common/nix-hm.nix
   ];
 
   home = {

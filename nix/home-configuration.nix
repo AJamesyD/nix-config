@@ -58,6 +58,9 @@ let
         modules = [ (genModules hostName attrs) ];
         extraSpecialArgs = {
           hostType = type;
+          inherit (inputs)
+            nix-index-database
+            ;
         };
       }
     );

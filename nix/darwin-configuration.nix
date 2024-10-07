@@ -30,6 +30,7 @@ let
           hostType = type;
           inherit (inputs)
             home-manager
+            nix-index-database
             self
             ;
         };
