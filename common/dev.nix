@@ -61,6 +61,10 @@
     };
     extraActivationPath = with pkgs; [
       curl
+      git
+      git-lfs
+      gnutar
+      gzip
     ];
     packages = with pkgs; [
       netcat-gnu

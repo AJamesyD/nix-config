@@ -32,6 +32,7 @@ let
         };
         settings = {
           flake-registry = "${config.xdg.configHome}/nix/registry.json";
+          trusted-users = [ username ];
         };
       };
 
