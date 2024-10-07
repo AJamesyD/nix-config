@@ -25,9 +25,13 @@ let
 
       nix = {
         enable = true;
+        package = pkgs.nixVersions.latest;
         registry = {
           nixpkgs.flake = nixpkgs;
           p.flake = nixpkgs;
+        };
+        settings = {
+          flake-registry = "${config.xdg.configHome}/nix/registry.json";
         };
       };
 
@@ -41,10 +45,6 @@ let
 
       xdg = {
         dataFile.nixpkgs.source = nixpkgs;
-        configFile."nix/nix.conf".text = # bash
-          ''
-            flake-registry = ${config.xdg.configHome}/nix/registry.json
-          '';
       };
     };
 
