@@ -47,6 +47,17 @@
           ''
             run --quiet nvim --headless -c "Lazy! update" -c "qa";
           '';
+      rustup =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "envSetup"
+          ] # bash
+          ''
+            run --quiet rustup toolchain install stable --component llvm-tools
+            run --quiet rustup toolchain install nightly
+            run --quiet rustup update
+          '';
     };
     extraActivationPath = with pkgs; [
       curl

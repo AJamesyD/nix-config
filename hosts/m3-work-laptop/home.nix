@@ -213,7 +213,7 @@
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
             darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
             zsource''; # Cannot have newline at end of command or else it won't be chainable
-        up = "rustup update && nixup";
+        up = "nixup";
         neovide-ssh = # bash
           ''
             rm /tmp/nvim.sock &>/dev/null;

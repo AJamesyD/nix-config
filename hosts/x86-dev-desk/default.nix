@@ -54,7 +54,7 @@
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
             home-manager switch --flake ~/.config/nix#x86-dev-desk --option access-tokens "github.com=$GITHUB_TOKEN"
             zsource''; # Cannot have newline at end of command or else it won't be chainable
-        up = "sudo yum upgrade -y && rustup update && nixup";
+        up = "sudo yum upgrade -y && nixup";
       };
     };
   };
