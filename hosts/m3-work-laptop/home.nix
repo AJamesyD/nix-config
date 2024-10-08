@@ -7,6 +7,7 @@
   imports = [
     ../../common/aws.nix
     ../../common/dev.nix
+    ./terminals.nix
   ];
   home = {
     username = "angaidan";
@@ -40,12 +41,6 @@
       #   echo "Hello, ${config.home.username}!"
       # '')
 
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "Hack"
-          "IBMPlexMono"
-        ];
-      })
       (rustPlatform.buildRustPackage rec {
         pname = "ion-cli";
         version = "v0.7.0";
@@ -122,62 +117,6 @@
   };
 
   programs = {
-    alacritty = {
-      enable = true;
-      settings = {
-        import = [
-          "${pkgs.alacritty-theme}/aura.toml"
-        ];
-        env = {
-          TERM = "alacritty";
-        };
-        window = {
-          decorations = "Buttonless";
-          option_as_alt = "Both";
-          resize_increments = true;
-        };
-        font = {
-          normal = {
-            family = "BlexMono Nerd Font";
-            style = "Regular";
-          };
-          size = 16.0;
-        };
-        colors = {
-          primary = {
-            background = "#000000";
-          };
-          selection = {
-            background = "#5f5987"; # Make Aura theme selections easier to read
-          };
-        };
-        cursor = {
-          style = {
-            blinking = "On";
-            shape = "Beam";
-          };
-          vi_mode_style = {
-            blinking = "Off";
-            shape = "Underline";
-          };
-        };
-        terminal = {
-          osc52 = "CopyPaste";
-        };
-        keyboard.bindings = [
-          {
-            key = "Back";
-            mods = "Command";
-            chars = "";
-          }
-          {
-            key = "t";
-            mods = "Command";
-            action = "CreateNewWindow";
-          }
-        ];
-      };
-    };
     mise = {
       enable = true;
       globalConfig = {

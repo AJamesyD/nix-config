@@ -132,6 +132,12 @@
     }
     {
       "if" = {
+        app-id = "net.kovidgoyal.kitty";
+      };
+      run = "move-node-to-workspace dev";
+    }
+    {
+      "if" = {
         window-title-regex-substring = "neovide";
       };
       run = "move-node-to-workspace dev";
