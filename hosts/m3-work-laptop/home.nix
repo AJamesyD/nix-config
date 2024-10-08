@@ -132,7 +132,7 @@
           TERM = "alacritty";
         };
         window = {
-          decorations = "Full";
+          decorations = "Buttonless";
           option_as_alt = "Both";
           resize_increments = true;
         };
@@ -141,7 +141,7 @@
             family = "BlexMono Nerd Font";
             style = "Regular";
           };
-          size = 18.0;
+          size = 16.0;
         };
         colors = {
           primary = {

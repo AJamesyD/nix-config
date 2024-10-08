@@ -66,45 +66,48 @@
       gnutar
       gzip
     ];
-    packages = with pkgs; [
-      netcat-gnu
-      libnotify
-      (pkgs.callPackage ../pkgs/bins { })
+    packages =
+      with pkgs;
+      [
+        netcat-gnu
+        libnotify
+        (pkgs.callPackage ../pkgs/bins { })
 
-      rustup
-      (lib.hiPrio rust-analyzer)
+        rustup
+        (lib.hiPrio rust-analyzer)
 
-      devenv
-      cachix
-      nix-update
-      nixfmt-rfc-style
+        devenv
+        cachix
+        nix-update
+        nixfmt-rfc-style
 
-      lua
-      luajitPackages.luarocks
-      neovim
+        lua
+        luajitPackages.luarocks
+        neovim
 
-      dust
-      # TODO: Renable once I figure out why this breaks CargoBrazil
-      # (rustPlatform.buildRustPackage rec {
-      #   pname = "ion-cli";
-      #   version = "v0.7.0";
-      #
-      #   src = fetchFromGitHub {
-      #     owner = "amazon-ion";
-      #     repo = pname;
-      #     rev = version;
-      #     sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
-      #   };
-      #   cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
-      #   doCheck = false;
-      # })
-      (pkgs.fetchFromGitHub {
-        owner = "jdx";
-        repo = "usage";
-        rev = "v0.7.4";
-        sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
-      })
-    ];
+        dust
+        # TODO: Renable once I figure out why this breaks CargoBrazil
+        # (rustPlatform.buildRustPackage rec {
+        #   pname = "ion-cli";
+        #   version = "v0.7.0";
+        #
+        #   src = fetchFromGitHub {
+        #     owner = "amazon-ion";
+        #     repo = pname;
+        #     rev = version;
+        #     sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
+        #   };
+        #   cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
+        #   doCheck = false;
+        # })
+        (pkgs.fetchFromGitHub {
+          owner = "jdx";
+          repo = "usage";
+          rev = "v0.7.4";
+          sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
+        })
+      ]
+      ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -272,6 +275,10 @@
           auto_update = true;
         };
       };
+    };
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
     };
     zellij = {
       enable = true;
