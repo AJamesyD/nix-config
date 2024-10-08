@@ -1,22 +1,41 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
 let
+  kitty_icon = pkgs.fetchFromGitHub {
+    owner = "diegobit";
+    repo = "kitty-icon";
+    rev = "0deabe1aab102d8052b4b12b38631ce2ca16d6b0";
+    sha256 = "sha256-vZCNNVfdCTYPiSSXtug7xfW3c0Cx/H0S3w+f1q3Prgs=";
+  };
   nerd_fonts = pkgs.nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Hack"
-        "IBMPlexMono"
-        "JetBrainsMono"
-        "VictorMono"
-      ];
-    };
+    fonts = [
+      "FiraCode"
+      "Hack"
+      "IBMPlexMono"
+      "JetBrainsMono"
+      "VictorMono"
+    ];
+  };
 in
 {
-  home.packages = [
-    nerd_fonts
-  ];
+  home = {
+    file = {
+      "${config.xdg.configHome}/kitty/kitty.app.icns" = {
+        source = "${kitty_icon}/kitty.icns";
+      };
+      "${config.xdg.configHome}/kitty/kitty.app.png" = {
+        source = "${kitty_icon}/kitty.png";
+      };
+    };
+    packages = [
+      nerd_fonts
+    ];
+  };
+
   programs = {
     alacritty = {
       enable = true;
@@ -71,11 +90,25 @@ in
             mods = "Command";
             action = "CreateNewWindow";
           }
+          {
+            key = "f";
+            mods = "Command";
+            action = "None";
+          }
         ];
       };
     };
     kitty = {
       enable = true;
+      package = pkgs.kitty.overrideAttrs (oldAttrs: {
+        postInstall =
+          lib.optionalString pkgs.stdenv.isDarwin
+            # bash
+            ''
+              cp "${kitty_icon}/kitty.icns" "$out/Applications/kitty.app/Contents/Resources/kitty.icns"
+              cp "${kitty_icon}/kitty.icns" "$out/Applications/kitty.app/Contents/Resources/SIGNAL_kitty.icns"
+            '';
+      });
       font = {
         name = "VictorMono Nerd Font Mono";
         package = nerd_fonts;
@@ -83,11 +116,12 @@ in
       };
       settings = {
         # Font
+        font_family = ''"family=${config.programs.kitty.font.name} style=Medium"'';
         disable_ligatures = "cursor";
         symbol_map = "U+E000-U+F1AF0 VictorMono Nerd Font";
-        modify_font = {
+        modify_font = ''
           cell_height = "-2px";
-        };
+        '';
 
         # Performance
         input_delay = 2;

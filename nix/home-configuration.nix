@@ -15,6 +15,8 @@ let
         inherit username;
 
         packages = with pkgs; [
+          # For terminfo definitions
+          kitty
           ncurses
         ];
 
