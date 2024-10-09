@@ -140,7 +140,9 @@
 
   # Declare the user that will be running `nix-darwin`.
   users.users.angaidan = {
-    name = "angaidan";
+    description = "Aidan De Angelis";
     home = "/Users/angaidan";
+    name = "angaidan";
+    shell = pkgs.zsh;
   };
 }

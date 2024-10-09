@@ -69,8 +69,23 @@
     packages =
       with pkgs;
       [
-        netcat-gnu
+        coreutils
+        findutils
+        gawk
+        git
+        git-lfs
+        gnugrep
+        gnused
+        gnutar
+        gnutls
+        # required to make terminfo files available before zsh login
         libnotify
+        ncurses
+        neofetch
+        pandoc
+        netcat-gnu
+        rsync
+        squashfsTools
         (pkgs.callPackage ../pkgs/bins { })
 
         rustup
@@ -228,6 +243,12 @@
         notARepository = "quit";
       };
     };
+    less = {
+      enable = true;
+    };
+    lesspipe = {
+      enable = true;
+    };
     navi = {
       enable = true;
       settings = {
@@ -304,8 +325,7 @@
       };
       dotDir = ".config/zsh";
       history = {
-        expireDuplicatesFirst = true;
-        path = "${config.xdg.dataHome}/zsh/history";
+        append = true;
       };
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
@@ -349,6 +369,11 @@
           name = "zsh-you-should-use";
           file = "you-should-use.plugin.zsh";
           src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+        }
+        {
+          name = "zsh-vi-mode";
+          file = "zsh-vi-mode.plugin.zsh";
+          src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
         }
       ];
       oh-my-zsh = {

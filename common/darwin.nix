@@ -43,10 +43,13 @@
       gnused
       gnutar
       gnutls
+      libplist
       # required to make terminfo files available before zsh login
       ncurses
       neofetch
+      pandoc
       rsync
+      squashfsTools
 
       openssh
 
