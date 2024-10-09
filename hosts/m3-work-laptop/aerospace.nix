@@ -73,7 +73,7 @@
           '';
         /*
           Workspace mapping
-          1: Terminal (sometimes also firefox)
+          1: Dev (sometimes also firefox)
           2: Firefox
           3: Slack
           4: Chime
@@ -90,11 +90,11 @@
         alt-8 = "workspace 8";
         alt-9 = "workspace 9";
         alt-a = "workspace admin";
+        alt-d = "workspace dev";
         alt-c = "workspace chime";
         alt-f = "workspace firefox";
         alt-m = "workspace misc";
         alt-s = "workspace slack";
-        alt-t = "workspace term";
 
         shift-alt-1 = "move-node-to-workspace dev";
         shift-alt-2 = "move-node-to-workspace firefox";
@@ -107,10 +107,10 @@
         shift-alt-9 = "move-node-to-workspace 9";
         shift-alt-a = "move-node-to-workspace admin";
         shift-alt-c = "move-node-to-workspace chime";
+        shift-alt-d = "move-node-to-workspace dev";
         shift-alt-f = "move-node-to-workspace firefox";
         shift-alt-m = "move-node-to-workspace misc";
         shift-alt-s = "move-node-to-workspace slack";
-        shift-alt-t = "move-node-to-workspace term";
 
         cmd-shift-alt-ctrl-r = # bash
           ''

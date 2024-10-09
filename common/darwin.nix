@@ -151,6 +151,7 @@
         };
         NSGlobalDomain = {
           AppleMenuBarVisibleInFullscreen = false;
+          AppleWindowTabbingMode = "always";
           "com.apple.sound.uiaudio.enabled" = false;
         };
       };

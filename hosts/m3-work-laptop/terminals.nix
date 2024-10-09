@@ -85,11 +85,11 @@ in
             mods = "Command";
             chars = "";
           }
-          {
-            key = "t";
-            mods = "Command";
-            action = "CreateNewWindow";
-          }
+          # {
+          #   key = "t";
+          #   mods = "Command";
+          #   action = "CreateNewWindow";
+          # }
           {
             key = "f";
             mods = "Command";
