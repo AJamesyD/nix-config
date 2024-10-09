@@ -11,7 +11,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {
-    # TODO: par down and move to home-manager installation
     systemPackages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
     ];
@@ -144,8 +143,8 @@
 
   # Declare the user that will be running `nix-darwin`.
   users.users.angaidan = {
-    description = "Aidan De Angelis";
     home = "/Users/angaidan";
     name = "angaidan";
+    shell = "/sbin/nologin";
   };
 }

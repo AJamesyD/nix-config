@@ -43,9 +43,6 @@ in
         import = [
           "${pkgs.alacritty-theme}/aura.toml"
         ];
-        env = {
-          TERM = "alacritty";
-        };
         window = {
           decorations = "Buttonless";
           option_as_alt = "Both";
@@ -85,11 +82,11 @@ in
             mods = "Command";
             chars = "";
           }
-          # {
-          #   key = "t";
-          #   mods = "Command";
-          #   action = "CreateNewWindow";
-          # }
+          {
+            key = "t";
+            mods = "Command";
+            action = "CreateNewWindow";
+          }
           {
             key = "f";
             mods = "Command";

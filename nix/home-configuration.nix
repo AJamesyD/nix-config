@@ -16,11 +16,11 @@ let
 
         packages = with pkgs; [
           # For terminfo definitions
-          kitty
-          ncurses
+          (lib.hiPrio ncurses)
         ];
 
         sessionVariables = {
+          # NOTE: May have to chmod +x -R terminfo definitions (not sure why)
           TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
         };
       };

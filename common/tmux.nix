@@ -126,8 +126,11 @@ in
 
           set -g status-interval 1
 
-          set -as terminal-features ",xterm-*:256:clipboard:ccolour:cstyle:extkeys:hyperlinks:mouse:RGB:strikethrough:title:usstyle"
-          set -as terminal-features ",alacritty*:256:clipboard:extkeys:hyperlinks:mouse:RGB:strikethrough:title:usstyle"
+          set -ag terminal-overrides ",alacritty*:Tc,foot*:Tc,xterm-kitty*:Tc,xterm-256color:Tc"
+
+          set -as terminal-features ",alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB"
+          set -as terminal-features ",alacritty*:hyperlinks,foot*:hyperlinks,xterm-kitty*:hyperlinks"
+          set -as terminal-features ",alacritty*:usstyle,foot*:usstyle,xterm-kitty*:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000

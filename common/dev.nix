@@ -78,9 +78,9 @@
         gnused
         gnutar
         gnutls
-        # required to make terminfo files available before zsh login
         libnotify
-        ncurses
+        # required to make terminfo files available before zsh login
+        (lib.hiPrio ncurses)
         neofetch
         pandoc
         netcat-gnu
@@ -148,6 +148,12 @@
     };
     bat = {
       enable = true;
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batgrep
+        batman
+        batpipe
+      ];
     };
     direnv = {
       enable = true;

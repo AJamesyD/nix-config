@@ -33,31 +33,41 @@
       bashInteractive
       zsh
     ];
-    systemPackages = with pkgs; [
-      coreutils
-      findutils
-      gawk
-      git
-      git-lfs
-      gnugrep
-      gnused
-      gnutar
-      gnutls
-      libplist
-      # required to make terminfo files available before zsh login
-      ncurses
-      neofetch
-      pandoc
-      rsync
-      squashfsTools
+    systemPackages =
+      with pkgs;
+      [
+        coreutils
+        findutils
+        gawk
+        git
+        git-lfs
+        gnugrep
+        gnused
+        gnutar
+        gnutls
+        libplist
+        # required to make terminfo files available before zsh login
+        (lib.hiPrio ncurses)
+        neofetch
+        pandoc
+        rsync
+        squashfsTools
 
-      openssh
+        openssh
 
-      lua
-      luajitPackages.luarocks
-      neovim
-      vim
-    ];
+        lua
+        luajitPackages.luarocks
+        neovim
+        vim
+      ]
+      ++ map (x: x.terminfo) (
+        with pkgs.pkgsBuildBuild;
+        [
+          alacritty
+          kitty
+          rio
+        ]
+      );
     systemPath = lib.mkBefore [
       "/opt/homebrew/bin"
       "/opt/homebrew/sbin"
