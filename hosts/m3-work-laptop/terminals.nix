@@ -100,6 +100,11 @@ in
     };
     kitty = {
       enable = true;
+      font = {
+        name = "VictorMono Nerd Font Mono";
+        package = nerd_fonts;
+        size = 16.0;
+      };
       package = pkgs.kitty.overrideAttrs (oldAttrs: {
         postInstall =
           lib.optionalString pkgs.stdenv.isDarwin
@@ -109,11 +114,6 @@ in
               cp "${kitty_icon}/kitty.icns" "$out/Applications/kitty.app/Contents/Resources/SIGNAL_kitty.icns"
             '';
       });
-      font = {
-        name = "VictorMono Nerd Font Mono";
-        package = nerd_fonts;
-        size = 16.0;
-      };
       settings = {
         # Font
         font_family = ''"family=${config.programs.kitty.font.name} style=Medium"'';
@@ -137,7 +137,13 @@ in
         # Tab Bar
         tab_bar_style = "powerline";
         tab_powerline_style = "slanted";
+        tab_title_template = "{index}:{title}";
+
+        # OS Specific
+        macos_option_as_alt = "yes";
+        macos_quit_when_last_window_closed = "yes";
       };
+      themeFile = "Dark_Pastel";
     };
   };
 }
