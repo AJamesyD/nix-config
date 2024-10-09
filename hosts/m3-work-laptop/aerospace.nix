@@ -13,8 +13,8 @@
   on-focus-changed = [ "move-mouse window-lazy-center" ];
   gaps = {
     inner = {
-      horizontal = 20.0;
-      vertical = 20.0;
+      horizontal = 15;
+      vertical = 15;
     };
     outer = {
       left = 10;

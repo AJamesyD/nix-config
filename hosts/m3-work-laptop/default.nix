@@ -15,6 +15,10 @@
     systemPackages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
     ];
+    systemPath = [
+      # Comes from XQuartz
+      "/opt/X11/bin"
+    ];
   };
 
   homebrew = {
@@ -143,6 +147,5 @@
     description = "Aidan De Angelis";
     home = "/Users/angaidan";
     name = "angaidan";
-    shell = pkgs.zsh;
   };
 }

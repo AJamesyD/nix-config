@@ -65,7 +65,6 @@
     variables = {
       EDITOR = "nvim";
       HOMEBREW_NO_ANALYTICS = "1";
-      SHELL = lib.getExe pkgs.zsh;
     };
   };
 
