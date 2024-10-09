@@ -63,7 +63,8 @@ in
 
               set -g @catppuccin_window_default_fill "number"
               set -g @catppuccin_window_current_fill "number"
-              set -g @catppuccin_window_default_text "#{s|#{HOME}|~|;s|/local~|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
+              # set -g @catppuccin_window_default_text "#{s|#{HOME}|~|;s|/local~|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
+              set -g @catppuccin_window_default_text "#{W}"
               set -g @catppuccin_window_current_text "#{s|#{HOME}|~|;s|/local~|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}#{?window_zoomed_flag,(),}"
               set -g @catppuccin_window_left_separator "█"
               set -g @catppuccin_window_middle_separator "  █"
@@ -120,6 +121,8 @@ in
       extraConfig = # tmux
         ''
           set -g update-environment -r
+
+          set -g status-position top
 
           set -g status-interval 1
 
