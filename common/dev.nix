@@ -276,6 +276,10 @@
         };
       };
     };
+    thefuck = {
+      enable = true;
+    };
+    # TODO: Topgrade
     yazi = {
       enable = true;
       enableZshIntegration = true;
@@ -397,6 +401,7 @@
         ''
           export XDG_CONFIG_HOME="$HOME/.config"
         '';
+      zsh-abbr.enable = true;
     };
   };
   xdg = {
