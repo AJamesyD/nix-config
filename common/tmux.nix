@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -108,6 +109,11 @@ in
               set -g @resurrect-capture-pane-contents 'on'
             '';
         }
+        # {
+        #   plugin = tmuxplugin-sessionx;
+        #   extraConfig = # tmux
+        #     '''';
+        # }
         {
           plugin = tmux-fzf;
           extraConfig = # bash
@@ -120,22 +126,28 @@ in
       terminal = "tmux-256color";
       extraConfig = # tmux
         ''
+          # -- Options ----------------------------------------------------------------
           set -g update-environment -r
+          set -g default-command ${(lib.getExe pkgs.zsh)}
 
           set -g status-position top
+          set -q -g status-utf8 on # expect UTF-8 (tmux < 2.2)
+          setw -q -g utf8 on
 
           set -g status-interval 1
 
-          set -ag terminal-overrides ",alacritty*:Tc,foot*:Tc,xterm-kitty*:Tc,xterm-256color:Tc"
-
-          set -as terminal-features ",alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB"
-          set -as terminal-features ",alacritty*:hyperlinks,foot*:hyperlinks,xterm-kitty*:hyperlinks"
-          set -as terminal-features ",alacritty*:usstyle,foot*:usstyle,xterm-kitty*:usstyle"
+          set -as terminal-features ",*:clipboard"
+          set -as terminal-features ",*:extkeys"
+          set -as terminal-features ",*:focus"
+          set -as terminal-features ",*:hyperlinks"
+          set -as terminal-features ",*:RGB"
+          set -as terminal-features ",*:strikethrough"
+          set -as terminal-features ",*:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000
 
-          setw -g automatic-rename
+          setw -g automatic-rename on
           set -g renumber-windows on
           set -g set-titles on
 
@@ -144,21 +156,20 @@ in
 
           set -g set-clipboard on
 
-          bind C-a last-window
-          bind R source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
-
+          setw -g xterm-keys on
+          # -- Bindings ----------------------------------------------------------------
+          # -- Misc --
           bind : command-prompt
           bind r refresh-client
-          bind L clear-history
 
-          bind space next-window
-          bind bspace previous-window
-          bind enter next-layout
+          # -- Session/Window/Pane --
+          bind C-c new-session # create session
+          bind C-f command-prompt -p find-session 'switch-client -t %%' # find session
 
-          bind h  select-pane -L
-          bind j  select-pane -D
-          bind k  select-pane -U
-          bind l  select-pane -R
+          unbind n
+          unbind p
+          bind -r C-h previous-window # select previous window
+          bind -r C-l next-window     # select next window
 
           unbind %
           bind | split-window -h -c "#{pane_current_path}"
@@ -168,19 +179,13 @@ in
 
           bind C-o rotate-window
 
-          bind + select-layout main-horizontal
-          bind = select-layout main-vertical
-
-          bind a last-pane
-          bind q display-panes
-          bind c new-window
-          bind t next-window
-          bind T previous-window
-
-          bind [ copy-mode
-          bind ] paste-buffer
-          bind-key -T copy-mode-vi 'v' send -X begin-selection # start selecting text with "v"
-          bind-key -T copy-mode-vi 'y' send -X copy-selection # copy text with "y"
+          # pane navigation
+          bind -r h select-pane -L  # move left
+          bind -r j select-pane -D  # move down
+          bind -r k select-pane -U  # move up
+          bind -r l select-pane -R  # move right
+          bind > swap-pane -D       # swap current pane with the next one
+          bind < swap-pane -U       # swap current pane with the previous one
 
           # https://github.com/mrjones2014/smart-splits.nvim?tab=readme-ov-file#tmux
           # Smart pane resizing with awareness of Neovim splits.
@@ -188,6 +193,37 @@ in
           bind-key -n M-j if -F "#{@pane-is-vim}" 'send-keys M-j' 'resize-pane -D 3'
           bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-k' 'resize-pane -U 3'
           bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-l' 'resize-pane -R 3'
+
+          bind + select-layout main-horizontal
+          bind = select-layout main-vertical
+
+          # -- Control --
+          bind Enter copy-mode # enter copy mode
+          bind p paste-buffer -p  # paste from the top paste buffer
+          bind P choose-buffer    # choose which buffer to paste from
+
+          bind -T copy-mode-vi v send -X begin-selection # start selecting text with "v"
+          bind -T copy-mode-vi C-v send -X rectangle-toggle
+          bind -T copy-mode-vi y send -X copy-selection-and-cancel # copy text with "y"
+          bind -T copy-mode-vi Escape send -X cancel
+          bind -T copy-mode-vi ^ send -X start-of-line
+          bind -T copy-mode-vi $ send -X end-of-line
+
+          # copy to X11 clipboard
+          if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"'
+          if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+
+          # copy to Wayland clipboard
+          if -b 'command -v wl-copy > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"'
+
+          # copy to macOS clipboard
+          if -b 'command -v pbcopy > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | pbcopy"'
+          if -b 'command -v reattach-to-user-namespace > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | reattach-to-usernamespace pbcopy"'
+
+          # copy to Windows clipboard
+          if -b 'command -v clip.exe > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | clip.exe"'
+          if -b '[ -c /dev/clipboard ]' 'bind y run -b "\"\$TMUX_PROGRAM\" \''${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > /dev/clipboard"'
+
         '';
     };
   };

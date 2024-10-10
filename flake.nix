@@ -47,6 +47,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
+    tmux-sessionx = {
+      url = "github:omerxx/tmux-sessionx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,8 +73,9 @@
           "x86_64-linux"
         ];
         perSystem =
-          {
+          ctx@{
             config,
+            inputs',
             pkgs,
             system,
             ...
