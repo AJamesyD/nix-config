@@ -220,7 +220,12 @@
       "secondary"
     ];
     firefox = "built-in";
+    ignored = [
+      "p32"
+      "secondary"
+    ];
     slack = "built-in";
+    spotify = "built-in";
     misc = "built-in";
   };
 }

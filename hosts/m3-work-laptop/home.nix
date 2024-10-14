@@ -165,6 +165,8 @@
         source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
         onChange = # bash
           ''
+            export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+
             aerospace reload-config
           '';
       };
