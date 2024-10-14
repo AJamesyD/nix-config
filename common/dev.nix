@@ -337,7 +337,7 @@
       syntaxHighlighting.enable = true;
       shellAliases = {
         cargo-brazil-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
-        cat = "bat -p --paging=never";
+        cat = "bat -pp";
         clr = "clear";
         ghauth = # bash
           ''
