@@ -23,14 +23,6 @@ let
 in
 {
   home = {
-    file = {
-      "${config.xdg.configHome}/kitty/kitty.app.icns" = {
-        source = "${kitty_icon}/kitty.icns";
-      };
-      "${config.xdg.configHome}/kitty/kitty.app.png" = {
-        source = "${kitty_icon}/kitty.png";
-      };
-    };
     packages = [
       nerd_fonts
     ];
@@ -141,6 +133,18 @@ in
         macos_quit_when_last_window_closed = "yes";
       };
       themeFile = "Dark_Pastel";
+    };
+  };
+
+  xdg = {
+    enable = true;
+    configFile = {
+      "kitty/kitty.app.icns" = {
+        source = "${kitty_icon}/kitty.icns";
+      };
+      "kitty/kitty.app.png" = {
+        source = "${kitty_icon}/kitty.png";
+      };
     };
   };
 }

@@ -27,17 +27,10 @@
             "envSetup"
           ]
           # bash
-          (
-            lib.optionalString (!pkgs.stdenv.isDarwin) ''
-              run --quiet mise plugin install node ssh://git.amazon.com/pkg/RtxNode
-            ''
-            + ''
-              run --quiet mise plugin install https://github.com/jdx/mise-usage.git
-              run --quiet mise install
-              run --quiet mise upgrade
-              run --quiet mise prune
-            ''
-          );
+          ''
+            run --quiet mise upgrade --yes --quiet
+            run --quiet mise prune --yes --quiet
+          '';
       neovim =
         lib.hm.dag.entryAfter
           [
@@ -54,9 +47,9 @@
             "envSetup"
           ] # bash
           ''
-            run --quiet rustup toolchain install stable --component llvm-tools
-            run --quiet rustup toolchain install nightly
-            run --quiet rustup update
+            run --quiet rustup toolchain install stable --component llvm-tools --quiet
+            run --quiet rustup toolchain install nightly --quiet
+            run --quiet rustup update --quiet
           '';
     };
     extraActivationPath = with pkgs; [
@@ -437,5 +430,17 @@
   };
   xdg = {
     enable = true;
+    configFile =
+      lib.mkIf (config.programs.mise.enable)
+        # TODO: is mkMerge required?
+        {
+          "mise/config.toml" = {
+            onChange = # bash
+              ''
+                mise plugin install --all --yes --quiet
+                mise install --yes --quiet
+              '';
+          };
+        };
   };
 }

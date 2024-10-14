@@ -158,6 +158,7 @@
   };
 
   xdg = {
+    enable = true;
     configFile = {
       "aerospace/aerospace.toml" = {
         enable = true;

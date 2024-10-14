@@ -10,20 +10,30 @@ let
     {
       imports = [ (../hosts + "/${hostName}") ];
 
-      home = {
-        inherit homeDirectory;
-        inherit username;
+      home =
+        {
+          inherit homeDirectory;
+          inherit username;
 
-        packages = with pkgs; [
-          # For terminfo definitions
-          (lib.hiPrio ncurses)
-        ];
+          packages = with pkgs; [
+            # For terminfo definitions
+            (lib.hiPrio ncurses)
+          ];
 
-        sessionVariables = {
-          # NOTE: May have to chmod +x -R terminfo definitions (not sure why)
-          TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
+          sessionVariables = {
+            # NOTE: May have to chmod +x -R terminfo definitions (not sure why)
+            TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
+          };
+        }
+        // lib.mkIf (config.programs.zsh.dotDir != null) {
+          # When dotDir is set, still create ~/.zshrc so that it is write-protected against
+          # random programs trying to append to it
+          file = {
+            ".zshrc" = {
+              source = "${config.programs.zsh.dotDir}/.zshrc";
+            };
+          };
         };
-      };
 
       nix = {
         enable = true;
@@ -47,6 +57,7 @@ let
       targets.genericLinux.enable = true;
 
       xdg = {
+        enable = true;
         dataFile.nixpkgs.source = nixpkgs;
       };
     };
