@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -9,17 +8,10 @@
     ../../common/dev.nix
     ./terminals.nix
   ];
+
   home = {
     username = "angaidan";
     homeDirectory = "/Users/angaidan";
-
-    # Home Manager is pretty good at managing dotfiles. The primary way to manage
-    # plain files is through 'home.file'.
-    file = {
-      "${config.xdg.configHome}/aerospace/aerospace.toml" = {
-        source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
-      };
-    };
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -161,6 +153,19 @@
             nvim --headless --listen /tmp/nvim.sock' &) &&
             sleep 3s &&
             neovide --server=/tmp/nvim.sock'';
+      };
+    };
+  };
+
+  xdg = {
+    configFile = {
+      "aerospace/aerospace.toml" = {
+        enable = true;
+        source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
+        onChange = # bash
+          ''
+            aerospace reload-config
+          '';
       };
     };
   };

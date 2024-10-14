@@ -126,6 +126,25 @@
   on-window-detected = [
     {
       "if" = {
+        app-id = "com.apple.finder";
+      };
+      run = "layout floating";
+    }
+    {
+      "if" = {
+        app-id = "com.apple.systempreferences";
+      };
+      run = "layout floating";
+    }
+    {
+      "if" = {
+        app-id = "com.cisco.anyconnect.gui";
+      };
+      check-further-callbacks = true;
+      run = "layout floating";
+    }
+    {
+      "if" = {
         app-id = "org.alacritty";
       };
       run = "move-node-to-workspace dev";
@@ -147,19 +166,6 @@
         app-id = "com.amazon.Amazon-Chime";
       };
       run = "move-node-to-workspace chime";
-    }
-    {
-      "if" = {
-        app-id = "com.cisco.anyconnect.gui";
-      };
-      check-further-callbacks = true;
-      run = "layout floating";
-    }
-    {
-      "if" = {
-        app-id = "com.apple.finder";
-      };
-      run = "layout floating";
     }
     {
       "if" = {
@@ -187,9 +193,15 @@
     }
     {
       "if" = {
-        app-id = "com.apple.systempreferences";
+        app-id = "org.xquartz.X11";
       };
-      run = "layout floating";
+      run = "move-node-to-workspace ignored";
+    }
+    {
+      "if" = {
+        app-id = "com.spotify.client";
+      };
+      run = "move-node-to-workspace spotify";
     }
     {
       # Fallback for all other windows
