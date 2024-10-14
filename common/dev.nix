@@ -419,6 +419,9 @@
 
           bindkey "^[[3;3~" kill-word
 
+          # For batman man pager
+          eval "$(batman --export-env)"
+
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
         '';
       envExtra = # bash
@@ -431,7 +434,7 @@
   xdg = {
     enable = true;
     configFile =
-      lib.mkIf (config.programs.mise.enable)
+      lib.mkIf config.programs.mise.enable
         # TODO: is mkMerge required?
         {
           "mise/config.toml" = {
