@@ -25,12 +25,18 @@ let
             TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
           };
         }
-        // lib.mkIf (config.programs.zsh.dotDir != null) {
+        // lib.optionalAttrs (config.programs.zsh.dotDir != null) {
           # When dotDir is set, still create ~/.zshrc so that it is write-protected against
           # random programs trying to append to it
           file = {
             ".zshrc" = {
-              source = "${config.programs.zsh.dotDir}/.zshrc";
+              text = # bash
+                ''
+                  # This file is intentionally empty.
+
+                  # When dotDir is set, still create ~/.zshrc so that it is write-protected against
+                  # random programs trying to append to it
+                '';
             };
           };
         };

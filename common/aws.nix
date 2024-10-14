@@ -39,7 +39,7 @@ in
           ] # bash
           ''
             # Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
-            run --silence brazil setup completion --shell zsh
+            run --silence brazil setup completion --shell zsh || true
           '';
     };
     sessionPath =
@@ -63,6 +63,10 @@ in
     zsh = {
       envExtra = # bash
         ''
+          # From default .zshrc written by `brazil setup completion`
+          # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
+          export AWS_EC2_METADATA_DISABLED=true
+
           export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
           export DEV_DESK_HOSTNAME_ARM='dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com'
         '';

@@ -73,7 +73,7 @@
           "x86_64-linux"
         ];
         perSystem =
-          ctx@{
+          {
             config,
             inputs',
             pkgs,
