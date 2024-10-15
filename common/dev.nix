@@ -141,12 +141,26 @@
     };
     bat = {
       enable = true;
+      config = {
+        theme = "tokyonight-night";
+      };
       extraPackages = with pkgs.bat-extras; [
         batdiff
         batgrep
         batman
         batpipe
       ];
+      themes = {
+        tokyonight-night = {
+          src = pkgs.fetchFromGitHub {
+            owner = "folke";
+            repo = "tokyonight.nvim";
+            rev = "v4.8.0";
+            sha256 = "sha256-5QeY3EevOQzz5PHDW2CUVJ7N42TRQdh7QOF9PH1YxkU=";
+          };
+          file = "extras/sublime/tokyonight_night.tmTheme";
+        };
+      };
     };
     direnv = {
       enable = true;
@@ -164,7 +178,34 @@
       enable = true;
     };
     fzf = {
+      # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
       enable = true;
+      defaultCommand = "fd --type f";
+      defaultOptions = [
+        "--height 40%"
+        "--border"
+        "--inline-info"
+        "--reverse"
+      ];
+      changeDirWidgetCommand = "fd --type d";
+      changeDirWidgetOptions = [
+        "--walker-skip .git,node_modules,target"
+        "--preview 'tree -C {} | head -200'"
+      ];
+      fileWidgetCommand = "fd --type f";
+      fileWidgetOptions = [
+        "--walker-skip .git,node_modules,target"
+        "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+        "--preview-window '75%,~3'"
+        "--reverse"
+      ];
+      historyWidgetOptions = [
+        "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+        "--color header:italic"
+        "--header 'Press CTRL-Y to copy command into clipboard'"
+        "--sort"
+        "--exact"
+      ];
       tmux = {
         enableShellIntegration = true;
       };
