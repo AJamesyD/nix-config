@@ -61,21 +61,12 @@ in
       userName = "Aidan De Angelis";
     };
     zsh = {
-      envExtra = # bash
-        ''
-          # From default .zshrc written by `brazil setup completion`
-          # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
-          export AWS_EC2_METADATA_DISABLED=true
-
-          export DEV_DESK_HOSTNAME='dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com'
-          export DEV_DESK_HOSTNAME_ARM='dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com'
-        '';
       initExtraBeforeCompInit = # bash
         ''
           path+=("${toolboxCompletionDir}")
           fpath+=("${toolboxCompletionDir}")
 
-          BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
+          local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
           if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
             source "$BRAZIL_ZSH_COMPLETION"
           else
@@ -83,6 +74,9 @@ in
           fi
         '';
       sessionVariables = {
+        # From default .zshrc written by `brazil setup completion`
+        # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
+        AWS_EC2_METADATA_DISABLED = true;
         BRAZIL_PLATFORM_OVERRIDE =
           if pkgs.stdenv.hostPlatform.isAarch64 then
             "AL2_aarch64"
@@ -90,6 +84,9 @@ in
             "AL2_x86_64"
           else
             null;
+
+        DEV_DESK_HOSTNAME = "dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com";
+        DEV_DESK_HOSTNAME_ARM = "dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com";
       };
       shellAliases = {
         bb = "brazil-build";

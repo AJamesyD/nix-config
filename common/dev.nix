@@ -71,7 +71,6 @@
         gnused
         gnutar
         gnutls
-        libnotify
         # required to make terminfo files available before zsh login
         (lib.hiPrio ncurses)
         neofetch
@@ -86,8 +85,9 @@
 
         devenv
         cachix
-        nix-update
         nixfmt-rfc-style
+        nix-update
+        nix-your-shell
 
         lua
         luajitPackages.luarocks
@@ -114,10 +114,12 @@
           rev = "v0.7.4";
           sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
         })
+        libnotify
       ]
       ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
     sessionVariables = {
+      LESSHISTFILE = "${config.xdg.dataHome}/less_history";
       EDITOR = "nvim";
     };
   };
@@ -400,9 +402,15 @@
           ''
             source "$ZDOTDIR/.zshrc"
             source "$ZDOTDIR/.zshenv"
-            omz reload'';
+            omz reload''; # Cannot have newline at end of command or else it won't be chainable
       };
       plugins = [
+        # zsh-vi-mode must come first to avoid overriding other keymaps
+        {
+          name = "zsh-vi-mode";
+          file = "zsh-vi-mode.plugin.zsh";
+          src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
+        }
         {
           name = "zsh-auto-notify";
           file = "auto-notify.plugin.zsh";
@@ -417,11 +425,6 @@
           name = "zsh-you-should-use";
           file = "you-should-use.plugin.zsh";
           src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
-        }
-        {
-          name = "zsh-vi-mode";
-          file = "zsh-vi-mode.plugin.zsh";
-          src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
         }
       ];
       oh-my-zsh = {
@@ -457,6 +460,9 @@
           # zsh-auto-notify
           AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg")
 
+          # zsh-vi-mode
+          local ZVM_INIT_MODE=sourcing
+
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word
           bindkey "^[[1;3C" forward-word
@@ -480,10 +486,6 @@
           fi
 
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        '';
-      envExtra = # bash
-        ''
-          export XDG_CONFIG_HOME="$HOME/.config"
         '';
       zsh-abbr.enable = true;
     };
