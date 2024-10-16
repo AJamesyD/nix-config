@@ -86,6 +86,7 @@
         devenv
         cachix
         nixfmt-rfc-style
+        nix-output-monitor
         nix-update
         nix-your-shell
 
@@ -108,6 +109,7 @@
         #   cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
         #   doCheck = false;
         # })
+        gum
         (pkgs.fetchFromGitHub {
           owner = "jdx";
           repo = "usage";
@@ -115,6 +117,7 @@
           sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
         })
         libnotify
+        sesh
       ]
       ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
@@ -454,14 +457,14 @@
       initExtraBeforeCompInit = # bash
         ''
           fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
+
+          # zsh-vi-mode. must exist before sourcing plugin
+          local ZVM_INIT_MODE=sourcing
         '';
       initExtra = # bash
         ''
           # zsh-auto-notify
           AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg")
-
-          # zsh-vi-mode
-          local ZVM_INIT_MODE=sourcing
 
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word
@@ -474,8 +477,10 @@
 
           bindkey "^[[3;3~" kill-word
 
-          # For batman man pager
-          eval "$(batman --export-env)"
+          eval "$(${pkgs.bat-extras.batman}/bin/batman --export-env)"
+
+          # Requires nix-output-monitor
+          ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh | source /dev/stdin
 
           # SSH for use with ControlMaster
           local CONST_SSH_SOCK="$HOME/.ssh/ssh-auth-sock"
