@@ -464,7 +464,7 @@
       initExtra = # bash
         ''
           # zsh-auto-notify
-          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg")
+          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg", "tmux")
 
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word

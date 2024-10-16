@@ -45,7 +45,7 @@ in
             family = "BlexMono Nerd Font";
             style = "Regular";
           };
-          size = 16.0;
+          size = 18.0;
         };
         colors = {
           primary = {
@@ -92,7 +92,7 @@ in
       font = {
         name = "VictorMono Nerd Font Mono";
         package = nerd_fonts;
-        size = 16.0;
+        size = 18.0;
       };
       package = pkgs.kitty.overrideAttrs (oldAttrs: {
         postInstall =
