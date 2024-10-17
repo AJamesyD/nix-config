@@ -383,16 +383,17 @@
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
-        cargo-brazil-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
+        cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
         cat = "bat -pp";
+        clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
+        clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         clr = "clear";
         ghauth = # bash
           ''
             unset GITHUB_TOKEN &&
             export GITHUB_TOKEN="$(gh auth token)"''; # Cannot have newline at end of command or else it won't be chainable
+        lg = "lazygit";
         v = "nvim";
-        clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
-        clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         zja = # bash
           ''
             zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
@@ -458,7 +459,7 @@
         ''
           fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
 
-          # zsh-vi-mode. must exist before sourcing plugin
+          # zsh-vi-mode. Following must exist before sourcing plugin
           local ZVM_INIT_MODE=sourcing
         '';
       initExtra = # bash
@@ -491,6 +492,12 @@
           fi
 
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        '';
+      envExtra = # bash
+        ''
+          # zsh-abbr
+          # TODO: find more elegant way to override home-manager program config
+          export ABBR_USER_ABBREVIATIONS_FILE="${config.xdg.dataHome}/zsh-abbr/user_abbreviations"
         '';
       zsh-abbr.enable = true;
     };
