@@ -35,6 +35,9 @@ in
         import = [
           "${pkgs.alacritty-theme}/aura.toml"
         ];
+        env = {
+          TERM = "alacritty";
+        };
         window = {
           decorations = "Buttonless";
           option_as_alt = "Both";
