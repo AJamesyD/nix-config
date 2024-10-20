@@ -6,15 +6,6 @@
 }:
 let
   brazilCompletionDir = "${config.home.homeDirectory}/.brazil_completion";
-  toolboxCompletionDir =
-    "${config.home.homeDirectory}/"
-    + (
-      if config.programs.zsh.dotDir != null then
-        lib.escapeShellArg config.programs.zsh.dotDir + "/"
-      else
-        ""
-    )
-    + "plugins/bt-toolbox";
 in
 {
   home = {
@@ -26,8 +17,7 @@ in
             "envSetup"
           ] # bash
           ''
-            mkdir -p "${toolboxCompletionDir}"
-            run --quiet toolbox completion zsh > "${toolboxCompletionDir}/_toolbox"
+            run --quiet toolbox completion zsh > "$ZCOMPDIR/_toolbox"
             run --quiet toolbox update
             run --quiet toolbox clean
           '';
@@ -63,8 +53,8 @@ in
     zsh = {
       initExtraBeforeCompInit = # bash
         ''
-          path+=("${toolboxCompletionDir}")
-          fpath+=("${toolboxCompletionDir}")
+          path+=("$ZCOMPDIR")
+          fpath+=("$ZCOMPDIR")
 
           local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
           if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
@@ -101,8 +91,8 @@ in
         bbb = "brc --allPackages brazil-build";
         bbra = "bbr apollo-pkg";
 
-        devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh -l";
-        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
+        devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh";
+        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh";
       };
     };
   };

@@ -13,6 +13,9 @@
   environment = {
     systemPackages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
+
+      alacritty
+      kitty
     ];
     systemPath = [
       # Comes from XQuartz

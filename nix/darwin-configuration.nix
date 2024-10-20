@@ -21,8 +21,11 @@ let
         modules = [
           (../hosts + "/${hostname}")
           {
-            nix.registry = {
-              p.flake = nixpkgs;
+            nix = {
+              nixPath = [ "nixpkgs=/run/current-system/sw/nixpkgs" ];
+              registry = {
+                p.flake = nixpkgs;
+              };
             };
           }
         ];

@@ -32,9 +32,16 @@ in
     alacritty = {
       enable = true;
       settings = {
+        # General
         import = [
           "${pkgs.alacritty-theme}/aura.toml"
         ];
+        shell = {
+          program = "${(lib.getExe pkgs.zsh)}";
+        };
+        working_directory = "${config.home.homeDirectory}";
+
+        # The rest
         env = {
           TERM = "alacritty";
         };

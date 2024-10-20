@@ -4,10 +4,58 @@
   pkgs,
   ...
 }:
+let
+  zdotdir =
+    "${config.home.homeDirectory}/"
+    + (
+      if config.programs.zsh.dotDir != null then
+        lib.escapeShellArg config.programs.zsh.dotDir + "/"
+      else
+        ""
+    );
+  zshcompdir = zdotdir + "completion/";
+in
 {
   imports = [
     ./tmux.nix
   ];
+
+  editorconfig = {
+    enable = true;
+    settings = {
+      # EditorConfig helps developers define and maintain consistent
+      # coding styles between different editors and IDEs
+      # EditorConfig is awesome: https://EditorConfig.org
+
+      "*" = {
+        charset = "utf-8";
+        end_of_line = "lf";
+        indent_style = "space";
+        insert_final_newline = true;
+        trim_trailing_whitespace = true;
+      };
+
+      # python
+      "*.{ini,py,py.tpl,rst}" = {
+        indent_size = 4;
+      };
+
+      # rust
+      "*.rs" = {
+        indent_size = 4;
+      };
+
+      # documentation, utils
+      "*.{md,mdx,diff}" = {
+        trim_trailing_whitespace = false;
+      };
+
+      # windows shell scripts
+      "*.{cmd,bat,ps1}" = {
+        end_of_line = "crlf";
+      };
+    };
+  };
 
   home = {
     activation = {
@@ -17,6 +65,10 @@
             "writeBoundary"
           ] # bash
           ''
+            export ZDOTDIR="${zdotdir}"
+            export ZCOMPDIR="${zshcompdir}"
+            mkdir -p $ZCOMPDIR
+
             export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
             export PATH="$PATH:${config.home.profileDirectory}/bin"
           '';
@@ -31,15 +83,6 @@
             run --quiet mise upgrade --yes --quiet
             run --quiet mise prune --yes --quiet
           '';
-      neovim =
-        lib.hm.dag.entryAfter
-          [
-            "writeBoundary"
-            "envSetup"
-          ] # bash
-          ''
-            run --quiet nvim --headless -c "Lazy! update" -c "qa";
-          '';
       rustup =
         lib.hm.dag.entryAfter
           [
@@ -47,9 +90,11 @@
             "envSetup"
           ] # bash
           ''
-            run --quiet rustup toolchain install stable --component llvm-tools --quiet
-            run --quiet rustup toolchain install nightly --quiet
-            run --quiet rustup update --quiet
+            run --quiet rustup toolchain install stable --component llvm-tools
+            run --quiet rustup toolchain install nightly
+            run --quiet rustup update
+            run --quiet rustup completions zsh > "$ZCOMPDIR/_rustup"
+            run --quiet rustup completions zsh cargo > "$ZCOMPDIR/_cargo"
           '';
     };
     extraActivationPath = with pkgs; [
@@ -95,20 +140,20 @@
         neovim
 
         dust
-        # TODO: Renable once I figure out why this breaks CargoBrazil
-        # (rustPlatform.buildRustPackage rec {
-        #   pname = "ion-cli";
-        #   version = "v0.7.0";
-        #
-        #   src = fetchFromGitHub {
-        #     owner = "amazon-ion";
-        #     repo = pname;
-        #     rev = version;
-        #     sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
-        #   };
-        #   cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
-        #   doCheck = false;
-        # })
+        # TODO: Figure out why having another cargo breaks CargoBrazil
+        (rustPlatform.buildRustPackage rec {
+          pname = "ion-cli";
+          version = "v0.7.0";
+
+          src = fetchFromGitHub {
+            owner = "amazon-ion";
+            repo = pname;
+            rev = version;
+            sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
+          };
+          cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
+          doCheck = false;
+        })
         gum
         (pkgs.fetchFromGitHub {
           owner = "jdx";
@@ -121,6 +166,7 @@
       ]
       ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
+    preferXdgDirectories = true;
     sessionVariables = {
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
       EDITOR = "nvim";
@@ -128,6 +174,34 @@
   };
 
   programs = {
+    bacon = {
+      enable = true;
+      settings = {
+        # prefs.toml
+        exports = {
+          locations = {
+            auto = true;
+          };
+        };
+        # default bacon.toml
+        default_job = "clippy-all";
+        jobs = {
+          clippy-all = {
+            command = [
+              "cargo"
+              "clippy"
+              "--all-targets"
+              "--color"
+              "always"
+              "--"
+              "-A"
+              "clippy::style"
+            ];
+            need_stdout = false;
+          };
+        };
+      };
+    };
     bash = {
       enable = true;
       enableVteIntegration = pkgs.stdenv.isLinux;
@@ -175,6 +249,12 @@
         };
       };
     };
+    bottom = {
+      enable = true;
+    };
+    dircolors = {
+      enable = true;
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -189,6 +269,9 @@
     };
     fd = {
       enable = true;
+      ignores = [
+        ".git/"
+      ];
     };
     fzf = {
       # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
@@ -269,6 +352,9 @@
     go = {
       enable = true;
     };
+    helix = {
+      enable = true;
+    };
     htop = {
       enable = true;
     };
@@ -312,6 +398,10 @@
           };
         };
       };
+    };
+    man = {
+      enable = true;
+      generateCaches = true;
     };
     mise = {
       enable = true;
@@ -458,6 +548,9 @@
       initExtraBeforeCompInit = # bash
         ''
           fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
+          fpath+=(${zshcompdir})
+
+          eval "$(brew shellenv)"
 
           # zsh-vi-mode. Following must exist before sourcing plugin
           local ZVM_INIT_MODE=sourcing
@@ -465,7 +558,7 @@
       initExtra = # bash
         ''
           # zsh-auto-notify
-          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg", "tmux")
+          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg" "tmux")
 
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word
