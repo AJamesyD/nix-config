@@ -91,6 +91,9 @@ in
         terminal = {
           osc52 = "CopyPaste";
         };
+        mouse = {
+          hide_when_typing = true;
+        };
         keyboard.bindings = [
           {
             key = "Back";
