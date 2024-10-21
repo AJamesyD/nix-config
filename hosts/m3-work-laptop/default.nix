@@ -14,6 +14,10 @@
     systemPackages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
 
+      (pkgs.callPackage "${toString pkgs.path}/pkgs/applications/office/libreoffice/darwin/default.nix"
+        { }
+      )
+
       alacritty
       kitty
     ];
