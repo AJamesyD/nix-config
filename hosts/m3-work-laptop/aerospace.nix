@@ -27,6 +27,7 @@
   mode = {
     main = {
       binding = {
+        # TODO: Find use for https://nikitabobko.github.io/AeroSpace/commands#summon-workspace
         cmd-h = [ ]; # Disable "hide application"
         cmd-alt-h = [ ]; # Disable "hide others"
 
