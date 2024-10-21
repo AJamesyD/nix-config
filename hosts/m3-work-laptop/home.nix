@@ -136,6 +136,10 @@
     };
     zsh = {
       enable = true;
+      initExtraBeforeCompInit = # bash
+        ''
+          eval "$(brew shellenv)"
+        '';
       shellAliases = {
         auth = "mwinit -f -s && kinit -f";
         nixup = # bash

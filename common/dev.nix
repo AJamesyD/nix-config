@@ -550,8 +550,6 @@ in
           fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
           fpath+=(${zshcompdir})
 
-          eval "$(brew shellenv)"
-
           # zsh-vi-mode. Following must exist before sourcing plugin
           local ZVM_INIT_MODE=sourcing
         '';

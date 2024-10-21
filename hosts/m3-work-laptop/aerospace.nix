@@ -75,12 +75,13 @@
           '';
         /*
           Workspace mapping
-          1: Dev (sometimes also firefox)
+          1: Dev (sometimes also Firefox)
           2: Firefox
           3: Slack
           4: Chime
           5: Admin (Obsidian + Outlook)
           6: Miscellaneous (e.g. Spotify)
+          _: Ignored
         */
         alt-1 = "workspace dev";
         alt-2 = "workspace firefox";

@@ -11,6 +11,7 @@ let
     rev = "0deabe1aab102d8052b4b12b38631ce2ca16d6b0";
     sha256 = "sha256-vZCNNVfdCTYPiSSXtug7xfW3c0Cx/H0S3w+f1q3Prgs=";
   };
+  # TODO: Reduce duplication with fonts.packages
   nerd_fonts = pkgs.nerdfonts.override {
     fonts = [
       "FiraCode"
@@ -51,11 +52,23 @@ in
           resize_increments = true;
         };
         font = {
+          size = 18.0;
           normal = {
             family = "BlexMono Nerd Font";
             style = "Regular";
           };
-          size = 18.0;
+          italic = {
+            family = "VictorMono Nerd Font";
+            style = "Italic";
+          };
+          bold = {
+            family = "BlexMono Nerd Font";
+            style = "Bold";
+          };
+          bold_italic = {
+            family = "VictorMono Nerd Font";
+            style = "Bold Italic";
+          };
         };
         colors = {
           primary = {
