@@ -379,6 +379,7 @@ in
           ];
         };
         update.method = "background";
+        os.editPreset = "nvim-remote";
         notARepository = "quit";
       };
     };
