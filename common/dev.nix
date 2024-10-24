@@ -596,17 +596,40 @@ in
   };
   xdg = {
     enable = true;
-    configFile =
-      lib.mkIf config.programs.mise.enable
-        # TODO: is mkMerge required?
-        {
-          "mise/config.toml" = {
-            onChange = # bash
-              ''
-                mise plugin install --all --yes --quiet
-                mise install --yes --quiet
-              '';
-          };
-        };
+    configFile = {
+      "markdownlint-cli/.markdownlint-cli2.yaml" = {
+        text = # yaml
+          ''
+            config:
+              heding-increment: false
+              line-length:
+                code_block_line_length: 100
+                line_length: 250
+              blanks-around-headings:
+                lines_above: 1
+                lines_below: 0
+              no-duplicate-heading:
+                siblings_only: true
+              single-title: false
+              blanks-around-fences: false
+              blanks-around-lists: false
+              no-inline-html: false
+              first-line-heading: false
+
+            # Ignore files referenced by .gitignore (only valid at root)
+            gitignore: true
+
+            # Disable progress on stdout (only valid at root)
+            noProgress: true
+          '';
+      };
+      "mise/config.toml" = {
+        onChange = # bash
+          ''
+            mise plugin install --all --yes --quiet
+            mise install --yes --quiet
+          '';
+      };
+    };
   };
 }
