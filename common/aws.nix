@@ -91,8 +91,8 @@ in
         bbb = "brc --allPackages brazil-build";
         bbra = "bbr apollo-pkg";
 
-        devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh";
-        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh";
+        devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh -l";
+        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
       };
     };
   };
