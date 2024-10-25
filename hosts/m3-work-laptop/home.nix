@@ -46,6 +46,8 @@
         cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
         doCheck = false;
       })
+
+      qmk
     ];
 
     # This value determines the Home Manager release that your configuration is
