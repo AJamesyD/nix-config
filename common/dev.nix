@@ -130,6 +130,7 @@ in
 
         devenv
         cachix
+        nixd
         nixfmt-rfc-style
         nix-output-monitor
         nix-update
