@@ -93,6 +93,7 @@
               packages = with pkgs; [
                 # Nix
                 cachix
+                nixd
                 nix-fast-build
                 nix-output-monitor
                 nix-tree
