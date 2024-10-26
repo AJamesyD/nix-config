@@ -63,11 +63,14 @@
           inputs.git-hooks-nix.flakeModule
           inputs.treefmt-nix.flakeModule
         ];
+
+        debug = true; # This exposes declarations for nixd lsp
         systems = [
           "aarch64-darwin"
           "aarch64-linux"
           "x86_64-linux"
         ];
+
         perSystem =
           {
             config,

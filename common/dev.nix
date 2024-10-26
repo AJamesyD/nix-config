@@ -139,6 +139,7 @@ in
         lua
         luajitPackages.luarocks
         neovim
+        tree-sitter
 
         dust
         # TODO: Figure out why having another cargo breaks CargoBrazil
