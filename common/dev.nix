@@ -628,8 +628,8 @@ in
       "mise/config.toml" = {
         onChange = # bash
           ''
-            mise plugin install --all --yes --quiet
-            mise install --yes --quiet
+            run --quiet mise plugin install --all --yes --quiet
+            run --quiet mise install --yes --quiet
           '';
       };
     };
