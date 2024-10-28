@@ -39,7 +39,7 @@ in
       escapeTime = 0;
       historyLimit = 300000;
       keyMode = "vi";
-      mouse = true; # Remove once good
+      mouse = false; # Will intercept hyperlink handling in Alacritty
       newSession = true;
       plugins = with pkgs.tmuxPlugins; [
         {
@@ -167,13 +167,25 @@ in
 
           set -g status-interval 1
 
-          set -as terminal-features ",*:clipboard"
-          set -as terminal-features ",*:extkeys"
-          set -as terminal-features ",*:focus"
-          set -as terminal-features ",*:hyperlinks"
-          set -as terminal-features ",*:RGB"
-          set -as terminal-features ",*:strikethrough"
-          set -as terminal-features ",*:usstyle"
+          set -as terminal-features "alacritty*:RGB"
+          set -as terminal-features "alacritty*:clipboard"
+          set -as terminal-features "alacritty*:ccolour"
+          set -as terminal-features "alacritty*:cstyle"
+          set -as terminal-features "alacritty*:focus"
+          set -as terminal-features "alacritty*:hyperlinks"
+          set -as terminal-features "alacritty*:strikethrough"
+          set -as terminal-features "alacritty*:title"
+          set -as terminal-features "alacritty*:usstyle"
+
+          set -as terminal-features "xterm-kitty*:RGB"
+          set -as terminal-features "xterm-kitty*:clipboard"
+          set -as terminal-features "xterm-kitty*:ccolour"
+          set -as terminal-features "xterm-kitty*:cstyle"
+          set -as terminal-features "xterm-kitty*:focus"
+          set -as terminal-features "xterm-kitty*:hyperlinks"
+          set -as terminal-features "xterm-kitty*:strikethrough"
+          set -as terminal-features "xterm-kitty*:title"
+          set -as terminal-features "xterm-kitty*:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000
