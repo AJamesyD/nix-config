@@ -107,6 +107,8 @@ in
     packages =
       with pkgs;
       [
+        (pkgs.callPackage ../pkgs/bins { })
+
         coreutils
         findutils
         gawk
@@ -123,7 +125,6 @@ in
         netcat-gnu
         rsync
         squashfsTools
-        (pkgs.callPackage ../pkgs/bins { })
 
         rustup
         (lib.hiPrio rust-analyzer)
@@ -141,6 +142,8 @@ in
         neovim
         tree-sitter
 
+        docker
+
         dust
         # TODO: Figure out why having another cargo breaks CargoBrazil
         (rustPlatform.buildRustPackage rec {
@@ -156,6 +159,7 @@ in
           cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
           doCheck = false;
         })
+
         gum
         (pkgs.fetchFromGitHub {
           owner = "jdx";
