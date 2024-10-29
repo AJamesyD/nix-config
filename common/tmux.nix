@@ -62,7 +62,7 @@ in
               set -g @catppuccin_window_default_fill "number"
               set -g @catppuccin_window_current_fill "number"
               set -g @catppuccin_window_default_text "#{window_name}"
-              set -g @catppuccin_window_current_text "#{E:@truncated_directory_text}#{?window_zoomed_flag,(),}"
+              set -g @catppuccin_window_current_text "#{window_name}#{?window_zoomed_flag,(),}"
 
               # TODO: Move back to "slanted" when fixed upstream
               set -g @catppuccin_window_status_style "custom"
