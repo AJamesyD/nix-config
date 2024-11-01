@@ -49,7 +49,7 @@ in
           resize_increments = true;
         };
         font = {
-          size = 18.0;
+          size = 16.0;
           normal = {
             family = "BlexMono Nerd Font";
             style = "Regular";

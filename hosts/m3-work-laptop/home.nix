@@ -127,11 +127,28 @@
       enable = true;
       settings = {
         fork = true;
-        idle = true; # TODO: best if false?
+        frame = "buttonless";
+        # idle = false; # Allow neovim to specify
+        no-multigrid = false;
         font = {
-          normal = [ "BlexMono Nerd Font" ];
+          normal = {
+            family = "BlexMono Nerd Font";
+            style = "Regular";
+          };
+          italic = {
+            family = "VictorMono Nerd Font";
+            style = "Italic";
+          };
+          bold = {
+            family = "BlexMono Nerd Font";
+            style = "Bold";
+          };
+          bold_italic = {
+            family = "VictorMono Nerd Font";
+            style = "Bold Italic";
+          };
           size = 16.0;
-          edging = "antialias"; # TODO: try subpixelantialias?
+          edging = "subpixelantialias";
         };
 
       };
