@@ -143,6 +143,7 @@ in
         tree-sitter
 
         docker
+        devpod
 
         dust
         # TODO: Figure out why having another cargo breaks CargoBrazil
