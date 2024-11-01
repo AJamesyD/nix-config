@@ -484,7 +484,7 @@ in
         cat = "bat -pp";
         clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
-        clr = "clear";
+        clr = "clear && tput cup $LINES 0"; # Move prompt to bottom of window
         ghauth = # bash
           ''
             unset GITHUB_TOKEN &&
@@ -588,6 +588,12 @@ in
             ln -sf "$SSH_AUTH_SOCK" "$CONST_SSH_SOCK"
             export SSH_AUTH_SOCK="$CONST_SSH_SOCK"
           fi
+
+          # Keep prompt at bottom
+          function bottom_prompt {
+            tput cup $(($LINES-2)) 0
+          }
+          add-zsh-hook precmd bottom_prompt
 
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
         '';
