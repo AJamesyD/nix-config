@@ -153,12 +153,10 @@
         up = "nixup";
         neovide-ssh = # bash
           ''
-            rm /tmp/nvim.sock &>/dev/null;
-            (ssh -XY -L /tmp/nvim.sock:/tmp/nvim.sock $DEV_DESK_HOSTNAME \
-            'export PATH="/home/angaidan/.nix-profile/bin:$PATH" &&
-            nvim --headless --listen /tmp/nvim.sock' &) &&
-            sleep 3s &&
-            neovide --server=/tmp/nvim.sock'';
+            (ssh -L 6666:localhost:6666 $DEV_DESK_HOSTNAME \
+            'nvim --headless --listen localhost:6666' &) &&
+            sleep 1s &&
+            neovide --server=localhost:6666'';
       };
     };
   };
