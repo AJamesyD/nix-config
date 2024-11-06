@@ -609,7 +609,11 @@ in
         text = # yaml
           ''
             config:
-              heding-increment: false
+              ul-indent:
+                indent: 4
+                start_indent: 4
+                start_indented: false
+              heading-increment: false
               line-length:
                 code_block_line_length: 100
                 line_length: 250
