@@ -17,10 +17,6 @@
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -89,9 +85,6 @@
                 allowUnfree = true;
                 allowAliases = true;
               };
-              overlays = [
-                inputs.fenix.overlays.default
-              ];
               localSystem = system;
             };
 
