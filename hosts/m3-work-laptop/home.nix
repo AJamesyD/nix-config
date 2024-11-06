@@ -124,7 +124,8 @@
       };
     };
     neovide = {
-      enable = true;
+      # TODO: Re-enable when builds stop failing
+      enable = false;
       settings = {
         fork = true;
         frame = "buttonless";
