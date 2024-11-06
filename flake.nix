@@ -17,6 +17,11 @@
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-analyzer-src.url = "github:rust-lang/rust-analyzer/2024-11-04";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -85,6 +90,9 @@
                 allowUnfree = true;
                 allowAliases = true;
               };
+              overlays = [
+                inputs.fenix.overlays.default
+              ];
               localSystem = system;
             };
 

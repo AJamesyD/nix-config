@@ -128,7 +128,8 @@ in
         squashfsTools
 
         rustup
-        (lib.hiPrio rust-analyzer)
+        # (lib.hiPrio rust-analyzer)
+        (lib.hiPrio rust-analyzer-nightly)
 
         devenv
         cachix
