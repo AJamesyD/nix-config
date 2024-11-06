@@ -345,6 +345,9 @@ in
           conflictstyle = "zdiff3";
           tool = "nvim";
         };
+        pull = {
+          rebase = true;
+        };
         push = {
           autoSetupRemote = true;
         };
