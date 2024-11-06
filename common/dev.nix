@@ -82,6 +82,7 @@ in
           ''
             run --quiet mise upgrade --yes --quiet
             run --quiet mise prune --yes --quiet
+            run --quiet mise plugins update --yes --quiet
           '';
       rustup =
         lib.hm.dag.entryAfter
