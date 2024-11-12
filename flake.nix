@@ -35,6 +35,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -92,6 +93,7 @@
               };
               overlays = [
                 inputs.fenix.overlays.default
+                inputs.neovim-nightly-overlay.overlays.default
               ];
               localSystem = system;
             };
