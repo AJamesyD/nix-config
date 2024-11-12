@@ -18,6 +18,7 @@ in
 {
   imports = [
     ./tmux.nix
+    ./zellij.nix
   ];
 
   editorconfig = {
@@ -461,9 +462,6 @@ in
       enable = true;
       enableZshIntegration = true;
     };
-    zellij = {
-      enable = true;
-    };
     zoxide = {
       enable = true;
     };
@@ -569,7 +567,7 @@ in
       initExtra = # bash
         ''
           # zsh-auto-notify
-          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg" "tmux")
+          AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg" "tmux" "fzf")
 
           # Beloved key-binds
           bindkey "^[[1;3D" backward-word
