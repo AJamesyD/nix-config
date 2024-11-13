@@ -185,6 +185,16 @@
     }
     {
       "if" = {
+        window-title-regex-substring = "Reminder";
+        app-id = "com.microsoft.Outlook";
+      };
+      run = [
+        "layout floating"
+        "move-node-to-workspace admin"
+      ];
+    }
+    {
+      "if" = {
         app-id = "com.microsoft.Outlook";
       };
       run = "move-node-to-workspace admin";
