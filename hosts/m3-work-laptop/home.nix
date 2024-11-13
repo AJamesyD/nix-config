@@ -48,6 +48,17 @@
       })
 
       qmk
+
+      # For Mac Rust development
+      gnulib
+      pkg-config
+      libgit2
+      libssh2
+      openssl
+      sqlite
+      zlib
+      zlib-ng
+      zstd
     ];
 
     # This value determines the Home Manager release that your configuration is
