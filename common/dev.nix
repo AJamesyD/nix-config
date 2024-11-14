@@ -131,6 +131,7 @@ in
         rustup
         # (lib.hiPrio rust-analyzer)
         (lib.hiPrio rust-analyzer-nightly)
+        mdbook
 
         devenv
         cachix
