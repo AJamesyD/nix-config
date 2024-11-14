@@ -75,6 +75,10 @@
         greedy = true;
       }
       {
+        name = "neovide";
+        greedy = true;
+      }
+      {
         name = "obsidian";
         greedy = true;
       }

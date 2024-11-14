@@ -44,13 +44,13 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks-nix";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
     nixd = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      url = "github:nix-community/nixd";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";

@@ -134,37 +134,6 @@
         };
       };
     };
-    neovide = {
-      # TODO: Re-enable when builds stop failing
-      enable = false;
-      settings = {
-        fork = true;
-        frame = "buttonless";
-        # idle = false; # Allow neovim to specify
-        no-multigrid = false;
-        font = {
-          normal = {
-            family = "BlexMono Nerd Font";
-            style = "Regular";
-          };
-          italic = {
-            family = "VictorMono Nerd Font";
-            style = "Italic";
-          };
-          bold = {
-            family = "BlexMono Nerd Font";
-            style = "Bold";
-          };
-          bold_italic = {
-            family = "VictorMono Nerd Font";
-            style = "Bold Italic";
-          };
-          size = 16.0;
-          edging = "subpixelantialias";
-        };
-
-      };
-    };
     zsh = {
       enable = true;
       initExtraBeforeCompInit = # bash
@@ -201,6 +170,36 @@
             export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 
             aerospace reload-config
+          '';
+      };
+      "neovide/config.toml" = {
+        enable = true;
+        text = # toml
+          ''
+            fork = true
+            frame = "buttonless"
+            no-multigrid = false
+            title-hidden = true
+
+            [font]
+            size = 16.0;
+            edging = "subpixelantialias";
+
+            [font.normal]
+            family = "BlexMono Nerd Font"
+            style = "Regular"
+
+            [font.italic]
+            family = "VictorMono Nerd Font";
+            style = "Italic";
+
+            [font.bold]
+            family = "BlexMono Nerd Font";
+            style = "Bold";
+
+            [font.bold_italic]
+            family = "VictorMono Nerd Font";
+            style = "Bold Italic";
           '';
       };
     };
