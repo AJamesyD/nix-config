@@ -21,7 +21,7 @@
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-analyzer-src.url = "github:rust-lang/rust-analyzer/2024-11-04";
+      inputs.rust-analyzer-src.url = "github:rust-lang/rust-analyzer/2024-11-11";
     };
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     flake-parts.url = "github:hercules-ci/flake-parts";
