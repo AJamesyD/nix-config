@@ -32,21 +32,6 @@
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
-
-      (rustPlatform.buildRustPackage rec {
-        pname = "ion-cli";
-        version = "v0.7.0";
-
-        src = fetchFromGitHub {
-          owner = "amazon-ion";
-          repo = pname;
-          rev = version;
-          sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
-        };
-        cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
-        doCheck = false;
-      })
-
       qmk
 
       # For Mac Rust development

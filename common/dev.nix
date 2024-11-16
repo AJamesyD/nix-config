@@ -153,15 +153,28 @@ in
         # TODO: Figure out why having another cargo breaks CargoBrazil
         (rustPlatform.buildRustPackage rec {
           pname = "ion-cli";
-          version = "v0.7.0";
+          version = "v0.9.1";
 
           src = fetchFromGitHub {
             owner = "amazon-ion";
             repo = pname;
             rev = version;
-            sha256 = "sha256-b9ZUp3ES6yJZ/YPU2kFoGHUz/HcBr+x60DwCe1Y8Z/E=";
+            sha256 = "sha256-CA5eNkp1G07i90dnq6Ck/yukQ2BsUk57IFvIbxG/1Jo=";
           };
-          cargoHash = "sha256-vY9F+DP3Mfr3zUi3Pyu8auDleqQ1KDT5PpfwdnWUVX8=";
+          cargoHash = "sha256-hpzKEcGK0aLA3PDV0n//rbVbmXgVAuoXSY3f2jyupaM=";
+          doCheck = false;
+        })
+        (rustPlatform.buildRustPackage rec {
+          pname = "bob";
+          version = "v4.0.2";
+
+          src = fetchFromGitHub {
+            owner = "MordechaiHadad";
+            repo = pname;
+            rev = version;
+            sha256 = "sha256-IyMd8D/FwsIA4H9nWsq7vVp/9lmEn+m+aVEtajLwy/8=";
+          };
+          cargoHash = "sha256-tDOcyhI8AMKCxal2vizORj3fpS6mduOc6uHVI+D4NKA=";
           doCheck = false;
         })
 
@@ -178,6 +191,9 @@ in
       ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
     preferXdgDirectories = true;
+    sessionPath = [
+      "${config.xdg.dataHome}/bob/nvim-bin"
+    ];
     sessionVariables = {
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
       EDITOR = "nvim";
