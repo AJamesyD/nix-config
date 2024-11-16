@@ -191,12 +191,12 @@ in
       ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
 
     preferXdgDirectories = true;
-    sessionPath = [
+    sessionPath = lib.mkAfter [
       "${config.xdg.dataHome}/bob/nvim-bin"
     ];
     sessionVariables = {
-      LESSHISTFILE = "${config.xdg.dataHome}/less_history";
       EDITOR = "nvim";
+      LESSHISTFILE = "${config.xdg.dataHome}/less_history";
     };
   };
 

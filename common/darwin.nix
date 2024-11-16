@@ -1,15 +1,11 @@
 {
   self,
-  home-manager,
   lib,
-  nix-index-database,
   pkgs,
   ...
 }:
 {
   imports = [
-    home-manager.darwinModules.home-manager
-    nix-index-database.darwinModules.nix-index
     ./nix-sys.nix
   ];
 

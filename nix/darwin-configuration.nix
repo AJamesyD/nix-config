@@ -28,12 +28,12 @@ let
               };
             };
           }
+          inputs.home-manager.darwinModules.home-manager
+          inputs.nix-index-database.darwinModules.nix-index
         ];
         specialArgs = {
           hostType = type;
           inherit (inputs)
-            home-manager
-            nix-index-database
             self
             ;
         };

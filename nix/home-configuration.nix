@@ -75,11 +75,14 @@ let
       { pkgs, ... }:
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ (genModules hostName attrs) ];
+        modules = [
+          (genModules hostName attrs)
+          inputs.nix-index-database.hmModules.nix-index
+        ];
         extraSpecialArgs = {
           hostType = type;
           inherit (inputs)
-            nix-index-database
+            self
             ;
         };
       }
