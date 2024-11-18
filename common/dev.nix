@@ -141,8 +141,12 @@ in
         nix-update
         nix-your-shell
 
-        lua
-        luajitPackages.luarocks
+        (luajit.withPackages (
+          ps: with ps; [
+            luarocks
+            luv
+          ]
+        ))
         neovim
         tree-sitter
 

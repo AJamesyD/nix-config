@@ -51,8 +51,12 @@
 
         openssh
 
-        lua
-        luajitPackages.luarocks
+        (luajit.withPackages (
+          ps: with ps; [
+            luarocks
+            luv
+          ]
+        ))
         neovim
         vim
       ]
