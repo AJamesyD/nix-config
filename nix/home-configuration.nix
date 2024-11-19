@@ -45,6 +45,7 @@ let
         enable = true;
         package = pkgs.nixVersions.latest;
         registry = {
+          self.flake = self;
           nixpkgs.flake = nixpkgs;
           p.flake = nixpkgs;
         };

@@ -365,6 +365,9 @@ in
           colorMoved = "default";
           colorMovedWS = "allow-indentation-change";
         };
+        init = {
+          defaultBranch = "mainline";
+        };
         merge = {
           conflictstyle = "zdiff3";
           tool = "nvim";

@@ -24,6 +24,8 @@ let
             nix = {
               nixPath = [ "nixpkgs=/run/current-system/sw/nixpkgs" ];
               registry = {
+                self.flake = self;
+                nixpkgs.flake = nixpkgs;
                 p.flake = nixpkgs;
               };
             };
