@@ -130,7 +130,6 @@ in
 
         rustup
         (lib.hiPrio rust-analyzer)
-        # (lib.hiPrio rust-analyzer-nightly)
         mdbook
 
         devenv
@@ -166,19 +165,6 @@ in
             sha256 = "sha256-CA5eNkp1G07i90dnq6Ck/yukQ2BsUk57IFvIbxG/1Jo=";
           };
           cargoHash = "sha256-hpzKEcGK0aLA3PDV0n//rbVbmXgVAuoXSY3f2jyupaM=";
-          doCheck = false;
-        })
-        (rustPlatform.buildRustPackage rec {
-          pname = "bob";
-          version = "v4.0.2";
-
-          src = fetchFromGitHub {
-            owner = "MordechaiHadad";
-            repo = pname;
-            rev = version;
-            sha256 = "sha256-IyMd8D/FwsIA4H9nWsq7vVp/9lmEn+m+aVEtajLwy/8=";
-          };
-          cargoHash = "sha256-tDOcyhI8AMKCxal2vizORj3fpS6mduOc6uHVI+D4NKA=";
           doCheck = false;
         })
 
