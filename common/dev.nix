@@ -129,8 +129,8 @@ in
         squashfsTools
 
         rustup
-        # (lib.hiPrio rust-analyzer)
-        (lib.hiPrio rust-analyzer-nightly)
+        (lib.hiPrio rust-analyzer)
+        # (lib.hiPrio rust-analyzer-nightly)
         mdbook
 
         devenv
