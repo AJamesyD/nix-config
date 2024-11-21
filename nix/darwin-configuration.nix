@@ -8,7 +8,7 @@ let
   inherit (nixpkgs) lib;
 
   genConfiguration =
-    hostname:
+    hostName:
     { hostPlatform, type, ... }:
     withSystem hostPlatform (
       {
@@ -19,8 +19,12 @@ let
       nix-darwin.lib.darwinSystem {
         inherit pkgs system;
         modules = [
-          (../hosts + "/${hostname}")
+          (../hosts + "/${hostName}")
           {
+            environment.variables = {
+              # WARN: Using this is Neovim nix lsp configs, until I can find something smarter
+              _NIX_HOSTNAME = hostName;
+            };
             nix = {
               nixPath = [ "nixpkgs=/run/current-system/sw/nixpkgs" ];
               registry = {

@@ -37,7 +37,6 @@ let
       throw "unknown host type '${type}'";
 in
 {
-  # TODO: change hostnames
   x86-dev-desk = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
