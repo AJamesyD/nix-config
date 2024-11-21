@@ -75,11 +75,19 @@
         ];
 
         debug = true; # This exposes declarations for nixd lsp
+
         systems = [
           "aarch64-darwin"
           "aarch64-linux"
           "x86_64-linux"
         ];
+
+        flake = {
+          hosts = import ./nix/hosts.nix;
+
+          darwinConfigurations = import ./nix/darwin-configuration.nix toplevel;
+          homeConfigurations = import ./nix/home-configuration.nix toplevel;
+        };
 
         perSystem =
           {
@@ -160,13 +168,6 @@
               };
             };
           };
-
-        flake = {
-          hosts = import ./nix/hosts.nix;
-
-          darwinConfigurations = import ./nix/darwin-configuration.nix toplevel;
-          homeConfigurations = import ./nix/home-configuration.nix toplevel;
-        };
       }
     );
 }
