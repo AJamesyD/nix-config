@@ -20,19 +20,6 @@
     ];
   };
 
-  fonts.packages = [
-    # TODO: Reduce duplication with terminals
-    (pkgs.nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Hack"
-        "IBMPlexMono"
-        "JetBrainsMono"
-        "VictorMono"
-      ];
-    })
-  ];
-
   homebrew = {
     enable = true;
     taps = [

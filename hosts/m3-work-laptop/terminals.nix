@@ -11,21 +11,20 @@ let
     rev = "0deabe1aab102d8052b4b12b38631ce2ca16d6b0";
     sha256 = "sha256-vZCNNVfdCTYPiSSXtug7xfW3c0Cx/H0S3w+f1q3Prgs=";
   };
-  # TODO: Reduce duplication with fonts.packages
-  nerd_fonts = pkgs.nerdfonts.override {
-    fonts = [
-      "FiraCode"
-      "Hack"
-      "IBMPlexMono"
-      "JetBrainsMono"
-      "VictorMono"
-    ];
-  };
 in
 {
   home = {
-    packages = [
-      nerd_fonts
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "IBMPlexMono"
+          "VictorMono"
+        ];
+      })
+      fira-code
+      ibm-plex
+      victor-mono
     ];
   };
 
@@ -116,11 +115,6 @@ in
     };
     kitty = {
       enable = true;
-      font = {
-        name = "VictorMono Nerd Font Mono";
-        package = nerd_fonts;
-        size = 18.0;
-      };
       package = pkgs.kitty.overrideAttrs (oldAttrs: {
         postInstall =
           lib.optionalString pkgs.stdenv.isDarwin
@@ -131,32 +125,49 @@ in
             '';
       });
       settings = {
-        # Font
-        font_family = ''"family=${config.programs.kitty.font.name} style=Medium"'';
+        # Fonts
+        font_family = "Fira Code";
+        bold_font = "Fira Code";
+        italic_font = "Victor Mono Italic";
+        bold_italic_font = "Victor Mono";
+        font_size = 16.0;
         disable_ligatures = "cursor";
-        symbol_map = "U+E000-U+F1AF0 VictorMono Nerd Font";
         modify_font = ''
-          cell_height = "-2px";
+          cell_height = "-1px";
         '';
 
-        # Performance
+        # Text cursor customization
+        cursor_trail = 2;
+        cursor_trail_decay = "0.1 0.3";
+        # cursor_trail_start_threshold = 2;
+
+        # Scrollback
+        scrollback_lines = 5000;
+
+        # Mouse
+        show_hyperlink_targets = "yes";
+        strip_trailing_spaces = "smart";
+
+        # Performance tuning
         input_delay = 2;
         sync_to_monitor = "no";
 
-        # Terminal Bell
+        # Terminal bell
         enable_audio_bell = "no";
 
-        # Window Layout
-        hide_window_decorations = "yes";
+        # Window layout
+        hide_window_decorations = "titlebar-only";
+        window_border_width = "0.0pt";
         confirm_os_window_close = 0;
 
-        # Tab Bar
+        # Tab bar
         tab_bar_style = "powerline";
         tab_powerline_style = "slanted";
+        tab_switch_strategy = "left";
         tab_title_template = "{index}:{title}";
 
         # OS Specific
-        macos_option_as_alt = "yes";
+        macos_option_as_alt = "both";
         macos_quit_when_last_window_closed = "yes";
       };
       themeFile = "Dark_Pastel";
