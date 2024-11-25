@@ -80,7 +80,6 @@ let
         inherit pkgs;
         modules = [
           (genModules hostName attrs)
-          inputs.nix-index-database.hmModules.nix-index
         ];
         extraSpecialArgs = {
           hostType = type;

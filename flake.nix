@@ -52,10 +52,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -104,9 +100,6 @@
                 allowUnfree = true;
                 allowAliases = true;
               };
-              overlays = [
-                inputs.nix-index-database.overlays.nix-index
-              ];
               localSystem = system;
             };
 
