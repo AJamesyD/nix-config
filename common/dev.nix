@@ -455,6 +455,10 @@ in
     };
     ripgrep = {
       enable = true;
+      arguments = [
+        "--follow"
+        "--smart-case"
+      ];
     };
     tealdeer = {
       enable = true;
