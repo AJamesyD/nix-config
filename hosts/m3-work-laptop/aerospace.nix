@@ -53,26 +53,11 @@
         cmd-shift-alt-minus = "resize smart -50";
         cmd-shift-alt-equal = "resize smart +50";
 
-        cmd-shift-alt-ctrl-h = # bash
-          ''
-            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-            aerospace move-node-to-monitor left && aerospace focus --window-id $var; unset var
-          '';
-        cmd-shift-alt-ctrl-j = # bash
-          ''
-            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-            aerospace move-node-to-monitor down && aerospace focus --window-id $var; unset var
-          '';
-        cmd-shift-alt-ctrl-k = # bash
-          ''
-            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-            aerospace move-node-to-monitor up && aerospace focus --window-id $var; unset var
-          '';
-        cmd-shift-alt-ctrl-l = # bash
-          ''
-            exec-and-forget var="$(aerospace list-windows --focused --format "%{window-id}")" && \
-            aerospace move-node-to-monitor right && aerospace focus --window-id $var; unset var
-          '';
+        cmd-shift-alt-ctrl-h = "move-node-to-monitor left --focus-follows-window";
+        cmd-shift-alt-ctrl-j = "move-node-to-monitor down --focus-follows-window";
+        cmd-shift-alt-ctrl-k = "move-node-to-monitor up --focus-follows-window";
+        cmd-shift-alt-ctrl-l = "move-node-to-monitor right --focus-follows-window";
+
         /*
           Workspace mapping
           1: Dev (sometimes also Firefox)
@@ -83,37 +68,37 @@
           6: Miscellaneous (e.g. Spotify)
           _: Ignored
         */
-        alt-1 = "workspace dev";
-        alt-2 = "workspace firefox";
-        alt-3 = "workspace slack";
-        alt-4 = "workspace chime";
-        alt-5 = "workspace admin";
-        alt-6 = "workspace misc";
-        alt-7 = "workspace 7";
-        alt-8 = "workspace 8";
-        alt-9 = "workspace 9";
-        alt-a = "workspace admin";
-        alt-d = "workspace dev";
-        alt-c = "workspace chime";
-        alt-f = "workspace firefox";
-        alt-m = "workspace misc";
-        alt-s = "workspace slack";
+        cmd-shift-alt-1 = "workspace dev";
+        cmd-shift-alt-2 = "workspace firefox";
+        cmd-shift-alt-3 = "workspace slack";
+        cmd-shift-alt-4 = "workspace chime";
+        cmd-shift-alt-5 = "workspace admin";
+        cmd-shift-alt-6 = "workspace misc";
+        cmd-shift-alt-7 = "workspace 7";
+        cmd-shift-alt-8 = "workspace 8";
+        cmd-shift-alt-9 = "workspace 9";
+        cmd-shift-alt-a = "workspace admin";
+        cmd-shift-alt-d = "workspace dev";
+        cmd-shift-alt-c = "workspace chime";
+        cmd-shift-alt-f = "workspace firefox";
+        cmd-shift-alt-m = "workspace misc";
+        cmd-shift-alt-s = "workspace slack";
 
-        shift-alt-1 = "move-node-to-workspace dev";
-        shift-alt-2 = "move-node-to-workspace firefox";
-        shift-alt-3 = "move-node-to-workspace slack";
-        shift-alt-4 = "move-node-to-workspace chime";
-        shift-alt-5 = "move-node-to-workspace admin";
-        shift-alt-6 = "move-node-to-workspace misc";
-        shift-alt-7 = "move-node-to-workspace 7";
-        shift-alt-8 = "move-node-to-workspace 8";
-        shift-alt-9 = "move-node-to-workspace 9";
-        shift-alt-a = "move-node-to-workspace admin";
-        shift-alt-c = "move-node-to-workspace chime";
-        shift-alt-d = "move-node-to-workspace dev";
-        shift-alt-f = "move-node-to-workspace firefox";
-        shift-alt-m = "move-node-to-workspace misc";
-        shift-alt-s = "move-node-to-workspace slack";
+        cmd-shift-alt-ctrl-1 = "move-node-to-workspace dev --focus-follows-window";
+        cmd-shift-alt-ctrl-2 = "move-node-to-workspace firefox --focus-follows-window";
+        cmd-shift-alt-ctrl-3 = "move-node-to-workspace slack --focus-follows-window";
+        cmd-shift-alt-ctrl-4 = "move-node-to-workspace chime --focus-follows-window";
+        cmd-shift-alt-ctrl-5 = "move-node-to-workspace admin --focus-follows-window";
+        cmd-shift-alt-ctrl-6 = "move-node-to-workspace misc --focus-follows-window";
+        cmd-shift-alt-ctrl-7 = "move-node-to-workspace 7 --focus-follows-window";
+        cmd-shift-alt-ctrl-8 = "move-node-to-workspace 8 --focus-follows-window";
+        cmd-shift-alt-ctrl-9 = "move-node-to-workspace 9 --focus-follows-window";
+        cmd-shift-alt-ctrl-a = "move-node-to-workspace admin --focus-follows-window";
+        cmd-shift-alt-ctrl-c = "move-node-to-workspace chime --focus-follows-window";
+        cmd-shift-alt-ctrl-d = "move-node-to-workspace dev --focus-follows-window";
+        cmd-shift-alt-ctrl-f = "move-node-to-workspace firefox --focus-follows-window";
+        cmd-shift-alt-ctrl-m = "move-node-to-workspace misc --focus-follows-window";
+        cmd-shift-alt-ctrl-s = "move-node-to-workspace slack --focus-follows-window";
 
         cmd-shift-alt-ctrl-r = # bash
           ''
@@ -121,8 +106,6 @@
             aerospace enable off && \
             aerospace enable on && \
           '';
-        cmd-shift-alt-ctrl-q = "enable off";
-        cmd-shift-alt-ctrl-s = "enable on";
       };
     };
   };

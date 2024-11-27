@@ -137,7 +137,7 @@ in
         '';
 
         # Text cursor customization
-        cursor_trail = 2;
+        cursor_trail = 3;
         cursor_trail_decay = "0.1 0.3";
         # cursor_trail_start_threshold = 2;
 
@@ -166,9 +166,12 @@ in
         tab_switch_strategy = "left";
         tab_title_template = "{index}:{title}";
 
-        # OS Specific
+        # OS specific
         macos_option_as_alt = "both";
         macos_quit_when_last_window_closed = "yes";
+
+        # Keyboard shortcuts
+        kitty_mod = "ctrl+alt";
       };
       themeFile = "Dark_Pastel";
     };
