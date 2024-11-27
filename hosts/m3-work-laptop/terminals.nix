@@ -15,13 +15,9 @@ in
 {
   home = {
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "IBMPlexMono"
-          "VictorMono"
-        ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.blex-mono
+      nerd-fonts.victor-mono
       fira-code
       ibm-plex
       victor-mono
