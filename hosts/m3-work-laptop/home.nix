@@ -35,17 +35,17 @@
       qmk
 
       # For Mac Rust development
-      # cmake
-      # gnulib
-      # libgit2
-      # libssh2
-      # mold
-      # openssl
-      # pkg-config
-      # sqlite
-      # zlib
-      # zlib-ng
-      # zstd
+      cmake
+      gnulib
+      libgit2
+      libssh2
+      mold
+      openssl
+      pkg-config
+      sqlite
+      zlib
+      zlib-ng
+      zstd
     ];
 
     # This value determines the Home Manager release that your configuration is

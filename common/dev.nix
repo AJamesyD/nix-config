@@ -128,6 +128,7 @@ in
         rsync
         squashfsTools
 
+        cargo-nextest
         rustup
         (lib.hiPrio rust-analyzer)
         mdbook
