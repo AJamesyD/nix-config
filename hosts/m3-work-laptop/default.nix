@@ -132,6 +132,7 @@
           "Applications/Amazon Chime.app"
           "Applications/Slack.app"
           "${pkgs.alacritty}/Applications/Alacritty.app"
+          "${pkgs.kitty}/Applications/kitty.app"
         ];
       };
       spaces = {

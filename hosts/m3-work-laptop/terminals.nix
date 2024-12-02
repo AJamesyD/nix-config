@@ -111,15 +111,6 @@ in
     };
     kitty = {
       enable = true;
-      package = pkgs.kitty.overrideAttrs (oldAttrs: {
-        postInstall =
-          lib.optionalString pkgs.stdenv.isDarwin
-            # bash
-            ''
-              cp "${kitty_icon}/kitty.icns" "$out/Applications/kitty.app/Contents/Resources/kitty.icns"
-              cp "${kitty_icon}/kitty.icns" "$out/Applications/kitty.app/Contents/Resources/SIGNAL_kitty.icns"
-            '';
-      });
       settings = {
         # Fonts
         font_family = "Fira Code";
