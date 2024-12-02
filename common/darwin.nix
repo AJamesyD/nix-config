@@ -156,7 +156,6 @@
           BatteryShowPercentage = true;
         };
         "com.apple.dock" = {
-          expose-group-apps = true;
           springboard-hide-duration = 1.0e-2;
           springboard-page-duration = 1.0e-2;
           springboard-show-duration = 1.0e-2;
@@ -203,7 +202,7 @@
         autohide-time-modifier = 1.0e-2;
         dashboard-in-overlay = true;
         expose-animation-duration = 1.0e-2;
-        expose-group-by-app = true;
+        expose-group-apps = true;
         largesize = 128;
         launchanim = false;
         magnification = true;
