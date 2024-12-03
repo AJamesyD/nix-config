@@ -33,6 +33,7 @@
       #   echo "Hello, ${config.home.username}!"
       # '')
       qmk
+      keymapviz
 
       # For Mac Rust development
       cmake
