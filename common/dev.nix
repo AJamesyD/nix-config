@@ -270,6 +270,12 @@ in
     bottom = {
       enable = true;
     };
+    btop = {
+      enable = true;
+      settings = {
+        vim_keys = true;
+      };
+    };
     dircolors = {
       enable = true;
     };
