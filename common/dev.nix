@@ -106,80 +106,77 @@ in
       gnutar
       gzip
     ];
-    packages =
-      with pkgs;
-      [
-        (pkgs.callPackage ../pkgs/bins { })
+    packages = with pkgs; [
+      (pkgs.callPackage ../pkgs/bins { })
 
-        coreutils
-        findutils
-        gawk
-        git
-        git-lfs
-        gnugrep
-        gnused
-        gnutar
-        gnutls
-        # required to make terminfo files available before zsh login
-        (lib.hiPrio ncurses)
-        neofetch
-        pandoc
-        netcat-gnu
-        rsync
-        squashfsTools
+      coreutils
+      findutils
+      gawk
+      git
+      git-lfs
+      gnugrep
+      gnused
+      gnutar
+      gnutls
+      # required to make terminfo files available before zsh login
+      (lib.hiPrio ncurses)
+      neofetch
+      pandoc
+      netcat-gnu
+      rsync
+      squashfsTools
 
-        cargo-nextest
-        rustup
-        (lib.hiPrio rust-analyzer)
-        mdbook
+      cargo-nextest
+      rustup
+      (lib.hiPrio rust-analyzer)
+      mdbook
 
-        devenv
-        cachix
-        nixd
-        nixfmt-rfc-style
-        nix-output-monitor
-        nix-update
-        nix-your-shell
+      devenv
+      cachix
+      nixd
+      nixfmt-rfc-style
+      nix-output-monitor
+      nix-update
+      nix-your-shell
 
-        (luajit.withPackages (
-          ps: with ps; [
-            luarocks
-            luv
-          ]
-        ))
-        neovim
-        tree-sitter
+      (luajit.withPackages (
+        ps: with ps; [
+          luarocks
+          luv
+        ]
+      ))
+      neovim
+      tree-sitter
 
-        docker
-        devpod
+      docker
+      devpod
 
-        dust
-        # TODO: Figure out why having another cargo breaks CargoBrazil
-        (rustPlatform.buildRustPackage rec {
-          pname = "ion-cli";
-          version = "v0.9.1";
+      dust
+      # TODO: Figure out why having another cargo breaks CargoBrazil
+      (rustPlatform.buildRustPackage rec {
+        pname = "ion-cli";
+        version = "v0.9.1";
 
-          src = fetchFromGitHub {
-            owner = "amazon-ion";
-            repo = pname;
-            rev = version;
-            sha256 = "sha256-CA5eNkp1G07i90dnq6Ck/yukQ2BsUk57IFvIbxG/1Jo=";
-          };
-          cargoHash = "sha256-hpzKEcGK0aLA3PDV0n//rbVbmXgVAuoXSY3f2jyupaM=";
-          doCheck = false;
-        })
+        src = fetchFromGitHub {
+          owner = "amazon-ion";
+          repo = pname;
+          rev = version;
+          sha256 = "sha256-CA5eNkp1G07i90dnq6Ck/yukQ2BsUk57IFvIbxG/1Jo=";
+        };
+        cargoHash = "sha256-hpzKEcGK0aLA3PDV0n//rbVbmXgVAuoXSY3f2jyupaM=";
+        doCheck = false;
+      })
 
-        gum
-        (pkgs.fetchFromGitHub {
-          owner = "jdx";
-          repo = "usage";
-          rev = "v0.7.4";
-          sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
-        })
-        libnotify
-        sesh
-      ]
-      ++ lib.lists.optional (config.programs.alacritty.enable && config.programs.yazi.enable) ueberzugpp;
+      gum
+      (pkgs.fetchFromGitHub {
+        owner = "jdx";
+        repo = "usage";
+        rev = "v0.7.4";
+        sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
+      })
+      libnotify
+      sesh
+    ];
 
     preferXdgDirectories = true;
     sessionPath = lib.mkAfter [
