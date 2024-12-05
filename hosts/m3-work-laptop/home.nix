@@ -35,7 +35,7 @@
       qmk
       keymapviz
 
-      # For Mac Rust development
+      # For Mac development
       cmake
       gnulib
       libgit2
@@ -43,7 +43,10 @@
       mold
       openssl
       pkg-config
+      readline
       sqlite
+      tk
+      xz
       zlib
       zlib-ng
       zstd

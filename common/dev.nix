@@ -64,15 +64,23 @@ in
         lib.hm.dag.entryAfter
           [
             "writeBoundary"
-          ] # bash
-          ''
-            export ZDOTDIR="${zdotdir}"
-            export ZCOMPDIR="${zshcompdir}"
-            mkdir -p $ZCOMPDIR
+          ]
+          (
+            # bash
+            ''
+              export ZDOTDIR="${zdotdir}"
+              export ZCOMPDIR="${zshcompdir}"
+              mkdir -p $ZCOMPDIR
 
-            export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
-            export PATH="$PATH:${config.home.profileDirectory}/bin"
-          '';
+              export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
+              export PATH="$PATH:${config.home.profileDirectory}/bin"
+            ''
+            +
+              lib.strings.optionalString pkgs.stdenv.isDarwin # bash
+                ''
+                  export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+                ''
+          );
       mise =
         lib.hm.dag.entryAfter
           [
@@ -81,7 +89,8 @@ in
           ]
           # bash
           ''
-            run --quiet mise upgrade --yes --quiet
+            # TODO: Uncomment when working again
+            # run --quiet mise upgrade --yes --quiet
             run --quiet mise prune --yes --quiet
             run --quiet mise plugins update --yes --quiet
           '';
@@ -185,6 +194,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
+      BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
     };
   };
 
@@ -196,6 +206,7 @@ in
         exports = {
           locations = {
             auto = true;
+            line_format = "{kind}:{path}:{line}:{column}:{message}";
           };
         };
         # default bacon.toml
@@ -206,6 +217,7 @@ in
               "cargo"
               "clippy"
               "--all-targets"
+              "--all-features"
               "--color"
               "always"
               "--"
@@ -278,6 +290,7 @@ in
     };
     direnv = {
       enable = true;
+      mise.enable = true;
       nix-direnv.enable = true;
     };
     eza = {
@@ -451,9 +464,7 @@ in
         };
       };
       settings = {
-        experimental = true;
         legacy_version_file = false;
-        pipx_uvx = true;
         yes = true;
       };
     };

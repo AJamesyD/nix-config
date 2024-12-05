@@ -39,6 +39,26 @@
       }
     ];
     brews = [
+      # For mise python-build
+      {
+        name = "openssl";
+      }
+      {
+        name = "readline";
+      }
+      {
+        name = "sqlite3";
+      }
+      {
+        name = "tcl-tk";
+      }
+      {
+        name = "xz";
+      }
+      {
+        name = "zlib";
+      }
+      # Other
       {
         name = "xdg-open-svc";
         restart_service = "changed";

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
 {
   programs = {
@@ -15,43 +10,6 @@
   xdg = {
     enable = true;
     configFile = {
-      "markdownlint-cli/.markdownlint-cli2.yaml" = {
-        text = # yaml
-          ''
-            config:
-              ul-indent:
-                indent: 4
-                start_indent: 4
-                start_indented: false
-              heading-increment: false
-              line-length:
-                code_block_line_length: 100
-                line_length: 250
-              blanks-around-headings:
-                lines_above: 1
-                lines_below: 0
-              no-duplicate-heading:
-                siblings_only: true
-              single-title: false
-              blanks-around-fences: false
-              blanks-around-lists: false
-              no-inline-html: false
-              first-line-heading: false
-
-            # Ignore files referenced by .gitignore (only valid at root)
-            gitignore: true
-
-            # Disable progress on stdout (only valid at root)
-            noProgress: true
-          '';
-      };
-      "mise/config.toml" = {
-        onChange = # bash
-          ''
-            run --quiet mise plugin install --all --yes --quiet
-            run --quiet mise install --yes --quiet
-          '';
-      };
       "zellij/config.kdl" = {
         text = # kdl
           ''
