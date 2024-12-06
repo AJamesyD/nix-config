@@ -206,7 +206,7 @@ in
         exports = {
           locations = {
             auto = true;
-            line_format = "{kind}:{path}:{line}:{column}:{message}";
+            line_format = "{kind}:{path}:{line}:{column}:{message}{context}";
           };
         };
         # default bacon.toml
