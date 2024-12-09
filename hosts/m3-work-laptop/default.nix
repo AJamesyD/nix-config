@@ -58,6 +58,16 @@
       {
         name = "zlib";
       }
+      # For Ruby 2.7 build
+      {
+        name = "libffi";
+      }
+      {
+        name = "libyaml";
+      }
+      {
+        name = "rbenv";
+      }
       # Other
       {
         name = "xdg-open-svc";

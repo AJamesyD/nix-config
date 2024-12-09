@@ -91,9 +91,8 @@
         name = "homebrew/services";
       }
     ];
-    brews =
-      [
-      ];
+    brews = [
+    ];
     casks = [
       {
         name = "karabiner-elements";
