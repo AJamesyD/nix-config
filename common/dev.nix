@@ -194,7 +194,10 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
+
       BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
+      # https://github.com/jdx/mise/issues/3099
+      MISE_LIBGIT2 = "false";
     };
   };
 
@@ -455,8 +458,8 @@ in
     mise = {
       enable = true;
       globalConfig = {
-        plugins = {
-          usage = "https://github.com/jdx/mise-usage.git";
+        alias = {
+          usage = "usage:jdx/mise-usage";
         };
         tools = {
           python = [

@@ -28,8 +28,8 @@
     mise = {
       enable = true;
       globalConfig = {
-        plugins = {
-          node = "ssh://git.amazon.com/pkg/RtxNode";
+        alias = {
+          node = "node:ssh://git.amazon.com/pkg/RtxNode";
         };
         tools = {
           node = [
