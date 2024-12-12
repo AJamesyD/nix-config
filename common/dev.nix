@@ -204,7 +204,6 @@ in
   programs = {
     atuin = {
       enable = true;
-      daemon.enable = true;
       flags = [ "--disable-up-arrow" ];
       settings = {
         auto_sync = false;
@@ -212,6 +211,27 @@ in
     };
     bacon = {
       enable = true;
+      # XXX: TEMP workaround until bacon updated in nixpkgs
+      package = pkgs.bacon.overrideAttrs (
+        _: prev: rec {
+          name = "bacon-${version}";
+          version = "3.5.0";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "Canop";
+            repo = "bacon";
+            rev = "refs/tags/v${version}";
+            hash = "sha256-gfISv1a/6XBl5L/ywHqG0285tDOasucp8YbJeXrv6OA=";
+          };
+
+          cargoDeps = prev.cargoDeps.overrideAttrs (
+            lib.const {
+              inherit src;
+              outputHash = "sha256-kYNIZsubPRa0FMF8w0sjVrHH10WSjFt7ClvT03sreJg=";
+            }
+          );
+        }
+      );
       settings = {
         # prefs.toml
         exports = {
@@ -223,18 +243,35 @@ in
         # default bacon.toml
         default_job = "clippy-all";
         jobs = {
+          check = {
+            command = [
+              "cargo"
+              "check"
+              "--message-format"
+              "json-diagnostic-rendered-ansi"
+            ];
+          };
+          check-all = {
+            command = [
+              "cargo"
+              "check"
+              "--all-targets"
+              "--message-format"
+              "json-diagnostic-rendered-ansi"
+            ];
+          };
           clippy-all = {
             command = [
               "cargo"
               "clippy"
               "--all-targets"
-              "--all-features"
-              "--color"
-              "always"
+              "--message-format"
+              "json-diagnostic-rendered-ansi"
               "--"
               "-A"
               "clippy::style"
             ];
+            ignore = [ "build/" ];
             need_stdout = false;
           };
         };
