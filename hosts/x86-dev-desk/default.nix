@@ -37,9 +37,10 @@
             # "lts-gallium" # v16
             # "lts-hydrogen" # v18
             # "20" # iron
-            "16.20.0"
-            "18.20.2"
+            # NOTE: First one becomes default
             "20.10.0"
+            "18.20.2"
+            "16.20.0"
           ];
         };
       };

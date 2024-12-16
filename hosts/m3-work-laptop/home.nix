@@ -120,9 +120,10 @@
       globalConfig = {
         tools = {
           node = [
-            "lts-gallium" # v16
-            "lts-hydrogen" # v18
+            # NOTE: First one becomes default
             "20" # iron
+            "lts-hydrogen" # v18
+            "lts-gallium" # v16
           ];
         };
       };
