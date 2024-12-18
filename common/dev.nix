@@ -211,27 +211,6 @@ in
     };
     bacon = {
       enable = true;
-      # XXX: TEMP workaround until bacon updated in nixpkgs
-      package = pkgs.bacon.overrideAttrs (
-        _: prev: rec {
-          name = "bacon-${version}";
-          version = "3.5.0";
-
-          src = pkgs.fetchFromGitHub {
-            owner = "Canop";
-            repo = "bacon";
-            rev = "refs/tags/v${version}";
-            hash = "sha256-gfISv1a/6XBl5L/ywHqG0285tDOasucp8YbJeXrv6OA=";
-          };
-
-          cargoDeps = prev.cargoDeps.overrideAttrs (
-            lib.const {
-              inherit src;
-              outputHash = "sha256-kYNIZsubPRa0FMF8w0sjVrHH10WSjFt7ClvT03sreJg=";
-            }
-          );
-        }
-      );
       settings = {
         # prefs.toml
         exports = {
