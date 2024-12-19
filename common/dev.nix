@@ -139,6 +139,7 @@ in
       rustup
       (lib.hiPrio rust-analyzer)
       mdbook
+      graphviz
 
       devenv
       cachix
