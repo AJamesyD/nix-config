@@ -196,6 +196,9 @@ in
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
 
       BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
+
+      GIT_PAGER = "delta --dark --paging=never";
+
       # https://github.com/jdx/mise/issues/3099
       MISE_LIBGIT2 = "false";
     };
@@ -375,10 +378,7 @@ in
       enable = true;
       delta = {
         enable = true;
-        options = {
-          dark = true;
-          navigate = true;
-        };
+        # Use $GIT_PAGER to set options
       };
       lfs = {
         enable = true;
@@ -434,11 +434,20 @@ in
     lazygit = {
       enable = true;
       settings = {
-        mouseEvents = false;
-        expandFocusedSidePanel = true;
-        nerdFontsVersion = "3";
-        showDivergenceFromBaseBranch = "onlyArrow";
+        gui = {
+          scrollHeight = 3;
+          scrollPastBottom = false;
+          scrollOffMargin = 3;
+          mouseEvents = false;
+          expandFocusedSidePanel = true;
+          nerdFontsVersion = "3";
+          showDivergenceFromBaseBranch = "onlyArrow";
+        };
         git = {
+          paging = {
+            # Use $GIT_PAGER to set options
+            useConfig = true;
+          };
           mainBranches = [
             "main"
             "mainline"
