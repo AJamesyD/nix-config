@@ -104,8 +104,8 @@ in
             run --quiet rustup toolchain install stable --component llvm-tools
             run --quiet rustup toolchain install nightly
             run --quiet rustup update
-            run --quiet rustup completions zsh > "$ZCOMPDIR/_rustup"
-            run --quiet rustup completions zsh cargo > "$ZCOMPDIR/_cargo"
+            run --quiet rustup completions zsh >"$ZCOMPDIR/_rustup"
+            run --quiet rustup completions zsh cargo >"$ZCOMPDIR/_cargo"
           '';
     };
     extraActivationPath = with pkgs; [
@@ -129,7 +129,6 @@ in
       gnutls
       # required to make terminfo files available before zsh login
       (lib.hiPrio ncurses)
-      neofetch
       pandoc
       netcat-gnu
       rsync
@@ -159,7 +158,6 @@ in
       tree-sitter
 
       docker
-      devpod
 
       dust
       # TODO: Figure out why having another cargo breaks CargoBrazil
@@ -189,9 +187,6 @@ in
     ];
 
     preferXdgDirectories = true;
-    sessionPath = lib.mkAfter [
-      "${config.xdg.dataHome}/bob/nvim-bin"
-    ];
     sessionVariables = {
       EDITOR = "nvim";
       LESSHISTFILE = "${config.xdg.dataHome}/less_history";
@@ -280,7 +275,7 @@ in
       profileExtra = # bash
         ''
           if [ -f /etc/profile ]; then
-            . /etc/profile
+                  . /etc/profile
           fi
         '';
     };
@@ -306,9 +301,6 @@ in
           file = "extras/sublime/tokyonight_night.tmTheme";
         };
       };
-    };
-    bottom = {
-      enable = true;
     };
     btop = {
       enable = true;
@@ -420,9 +412,6 @@ in
     go = {
       enable = true;
     };
-    helix = {
-      enable = true;
-    };
     htop = {
       enable = true;
     };
@@ -491,10 +480,8 @@ in
           # NOTE: First one becomes default
           python = [
             "3.12"
-            "3.11"
             "3.10"
             "3.9"
-            "3.8"
           ];
           usage = [
             "latest"
@@ -521,9 +508,6 @@ in
         };
       };
     };
-    thefuck = {
-      enable = true;
-    };
     # TODO: Topgrade
     yazi = {
       enable = true;
@@ -536,7 +520,6 @@ in
       enable = true;
       enableCompletion = true;
       enableVteIntegration = pkgs.stdenv.isLinux;
-      autocd = true;
       autosuggestion = {
         enable = true;
         strategy = [
@@ -558,18 +541,11 @@ in
         clr = "clear";
         ghauth = # bash
           ''
-            unset GITHUB_TOKEN &&
-            export GITHUB_TOKEN="$(gh auth token)"''; # Cannot have newline at end of command or else it won't be chainable
+            unset GITHUB_TOKEN
+            export GITHUB_TOKEN="$(gh auth token)"
+          '';
         lg = "lazygit";
         v = "nvim";
-        zja = # bash
-          ''
-            zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
-          '';
-        zjd = # bash
-          ''
-            zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
-          '';
         zsource = # bash
           ''
             source "$ZDOTDIR/.zshrc"
@@ -605,16 +581,11 @@ in
         custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         plugins = [
           "aws"
-          "cp"
           "direnv"
           "fzf"
-          "gh"
           "git"
           "git-auto-fetch"
           "brew"
-          "mise"
-          "rust"
-          "zoxide"
         ];
       };
       initExtraFirst = # bash

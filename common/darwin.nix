@@ -65,7 +65,6 @@
         [
           alacritty
           kitty
-          rio
         ]
       );
     systemPath = lib.mkBefore [

@@ -5,6 +5,18 @@ _:
     zellij = {
       enable = true;
     };
+    zsh = {
+      shellAliases = {
+        zja = # bash
+          ''
+            zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
+          '';
+        zjd = # bash
+          ''
+            zellij delete-session "$(zellij list-sessions --no-formatting --short | fzf --prompt='delete> ')"
+          '';
+      };
+    };
   };
 
   xdg = {
