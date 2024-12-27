@@ -64,7 +64,7 @@
         with pkgs.pkgsBuildBuild;
         [
           alacritty
-          kitty
+          # kitty
         ]
       );
     systemPath = lib.mkBefore [

@@ -4,14 +4,14 @@
   pkgs,
   ...
 }:
-let
-  kitty_icon = pkgs.fetchFromGitHub {
-    owner = "diegobit";
-    repo = "kitty-icon";
-    rev = "0deabe1aab102d8052b4b12b38631ce2ca16d6b0";
-    sha256 = "sha256-vZCNNVfdCTYPiSSXtug7xfW3c0Cx/H0S3w+f1q3Prgs=";
-  };
-in
+# let
+#   kitty_icon = pkgs.fetchFromGitHub {
+#     owner = "diegobit";
+#     repo = "kitty-icon";
+#     rev = "0deabe1aab102d8052b4b12b38631ce2ca16d6b0";
+#     sha256 = "sha256-vZCNNVfdCTYPiSSXtug7xfW3c0Cx/H0S3w+f1q3Prgs=";
+#   };
+# in
 {
   home = {
     packages = with pkgs; [
@@ -110,7 +110,7 @@ in
       };
     };
     kitty = {
-      enable = true;
+      enable = false;
       settings = {
         # Fonts
         font_family = "Fira Code";
@@ -164,15 +164,15 @@ in
     };
   };
 
-  xdg = {
-    enable = true;
-    configFile = {
-      "kitty/kitty.app.icns" = {
-        source = "${kitty_icon}/kitty.icns";
-      };
-      "kitty/kitty.app.png" = {
-        source = "${kitty_icon}/kitty.png";
-      };
-    };
-  };
+  # xdg = {
+  #   enable = true;
+  #   configFile = {
+  #     "kitty/kitty.app.icns" = {
+  #       source = "${kitty_icon}/kitty.icns";
+  #     };
+  #     "kitty/kitty.app.png" = {
+  #       source = "${kitty_icon}/kitty.png";
+  #     };
+  #   };
+  # };
 }
