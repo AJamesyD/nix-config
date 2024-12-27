@@ -102,9 +102,9 @@
 
         cmd-shift-alt-ctrl-r = # bash
           ''
-            exec-and-forget aerospace reload-config && \
-            aerospace enable off && \
-            aerospace enable on && \
+            exec-and-forget aerospace reload-config
+            aerospace enable off
+            aerospace enable on
           '';
       };
     };

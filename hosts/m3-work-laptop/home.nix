@@ -138,17 +138,18 @@
         auth = "mwinit -f -s && kinit -f";
         nixup = # bash
           ''
-            ghauth &&
+            ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN" &&
-            zsource''; # Cannot have newline at end of command or else it won't be chainable
+            darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN"
+            zsource
+          '';
         up = "nixup";
         neovide-ssh = # bash
           ''
             (ssh -L 6666:localhost:6666 $DEV_DESK_HOSTNAME \
-            'nvim --headless --listen localhost:6666' &) &&
-            sleep 1s &&
-            neovide --server=localhost:6666'';
+                    'nvim --headless --listen localhost:6666' &) &&
+                    sleep 1s &&
+                    neovide --server=localhost:6666'';
       };
     };
   };
