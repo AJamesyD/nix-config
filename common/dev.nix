@@ -519,7 +519,6 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      enableVteIntegration = pkgs.stdenv.isLinux;
       autosuggestion = {
         enable = true;
         strategy = [

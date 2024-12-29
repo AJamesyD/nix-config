@@ -122,7 +122,12 @@
   };
 
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true; # default shell on catalina
+  programs.zsh = {
+    enable = true; # default shell on catalina
+    # XXX: Disable completion in favor of home-manager setup
+    enableBashCompletion = false;
+    enableCompletion = false;
+  };
 
   # Enable sudo authentication with Touch ID.
   security = {
