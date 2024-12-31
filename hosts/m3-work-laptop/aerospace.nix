@@ -144,6 +144,12 @@
     }
     {
       "if" = {
+        app-id = "com.mitchellh.ghostty";
+      };
+      run = "move-node-to-workspace dev";
+    }
+    {
+      "if" = {
         app-id = "net.kovidgoyal.kitty";
       };
       run = "move-node-to-workspace dev";

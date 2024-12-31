@@ -85,6 +85,10 @@
         greedy = true;
       }
       {
+        name = "ghostty";
+        greedy = true;
+      }
+      {
         name = "neovide";
         greedy = true;
       }
