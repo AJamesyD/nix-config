@@ -47,34 +47,21 @@ in
             src = pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "tmux";
-              rev = "v1.0.3";
-              hash = "sha256-p0xrk4WXNoVJfekA/L3cxIVrLqjFbBe2S/rc/6JXz6M=";
+              rev = "v2.1.2";
+              hash = "sha256-vBYBvZrMGLpMU059a+Z4SEekWdQD0GrDqBQyqfkEHPg=";
             };
           });
 
           extraConfig = # tmux
             ''
-              set -g @catppuccin_flavor 'mocha'
-
-              set -g @truncated_directory_text "#{s|#{HOME}|~|;s|/local~|~|;s|/workplace/angaidan|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
+              set -g @catppuccin_flavor "mocha"
+              set -g @catppuccin_status_background "none"
 
               set -g @catppuccin_window_number_position "right"
-              set -g @catppuccin_window_default_fill "number"
-              set -g @catppuccin_window_current_fill "number"
-              set -g @catppuccin_window_default_text "#{window_name}"
+              set -g @catppuccin_window_text "#{window_name}"
               set -g @catppuccin_window_current_text "#{window_name}#{?window_zoomed_flag,(),}"
 
-              # TODO: Move back to "slanted" when fixed upstream
-              set -g @catppuccin_window_status_style "custom"
-              set -g @catppuccin_window_left_separator "█"
-              set -g @catppuccin_window_middle_separator " █"
-              set -g @catppuccin_window_right_separator "█ "
-
-              set -g @catppuccin_status_left_separator  ""
-              set -g @catppuccin_status_right_separator " "
-              set -g @catppuccin_status_fill "all"
-              set -g @catppuccin_status_connect_separator "yes"
-
+              set -g @truncated_directory_text "#{s|#{HOME}|~|;s|/local~|~|;s|/workplace/angaidan|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
               set -g @catppuccin_directory_text "#{E:@truncated_directory_text}"
               set -g @catppuccin_date_time_text "%H:%M"
 
@@ -156,11 +143,12 @@ in
           set -g default-command ${(lib.getExe pkgs.zsh)}
 
           set -g status-position top
-          # For Catpuccin
-          set -g status-right-length 100
+
+          # For Catppuccin
+          set -g status-left-length 100
           set -g status-left ""
+          set -g status-right-length 100
           set -g status-right "#{E:@catppuccin_status_directory}"
-          set -ag status-right "#{E:@catppuccin_status_date_time}"
           set -ag status-right "#{E:@catppuccin_status_session}"
 
           setw -q -g utf8 on
@@ -186,6 +174,16 @@ in
           set -as terminal-features "xterm-kitty*:strikethrough"
           set -as terminal-features "xterm-kitty*:title"
           set -as terminal-features "xterm-kitty*:usstyle"
+
+          set -as terminal-features "xterm-ghostty*:RGB"
+          set -as terminal-features "xterm-ghostty*:clipboard"
+          set -as terminal-features "xterm-ghostty*:ccolour"
+          set -as terminal-features "xterm-ghostty*:cstyle"
+          set -as terminal-features "xterm-ghostty*:focus"
+          set -as terminal-features "xterm-ghostty*:hyperlinks"
+          set -as terminal-features "xterm-ghostty*:strikethrough"
+          set -as terminal-features "xterm-ghostty*:title"
+          set -as terminal-features "xterm-ghostty*:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000
