@@ -91,6 +91,8 @@ in
         bbb = "brc --allPackages brazil-build";
         bbra = "bbr apollo-pkg";
 
+        cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
+
         devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh -l";
         devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
       };

@@ -480,8 +480,6 @@ in
           # NOTE: First one becomes default
           python = [
             "3.12"
-            "3.10"
-            "3.9"
           ];
           usage = [
             "latest"
@@ -533,7 +531,6 @@ in
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
-        cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
         cat = "bat -pp";
         clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
         clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
@@ -630,7 +627,9 @@ in
             export SSH_AUTH_SOCK="$CONST_SSH_SOCK"
           fi
 
-          [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+          local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
+
+          [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
         '';
       envExtra = # bash
         ''

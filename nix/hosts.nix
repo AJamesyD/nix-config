@@ -37,6 +37,11 @@ let
       throw "unknown host type '${type}'";
 in
 {
+  dellangelis = mkHost {
+    type = "home-manager";
+    hostPlatform = "x86_64-linux";
+    username = "aidandeangelis";
+  };
   x86-dev-desk = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
