@@ -213,14 +213,32 @@ in
       settings = {
         # prefs.toml
         exports = {
-          locations = {
+          cargo-json-spans = {
             auto = true;
-            line_format = "{kind}:{path}:{line}:{column}:{message}{context}";
+            exporter = "analyzer";
+            line_format = "{diagnostic.level}|:|{span.file_name}|:|{span.line_start}|:|{span.line_end}|:|{span.column_start}|:|{span.column_end}|:|{diagnostic.message}|:|{span.suggested_replacement}";
+            path = ".bacon-locations";
           };
         };
         # default bacon.toml
-        default_job = "clippy-all";
+        default_job = "bacon-ls";
         jobs = {
+          bacon-ls = {
+            command = [
+              "cargo"
+              "clippy"
+              "--all-targets"
+              "--all-features"
+              "--message-format"
+              "json-diagnostic-rendered-ansi"
+              "--"
+              "-A"
+              "clippy::style"
+            ];
+            ignore = [ "build/" ];
+            analyzer = "cargo_json";
+            need_stdout = true;
+          };
           check = {
             command = [
               "cargo"
@@ -228,6 +246,7 @@ in
               "--message-format"
               "json-diagnostic-rendered-ansi"
             ];
+            ignore = [ "build/" ];
           };
           check-all = {
             command = [
@@ -237,6 +256,7 @@ in
               "--message-format"
               "json-diagnostic-rendered-ansi"
             ];
+            ignore = [ "build/" ];
           };
           clippy-all = {
             command = [
@@ -250,7 +270,6 @@ in
               "clippy::style"
             ];
             ignore = [ "build/" ];
-            need_stdout = false;
           };
         };
       };
@@ -261,15 +280,15 @@ in
       bashrcExtra = # bash
         ''
           if [ -f /etc/bashrc ]; then
-            . /etc/bashrc
+                  . /etc/bashrc
           fi
 
           # SSH for use with ControlMaster
           local CONST_SSH_SOCK="$HOME/.ssh/ssh-auth-sock"
           if [ ! -z ''${SSH_AUTH_SOCK+x} ] && [ "$SSH_AUTH_SOCK" != "$CONST_SSH_SOCK" ]; then
-            rm -f "$CONST_SSH_SOCK"
-            ln -sf "$SSH_AUTH_SOCK" "$CONST_SSH_SOCK"
-            export SSH_AUTH_SOCK="$CONST_SSH_SOCK"
+                  rm -f "$CONST_SSH_SOCK"
+                  ln -sf "$SSH_AUTH_SOCK" "$CONST_SSH_SOCK"
+                  export SSH_AUTH_SOCK="$CONST_SSH_SOCK"
           fi
         '';
       profileExtra = # bash
