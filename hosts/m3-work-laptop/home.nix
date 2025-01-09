@@ -121,9 +121,8 @@
         tools = {
           node = [
             # NOTE: First one becomes default
+            "22" # jod
             "20" # iron
-            "lts-hydrogen" # v18
-            "lts-gallium" # v16
           ];
         };
       };
