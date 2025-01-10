@@ -34,27 +34,28 @@ _:
                     bind "down" { MoveFocus "down"; }
                     bind "up" { MoveFocus "up"; }
                     bind "right" { MoveFocus "right"; }
-                    bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
-                    bind "-" { NewPane "down"; SwitchToMode "locked"; }
-                    bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "locked"; }
-                    bind "f" { ToggleFocusFullscreen; SwitchToMode "locked"; }
                     bind "h" { MoveFocus "left"; }
                     bind "j" { MoveFocus "down"; }
                     bind "k" { MoveFocus "up"; }
                     bind "l" { MoveFocus "right"; }
+
+                    bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
+                    bind "-" { NewPane "down"; SwitchToMode "locked"; }
+                    // bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "locked"; }
+                    bind "f" { ToggleFocusFullscreen; SwitchToMode "locked"; }
                     bind "n" { NewPane; SwitchToMode "locked"; }
                     bind "p" { SwitchToMode "normal"; }
                     bind "|" { NewPane "right"; SwitchToMode "locked"; }
-                    bind "w" { ToggleFloatingPanes; SwitchToMode "locked"; }
+                    // bind "w" { ToggleFloatingPanes; SwitchToMode "locked"; }
                     bind "x" { CloseFocus; SwitchToMode "locked"; }
                     bind "z" { TogglePaneFrames; SwitchToMode "locked"; }
                     bind "tab" { SwitchFocus; }
                 }
                 tab {
                     bind "left" { GoToPreviousTab; }
-                    bind "down" { GoToNextTab; }
-                    bind "up" { GoToPreviousTab; }
                     bind "right" { GoToNextTab; }
+                    bind "h" { GoToPreviousTab; }
+                    bind "l" { GoToNextTab; }
                     bind "1" { GoToTab 1; SwitchToMode "locked"; }
                     bind "2" { GoToTab 2; SwitchToMode "locked"; }
                     bind "3" { GoToTab 3; SwitchToMode "locked"; }
@@ -64,16 +65,14 @@ _:
                     bind "7" { GoToTab 7; SwitchToMode "locked"; }
                     bind "8" { GoToTab 8; SwitchToMode "locked"; }
                     bind "9" { GoToTab 9; SwitchToMode "locked"; }
+
                     bind "[" { BreakPaneLeft; SwitchToMode "locked"; }
                     bind "]" { BreakPaneRight; SwitchToMode "locked"; }
-                    bind "b" { BreakPane; SwitchToMode "locked"; }
-                    bind "h" { GoToPreviousTab; }
-                    bind "j" { GoToNextTab; }
-                    bind "k" { GoToPreviousTab; }
-                    bind "l" { GoToNextTab; }
+                    // bind "b" { BreakPane; SwitchToMode "locked"; }
                     bind "n" { NewTab; SwitchToMode "locked"; }
                     bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
-                    bind "s" { ToggleActiveSyncTab; SwitchToMode "locked"; }
+                    bind "c" { SwitchToMode "renametab"; TabNameInput 0; }
+                    // bind "s" { ToggleActiveSyncTab; SwitchToMode "locked"; }
                     bind "t" { SwitchToMode "normal"; }
                     bind "x" { CloseTab; SwitchToMode "locked"; }
                     bind "tab" { ToggleTab; }
@@ -83,17 +82,18 @@ _:
                     bind "down" { Resize "Increase down"; }
                     bind "up" { Resize "Increase up"; }
                     bind "right" { Resize "Increase right"; }
-                    bind "+" { Resize "Increase"; }
-                    bind "-" { Resize "Decrease"; }
-                    bind "=" { Resize "Increase"; }
-                    bind "H" { Resize "Decrease left"; }
-                    bind "J" { Resize "Decrease down"; }
-                    bind "K" { Resize "Decrease up"; }
-                    bind "L" { Resize "Decrease right"; }
                     bind "h" { Resize "Increase left"; }
                     bind "j" { Resize "Increase down"; }
                     bind "k" { Resize "Increase up"; }
                     bind "l" { Resize "Increase right"; }
+                    bind "H" { Resize "Decrease left"; }
+                    bind "J" { Resize "Decrease down"; }
+                    bind "K" { Resize "Decrease up"; }
+                    bind "L" { Resize "Decrease right"; }
+                    bind "+" { Resize "Increase"; }
+                    bind "-" { Resize "Decrease"; }
+                    bind "=" { Resize "Increase"; }
+
                     bind "r" { SwitchToMode "normal"; }
                 }
                 move {
@@ -105,6 +105,7 @@ _:
                     bind "j" { MovePane "down"; }
                     bind "k" { MovePane "up"; }
                     bind "l" { MovePane "right"; }
+
                     bind "m" { SwitchToMode "normal"; }
                     bind "n" { MovePane; }
                     bind "p" { MovePaneBackwards; }
@@ -115,12 +116,13 @@ _:
                     bind "Alt down" { MoveFocus "down"; SwitchToMode "locked"; }
                     bind "Alt up" { MoveFocus "up"; SwitchToMode "locked"; }
                     bind "Alt right" { MoveFocusOrTab "right"; SwitchToMode "locked"; }
-                    bind "e" { EditScrollback; SwitchToMode "locked"; }
-                    bind "f" { SwitchToMode "entersearch"; SearchInput 0; }
                     bind "Alt h" { MoveFocusOrTab "left"; SwitchToMode "locked"; }
                     bind "Alt j" { MoveFocus "down"; SwitchToMode "locked"; }
                     bind "Alt k" { MoveFocus "up"; SwitchToMode "locked"; }
                     bind "Alt l" { MoveFocusOrTab "right"; SwitchToMode "locked"; }
+
+                    bind "f" { SwitchToMode "entersearch"; SearchInput 0; }
+                    bind "e" { EditScrollback; SwitchToMode "locked"; }
                     bind "s" { SwitchToMode "normal"; }
                 }
                 search {
@@ -160,17 +162,18 @@ _:
                     bind "Alt down" { MoveFocus "down"; }
                     bind "Alt up" { MoveFocus "up"; }
                     bind "Alt right" { MoveFocusOrTab "right"; }
+                    bind "Alt h" { MoveFocusOrTab "left"; }
+                    bind "Alt i" { MoveTab "left"; }
+                    bind "Alt j" { MoveFocus "down"; }
+                    bind "Alt k" { MoveFocus "up"; }
+                    bind "Alt l" { MoveFocusOrTab "right"; }
+
                     bind "Alt +" { Resize "Increase"; }
                     bind "Alt -" { Resize "Decrease"; }
                     bind "Alt =" { Resize "Increase"; }
                     bind "Alt [" { PreviousSwapLayout; }
                     bind "Alt ]" { NextSwapLayout; }
                     bind "Alt f" { ToggleFloatingPanes; }
-                    bind "Alt h" { MoveFocusOrTab "left"; }
-                    bind "Alt i" { MoveTab "left"; }
-                    bind "Alt j" { MoveFocus "down"; }
-                    bind "Alt k" { MoveFocus "up"; }
-                    bind "Alt l" { MoveFocusOrTab "right"; }
                     bind "Alt n" { NewPane; }
                     bind "Alt o" { MoveTab "right"; }
                 }
@@ -410,7 +413,7 @@ _:
             // defaults to the scrollback size. If this number is higher than the scrollback size, it will
             // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
             //
-            scrollback_lines_to_serialize 10000
+            scrollback_lines_to_serialize 2000
 
             // Enable or disable the rendering of styled and colored underlines (undercurl).
             // May need to be disabled for certain unsupported terminals
