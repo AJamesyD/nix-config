@@ -16,8 +16,9 @@
       ibm-plex
       victor-mono
 
-      zig
       gcc
+      gnumake
+      zig
 
       bitcoin
       sparrow
