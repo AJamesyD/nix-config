@@ -16,6 +16,9 @@
       ibm-plex
       victor-mono
 
+      zig
+      gcc
+
       bitcoin
       sparrow
     ];
