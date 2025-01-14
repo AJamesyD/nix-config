@@ -54,7 +54,6 @@
     zsh = {
       enable = true;
       shellAliases = {
-        auth = "mwinit -o && kinit -f";
         nixup = # bash
           ''
             ghauth

@@ -134,7 +134,7 @@
           eval "$(brew shellenv)"
         '';
       shellAliases = {
-        auth = "mwinit -f -s && kinit -f";
+        auth = "mwinit -f -s";
         nixup = # bash
           ''
             ghauth
