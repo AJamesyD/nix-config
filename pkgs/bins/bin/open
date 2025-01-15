@@ -5,6 +5,8 @@
 set -eo pipefail
 if test -n "$SSH_TTY"; then
   echo "$@" | nc -c -w1 localhost 2226
-else
+elif [ -f /usr/bin/open ]; then
   /usr/bin/open "$@"
+else
+  /usr/bin/xdg-open "$@"
 fi
