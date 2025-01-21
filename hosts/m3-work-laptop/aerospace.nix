@@ -14,14 +14,14 @@
   automatically-unhide-macos-hidden-apps = true;
   gaps = {
     inner = {
-      horizontal = 15;
-      vertical = 15;
+      horizontal = 10;
+      vertical = 10;
     };
     outer = {
-      left = 10;
-      bottom = 10;
-      top = 10;
-      right = 10;
+      left = 5;
+      bottom = 5;
+      top = 5;
+      right = 5;
     };
   };
   mode = {

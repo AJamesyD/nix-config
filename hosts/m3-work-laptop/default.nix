@@ -68,6 +68,9 @@
       {
         name = "rbenv";
       }
+      {
+        name = "ruby-build";
+      }
       # Other
       {
         name = "xdg-open-svc";
@@ -165,7 +168,7 @@
           "Applications/Microsoft Outlook.app"
           "Applications/Amazon Chime.app"
           "Applications/Slack.app"
-          "${pkgs.alacritty}/Applications/Alacritty.app"
+          "Applications/Ghostty.app"
         ];
       };
       spaces = {
