@@ -21,9 +21,15 @@ let
         modules = [
           (../hosts + "/${hostName}")
           {
-            environment.variables = {
-              # WARN: Using this is Neovim nix lsp configs, until I can find something smarter
-              _NIX_HOSTNAME = hostName;
+            environment = {
+              systemPackages = with pkgs; [
+                # For sops-nix secrets management
+                age
+              ];
+              variables = {
+                # WARN: Using this is Neovim nix lsp configs, until I can find something smarter
+                _NIX_HOSTNAME = hostName;
+              };
             };
             nix = {
               nixPath = [ "nixpkgs=/run/current-system/sw/nixpkgs" ];
@@ -35,6 +41,7 @@ let
             };
           }
           inputs.home-manager.darwinModules.home-manager
+          inputs.sops-nix.darwinModules.sops
         ];
         specialArgs = {
           hostType = type;

@@ -18,6 +18,8 @@ let
           packages = with pkgs; [
             # For terminfo definitions
             (lib.hiPrio ncurses)
+            # For sops-nix secrets management
+            age
           ];
 
           sessionVariables = {
@@ -63,6 +65,18 @@ let
         };
       };
 
+      sops = {
+        age.keyfile = "/home/${username}/.config/sops/age/keys.txt";
+
+        defaultSopsFile = ./secrets.yaml;
+        defaultSymlinkPath = "/run/user/1000/secrets";
+        defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+
+        secrets.openai_api_key = {
+          path = "${config.sops.defaultSymlinkPath}/openai_api_key";
+        };
+      };
+
       targets.genericLinux.enable = true;
 
       xdg = {
@@ -80,6 +94,9 @@ let
         inherit pkgs;
         modules = [
           (genModules hostName attrs)
+        ];
+        sharedModules = [
+          inputs.sops.homeManagerModules.sops
         ];
         extraSpecialArgs = {
           hostType = type;

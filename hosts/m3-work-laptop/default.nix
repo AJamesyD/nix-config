@@ -1,5 +1,6 @@
 {
   self,
+  config,
   pkgs,
   ...
 }:
@@ -157,6 +158,18 @@
       width = 10.0;
     };
   };
+
+  # sops = {
+  #   age.keyfile = "/Users/angaidan/.config/sops/age/keys.txt";
+  #
+  #   defaultSopsFile = ./secrets.yaml;
+  #   defaultSymlinkPath = "/run/user/1000/secrets";
+  #   defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+  #
+  #   secrets.openai_api_key = {
+  #     path = "${config.sops.defaultSymlinkPath}/openai_api_key";
+  #   };
+  # };
 
   system = {
     # Set Git commit hash for darwin-version.
