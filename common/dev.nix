@@ -158,6 +158,7 @@ in
       tree-sitter
 
       docker
+      ollama
 
       dust
       # TODO: Figure out why having another cargo breaks CargoBrazil
