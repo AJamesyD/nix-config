@@ -24,6 +24,7 @@
       sparrow
 
       obsidian
+      transmission
       vlc
 
       mullvad-browser
