@@ -3,7 +3,8 @@ _:
 {
   programs = {
     zellij = {
-      enable = true;
+      # TODO: Re-enable when I figure out why it launches automatically
+      enable = false;
     };
     zsh = {
       shellAliases = {
