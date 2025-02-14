@@ -73,6 +73,9 @@
       }
       # Other
       {
+        name = "ruby@3.2";
+      }
+      {
         name = "xdg-open-svc";
         restart_service = "changed";
         start_service = true;
