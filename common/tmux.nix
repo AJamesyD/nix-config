@@ -225,10 +225,10 @@ in
 
 
           # -- Window --
-          bind p previous-window
           bind C-p previous-window
-          bind n next-window
+          bind C-b previous-window
           bind C-n next-window
+          bind C-a next-window
 
           # -- Pane --
           unbind %
