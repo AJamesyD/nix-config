@@ -17,9 +17,17 @@ in
             "envSetup"
           ] # bash
           ''
-            run --quiet toolbox completion zsh > "$ZCOMPDIR/_toolbox"
+            run --quiet toolbox completion zsh >"$ZCOMPDIR/_toolbox"
             run --quiet toolbox update
             run --quiet toolbox clean
+
+            if $(command -v axe 2>&1 >/dev/null); then
+                    run --quiet axe completion zsh >"$ZCOMPDIR/_axe"
+            fi
+
+            if $(command -v ada 2>&1 >/dev/null); then
+                    run --quiet ada completion zsh >"$ZCOMPDIR/_ada"
+            fi
           '';
       brazil =
         lib.hm.dag.entryAfter
@@ -58,9 +66,9 @@ in
 
           local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
           if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
-            source "$BRAZIL_ZSH_COMPLETION"
+                  source "$BRAZIL_ZSH_COMPLETION"
           else
-            echo "WARNING: brazil zsh completions have not been set up"
+                  echo "WARNING: brazil zsh completions have not been set up"
           fi
         '';
       sessionVariables = {
