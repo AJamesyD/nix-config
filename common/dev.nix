@@ -161,6 +161,7 @@ in
       ollama
 
       dust
+      hyperfine
       # TODO: Figure out why having another cargo breaks CargoBrazil
       (rustPlatform.buildRustPackage rec {
         pname = "ion-cli";
