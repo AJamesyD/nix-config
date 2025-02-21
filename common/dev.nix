@@ -162,20 +162,6 @@ in
 
       dust
       hyperfine
-      # TODO: Figure out why having another cargo breaks CargoBrazil
-      (rustPlatform.buildRustPackage rec {
-        pname = "ion-cli";
-        version = "v0.9.1";
-
-        src = fetchFromGitHub {
-          owner = "amazon-ion";
-          repo = pname;
-          rev = version;
-          sha256 = "sha256-CA5eNkp1G07i90dnq6Ck/yukQ2BsUk57IFvIbxG/1Jo=";
-        };
-        cargoHash = "sha256-hpzKEcGK0aLA3PDV0n//rbVbmXgVAuoXSY3f2jyupaM=";
-        doCheck = false;
-      })
 
       gum
       (pkgs.fetchFromGitHub {
