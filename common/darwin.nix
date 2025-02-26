@@ -131,7 +131,12 @@
 
   # Enable sudo authentication with Touch ID.
   security = {
-    pam.enableSudoTouchIdAuth = true;
+    pam.services = {
+      sudo_local = {
+        reattach = true;
+        touchIdAuth = true;
+      };
+    };
     sudo.extraConfig = # bash
       ''
         Defaults timestamp_timeout = 2
