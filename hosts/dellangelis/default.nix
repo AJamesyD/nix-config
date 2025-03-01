@@ -21,7 +21,6 @@
       zig
 
       bitcoin
-      sparrow
 
       obsidian
       transmission
