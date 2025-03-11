@@ -119,6 +119,7 @@ in
       (pkgs.callPackage ../pkgs/bins { })
 
       coreutils
+      curl
       findutils
       gawk
       git
