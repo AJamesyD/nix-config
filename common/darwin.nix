@@ -171,15 +171,17 @@
         NSGlobalDomain = {
           AppleMenuBarVisibleInFullscreen = false;
           AppleWindowTabbingMode = "always";
+          InitialKeyRepeat = 10;
+          KeyRepeat = 2;
           "com.apple.sound.uiaudio.enabled" = false;
         };
       };
       NSGlobalDomain = {
-        AppleShowAllFiles = true;
         AppleEnableMouseSwipeNavigateWithScrolls = false;
         AppleEnableSwipeNavigateWithScrolls = false;
         AppleInterfaceStyle = "Dark";
         AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
         AppleShowScrollBars = "WhenScrolling";
         InitialKeyRepeat = 25;
         KeyRepeat = 2;
