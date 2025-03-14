@@ -133,7 +133,6 @@
       "if" = {
         app-id = "com.cisco.anyconnect.gui";
       };
-      check-further-callbacks = true;
       run = "layout floating";
     }
     {
