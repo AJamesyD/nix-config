@@ -65,6 +65,7 @@
         cmd-shift-alt-1 = "workspace firefox";
         cmd-shift-alt-2 = "workspace firefox-2";
         cmd-shift-alt-3 = "workspace firefox-3";
+        cmd-shift-alt-i = "workspace ignored";
         cmd-shift-alt-m = "workspace misc";
         cmd-shift-alt-s = "workspace slack";
 
@@ -75,6 +76,7 @@
         cmd-shift-alt-ctrl-1 = "move-node-to-workspace firefox --focus-follows-window";
         cmd-shift-alt-ctrl-2 = "move-node-to-workspace firefox-2 --focus-follows-window";
         cmd-shift-alt-ctrl-3 = "move-node-to-workspace firefox-3 --focus-follows-window";
+        cmd-shift-alt-ctrl-i = "move-node-to-workspace ignored --focus-follows-window";
         cmd-shift-alt-ctrl-m = "move-node-to-workspace misc --focus-follows-window";
         cmd-shift-alt-ctrl-s = "move-node-to-workspace slack --focus-follows-window";
 
@@ -111,7 +113,10 @@
       "if" = {
         app-id = "com.cisco.anyconnect.gui";
       };
-      run = "layout floating";
+      run = [
+        "layout floating"
+        "move-node-to-workspace misc"
+      ];
     }
     {
       "if" = {
