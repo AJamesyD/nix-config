@@ -173,6 +173,8 @@ in
       })
       libnotify
       sesh
+
+      docker
     ];
 
     preferXdgDirectories = true;
