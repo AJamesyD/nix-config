@@ -23,7 +23,7 @@
       bitcoin
 
       obsidian
-      transmission
+      transmission_4
       vlc
 
       mullvad-browser
