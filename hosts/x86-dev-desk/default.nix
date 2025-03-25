@@ -12,6 +12,8 @@
   home = {
     packages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
+      krb5
+
       stylua
     ];
     # This value determines the Home Manager release that your configuration is

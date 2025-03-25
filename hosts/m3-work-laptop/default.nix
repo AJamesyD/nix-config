@@ -11,9 +11,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {
-    systemPackages = with pkgs; [
-      (lib.hiPrio opensshWithKerberos)
-    ];
     systemPath = [
       # Comes from XQuartz
       "/opt/X11/bin"
