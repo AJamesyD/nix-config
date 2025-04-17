@@ -124,6 +124,12 @@
     }
     {
       "if" = {
+        app-id = "com.raycast.macos";
+      };
+      run = "layout floating";
+    }
+    {
+      "if" = {
         app-id = "org.alacritty";
       };
       run = "move-node-to-workspace 1-dev";
