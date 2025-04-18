@@ -194,6 +194,12 @@
     }
     {
       "if" = {
+        app-id = "org.chromium.Chromium";
+      };
+      run = "move-node-to-workspace 6-entertainment";
+    }
+    {
+      "if" = {
         app-id = "com.spotify.client";
       };
       run = "move-node-to-workspace 6-entertainment";
