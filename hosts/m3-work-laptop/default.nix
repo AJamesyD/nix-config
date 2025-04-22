@@ -21,7 +21,7 @@
     enable = true;
     taps = [
       {
-        name = "amazon/homebrew-amazon";
+        name = "amzn/amzn";
         clone_target = "ssh://git.amazon.com/pkg/HomebrewAmazon";
         force_auto_update = true;
       }
@@ -84,10 +84,6 @@
         greedy = true;
       }
       {
-        name = "amazon-acronyms";
-        greedy = true;
-      }
-      {
         name = "eloston-chromium";
         args = {
           no_quarantine = true;
@@ -112,6 +108,10 @@
       }
       {
         name = "spotify";
+        greedy = true;
+      }
+      {
+        name = "visual-studio-code";
         greedy = true;
       }
       {
