@@ -74,6 +74,7 @@ in
 
               export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
               export PATH="$PATH:${config.home.profileDirectory}/bin"
+              export PATH="$PATH:/usr/bin"
             ''
             +
               lib.strings.optionalString pkgs.stdenv.isDarwin # bash
