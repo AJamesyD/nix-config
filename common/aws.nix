@@ -83,8 +83,8 @@ in
           else
             null;
 
-        DEV_DESK_HOSTNAME = "dev-dsk-angaidan-2b-8ba1a9f5.us-west-2.amazon.com";
-        DEV_DESK_HOSTNAME_ARM = "dev-dsk-angaidan-2a-e67dd8f6.us-west-2.amazon.com";
+        DEV_DESK_HOSTNAME = "i-0350c0ed5d6a69b55";
+        DEV_DESK_HOSTNAME_AL2023_ARM = "i-0841f88b54e32ff70";
       };
       shellAliases = {
         bb = "brazil-build";
@@ -102,7 +102,7 @@ in
         cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
 
         devdesk = "ssh -t $DEV_DESK_HOSTNAME zsh -l";
-        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_ARM zsh -l";
+        devdesk-arm = "ssh -t $DEV_DESK_HOSTNAME_AL2023_ARM zsh -l";
       };
     };
   };
