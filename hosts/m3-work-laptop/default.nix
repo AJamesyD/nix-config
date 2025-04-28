@@ -21,11 +21,6 @@
     enable = true;
     taps = [
       {
-        name = "amzn/amzn";
-        clone_target = "ssh://git.amazon.com/pkg/HomebrewAmazon";
-        force_auto_update = true;
-      }
-      {
         name = "caarlos0/tap";
       }
       {
