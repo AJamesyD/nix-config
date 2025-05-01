@@ -160,6 +160,7 @@ in
       tree-sitter
 
       docker
+      docker-compose
       ollama
 
       dust
@@ -174,8 +175,6 @@ in
       })
       libnotify
       sesh
-
-      docker
     ];
 
     preferXdgDirectories = true;
@@ -186,6 +185,8 @@ in
       BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
 
       GIT_PAGER = "delta --dark --paging=never";
+
+      GOPROXY = "direct";
 
       # https://github.com/jdx/mise/issues/3099
       MISE_LIBGIT2 = "false";
@@ -414,6 +415,7 @@ in
     };
     go = {
       enable = true;
+      goBin = ".local/bin.go";
     };
     htop = {
       enable = true;
@@ -422,6 +424,9 @@ in
       enable = true;
     };
     jq = {
+      enable = true;
+    };
+    lazydocker = {
       enable = true;
     };
     lazygit = {
