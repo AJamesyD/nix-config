@@ -34,22 +34,6 @@
       # '')
       qmk
       keymapviz
-
-      # For Mac development
-      cmake
-      gnulib
-      libgit2
-      libssh2
-      mold
-      openssl
-      pkg-config
-      readline
-      sqlite
-      tk
-      xz
-      zlib
-      zlib-ng
-      zstd
     ];
 
     # This value determines the Home Manager release that your configuration is
