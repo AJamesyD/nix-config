@@ -114,6 +114,10 @@
         greedy = true;
       }
       {
+        name = "zed";
+        greedy = true;
+      }
+      {
         name = "zoom";
         greedy = true;
       }
@@ -178,6 +182,8 @@
         spans-displays = true;
       };
     };
+
+    primaryUser = "angaidan";
 
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog
