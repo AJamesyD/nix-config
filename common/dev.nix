@@ -188,6 +188,8 @@ in
 
       GOPROXY = "direct";
 
+      MISE_NODE_DEFAULT_PACKAGES_FILE = "${config.xdg.configHome}/mise/default-node-packages";
+      MISE_PYTHON_DEFAULT_PACKAGES_FILE = "${config.xdg.configHome}/mise/default-python-packages";
       # https://github.com/jdx/mise/issues/3099
       MISE_LIBGIT2 = "false";
     };

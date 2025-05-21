@@ -109,4 +109,82 @@ in
       };
     };
   };
+  xdg = {
+    enable = true;
+    configFile = {
+      "mcphub/servers.json" = {
+        text = builtins.toJSON {
+          mcpServers = {
+            "awslabs.core-mcp-server" = {
+              disabled = false;
+              autoApprove = [
+                "prompt_understanding"
+              ];
+              command = "uvx";
+              args = [
+                "awslabs.core-mcp-server@latest"
+              ];
+              env = {
+                "FASTMCP_LOG_LEVEL" = "ERROR";
+              };
+            };
+            "awslabs.cdk-mcp-server" = {
+              disabled = false;
+              autoApprove = [
+                "CDKGeneralGuidance"
+                "GetAwsSolutionsConstructPattern"
+              ];
+              command = "uvx";
+              args = [
+                "awslabs.cdk-mcp-server@latest"
+              ];
+              env = {
+                FASTMCP_LOG_LEVEL = "ERROR";
+              };
+            };
+            "awslabs.aws-documentation-mcp-server" = {
+              disabled = false;
+              autoApprove = [
+                "read_documentation"
+                "search_documentation"
+              ];
+              command = "uvx";
+              args = [ "awslabs.aws-documentation-mcp-server@latest" ];
+              env = {
+                "FASTMCP_LOG_LEVEL" = "ERROR";
+              };
+            };
+            amzn-mcp = {
+              disabled = false;
+              autoApprove = [
+                "lookup_team_code_resource"
+                "read_quip"
+                "search_acronym_central"
+                "search_internal_code"
+                "search_internal_issues"
+                "search_internal_webistes"
+                "search_quip"
+                "sim_get_folders"
+                "sim_get_issue"
+                "taskei_get_task"
+                "tod_download_logs"
+              ];
+              command = "amzn-mcp";
+              args = [ ];
+              env = { };
+            };
+          };
+          nativeMCPServers = [
+
+          ];
+        };
+      };
+      # MISE_NODE_DEFAULT_PACKAGES_FILE must be set
+      "mise/default-node-packages" = {
+        text = ''
+          mcp-hub
+        '';
+      };
+    };
+  };
 }
