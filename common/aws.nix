@@ -40,6 +40,9 @@ in
             run --silence brazil setup completion --shell zsh || true
           '';
     };
+    packages = with pkgs; [
+      awscli2
+    ];
     sessionPath =
       if !pkgs.stdenv.isDarwin then
         [
