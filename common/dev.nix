@@ -514,6 +514,9 @@ in
         };
       };
     };
+    uv = {
+      enable = true;
+    };
     # TODO: Topgrade
     yazi = {
       enable = true;
