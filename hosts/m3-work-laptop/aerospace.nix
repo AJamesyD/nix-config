@@ -154,6 +154,13 @@
     }
     {
       "if" = {
+        # OrbStack
+        app-id = "dev.kdrag0n.MacVirt";
+      };
+      run = "move-node-to-workspace 1-dev";
+    }
+    {
+      "if" = {
         app-id = "org.mozilla.firefox";
       };
       run = "move-node-to-workspace 2-firefox";
