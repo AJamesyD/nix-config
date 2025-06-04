@@ -211,7 +211,7 @@ in
           cargo-json-spans = {
             auto = true;
             exporter = "analyzer";
-            line_format = "{diagnostic.level}|:|{span.file_name}|:|{span.line_start}|:|{span.line_end}|:|{span.column_start}|:|{span.column_end}|:|{diagnostic.message}|:|{span.suggested_replacement}";
+            line_format = "{diagnostic.level}|:|{span.file_name}|:|{span.line_start}|:|{span.line_end}|:|{span.column_start}|:|{span.column_end}|:|{diagnostic.message}|:|{diagnostic.rendered}|:|{span.suggested_replacement}";
             path = ".bacon-locations";
           };
         };
@@ -222,6 +222,8 @@ in
             command = [
               "cargo"
               "clippy"
+              "--workspace"
+              "--tests"
               "--all-targets"
               "--all-features"
               "--message-format"
@@ -233,38 +235,6 @@ in
             ignore = [ "build/" ];
             analyzer = "cargo_json";
             need_stdout = true;
-          };
-          check = {
-            command = [
-              "cargo"
-              "check"
-              "--message-format"
-              "json-diagnostic-rendered-ansi"
-            ];
-            ignore = [ "build/" ];
-          };
-          check-all = {
-            command = [
-              "cargo"
-              "check"
-              "--all-targets"
-              "--message-format"
-              "json-diagnostic-rendered-ansi"
-            ];
-            ignore = [ "build/" ];
-          };
-          clippy-all = {
-            command = [
-              "cargo"
-              "clippy"
-              "--all-targets"
-              "--message-format"
-              "json-diagnostic-rendered-ansi"
-              "--"
-              "-A"
-              "clippy::style"
-            ];
-            ignore = [ "build/" ];
           };
         };
       };

@@ -17,6 +17,7 @@
   };
 
   environment = {
+    enableAllTerminfo = true;
     extraSetup = # bash
       ''
         ln -sv ${pkgs.path} $out/nixpkgs

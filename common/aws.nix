@@ -157,17 +157,9 @@ in
             amzn-mcp = {
               disabled = false;
               autoApprove = [
-                "lookup_team_code_resource"
-                "read_quip"
-                "search_acronym_central"
+                "read_internal_wesites"
                 "search_internal_code"
-                "search_internal_issues"
-                "search_internal_webistes"
-                "search_quip"
-                "sim_get_folders"
-                "sim_get_issue"
-                "taskei_get_task"
-                "tod_download_logs"
+                "search_internal_websites"
               ];
               command = "amzn-mcp";
               args = [ ];
