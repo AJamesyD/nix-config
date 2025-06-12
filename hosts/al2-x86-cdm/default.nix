@@ -57,7 +57,7 @@
           ''
             ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            home-manager switch --flake ~/.config/nix#x86-dev-desk --option access-tokens "github.com=$GITHUB_TOKEN"
+            home-manager switch --flake ~/.config/nix#al2-x86-cdm --option access-tokens "github.com=$GITHUB_TOKEN"
             zsource
           '';
         up = "sudo yum upgrade -y && nixup";

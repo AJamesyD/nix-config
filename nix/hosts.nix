@@ -42,12 +42,17 @@ in
     hostPlatform = "x86_64-linux";
     username = "aidandeangelis";
   };
-  x86-dev-desk = mkHost {
+  al2-x86-cdm = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
     username = "angaidan";
   };
-  arm-dev-desk = mkHost {
+  al2023-x86-cdm = mkHost {
+    type = "home-manager";
+    hostPlatform = "x86_64-linux";
+    username = "angaidan";
+  };
+  al2023-arm64-cdm = mkHost {
     type = "home-manager";
     hostPlatform = "aarch64-linux";
     username = "angaidan";

@@ -14,6 +14,8 @@
       (lib.hiPrio opensshWithKerberos)
       krb5
 
+      ruby
+
       stylua
     ];
     # This value determines the Home Manager release that your configuration is
@@ -30,19 +32,12 @@
     mise = {
       enable = true;
       globalConfig = {
-        alias = {
-          node = "node:ssh://git.amazon.com/pkg/RtxNode";
-        };
         tools = {
           node = [
-            # TODO: move to aliases once RtxNode gets it together
-            # "lts-gallium" # v16
-            # "lts-hydrogen" # v18
-            # "20" # iron
             # NOTE: First one becomes default
-            "20.10.0"
-            "18.20.2"
-            "16.20.0"
+            "20" # iron
+            "lts-hydrogen" # v18
+            "lts-gallium" # v16
           ];
         };
       };
@@ -55,7 +50,7 @@
           ''
             ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            home-manager switch --flake ~/.config/nix#arm-dev-desk --option access-tokens "github.com=$GITHUB_TOKEN"
+            home-manager switch --flake ~/.config/nix#al2023-arm64-cdm --option access-tokens "github.com=$GITHUB_TOKEN"
             zsource''; # Cannot have newline at end of command or else it won't be chainable
         up = # bash
           ''
