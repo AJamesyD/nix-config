@@ -28,6 +28,10 @@ in
             if $(command -v ada 2>&1 >/dev/null); then
                     run --quiet ada completion zsh >"$ZCOMPDIR/_ada"
             fi
+
+            if $(command -v eda 2>&1 >/dev/null); then
+                    run --quiet eda completions zsh >"$ZCOMPDIR/_eda"
+            fi
           '';
       brazil =
         lib.hm.dag.entryAfter
