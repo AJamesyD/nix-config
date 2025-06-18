@@ -16,6 +16,7 @@
       url = "github:cachix/devenv";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "git-hooks-nix";
         git-hooks.follows = "git-hooks-nix";
       };
     };
@@ -53,6 +54,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "flake-parts";
       };
     };
     systems.url = "github:nix-systems/default";
