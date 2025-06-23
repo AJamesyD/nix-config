@@ -123,12 +123,12 @@ in
           mcpServers = {
             "awslabs.core-mcp-server" = {
               disabled = false;
-              autoApprove = [
-                "prompt_understanding"
-              ];
               command = "uvx";
               args = [
                 "awslabs.core-mcp-server@latest"
+              ];
+              autoApprove = [
+                "prompt_understanding"
               ];
               env = {
                 "FASTMCP_LOG_LEVEL" = "ERROR";
@@ -136,13 +136,13 @@ in
             };
             "awslabs.cdk-mcp-server" = {
               disabled = false;
-              autoApprove = [
-                "CDKGeneralGuidance"
-                "GetAwsSolutionsConstructPattern"
-              ];
               command = "uvx";
               args = [
                 "awslabs.cdk-mcp-server@latest"
+              ];
+              autoApprove = [
+                "CDKGeneralGuidance"
+                "GetAwsSolutionsConstructPattern"
               ];
               env = {
                 FASTMCP_LOG_LEVEL = "ERROR";
@@ -150,26 +150,43 @@ in
             };
             "awslabs.aws-documentation-mcp-server" = {
               disabled = false;
+              command = "uvx";
+              args = [ "awslabs.aws-documentation-mcp-server@latest" ];
               autoApprove = [
                 "read_documentation"
                 "search_documentation"
               ];
-              command = "uvx";
-              args = [ "awslabs.aws-documentation-mcp-server@latest" ];
               env = {
                 "FASTMCP_LOG_LEVEL" = "ERROR";
               };
             };
             amzn-mcp = {
               disabled = false;
+              command = "amzn-mcp";
+              args = [ ];
               autoApprove = [
                 "read_internal_wesites"
                 "search_internal_code"
                 "search_internal_websites"
               ];
-              command = "amzn-mcp";
-              args = [ ];
               env = { };
+            };
+            wasabi = {
+              disabled = false;
+              command = "wasabi";
+              args = [ "--mcp-server" ];
+              autoApprove = [
+                "BrazilBuildAnalyzerTool"
+                "CRRevisionCreator"
+                "CheckFilepathforCAZ"
+                "CrCheckout"
+                "Delegate"
+                "InternalCodeSearchTool"
+                # "InternalSearch"
+                # "ReadInternalWebsites"
+                "WorkspaceGitDetails"
+                "WorkspaceSearch"
+              ];
             };
           };
           nativeMCPServers = [
