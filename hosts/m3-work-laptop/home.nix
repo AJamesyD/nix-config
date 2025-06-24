@@ -160,24 +160,24 @@
             title-hidden = true
 
             [font]
-            size = 16.0;
-            edging = "subpixelantialias";
+            size = 16.0
+            edging = "subpixelantialias"
 
             [font.normal]
             family = "BlexMono Nerd Font"
             style = "Regular"
 
             [font.italic]
-            family = "VictorMono Nerd Font";
-            style = "Italic";
+            family = "VictorMono Nerd Font"
+            style = "Italic"
 
             [font.bold]
-            family = "BlexMono Nerd Font";
-            style = "Bold";
+            family = "BlexMono Nerd Font"
+            style = "Bold"
 
             [font.bold_italic]
-            family = "VictorMono Nerd Font";
-            style = "Bold Italic";
+            family = "VictorMono Nerd Font"
+            style = "Bold Italic"
           '';
       };
     };
