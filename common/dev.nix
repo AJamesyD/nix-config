@@ -161,7 +161,6 @@ in
 
       docker
       docker-compose
-      ollama
 
       dust
       hyperfine
@@ -621,6 +620,11 @@ in
           export ABBR_USER_ABBREVIATIONS_FILE="${config.xdg.dataHome}/zsh-abbr/user_abbreviations"
         '';
       zsh-abbr.enable = true;
+    };
+  };
+  services = {
+    ollama = {
+      enable = true;
     };
   };
   xdg = {
