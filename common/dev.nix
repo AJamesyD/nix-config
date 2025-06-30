@@ -566,21 +566,25 @@ in
           "brew"
         ];
       };
-      initExtraFirst = # bash
-        ''
-          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-          fi
-        '';
-      initExtraBeforeCompInit = # bash
-        ''
-          fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
-          fpath+=(${zshcompdir})
+      initContent = lib.mkMerge [
+        (lib.mkBefore # bash
+          ''
+            if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+              source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+            fi
+          ''
+        )
+        (lib.mkOrder 550
+          # bash
+          ''
+            fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
+            fpath+=(${zshcompdir})
 
-          # zsh-vi-mode. Following must exist before sourcing plugin
-          local ZVM_INIT_MODE=sourcing
-        '';
-      initExtra = # bash
+            # zsh-vi-mode. Following must exist before sourcing plugin
+            local ZVM_INIT_MODE=sourcing
+          ''
+        )
+        # bash
         ''
           # zsh-auto-notify
           AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg" "tmux" "fzf")
@@ -612,7 +616,8 @@ in
           local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
           [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
-        '';
+        ''
+      ];
       envExtra = # bash
         ''
           # zsh-abbr

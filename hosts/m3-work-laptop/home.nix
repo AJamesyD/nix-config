@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -113,10 +114,14 @@
     };
     zsh = {
       enable = true;
-      initExtraBeforeCompInit = # bash
-        ''
-          eval "$(brew shellenv)"
-        '';
+      initContent = lib.mkMerge [
+        (lib.mkOrder 550
+          # bash
+          ''
+            eval "$(brew shellenv)"
+          ''
+        )
+      ];
       shellAliases = {
         auth = "mwinit -f -s";
         nixup = # bash

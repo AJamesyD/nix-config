@@ -66,18 +66,22 @@ in
       userName = "Aidan De Angelis";
     };
     zsh = {
-      initExtraBeforeCompInit = # bash
-        ''
-          path+=("$ZCOMPDIR")
-          fpath+=("$ZCOMPDIR")
+      initContent = lib.mkMerge [
+        (lib.mkOrder 550
+          # bash
+          ''
+            path+=("$ZCOMPDIR")
+            fpath+=("$ZCOMPDIR")
 
-          local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
-          if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
-                  source "$BRAZIL_ZSH_COMPLETION"
-          else
-                  echo "WARNING: brazil zsh completions have not been set up"
-          fi
-        '';
+            local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
+            if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
+                    source "$BRAZIL_ZSH_COMPLETION"
+            else
+                    echo "WARNING: brazil zsh completions have not been set up"
+            fi
+          ''
+        )
+      ];
       sessionVariables = {
         # From default .zshrc written by `brazil setup completion`
         # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
