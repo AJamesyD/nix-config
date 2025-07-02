@@ -60,37 +60,40 @@
 
         cmd-shift-alt-1 = "workspace 1-dev";
         cmd-shift-alt-d = "workspace 1-dev";
-        cmd-shift-alt-2 = "workspace 2-firefox";
-        cmd-shift-alt-f = "workspace 2-firefox";
+        cmd-shift-alt-2 = "workspace 2-browser";
+        cmd-shift-alt-b = "workspace 2-browser";
         cmd-shift-alt-3 = "workspace 3-admin";
         cmd-shift-alt-a = "workspace 3-admin";
-        cmd-shift-alt-4 = "workspace 4-slack";
-        cmd-shift-alt-s = "workspace 4-slack";
-        cmd-shift-alt-5 = "workspace 5-chime";
-        cmd-shift-alt-c = "workspace 5-chime";
-        cmd-shift-alt-6 = "workspace 6-entertainment";
-        cmd-shift-alt-e = "workspace 6-entertainment";
-        cmd-shift-alt-7 = "workspace 7-misc";
-        cmd-shift-alt-m = "workspace 7-misc";
+        cmd-shift-alt-4 = "workspace 4-chat";
+        cmd-shift-alt-c = "workspace 4-chat";
+        cmd-shift-alt-5 = "workspace 5-video-call";
+        cmd-shift-alt-v = "workspace 5-video-call";
+        cmd-shift-alt-6 = "workspace 6";
+        cmd-shift-alt-7 = "workspace 7";
         cmd-shift-alt-8 = "workspace 8";
+        cmd-shift-alt-9 = "workspace 9-entertainment";
+        cmd-shift-alt-e = "workspace 9-entertainment";
+        cmd-shift-alt-0 = "workspace 0-misc";
+        cmd-shift-alt-m = "workspace 0-misc";
         cmd-shift-alt-i = "workspace ignored";
 
         cmd-shift-alt-ctrl-1 = "move-node-to-workspace 1-dev --focus-follows-window";
         cmd-shift-alt-ctrl-d = "move-node-to-workspace 1-dev --focus-follows-window";
-        cmd-shift-alt-ctrl-2 = "move-node-to-workspace 2-firefox --focus-follows-window";
-        cmd-shift-alt-ctrl-f = "move-node-to-workspace 2-firefox --focus-follows-window";
+        cmd-shift-alt-ctrl-2 = "move-node-to-workspace 2-browser --focus-follows-window";
+        cmd-shift-alt-ctrl-b = "move-node-to-workspace 2-browser --focus-follows-window";
         cmd-shift-alt-ctrl-3 = "move-node-to-workspace 3-admin --focus-follows-window";
         cmd-shift-alt-ctrl-a = "move-node-to-workspace 3-admin --focus-follows-window";
-        cmd-shift-alt-ctrl-4 = "move-node-to-workspace 4-slack --focus-follows-window";
-        cmd-shift-alt-ctrl-s = "move-node-to-workspace 4-slack --focus-follows-window";
-        cmd-shift-alt-ctrl-5 = "move-node-to-workspace 5-chime --focus-follows-window";
-        cmd-shift-alt-ctrl-c = "move-node-to-workspace 5-chime --focus-follows-window";
-        cmd-shift-alt-ctrl-6 = "move-node-to-workspace 6-entertainment --focus-follows-window";
-        cmd-shift-alt-ctrl-e = "move-node-to-workspace 6-entertainment --focus-follows-window";
-        cmd-shift-alt-ctrl-7 = "move-node-to-workspace 7-misc --focus-follows-window";
-        cmd-shift-alt-ctrl-m = "move-node-to-workspace 7-misc --focus-follows-window";
+        cmd-shift-alt-ctrl-4 = "move-node-to-workspace 4-chat --focus-follows-window";
+        cmd-shift-alt-ctrl-c = "move-node-to-workspace 4-chat --focus-follows-window";
+        cmd-shift-alt-ctrl-5 = "move-node-to-workspace 5-video-call --focus-follows-window";
+        cmd-shift-alt-ctrl-v = "move-node-to-workspace 5-video-call --focus-follows-window";
+        cmd-shift-alt-ctrl-6 = "move-node-to-workspace 6 --focus-follows-window";
+        cmd-shift-alt-ctrl-7 = "move-node-to-workspace 7 --focus-follows-window";
         cmd-shift-alt-ctrl-8 = "move-node-to-workspace 8 --focus-follows-window";
-        cmd-shift-alt-ctrl-9 = "move-node-to-workspace 9 --focus-follows-window";
+        cmd-shift-alt-ctrl-9 = "move-node-to-workspace 9-entertainment --focus-follows-window";
+        cmd-shift-alt-ctrl-e = "move-node-to-workspace 9-entertainment --focus-follows-window";
+        cmd-shift-alt-ctrl-0 = "move-node-to-workspace 0-misc --focus-follows-window";
+        cmd-shift-alt-ctrl-m = "move-node-to-workspace 0-misc --focus-follows-window";
         cmd-shift-alt-ctrl-i = "move-node-to-workspace ignored --focus-follows-window";
 
         cmd-shift-alt-ctrl-r = # bash
@@ -163,7 +166,7 @@
       "if" = {
         app-id = "org.mozilla.firefox";
       };
-      run = "move-node-to-workspace 2-firefox";
+      run = "move-node-to-workspace 2-browser";
     }
     {
       "if" = {
@@ -191,25 +194,31 @@
       "if" = {
         app-id = "com.tinyspeck.slackmacgap";
       };
-      run = "move-node-to-workspace 4-slack";
+      run = "move-node-to-workspace 4-chat";
+    }
+    {
+      "if" = {
+        app-id = "org.zulip.zulip-electron";
+      };
+      run = "move-node-to-workspace 4-chat";
     }
     {
       "if" = {
         app-id = "com.amazon.Amazon-Chime";
       };
-      run = "move-node-to-workspace 5-chime";
+      run = "move-node-to-workspace 5-video-call";
     }
     {
       "if" = {
-        app-id = "org.chromium.Chromium";
+        app-id = "us.zoom.xos";
       };
-      run = "move-node-to-workspace 6-entertainment";
+      run = "move-node-to-workspace 5-video-call";
     }
     {
       "if" = {
         app-id = "com.spotify.client";
       };
-      run = "move-node-to-workspace 6-entertainment";
+      run = "move-node-to-workspace 9-entertainment";
     }
     {
       "if" = {
@@ -217,7 +226,7 @@
       };
       run = [
         "layout floating"
-        "move-node-to-workspace 7-misc"
+        "move-node-to-workspace 0-misc"
       ];
     }
     {
@@ -228,7 +237,7 @@
     }
     {
       # Fallback for all other windows
-      run = "move-node-to-workspace 7-misc";
+      run = "move-node-to-workspace 0-misc";
     }
   ];
   workspace-to-monitor-force-assignment = {
@@ -236,20 +245,20 @@
       "p32"
       "secondary"
     ];
-    "2-firefox" = "built-in";
+    "2-browser" = "built-in";
     "3-admin" = [
       "p27"
       "dell"
       "secondary"
     ];
-    "4-slack" = "built-in";
-    "5-chime" = "built-in";
-    "6-entertainment" = [
+    "4-chat" = "built-in";
+    "5-video-call" = "built-in";
+    "9-entertainment" = [
       "p27"
       "dell"
       "secondary"
     ];
-    "7-misc" = "built-in";
+    "0-misc" = "built-in";
     ignored = [
       "p32"
       "secondary"
