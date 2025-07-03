@@ -141,7 +141,10 @@
       "if" = {
         app-id = "com.mitchellh.ghostty";
       };
-      run = "move-node-to-workspace 1-dev";
+      run = [
+        "layout floating" # https://ghostty.org/docs/help/macos-tiling-wms
+        "move-node-to-workspace 1-dev"
+      ];
     }
     {
       "if" = {
