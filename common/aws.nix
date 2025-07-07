@@ -198,12 +198,6 @@ in
           ];
         };
       };
-      # MISE_NODE_DEFAULT_PACKAGES_FILE must be set
-      "mise/default-node-packages" = {
-        text = ''
-          mcp-hub
-        '';
-      };
     };
   };
 }
