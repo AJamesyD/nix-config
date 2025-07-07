@@ -174,6 +174,8 @@ in
       })
       libnotify
       sesh
+
+      claude-code
     ];
 
     preferXdgDirectories = true;

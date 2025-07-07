@@ -44,9 +44,27 @@ in
             run --silence brazil setup completion --shell zsh || true
           '';
     };
+
+    file = {
+      ".claude/settings.json" = {
+        text = builtins.toJSON {
+          model = "us.anthropic.claude-sonnet-4-20250514-v1:0";
+          env = {
+            CLAUDE_CODE_USE_BEDROCK = "1";
+            AWS_PROFILE = "bedrock";
+            AWS_REGION = "us-west-2";
+            DISABLE_BUG_COMMAND = 1;
+            DISABLE_ERROR_REPORTING = 1;
+            DISABLE_TELEMETRY = 1;
+          };
+        };
+      };
+    };
+
     packages = with pkgs; [
       awscli2
     ];
+
     sessionPath =
       if !pkgs.stdenv.isDarwin then
         [
@@ -136,6 +154,7 @@ in
               ];
               env = {
                 "FASTMCP_LOG_LEVEL" = "ERROR";
+                "MCP_SETTINGS_PATH" = "${config.xdg.configHome}/mcphub/servers.json";
               };
             };
             "awslabs.cdk-mcp-server" = {
@@ -159,6 +178,7 @@ in
               autoApprove = [
                 "read_documentation"
                 "search_documentation"
+                "recommend"
               ];
               env = {
                 "FASTMCP_LOG_LEVEL" = "ERROR";
