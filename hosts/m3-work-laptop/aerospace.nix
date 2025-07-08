@@ -31,6 +31,7 @@
         cmd-h = [ ]; # Disable "hide application"
         cmd-alt-h = [ ]; # Disable "hide others"
 
+        ### Move focus ###
         cmd-shift-f = "fullscreen";
 
         cmd-shift-h = "focus left --boundaries all-monitors-outer-frame --boundaries-action stop";
@@ -38,6 +39,26 @@
         cmd-shift-k = "focus up --boundaries all-monitors-outer-frame --boundaries-action stop";
         cmd-shift-l = "focus right --boundaries all-monitors-outer-frame --boundaries-action stop";
 
+        cmd-shift-1 = "workspace 1-dev";
+        cmd-shift-d = "workspace 1-dev";
+        cmd-shift-2 = "workspace 2-browser";
+        cmd-shift-b = "workspace 2-browser";
+        cmd-shift-3 = "workspace 3-admin";
+        cmd-shift-a = "workspace 3-admin";
+        cmd-shift-4 = "workspace 4-chat";
+        cmd-shift-c = "workspace 4-chat";
+        cmd-shift-5 = "workspace 5-video-call";
+        cmd-shift-v = "workspace 5-video-call";
+        cmd-shift-6 = "workspace 6";
+        cmd-shift-7 = "workspace 7";
+        cmd-shift-8 = "workspace 8";
+        cmd-shift-9 = "workspace 9-entertainment";
+        cmd-shift-e = "workspace 9-entertainment";
+        cmd-shift-0 = "workspace 0-misc";
+        cmd-shift-m = "workspace 0-misc";
+        cmd-shift-i = "workspace ignored";
+
+        ### Move windows within workspace ###
         cmd-shift-alt-h = "exec-and-forget aerospace move left && aerospace move-mouse window-lazy-center";
         cmd-shift-alt-j = "exec-and-forget aerospace move down && aerospace move-mouse window-lazy-center";
         cmd-shift-alt-k = "exec-and-forget aerospace move up && aerospace move-mouse window-lazy-center";
@@ -53,29 +74,16 @@
         cmd-shift-alt-minus = "resize smart -50";
         cmd-shift-alt-equal = "resize smart +50";
 
+        ### Move workspaces and windows within workspaces ###
         cmd-shift-alt-ctrl-h = "move-node-to-monitor left --focus-follows-window";
         cmd-shift-alt-ctrl-j = "move-node-to-monitor down --focus-follows-window";
         cmd-shift-alt-ctrl-k = "move-node-to-monitor up --focus-follows-window";
         cmd-shift-alt-ctrl-l = "move-node-to-monitor right --focus-follows-window";
 
-        cmd-shift-alt-1 = "workspace 1-dev";
-        cmd-shift-alt-d = "workspace 1-dev";
-        cmd-shift-alt-2 = "workspace 2-browser";
-        cmd-shift-alt-b = "workspace 2-browser";
-        cmd-shift-alt-3 = "workspace 3-admin";
-        cmd-shift-alt-a = "workspace 3-admin";
-        cmd-shift-alt-4 = "workspace 4-chat";
-        cmd-shift-alt-c = "workspace 4-chat";
-        cmd-shift-alt-5 = "workspace 5-video-call";
-        cmd-shift-alt-v = "workspace 5-video-call";
-        cmd-shift-alt-6 = "workspace 6";
-        cmd-shift-alt-7 = "workspace 7";
-        cmd-shift-alt-8 = "workspace 8";
-        cmd-shift-alt-9 = "workspace 9-entertainment";
-        cmd-shift-alt-e = "workspace 9-entertainment";
-        cmd-shift-alt-0 = "workspace 0-misc";
-        cmd-shift-alt-m = "workspace 0-misc";
-        cmd-shift-alt-i = "workspace ignored";
+        cmd-shift-alt-ctrl-left = "move-workspace-to-monitor left";
+        cmd-shift-alt-ctrl-down = "move-workspace-to-monitor down";
+        cmd-shift-alt-ctrl-up = "move-workspace-to-monitor up";
+        cmd-shift-alt-ctrl-right = "move-workspace-to-monitor right";
 
         cmd-shift-alt-ctrl-1 = "move-node-to-workspace 1-dev --focus-follows-window";
         cmd-shift-alt-ctrl-d = "move-node-to-workspace 1-dev --focus-follows-window";
@@ -96,6 +104,7 @@
         cmd-shift-alt-ctrl-m = "move-node-to-workspace 0-misc --focus-follows-window";
         cmd-shift-alt-ctrl-i = "move-node-to-workspace ignored --focus-follows-window";
 
+        ### Misc ###
         cmd-shift-alt-ctrl-r = # bash
           ''
             exec-and-forget aerospace reload-config
