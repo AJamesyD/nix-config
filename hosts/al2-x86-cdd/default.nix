@@ -37,6 +37,7 @@
         };
         tools = {
           node = [
+            # TODO: move to aliases once RtxNode gets it together
             # "lts-job" # v22
             # "lts-iron" # v20
             # "lts-hydrogen" # v18
@@ -56,7 +57,7 @@
           ''
             ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            home-manager switch --flake ~/.config/nix#al2-x86-cdm --option access-tokens "github.com=$GITHUB_TOKEN"
+            home-manager switch --flake ~/.config/nix#al2-x86-cdd --option access-tokens "github.com=$GITHUB_TOKEN"
             zsource
           '';
         up = "sudo yum upgrade -y && nixup";

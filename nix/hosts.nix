@@ -42,6 +42,11 @@ in
     hostPlatform = "x86_64-linux";
     username = "aidandeangelis";
   };
+  al2-x86-cdd = mkHost {
+    type = "home-manager";
+    hostPlatform = "x86_64-linux";
+    username = "angaidan";
+  };
   al2-x86-cdm = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
