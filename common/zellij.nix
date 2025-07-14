@@ -162,16 +162,24 @@ _:
                         SwitchToMode "locked"
                     }
                 }
+                normal {
+                    bind "Ctrl a" { MoveFocusOrTab "right"; SwitchToMode "locked"; }
+                    bind "Ctrl b" { MoveFocusOrTab "left"; SwitchToMode "locked"; }
+
+                    bind "Ctrl q" { Quit; }
+                }
                 shared_among "normal" "locked" {
                     bind "Alt left" { MoveFocusOrTab "left"; }
                     bind "Alt down" { MoveFocus "down"; }
                     bind "Alt up" { MoveFocus "up"; }
                     bind "Alt right" { MoveFocusOrTab "right"; }
                     bind "Alt h" { MoveFocusOrTab "left"; }
-                    bind "Alt i" { MoveTab "left"; }
                     bind "Alt j" { MoveFocus "down"; }
                     bind "Alt k" { MoveFocus "up"; }
                     bind "Alt l" { MoveFocusOrTab "right"; }
+
+                    bind "Alt i" { MoveTab "left"; }
+                    bind "Alt o" { MoveTab "right"; }
 
                     bind "Alt +" { Resize "Increase"; }
                     bind "Alt -" { Resize "Decrease"; }
@@ -179,10 +187,11 @@ _:
                     bind "Alt [" { PreviousSwapLayout; }
                     bind "Alt ]" { NextSwapLayout; }
                     bind "Alt f" { ToggleFloatingPanes; }
+
                     bind "Alt n" { NewPane; }
-                    bind "Alt o" { MoveTab "right"; }
+
                 }
-                shared_except "locked" "renametab" "renamepane" {
+                shared_except "locked" "normal" "renametab" "renamepane" {
                     bind "Ctrl a" { SwitchToMode "locked"; }
                     bind "Ctrl q" { Quit; }
                 }
