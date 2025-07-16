@@ -113,6 +113,7 @@ in
       curl
       git
       git-lfs
+      git-secrets
       gnutar
       gzip
     ];
