@@ -157,6 +157,7 @@ in
           luv
         ]
       ))
+      markdownlint-cli2
       neovim
       tree-sitter
 
@@ -307,6 +308,9 @@ in
       ignores = [
         ".git/"
       ];
+    };
+    fish = {
+      enable = true;
     };
     fzf = {
       # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
