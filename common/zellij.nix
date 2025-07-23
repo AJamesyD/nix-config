@@ -8,7 +8,6 @@ _:
       enableBashIntegration = false;
       enableFishIntegration = false;
       enableZshIntegration = false;
-
     };
     zsh = {
       shellAliases = {
@@ -474,6 +473,81 @@ _:
             // Default: true
             //
             show_startup_tips false
+          '';
+      };
+      "zellij/layouts/brazil_workspace.kdl" = {
+        text = # kdl
+          ''
+            layout {
+                default_tab_template {
+                    // zellij setup --dump-layout default
+                    pane size=1 borderless=true {
+                        plugin location="tab-bar"
+                    }
+                    children
+                    pane size=1 borderless=true {
+                        plugin location="status-bar"
+                    }
+                }
+
+                tab focus=true {
+                  pane command="~/.config/zellij/open-brazil-pkgs.sh" start_suspended=true {
+                  }
+                }
+
+                tab name="Bemol" {
+                  pane command="bemol" {
+                    args "--watch" "--verbose"
+                  }
+                }
+            }
+          '';
+      };
+      "zellij/layouts/brazil_pkg.kdl" = {
+        text = # kdl
+          ''
+            layout {
+                default_tab_template {
+                    // zellij setup --dump-layout default
+                    pane size=1 borderless=true {
+                        plugin location="tab-bar"
+                    }
+                    children
+                    pane size=1 borderless=true {
+                        plugin location="status-bar"
+                    }
+                }
+
+                tab focus=true {
+                    pane command="nvim"
+                }
+            }
+          '';
+      };
+      "zellij/open-brazil-pkgs.sh" = {
+        executable = true;
+        text = # bash
+          ''
+            #!/usr/bin/env bash
+
+            set -eu
+            set -o pipefail
+
+            brazil_ws_info="$(brazil workspace show --format json)"
+            readarray -t brazil_packages < <(echo "$brazil_ws_info" | jq -c '.packages[]')
+
+            for package in "''${brazil_packages[@]}"; do
+                    name=$(echo "$package" | jq -r '.name')
+                    mv=$(echo "$package" | jq -r '.mv')
+                    source_location=$(echo "$package" | jq -r '.source_location')
+
+                    zellij action new-tab --name="$name-$mv" --cwd="$source_location" --layout="brazil_pkg"
+            done
+
+            zellij action go-to-tab 1 # Tab this script is run from
+            zellij action close-tab
+
+            exit 0
           '';
       };
     };
