@@ -93,10 +93,11 @@
         name = "ghostty";
         greedy = true;
       }
-      {
-        name = "neovide";
-        greedy = true;
-      }
+      # TODO: Re-enable once hashes match
+      # {
+      #   name = "neovide";
+      #   greedy = true;
+      # }
       {
         name = "obsidian";
         greedy = true;
@@ -180,8 +181,12 @@
       dock = {
         persistent-apps = [
           "Applications/Microsoft Outlook.app"
+          "Applications/Obsidian.app"
           "Applications/Amazon Chime.app"
+          "Applications/zoom.us.app"
           "Applications/Slack.app"
+          "Applications/Zulip.app"
+          "Applications/Firefox.app"
           "Applications/Ghostty.app"
         ];
       };
