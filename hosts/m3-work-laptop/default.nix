@@ -93,11 +93,10 @@
         name = "ghostty";
         greedy = true;
       }
-      # TODO: Re-enable once hashes match
-      # {
-      #   name = "neovide";
-      #   greedy = true;
-      # }
+      {
+        name = "neovide";
+        greedy = true;
+      }
       {
         name = "obsidian";
         greedy = true;
