@@ -101,6 +101,7 @@ in
             run --quiet rustup completions zsh cargo >"$ZCOMPDIR/_cargo"
           '';
     };
+
     extraActivationPath = with pkgs; [
       curl
       git
@@ -109,6 +110,21 @@ in
       gnutar
       gzip
     ];
+
+    # since zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
+    # random programs trying to append to it
+    file = {
+      ".zshrc" = {
+        text = # bash
+          ''
+            # This file is intentionally empty.
+
+            # When zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
+            # random programs trying to append to it
+          '';
+      };
+    };
+
     packages = with pkgs; [
       (pkgs.callPackage ../pkgs/bins { })
 

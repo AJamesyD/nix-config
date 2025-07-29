@@ -25,21 +25,6 @@ let
           # WARN: Using this is Neovim nix lsp configs, until I can find something smarter
           _NIX_HOSTNAME = hostName;
         };
-      }
-      // lib.optionalAttrs (config.programs.zsh.dotDir != null) {
-        # When dotDir is set, still create ~/.zshrc so that it is write-protected against
-        # random programs trying to append to it
-        file = {
-          ".zshrc" = {
-            text = # bash
-              ''
-                # This file is intentionally empty.
-
-                # When dotDir is set, still create ~/.zshrc so that it is write-protected against
-                # random programs trying to append to it
-              '';
-          };
-        };
       };
 
       nix = {
