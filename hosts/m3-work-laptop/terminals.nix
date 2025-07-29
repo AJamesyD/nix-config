@@ -32,7 +32,6 @@
           import = [
             "${pkgs.alacritty-theme}/aura.toml"
           ];
-          working_directory = "${config.home.homeDirectory}";
         };
 
         env = {

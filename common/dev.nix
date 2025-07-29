@@ -5,15 +5,7 @@
   ...
 }:
 let
-  zdotdir =
-    "${config.home.homeDirectory}/"
-    + (
-      if config.programs.zsh.dotDir != null then
-        lib.escapeShellArg config.programs.zsh.dotDir + "/"
-      else
-        ""
-    );
-  zshcompdir = zdotdir + "completion/";
+  zshcompdir = "${config.programs.zsh.dotDir}/completion/";
 in
 {
   imports = [
@@ -68,7 +60,7 @@ in
           (
             # bash
             ''
-              export ZDOTDIR="${zdotdir}"
+              export ZDOTDIR="${config.programs.zsh.dotDir}"
               export ZCOMPDIR="${zshcompdir}"
               mkdir -p $ZCOMPDIR
 
@@ -513,7 +505,7 @@ in
           "completion"
         ];
       };
-      dotDir = ".config/zsh";
+      dotDir = "${config.xdg.configHome}/zsh";
       history = {
         append = true;
       };
