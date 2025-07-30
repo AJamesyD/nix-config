@@ -145,6 +145,9 @@ in
       rsync
       squashfsTools
 
+      shfmt
+      shellcheck
+
       cargo-nextest
       rustup
       (lib.hiPrio rust-analyzer)
