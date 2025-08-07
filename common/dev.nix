@@ -140,13 +140,15 @@ in
       gnutls
       # required to make terminfo files available before zsh login
       (lib.hiPrio ncurses)
-      pandoc
       netcat-gnu
+      pandoc
       rsync
       squashfsTools
 
-      shfmt
+      ruff
       shellcheck
+      shfmt
+      stylua
 
       cargo-nextest
       rustup
@@ -154,13 +156,13 @@ in
       mdbook
       graphviz
 
-      devenv
       cachix
-      nixd
-      nixfmt-rfc-style
+      devenv
       nix-output-monitor
       nix-update
       nix-your-shell
+      nixd
+      nixfmt-rfc-style
 
       (luajit.withPackages (
         ps: with ps; [
