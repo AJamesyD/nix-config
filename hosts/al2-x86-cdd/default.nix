@@ -17,8 +17,6 @@
       ruby
 
       stylua
-
-      shpool
     ];
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -67,45 +65,7 @@
     };
   };
 
-  # TODO: Extract to nix module
-  systemd.user = {
-    enable = true;
-    # From https://github.com/shell-pool/shpool/blob/master/systemd/shpool.service
-    services.shpool = {
-      Unit = {
-        Description = "Shpool - Shell Session Pool";
-        Requires = [ "shpool.socket" ];
-      };
-
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.shpool}/bin/shpool daemon";
-        KillMode = "mixed";
-        TimeoutStopSec = "2s";
-        SendSIGHUP = "yes";
-      };
-
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-    };
-
-    # From https://github.com/shell-pool/shpool/blob/master/systemd/shpool.socket
-    sockets.shpool = {
-      Unit = {
-        description = "Shpool Shell Session Pooler";
-      };
-
-      Socket = {
-        ListenStream = "%t/shpool/shpool.socket";
-        SocketMode = "0600";
-      };
-
-      Install = {
-        WantedBy = [ "sockets.target" ];
-      };
-    };
-  };
+  services.shpool.enable = true;
 
   targets.genericLinux.enable = true;
 }

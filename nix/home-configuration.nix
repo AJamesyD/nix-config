@@ -8,7 +8,10 @@ let
     { homeDirectory, username, ... }:
     { config, pkgs, ... }:
     {
-      imports = [ (../hosts + "/${hostName}") ];
+      imports = [
+        (../hosts + "/${hostName}")
+        ../modules/home-manager
+      ];
 
       home = {
         inherit homeDirectory;
