@@ -58,5 +58,7 @@
     };
   };
 
+  services.shpool.enable = true;
+
   targets.genericLinux.enable = true;
 }

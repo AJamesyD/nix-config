@@ -60,4 +60,6 @@
       };
     };
   };
+
+  services.shpool.enable = true;
 }
