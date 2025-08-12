@@ -20,14 +20,6 @@ in
       # coding styles between different editors and IDEs
       # EditorConfig is awesome: https://EditorConfig.org
 
-      "*" = {
-        charset = "utf-8";
-        end_of_line = "lf";
-        indent_style = "space";
-        insert_final_newline = true;
-        trim_trailing_whitespace = true;
-      };
-
       # python
       "*.{ini,py,py.tpl,rst}" = {
         indent_size = 4;
