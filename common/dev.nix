@@ -144,7 +144,6 @@ in
 
       cargo-nextest
       rustup
-      (lib.hiPrio rust-analyzer)
       mdbook
       graphviz
 
@@ -253,13 +252,13 @@ in
       bashrcExtra = # bash
         ''
           if [ -f /etc/bashrc ]; then
-                  . /etc/bashrc
+          	. /etc/bashrc
           fi
         '';
       profileExtra = # bash
         ''
           if [ -f /etc/profile ]; then
-                  . /etc/profile
+          	. /etc/profile
           fi
         '';
     };
@@ -456,10 +455,6 @@ in
           };
         };
       };
-    };
-    man = {
-      enable = true;
-      generateCaches = true;
     };
     mise = {
       enable = true;
