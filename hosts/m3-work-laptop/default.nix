@@ -94,6 +94,10 @@
         greedy = true;
       }
       {
+        name = "block-goose";
+        greedy = true;
+      }
+      {
         name = "neovide";
         greedy = true;
       }
