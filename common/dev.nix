@@ -106,6 +106,28 @@ in
     # since zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
     # random programs trying to append to it
     file = {
+      ".claude/settings.json" = {
+        text = builtins.toJSON {
+          model = "claude-sonnet-4-20250514";
+          cleanupPeriodDays = 14;
+          includeCoAuthoredBy = false;
+          permissions = {
+            allow = [
+              "Read(*)"
+              "Edit(**/*.md)"
+            ];
+            deny = [
+              "Read(build/**)"
+            ];
+          };
+          env = {
+            DISABLE_BUG_COMMAND = 1;
+            DISABLE_ERROR_REPORTING = 1;
+            DISABLE_TELEMETRY = 1;
+          };
+        };
+      };
+
       ".zshrc" = {
         text = # bash
           ''
