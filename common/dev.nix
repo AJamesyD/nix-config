@@ -191,6 +191,7 @@ in
       docker-compose
 
       dust
+      dua
       hyperfine
 
       gum
