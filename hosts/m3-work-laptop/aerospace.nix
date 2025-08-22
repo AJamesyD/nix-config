@@ -1,4 +1,8 @@
 {
+  # Run Sketchybar together with AeroSpace
+  # sketchbar has a built-in detection of already running process,
+  # so it won't be run twice on AeroSpace restart
+  after-startup-command = [ "exec-and-forget sketchybar" ];
   after-login-command = [ ];
   start-at-login = true;
   enable-normalization-flatten-containers = true;
@@ -12,6 +16,12 @@
   on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
   on-focus-changed = [ "move-mouse window-lazy-center" ];
   automatically-unhide-macos-hidden-apps = true;
+  # Notify Sketchybar about workspace change
+  exec-on-workspace-change = [
+    "/bin/bash"
+    "-c"
+    "sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE"
+  ];
   gaps = {
     inner = {
       horizontal = 10;

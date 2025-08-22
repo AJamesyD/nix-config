@@ -175,6 +175,7 @@
           InitialKeyRepeat = 10;
           KeyRepeat = 2;
           "com.apple.sound.uiaudio.enabled" = false;
+          _HIHideMenuBar = true;
         };
       };
       NSGlobalDomain = {
@@ -233,7 +234,7 @@
         SHOWFULLNAME = false;
       };
       spaces = {
-        # This is for AeroSpace
+        # This is for AeroSpace and SketchyBar
         spans-displays = true;
       };
       universalaccess = {

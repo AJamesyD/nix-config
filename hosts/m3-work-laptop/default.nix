@@ -174,6 +174,10 @@
       inactive_color = "0xee494d64";
       width = 10.0;
     };
+
+    sketchybar = {
+      enable = true;
+    };
   };
 
   system = {

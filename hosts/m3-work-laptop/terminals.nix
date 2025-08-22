@@ -15,8 +15,8 @@
 {
   home = {
     packages = with pkgs; [
-      nerd-fonts.fira-code
       nerd-fonts.blex-mono
+      nerd-fonts.hack
       nerd-fonts.victor-mono
       fira-code
       ibm-plex
