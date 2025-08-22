@@ -24,6 +24,9 @@
         name = "caarlos0/tap";
       }
       {
+        name = "FelixKratz/formulae";
+      }
+      {
         name = "homebrew/services";
       }
       {
@@ -32,8 +35,14 @@
     ];
     brews = [
       {
+        name = "borders";
+      }
+      {
         # TODO: Unfuck CargoBrazil integration
         name = "rust-analyzer";
+      }
+      {
+        name = "sketchybar";
       }
       # For mise python-build
       {
@@ -164,19 +173,6 @@
     settings = {
       max-substitution-jobs = 20;
       trusted-users = [ "angaidan" ];
-    };
-  };
-
-  services = {
-    jankyborders = {
-      enable = true;
-      active_color = "0xffe1e3e4";
-      inactive_color = "0xee494d64";
-      width = 10.0;
-    };
-
-    sketchybar = {
-      enable = true;
     };
   };
 

@@ -2,7 +2,10 @@
   # Run Sketchybar together with AeroSpace
   # sketchbar has a built-in detection of already running process,
   # so it won't be run twice on AeroSpace restart
-  after-startup-command = [ "exec-and-forget sketchybar" ];
+  after-startup-command = [
+    "exec-and-forget borders"
+    "exec-and-forget sketchybar"
+  ];
   after-login-command = [ ];
   start-at-login = true;
   enable-normalization-flatten-containers = true;
@@ -30,7 +33,7 @@
     outer = {
       left = 5;
       bottom = 5;
-      top = 5;
+      top = 10;
       right = 5;
     };
   };
