@@ -45,7 +45,6 @@
         libplist
         # required to make terminfo files available before zsh login
         (lib.hiPrio ncurses)
-        neofetch
         pandoc
         rsync
         squashfsTools
