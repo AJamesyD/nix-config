@@ -195,6 +195,12 @@
     }
     {
       "if" = {
+        app-id = "app.zen-browser.zen";
+      };
+      run = "move-node-to-workspace 2-browser";
+    }
+    {
+      "if" = {
         window-title-regex-substring = "Reminder";
         app-id = "com.microsoft.Outlook";
       };
