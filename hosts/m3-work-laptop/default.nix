@@ -139,6 +139,10 @@
         greedy = true;
       }
       {
+        name = "zen";
+        greedy = true;
+      }
+      {
         name = "zoom";
         greedy = true;
       }
@@ -189,7 +193,7 @@
           "Applications/zoom.us.app"
           "Applications/Slack.app"
           "Applications/Zulip.app"
-          "Applications/Firefox.app"
+          "Applications/Zen.app"
           "Applications/Ghostty.app"
         ];
       };
