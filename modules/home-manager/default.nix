@@ -1,5 +1,4 @@
 {
   imports = [
-    ./shpool.nix
   ];
 }
