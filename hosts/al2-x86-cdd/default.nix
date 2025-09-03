@@ -29,6 +29,9 @@
   };
 
   programs = {
+    bob-nvim = {
+      enable = true;
+    };
     mise = {
       enable = true;
       globalConfig = {
