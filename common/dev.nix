@@ -195,14 +195,9 @@ in
       hyperfine
 
       gum
-      (pkgs.fetchFromGitHub {
-        owner = "jdx";
-        repo = "usage";
-        rev = "v0.7.4";
-        sha256 = "sha256-uOYSWum7I64fRi47pYugcl1AM+PgK3LfXTlO5fJshMQ=";
-      })
       libnotify
       sesh
+      usage
 
       claude-code
       opencode
