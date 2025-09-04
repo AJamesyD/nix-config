@@ -205,6 +205,7 @@ in
       sesh
 
       claude-code
+      opencode
     ];
 
     preferXdgDirectories = true;
