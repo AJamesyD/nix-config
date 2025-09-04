@@ -16,7 +16,7 @@
       url = "github:cachix/devenv";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "git-hooks-nix";
+        flake-compat.follows = "flake-compat";
         git-hooks.follows = "git-hooks-nix";
       };
     };
