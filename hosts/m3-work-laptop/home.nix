@@ -135,9 +135,9 @@
         neovide-ssh = # bash
           ''
             (ssh -L 6666:localhost:6666 $DEV_DESK_HOSTNAME \
-                    'nvim --headless --listen localhost:6666' &) &&
-                    sleep 1s &&
-                    neovide --server=localhost:6666'';
+            	'nvim --headless --listen localhost:6666' &) &&
+            	sleep 1s &&
+            	neovide --server=localhost:6666'';
       };
     };
   };
@@ -147,7 +147,7 @@
     configFile = {
       "aerospace/aerospace.toml" = {
         enable = true;
-        source = (pkgs.formats.toml { }).generate "aerospace.toml" (import ./aerospace.nix);
+        source = ../../users/angaidan/.config/aerospace/aerospace.toml;
         onChange = # bash
           ''
             export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
