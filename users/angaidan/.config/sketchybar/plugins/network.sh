@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 update() {
-	SSID=$(system_profiler SPAirPortDataType | awk '/Current Network Information:/ { getline; print substr($0, 13, (length($0) - 13)); exit }')
+	SSID=$(networksetup -listpreferredwirelessnetworks en0 | sed -n '2 p' | tr -d '\t')
 	IS_VPN=$(scutil --nwi | /etc/profiles/per-user/angaidan/bin/rg -m1 'utun' | awk '{ print $1 }')
 
 	if [[ $IS_VPN != "" ]]; then
