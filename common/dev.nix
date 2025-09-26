@@ -201,7 +201,6 @@ in
 
       claude-code
       opencode
-      _1password-cli
     ];
 
     preferXdgDirectories = true;
@@ -700,6 +699,13 @@ in
             run --quiet mise plugin install --all --yes --quiet
             run --quiet mise install --yes --quiet
           '';
+      };
+      "mise/default-node-packages" = {
+        text = ''
+          @bitwarden/cli
+          mcp-hub
+        '';
+
       };
     };
   };
