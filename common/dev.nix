@@ -201,6 +201,7 @@ in
 
       claude-code
       opencode
+      _1password-cli
     ];
 
     preferXdgDirectories = true;
@@ -416,7 +417,9 @@ in
     };
     go = {
       enable = true;
-      goBin = ".local/bin.go";
+      env = {
+        goBin = ".local/bin.go";
+      };
     };
     htop = {
       enable = true;

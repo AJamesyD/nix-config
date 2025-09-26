@@ -107,7 +107,7 @@
         greedy = true;
       }
       {
-        name = "neovide";
+        name = "neovide-app";
         greedy = true;
       }
       {

@@ -50,14 +50,6 @@
         squashfsTools
 
         openssh
-
-        (luajit.withPackages (
-          ps: with ps; [
-            luarocks
-            luv
-          ]
-        ))
-        neovim
         vim
       ]
       ++ map (x: x.terminfo) (
