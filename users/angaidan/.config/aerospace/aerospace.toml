@@ -118,10 +118,10 @@ cmd-shift-alt-down = "resize height +50"
 cmd-shift-alt-up = "resize height -50"
 cmd-shift-alt-right = "resize width +50"
 
-cmd-shift-alt-h = "exec-and-forget aerospace move left && aerospace move-mouse window-lazy-center"
-cmd-shift-alt-j = "exec-and-forget aerospace move down && aerospace move-mouse window-lazy-center"
-cmd-shift-alt-k = "exec-and-forget aerospace move up && aerospace move-mouse window-lazy-center"
-cmd-shift-alt-l = "exec-and-forget aerospace move right && aerospace move-mouse window-lazy-center"
+cmd-shift-alt-h = "exec-and-forget (aerospace move left --boundaries all-monitors-outer-frame ---boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window left --focus-follows-window"
+cmd-shift-alt-j = "exec-and-forget (aerospace move down --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window down --focus-follows-window"
+cmd-shift-alt-k = "exec-and-forget (aerospace move up --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window up --focus-follows-window"
+cmd-shift-alt-l = "exec-and-forget (aerospace move right --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window right --focus-follows-window"
 
 
 ### Move workspaces and windows within workspaces ###
@@ -129,11 +129,6 @@ cmd-shift-alt-ctrl-left = "move-workspace-to-monitor left"
 cmd-shift-alt-ctrl-down = "move-workspace-to-monitor down"
 cmd-shift-alt-ctrl-up = "move-workspace-to-monitor up"
 cmd-shift-alt-ctrl-right = "move-workspace-to-monitor right"
-
-cmd-shift-alt-ctrl-h = "move-node-to-monitor left --focus-follows-window"
-cmd-shift-alt-ctrl-j = "move-node-to-monitor down --focus-follows-window"
-cmd-shift-alt-ctrl-k = "move-node-to-monitor up --focus-follows-window"
-cmd-shift-alt-ctrl-l = "move-node-to-monitor right --focus-follows-window"
 
 cmd-shift-alt-ctrl-1 = "move-node-to-workspace 1-dev --focus-follows-window"
 cmd-shift-alt-ctrl-2 = "move-node-to-workspace 2-browser --focus-follows-window"
@@ -158,6 +153,11 @@ cmd-shift-alt-ctrl-i = "move-node-to-workspace ignored --focus-follows-window"
 
 ### Misc ###
 cmd-shift-alt-ctrl-r = "exec-and-forget aerospace reload-config; aerospace enable off; aerospace enable on\n"
+
+
+[mode.move.binding]
+esc = ['mode main']
+
 
 [[on-window-detected]]
 if.app-name-regex-substring = "SecurityAgent"
