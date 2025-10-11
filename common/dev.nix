@@ -266,7 +266,8 @@ in
       };
     };
     bash = {
-      enable = true;
+      # XXX: Re-enable once ruby3.3-nokogiri build fixed
+      enable = false;
       enableVteIntegration = pkgs.stdenv.isLinux;
       bashrcExtra = # bash
         ''
