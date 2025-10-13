@@ -200,7 +200,9 @@ in
       usage
 
       claude-code
-      opencode
+
+      # XXX: Move opencode to mise/default-node-packages to avoid build failures
+      # opencode
     ];
 
     preferXdgDirectories = true;
@@ -705,6 +707,7 @@ in
         text = ''
           @bitwarden/cli
           mcp-hub
+          opencode-ai
         '';
 
       };
