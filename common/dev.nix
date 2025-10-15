@@ -108,7 +108,7 @@ in
     file = {
       ".claude/settings.json" = {
         text = builtins.toJSON {
-          model = "claude-sonnet-4-20250514";
+          model = "opusplan";
           cleanupPeriodDays = 14;
           includeCoAuthoredBy = false;
           permissions = {
