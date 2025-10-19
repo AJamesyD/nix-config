@@ -313,6 +313,10 @@ in
         vim_keys = true;
       };
     };
+    delta = {
+      enableGitIntegration = true;
+      # Use $GIT_PAGER to set options
+    };
     dircolors = {
       enable = true;
     };
@@ -377,17 +381,13 @@ in
     };
     git = {
       enable = true;
-      delta = {
-        enable = true;
-        # Use $GIT_PAGER to set options
-      };
       lfs = {
         enable = true;
       };
-      aliases = {
-        dag = "log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order";
-      };
-      extraConfig = {
+      settings = {
+        alias = {
+          dag = "log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order";
+        };
         branch = {
           sort = "-committerdate";
         };

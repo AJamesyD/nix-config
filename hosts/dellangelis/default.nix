@@ -41,8 +41,10 @@
 
   programs = {
     git = {
-      userEmail = "aidandeangelis@berkeley.edu";
-      userName = "Aidan De Angelis";
+      settings.user = {
+        email = "aidandeangelis@berkeley.edu";
+        name = "Aidan De Angelis";
+      };
     };
     mise = {
       enable = true;

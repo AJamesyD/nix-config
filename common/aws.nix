@@ -349,8 +349,10 @@ in
 
   programs = {
     git = {
-      userEmail = "angaidan@amazon.com";
-      userName = "Aidan De Angelis";
+      settings.user = {
+        email = "angaidan@amazon.com";
+        name = "Aidan De Angelis";
+      };
     };
     zsh = {
       initContent = lib.mkMerge [
