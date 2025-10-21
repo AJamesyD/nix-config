@@ -145,6 +145,8 @@
     defaults = {
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = 2.0;
+        "com.apple.sound.beep.sound" = "/System/Library/Sounds/Blow.aiff";
+        "com.apple.sound.beep.volume" = 0.5;
       };
       CustomUserPreferences = {
         "com.apple.controlcenter" = {
