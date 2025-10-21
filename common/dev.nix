@@ -113,11 +113,26 @@ in
           includeCoAuthoredBy = false;
           permissions = {
             allow = [
-              "Read(*)"
+              "Bash(git log:*)"
+              "Bash(ls:*)"
+              "Bash(npm run lint)"
+              "Bash(npm run test:*)"
+              "Bash(cargo test:*)"
+              "Bash(cargo nextest:*)"
               "Edit(**/*.md)"
+              "Glob"
+              "Grep"
+              "LS"
+              "Read(*)"
+              "WebFetch"
+              "WebSearch"
             ];
             deny = [
-              "Read(build/**)"
+              "Read(./.env)"
+              "Read(./.env.*)"
+              "Read(./build)"
+              "Read(./config/credentials.json)"
+              "Read(./secrets/**)"
             ];
           };
           env = {
