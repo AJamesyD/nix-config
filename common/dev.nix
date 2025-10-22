@@ -306,7 +306,8 @@ in
       };
       extraPackages = with pkgs.bat-extras; [
         batdiff
-        batgrep
+        # TODO: Re-enable once builds stop failing
+        # batgrep
         batman
         batpipe
       ];

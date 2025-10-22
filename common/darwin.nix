@@ -146,7 +146,6 @@
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = 2.0;
         "com.apple.sound.beep.sound" = "/System/Library/Sounds/Blow.aiff";
-        "com.apple.sound.beep.volume" = 0.5;
       };
       CustomUserPreferences = {
         "com.apple.controlcenter" = {
@@ -186,7 +185,7 @@
         NSWindowResizeTime = 1.0e-2;
         "com.apple.keyboard.fnState" = false;
         "com.apple.sound.beep.feedback" = 1;
-        "com.apple.sound.beep.volume" = 1.0;
+        "com.apple.sound.beep.volume" = 0.5;
         "com.apple.trackpad.scaling" = 2.0;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;

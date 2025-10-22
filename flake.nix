@@ -121,7 +121,7 @@
                 nix-output-monitor
                 nix-tree
               ];
-              pre-commit = {
+              git-hooks = {
                 default_stages = [
                   "pre-commit"
                   "post-rewrite"
