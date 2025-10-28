@@ -161,19 +161,6 @@
   networking.hostName = "80a99738471f";
 
   nix = {
-    linux-builder = {
-      enable = true;
-      config =
-        { ... }:
-        {
-          # Lie in order to turn features on
-          # _module.args.hostType = "nixos";
-          _module.args.hostType = "darwin";
-          imports = [ ../../common/nix-sys.nix ];
-        };
-      ephemeral = true;
-      maxJobs = 4;
-    };
     settings = {
       max-substitution-jobs = 20;
       trusted-users = [ "angaidan" ];

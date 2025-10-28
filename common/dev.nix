@@ -179,7 +179,8 @@ in
       shfmt
       stylua
 
-      cargo-nextest
+      # https://github.com/nixos/nixpkgs/issues/456113
+      # cargo-nextest
       rustup
       mdbook
       graphviz
