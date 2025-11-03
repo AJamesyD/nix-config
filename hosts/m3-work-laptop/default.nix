@@ -162,6 +162,7 @@
 
   nix = {
     settings = {
+      download-buffer-size = 500 * 1024 * 1024; # 500MB
       max-substitution-jobs = 20;
       trusted-users = [ "angaidan" ];
     };
