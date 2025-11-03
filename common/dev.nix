@@ -456,15 +456,17 @@ in
       enable = true;
       settings = {
         gui = {
-          scrollHeight = 3;
-          scrollPastBottom = false;
-          scrollOffMargin = 3;
           mouseEvents = false;
           expandFocusedSidePanel = true;
           nerdFontsVersion = "3";
           showDivergenceFromBaseBranch = "onlyArrow";
         };
         git = {
+          pagers = [
+            {
+              useExternalDiffGitConfig = true;
+            }
+          ];
           paging = {
             # Use $GIT_PAGER to set options
             useConfig = true;
@@ -479,6 +481,7 @@ in
         os.editPreset = "nvim-remote";
         notARepository = "quit";
       };
+      shellWrapperName = "lg";
     };
     less = {
       enable = true;
@@ -570,7 +573,6 @@ in
             unset GITHUB_TOKEN
             export GITHUB_TOKEN="$(gh auth token)"
           '';
-        lg = "lazygit";
         v = "nvim";
         zsource = # bash
           ''
