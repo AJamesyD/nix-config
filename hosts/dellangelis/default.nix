@@ -28,6 +28,9 @@
 
       mullvad-browser
       tor-browser
+
+      # https://github.com/nixos/nixpkgs/issues/456113
+      cargo-nextest
     ];
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

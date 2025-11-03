@@ -35,6 +35,13 @@
       # '')
       qmk
       keymapviz
+
+      # https://github.com/nixos/nixpkgs/issues/456113
+      (cargo-nextest.overrideAttrs (prev: {
+        preConfigure = ''
+          export PATH="$PATH:/usr/sbin"
+        '';
+      }))
     ];
 
     # This value determines the Home Manager release that your configuration is
