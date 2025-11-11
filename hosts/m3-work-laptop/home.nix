@@ -162,6 +162,17 @@
             aerospace reload-config
           '';
       };
+      "borders/bordersrc" = {
+        enable = true;
+        executable = true;
+        source = ../../users/angaidan/.config/borders/bordersrc;
+        onChange = # bash
+          ''
+            export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+
+            brew services restart borders
+          '';
+      };
       "neovide/config.toml" = {
         enable = true;
         text = # toml
