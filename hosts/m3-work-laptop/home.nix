@@ -173,6 +173,11 @@
             brew services restart borders
           '';
       };
+      "ghostty" = {
+        enable = true;
+        source = ../../users/angaidan/.config/ghostty;
+        recursive = true;
+      };
       "neovide/config.toml" = {
         enable = true;
         text = # toml

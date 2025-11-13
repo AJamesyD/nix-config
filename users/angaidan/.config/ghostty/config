@@ -1,0 +1,41 @@
+# The syntax is "key = value". The whitespace around the
+# equals doesn't matter.
+# background = 282c34
+# foreground = ffffff
+
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+
+# keybind = ctrl+z=close_surface
+# keybind = ctrl+d=new_split:right
+
+# Empty values reset the configuration to the default value
+# font-family =
+
+# Fonts
+font-family = "IBM Plex Mono"
+font-family-bold = "IBM Plex Mono"
+font-family-italic = "Victor Mono"
+font-family-bold-italic = "Victor Mono"
+font-size = 16
+font-thicken = true
+
+# Appearance
+theme = "Dark Pastel"
+
+custom-shader = ./shaders/cursor_blaze_no_trail.glsl
+custom-shader = ./shaders/cursor_smear.glsl
+
+# Window
+window-padding-color = background
+macos-titlebar-style = tabs
+confirm-close-surface = true
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Misc.
+auto-update = "check"
+shell-integration-features = cursor, sudo, ssh-env, ssh-terminfo
+
+# vim: ft=conf
