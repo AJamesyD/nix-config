@@ -331,6 +331,7 @@ in
       };
     };
     delta = {
+      enable = true;
       enableGitIntegration = true;
       # Use $GIT_PAGER to set options
     };
