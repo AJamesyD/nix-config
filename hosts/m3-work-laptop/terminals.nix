@@ -27,7 +27,7 @@
 
   programs = {
     alacritty = {
-      enable = true;
+      enable = false;
       settings = {
         general = {
           import = [
