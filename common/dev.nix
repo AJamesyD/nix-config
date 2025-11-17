@@ -203,6 +203,8 @@ in
       neovim
       tree-sitter
 
+      zig
+
       docker
       docker-compose
 
