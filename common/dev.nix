@@ -108,12 +108,13 @@ in
     file = {
       ".claude/settings.json" = {
         text = builtins.toJSON {
-          model = "opusplan";
+          model = "opusplan[1m]";
           cleanupPeriodDays = 14;
           includeCoAuthoredBy = false;
           permissions = {
             allow = [
               "Bash(git log:*)"
+              "Bash(git status:*)"
               "Bash(ls:*)"
               "Bash(npm run lint)"
               "Bash(npm run test:*)"
