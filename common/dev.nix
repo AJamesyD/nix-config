@@ -612,12 +612,8 @@ in
         theme = "powerlevel10k";
         custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         plugins = [
-          "aws"
-          "direnv"
-          "fzf"
           "git"
           "git-auto-fetch"
-          "brew"
         ];
       };
       initContent = lib.mkMerge [
@@ -659,14 +655,6 @@ in
           # Requires nix-output-monitor
           ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh | source /dev/stdin
 
-          # SSH for use with ControlMaster
-          local CONST_SSH_SOCK="$HOME/.ssh/ssh-auth-sock"
-          if [ ! -z ''${SSH_AUTH_SOCK+x} ] && [ "$SSH_AUTH_SOCK" != "$CONST_SSH_SOCK" ]; then
-            rm -f "$CONST_SSH_SOCK"
-            ln -sf "$SSH_AUTH_SOCK" "$CONST_SSH_SOCK"
-            export SSH_AUTH_SOCK="$CONST_SSH_SOCK"
-          fi
-
           local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
           [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
@@ -674,11 +662,13 @@ in
       ];
       envExtra = # bash
         ''
-          # zsh-abbr
-          # TODO: find more elegant way to override home-manager program config
-          export ABBR_USER_ABBREVIATIONS_FILE="${config.xdg.dataHome}/zsh-abbr/user_abbreviations"
+          # https://scottspence.com/posts/speeding-up-my-zsh-shell
+          DISABLE_AUTO_UPDATE="true"
+          DISABLE_MAGIC_FUNCTIONS="true"
+          DISABLE_COMPFIX="true"
+          ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+          ZSH_AUTOSUGGEST_USE_ASYNC=1
         '';
-      zsh-abbr.enable = true;
     };
   };
   services = {
