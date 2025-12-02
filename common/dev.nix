@@ -578,6 +578,11 @@ in
             unset GITHUB_TOKEN
             export GITHUB_TOKEN="$(gh auth token)"
           '';
+        nix-clean = # bash
+          ''
+            nix-collect-garbage -d
+            nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel 'nix store repair {}'
+          '';
         v = "nvim";
         zsource = # bash
           ''
