@@ -172,6 +172,7 @@ in
       (lib.hiPrio ncurses)
       netcat-gnu
       pandoc
+      parallel
       rsync
       squashfsTools
 
