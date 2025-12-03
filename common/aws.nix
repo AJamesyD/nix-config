@@ -403,6 +403,12 @@ in
 
         cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
 
+        clean = # bash
+          ''
+            nix-clean
+            brazil-package-cache clean
+          '';
+
         al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
         al2-x86-cdm = "ssh -t $CDM_HOSTNAME_AL2_X86 zsh -l";
         al2023-x86-cdm = "ssh -t $CDM_HOSTNAME_AL2023_X86 zsh -l";
