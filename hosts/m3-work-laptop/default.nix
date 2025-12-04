@@ -203,5 +203,6 @@
     home = "/Users/angaidan";
     name = "angaidan";
     shell = "/sbin/nologin";
+    uid = 503;
   };
 }
