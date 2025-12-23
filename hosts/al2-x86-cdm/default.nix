@@ -35,7 +35,7 @@
     mise = {
       enable = true;
       globalConfig = {
-        alias = {
+        tool_alias = {
           node = "node:ssh://git.amazon.com/pkg/RtxNode";
         };
         tools = {

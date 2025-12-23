@@ -508,7 +508,7 @@ in
     mise = {
       enable = true;
       globalConfig = {
-        alias = {
+        tool_alias = {
           usage = "usage:jdx/mise-usage";
         };
         tools = {
