@@ -232,7 +232,8 @@ in
 
       BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
 
-      GIT_PAGER = "delta --dark --paging=never";
+      # $BAT_THEME reused by git delta
+      BAT_THEME = "tokyonight-night";
 
       GOPROXY = "direct";
 
@@ -306,9 +307,7 @@ in
     };
     bat = {
       enable = true;
-      config = {
-        theme = "tokyonight-night";
-      };
+      # Theme set by $BAT_THEME
       extraPackages = with pkgs.bat-extras; [
         batdiff
         # TODO: Re-enable once builds stop failing
@@ -337,7 +336,21 @@ in
     delta = {
       enable = true;
       enableGitIntegration = true;
-      # Use $GIT_PAGER to set options
+      enableJujutsuIntegration = true;
+      options = {
+        dark = true;
+        # Increase contrast for line diffs
+        minus-style = "normal darkred";
+        plus-style = "normal darkgreen";
+      };
+    };
+    difftastic = {
+      # TODO: Experiment with difftastic
+      enable = false;
+      git = {
+        enable = true;
+        diffToolMode = true;
+      };
     };
     dircolors = {
       enable = true;
@@ -469,13 +482,13 @@ in
         git = {
           pagers = [
             {
-              useExternalDiffGitConfig = true;
+              pager = "delta --dark --paging=never";
             }
+            # TODO: Experiment with difftastic
+            # {
+            #   externalDiffCommand = "difft --color=always --display=inline";
+            # }
           ];
-          paging = {
-            # Use $GIT_PAGER to set options
-            useConfig = true;
-          };
           mainBranches = [
             "main"
             "mainline"
