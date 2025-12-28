@@ -435,7 +435,8 @@ in
           defaultBranch = "mainline";
         };
         merge = {
-          conflictstyle = "zdiff3";
+          # TODO: Use zdiff3 when not using mergiraf
+          # conflictstyle = "zdiff3";
           tool = "nvim";
         };
         pull = {
@@ -507,6 +508,7 @@ in
     lesspipe = {
       enable = true;
     };
+    mergiraf.enable = true;
     navi = {
       enable = true;
       settings = {
