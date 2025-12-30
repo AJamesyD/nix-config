@@ -175,11 +175,15 @@ in
       parallel
       rsync
       squashfsTools
+      wget
 
+      mermaid-cli
+      python313Packages.pylatexenc
       ruff
       shellcheck
       shfmt
       stylua
+      vscode-langservers-extracted
 
       # https://github.com/nixos/nixpkgs/issues/456113
       # cargo-nextest
@@ -202,6 +206,7 @@ in
         ]
       ))
       markdownlint-cli2
+      ast-grep
       neovim
       tree-sitter
 
