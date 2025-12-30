@@ -48,6 +48,7 @@
             # "lts-iron" # v20
             # "lts-hydrogen" # v18
             # NOTE: First one becomes default
+            "lts"
             "22"
             "20"
             "18"

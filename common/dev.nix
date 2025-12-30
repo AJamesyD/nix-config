@@ -99,6 +99,7 @@ in
       git
       git-lfs
       git-secrets
+      gnupg
       gnutar
       gzip
     ];
@@ -165,6 +166,7 @@ in
       git
       git-lfs
       gnugrep
+      gnupg
       gnused
       gnutar
       gnutls
@@ -183,7 +185,6 @@ in
       shellcheck
       shfmt
       stylua
-      vscode-langservers-extracted
 
       # https://github.com/nixos/nixpkgs/issues/456113
       # cargo-nextest
@@ -738,13 +739,12 @@ in
       "mise/config.toml" = {
         onChange = # bash
           ''
-            run --quiet mise plugin install --all --yes --quiet
+            run --quiet mise plugins install --all --yes --quiet
             run --quiet mise install --yes --quiet
           '';
       };
       "mise/default-node-packages" = {
         text = ''
-          @bitwarden/cli
           mcp-hub
           opencode-ai
         '';

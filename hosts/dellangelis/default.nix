@@ -55,7 +55,7 @@
         tools = {
           node = [
             # NOTE: First one becomes default
-            "22"
+            "lts"
           ];
         };
       };
