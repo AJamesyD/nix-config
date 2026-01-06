@@ -189,7 +189,7 @@ run = "move-node-to-workspace 1-dev"
 
 [[on-window-detected]]
 if.window-title-regex-substring = "neovide"
-run = "move-node-to-workspace 1-dev"
+run = ["layout floating", "move-node-to-workspace 1-dev"]
 
 [[on-window-detected]]
 if.app-id = "dev.kdrag0n.MacVirt"

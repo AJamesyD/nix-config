@@ -142,7 +142,7 @@
         up = "nixup";
         neovide-ssh = # bash
           ''
-            (ssh -L 6666:localhost:6666 $DEV_DESK_HOSTNAME \
+            (ssh -L 6666:localhost:6666 "$CDD_HOSTNAME_AL2_X86" \
             	'nvim --headless --listen localhost:6666' &) &&
             	sleep 1s &&
             	neovide --server=localhost:6666'';
@@ -184,9 +184,11 @@
         text = # toml
           ''
             fork = true
-            frame = "buttonless"
+            frame = "full"
             no-multigrid = false
             title-hidden = true
+            maximized = true
+
 
             [font]
             size = 16.0
