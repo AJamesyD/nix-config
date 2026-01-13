@@ -198,7 +198,7 @@ in
       nix-update
       nix-your-shell
       nixd
-      nixfmt-rfc-style
+      nixfmt
 
       (luajit.withPackages (
         ps: with ps; [
@@ -529,6 +529,10 @@ in
     mise = {
       enable = true;
       globalConfig = {
+        settings = {
+          legacy_version_file = false;
+          yes = true;
+        };
         tool_alias = {
           usage = "usage:jdx/mise-usage";
         };
@@ -541,10 +545,6 @@ in
             "latest"
           ];
         };
-      };
-      settings = {
-        legacy_version_file = false;
-        yes = true;
       };
     };
     ripgrep = {
