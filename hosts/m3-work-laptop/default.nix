@@ -139,6 +139,10 @@
         greedy = true;
       }
       {
+        name = "zed@preview";
+        greedy = true;
+      }
+      {
         name = "zen";
         greedy = true;
       }
