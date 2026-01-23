@@ -156,7 +156,13 @@
                 };
                 jsonfmt.enable = true;
                 nixfmt.enable = true;
-                shellcheck.enable = true;
+                shellcheck = {
+                  enable = true;
+                  excludes = [
+                    "users/angaidan/.config/sketchybar/plugins/*"
+                    "users/angaidan/.config/sketchybar/*"
+                  ];
+                };
                 shfmt = {
                   enable = true;
                   indent_size = 0;
