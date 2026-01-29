@@ -602,7 +602,7 @@ in
         nix-clean = # bash
           ''
             nix-collect-garbage -d
-            nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite 'nix store repair {}'
+            nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
           '';
         v = "nvim";
         zsource = # bash
