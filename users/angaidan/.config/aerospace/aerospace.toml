@@ -230,6 +230,11 @@ run = "move-node-to-workspace 3-admin"
 
 [[on-window-detected]]
 if.app-id = "com.tinyspeck.slackmacgap"
+if.window-title-regex-substring = "Huddle"
+run = "move-node-to-workspace 5-video-call"
+
+[[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
 run = "move-node-to-workspace 4-chat"
 
 [[on-window-detected]]
