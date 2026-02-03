@@ -332,6 +332,7 @@ in
 
     packages = with pkgs; [
       awscli2
+      cdk
     ];
 
     sessionPath =
