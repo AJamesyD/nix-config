@@ -302,6 +302,8 @@ in
             "envSetup"
           ] # bash
           ''
+            export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
+
             run --quiet toolbox completion zsh >"$ZCOMPDIR/_toolbox"
             run --quiet toolbox update
             run --quiet toolbox clean
@@ -360,9 +362,6 @@ in
         (lib.mkOrder 550
           # bash
           ''
-            path+=("$ZCOMPDIR")
-            fpath+=("$ZCOMPDIR")
-
             local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
             if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
             	source "$BRAZIL_ZSH_COMPLETION"

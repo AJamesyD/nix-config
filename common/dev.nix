@@ -59,6 +59,7 @@ in
               export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
               export PATH="$PATH:${config.home.profileDirectory}/bin"
               export PATH="$PATH:/usr/bin"
+              export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
             ''
             +
               lib.strings.optionalString pkgs.stdenv.isDarwin # bash
@@ -309,6 +310,10 @@ in
           if [ -f /etc/profile ]; then
           	. /etc/profile
           fi
+
+          # Added by OrbStack: command-line tools and integration
+          # This won't be added again if you remove it.
+          source ~/.orbstack/shell/init.zsh 2>/dev/null || :
         '';
     };
     bat = {
@@ -640,21 +645,17 @@ in
         custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         plugins = [
           "git"
-          "git-auto-fetch"
         ];
       };
       initContent = lib.mkMerge [
-        (lib.mkBefore # bash
-          ''
-            if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-              source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-            fi
-          ''
-        )
+        (lib.mkBefore ''
+          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
+        '')
         (lib.mkOrder 550
           # bash
           ''
-            fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)
             fpath+=(${zshcompdir})
 
             # zsh-vi-mode. Following must exist before sourcing plugin
@@ -693,8 +694,9 @@ in
           DISABLE_AUTO_UPDATE="true"
           DISABLE_MAGIC_FUNCTIONS="true"
           DISABLE_COMPFIX="true"
-          ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-          ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+          # ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+          # ZSH_AUTOSUGGEST_USE_ASYNC=1
         '';
     };
   };
