@@ -37,5 +37,6 @@ mouse-hide-while-typing = true
 # Misc.
 auto-update = "check"
 shell-integration-features = cursor, sudo, ssh-env, ssh-terminfo
+working-directory = home
 
 # vim: ft=conf
