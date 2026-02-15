@@ -226,9 +226,6 @@ in
       usage
 
       claude-code
-
-      # XXX: Move opencode to mise/default-node-packages to avoid build failures
-      # opencode
     ];
 
     preferXdgDirectories = true;
@@ -746,6 +743,7 @@ in
       };
       "mise/default-node-packages" = {
         text = ''
+          @zed-industries/claude-code-acp
           mcp-hub
           opencode-ai
         '';
