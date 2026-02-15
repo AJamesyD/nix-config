@@ -570,6 +570,7 @@ in
     yazi = {
       enable = true;
       enableZshIntegration = true;
+      shellWrapperName = "y";
     };
     zoxide = {
       enable = true;
