@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ./ai
     ./tmux.nix
     ./zellij.nix
   ];
@@ -108,44 +109,6 @@ in
     # since zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
     # random programs trying to append to it
     file = {
-      ".claude/settings.json" = {
-        text = builtins.toJSON {
-          model = "opusplan";
-          cleanupPeriodDays = 14;
-          includeCoAuthoredBy = false;
-          permissions = {
-            allow = [
-              "Bash(git log:*)"
-              "Bash(git status:*)"
-              "Bash(ls:*)"
-              "Bash(npm run lint)"
-              "Bash(npm run test:*)"
-              "Bash(cargo test:*)"
-              "Bash(cargo nextest:*)"
-              "Edit(**/*.md)"
-              "Glob"
-              "Grep"
-              "LS"
-              "Read(*)"
-              "WebFetch"
-              "WebSearch"
-            ];
-            deny = [
-              "Read(./.env)"
-              "Read(./.env.*)"
-              "Read(./build)"
-              "Read(./config/credentials.json)"
-              "Read(./secrets/**)"
-            ];
-          };
-          env = {
-            DISABLE_BUG_COMMAND = 1;
-            DISABLE_ERROR_REPORTING = 1;
-            DISABLE_TELEMETRY = 1;
-          };
-        };
-      };
-
       ".zshrc" = {
         text = # bash
           ''
@@ -224,8 +187,6 @@ in
       libnotify
       sesh
       usage
-
-      claude-code
     ];
 
     preferXdgDirectories = true;
@@ -697,11 +658,6 @@ in
         '';
     };
   };
-  services = {
-    ollama = {
-      enable = false;
-    };
-  };
   xdg = {
     enable = true;
     configFile = {
@@ -741,14 +697,6 @@ in
             run --quiet mise plugins install --all --yes --quiet
             run --quiet mise install --yes --quiet
           '';
-      };
-      "mise/default-node-packages" = {
-        text = ''
-          @zed-industries/claude-code-acp
-          mcp-hub
-          opencode-ai
-        '';
-
       };
     };
   };
