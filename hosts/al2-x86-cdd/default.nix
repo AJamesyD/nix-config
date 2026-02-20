@@ -42,17 +42,33 @@
           node = "node:ssh://git.amazon.com/pkg/RtxNode";
         };
         tools = {
-          node = [
-            # TODO: move to aliases once RtxNode gets it together
-            # "lts-job" # v22
-            # "lts-iron" # v20
-            # "lts-hydrogen" # v18
-            # NOTE: First one becomes default
-            "lts"
-            "22"
-            "20"
-            "18"
-          ];
+          node =
+            let
+              postinstall = ''xargs npm i -g < "$MISE_NODE_DEFAULT_PACKAGES_FILE"'';
+            in
+            [
+              # TODO: move to aliases once RtxNode gets it together
+              # "lts-job" # v22
+              # "lts-iron" # v20
+              # "lts-hydrogen" # v18
+              # NOTE: First one becomes default
+              {
+                version = "lts";
+                inherit postinstall;
+              }
+              {
+                version = "22";
+                inherit postinstall;
+              }
+              {
+                version = "20";
+                inherit postinstall;
+              }
+              {
+                version = "18";
+                inherit postinstall;
+              }
+            ];
         };
       };
     };
