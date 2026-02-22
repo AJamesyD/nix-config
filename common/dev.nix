@@ -556,15 +556,18 @@ in
           file = "you-should-use.plugin.zsh";
           src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
         }
+        {
+          name = "powerlevel10k";
+          file = "powerlevel10k.zsh-theme";
+          src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
+        }
+        {
+          name = "omz-git";
+          file = "plugins/git/git.plugin.zsh";
+          src = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
+        }
       ];
-      oh-my-zsh = {
-        enable = true;
-        theme = "powerlevel10k";
-        custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
-        plugins = [
-          "git"
-        ];
-      };
+
       initContent = lib.mkMerge [
         (lib.mkBefore ''
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
@@ -606,16 +609,6 @@ in
           [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
         ''
       ];
-      envExtra = # bash
-        ''
-          # https://scottspence.com/posts/speeding-up-my-zsh-shell
-          DISABLE_AUTO_UPDATE="true"
-          DISABLE_MAGIC_FUNCTIONS="true"
-          DISABLE_COMPFIX="true"
-
-          # ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-          # ZSH_AUTOSUGGEST_USE_ASYNC=1
-        '';
     };
   };
   xdg = {
