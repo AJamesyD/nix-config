@@ -119,7 +119,7 @@ in
           ''
             nix-clean
             brazil-package-cache clean
-            ${pkgs.fd}/bin/fd --changed-before 2d . /tmp --exec rm -rf {}
+            ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf
           '';
 
         al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
