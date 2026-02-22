@@ -7,7 +7,6 @@
   imports = [
     ../../common/aws.nix
     ../../common/dev.nix
-    ./terminals.nix
   ];
 
   home = {
@@ -17,6 +16,15 @@
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = with pkgs; [
+      # Fonts
+      nerd-fonts.blex-mono
+      nerd-fonts.hack
+      nerd-fonts.victor-mono
+      hack-font
+      ibm-plex
+      sketchybar-app-font
+      victor-mono
+
       qmk
       keymapviz
 
