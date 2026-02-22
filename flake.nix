@@ -57,7 +57,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
     systems.url = "github:nix-systems/default";
