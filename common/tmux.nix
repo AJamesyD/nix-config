@@ -73,15 +73,6 @@ in
               set -g @catppuccin_session_color "#{?client_prefix,#{E:@prefix_mode_highlight},#{E:@fallback_mode_highlight}}"
             '';
         }
-        # XXX: Temp disable fingers to see if it'll unbreak nix builds on Mac
-        # {
-        #   plugin = fingers;
-        #   extraConfig = # tmux
-        #     ''
-        #       set -g @fingers-key F
-        #       set -g @fingers-enabled-builtin-patterns uuid,sha,url,path
-        #     '';
-        # }
         {
           plugin = pain-control;
           extraConfig = # tmux

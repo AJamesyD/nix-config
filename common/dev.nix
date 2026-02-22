@@ -252,27 +252,6 @@ in
         };
       };
     };
-    bash = {
-      # XXX: Re-enable once ruby3.3-nokogiri build fixed
-      enable = false;
-      enableVteIntegration = pkgs.stdenv.isLinux;
-      bashrcExtra = # bash
-        ''
-          if [ -f /etc/bashrc ]; then
-          	. /etc/bashrc
-          fi
-        '';
-      profileExtra = # bash
-        ''
-          if [ -f /etc/profile ]; then
-          	. /etc/profile
-          fi
-
-          # Added by OrbStack: command-line tools and integration
-          # This won't be added again if you remove it.
-          source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-        '';
-    };
     bat = {
       enable = true;
       # Theme set by $BAT_THEME
@@ -310,14 +289,6 @@ in
         # Increase contrast for line diffs
         minus-style = "normal darkred";
         plus-style = "normal darkgreen";
-      };
-    };
-    difftastic = {
-      # TODO: Experiment with difftastic
-      enable = false;
-      git = {
-        enable = true;
-        diffToolMode = true;
       };
     };
     dircolors = {
@@ -453,10 +424,6 @@ in
             {
               pager = "delta --dark --paging=never";
             }
-            # TODO: Experiment with difftastic
-            # {
-            #   externalDiffCommand = "difft --color=always --display=inline";
-            # }
           ];
           mainBranches = [
             "main"

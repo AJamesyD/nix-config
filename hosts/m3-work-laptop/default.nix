@@ -94,13 +94,6 @@
         name = "aerospace";
         greedy = true;
       }
-      # {
-      #   name = "eloston-chromium";
-      #   args = {
-      #     no_quarantine = true;
-      #   };
-      #   greedy = true;
-      # }
       {
         name = "ghostty";
         greedy = true;
