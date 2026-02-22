@@ -73,7 +73,8 @@
           inputs.treefmt-nix.flakeModule
         ];
 
-        debug = true; # This exposes declarations for nixd lsp
+        # Exposes debug/allSystems/currentSystem attrs for nix repl and nixd LSP
+        debug = true;
 
         systems = [
           "aarch64-darwin"

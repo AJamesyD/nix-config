@@ -22,7 +22,7 @@ let
           (../hosts + "/${hostName}")
           {
             environment.variables = {
-              # WARN: Using this is Neovim nix lsp configs, until I can find something smarter
+              # WARN: Using this in Neovim nix lsp configs, until I can find something smarter
               _NIX_HOSTNAME = hostName;
             };
             nix = {
