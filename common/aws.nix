@@ -99,9 +99,6 @@ in
             null;
 
         CDD_HOSTNAME_AL2_X86 = "dev-dsk-angaidan-2a-4351fd5e.us-west-2.amazon.com";
-        CDM_HOSTNAME_AL2_X86 = "i-0350c0ed5d6a69b55";
-        CDM_HOSTNAME_AL2023_X86 = "i-0636016045fe041a8";
-        CDM_HOSTNAME_AL2023_ARM = "i-087650b5a8686c1a4";
       };
       shellAliases = {
         bb = "brazil-build";
@@ -126,9 +123,6 @@ in
           '';
 
         al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
-        al2-x86-cdm = "ssh -t $CDM_HOSTNAME_AL2_X86 zsh -l";
-        al2023-x86-cdm = "ssh -t $CDM_HOSTNAME_AL2023_X86 zsh -l";
-        al2023-arm-cdm = "ssh -t $CDM_HOSTNAME_AL2023_ARM zsh -l";
       };
     };
   };

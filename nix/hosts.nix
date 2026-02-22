@@ -47,21 +47,7 @@ in
     hostPlatform = "x86_64-linux";
     username = "angaidan";
   };
-  al2-x86-cdm = mkHost {
-    type = "home-manager";
-    hostPlatform = "x86_64-linux";
-    username = "angaidan";
-  };
-  al2023-x86-cdm = mkHost {
-    type = "home-manager";
-    hostPlatform = "x86_64-linux";
-    username = "angaidan";
-  };
-  al2023-arm64-cdm = mkHost {
-    type = "home-manager";
-    hostPlatform = "aarch64-linux";
-    username = "angaidan";
-  };
+
   m3-work-laptop = mkHost {
     type = "nix-darwin";
     hostPlatform = "aarch64-darwin";
