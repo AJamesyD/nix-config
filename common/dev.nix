@@ -150,7 +150,6 @@ in
       stylua
 
       cargo-binstall
-      cargo-nextest
       rustup
       mdbook
       graphviz
