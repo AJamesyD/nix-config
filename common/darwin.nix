@@ -33,22 +33,7 @@
     systemPackages =
       with pkgs;
       [
-        coreutils
-        findutils
-        gawk
-        git
-        git-lfs
-        gnugrep
-        gnused
-        gnutar
-        gnutls
         libplist
-        # required to make terminfo files available before zsh login
-        (lib.hiPrio ncurses)
-        pandoc
-        rsync
-        squashfsTools
-
         openssh
         vim
       ]
