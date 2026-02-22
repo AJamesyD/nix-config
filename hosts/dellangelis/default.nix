@@ -53,13 +53,6 @@
     zsh = {
       enable = true;
       shellAliases = {
-        nixup = # bash
-          ''
-            ghauth
-            nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            home-manager switch --flake ~/.config/nix#dellangelis --option access-tokens "github.com=$GITHUB_TOKEN"
-            zsource
-          '';
         up = "sudo dnf upgrade -y && nixup";
       };
     };

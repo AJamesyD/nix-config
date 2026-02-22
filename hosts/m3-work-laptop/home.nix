@@ -117,13 +117,6 @@
       ];
       shellAliases = {
         auth = "mwinit -f -s";
-        nixup = # bash
-          ''
-            ghauth
-            nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            sudo darwin-rebuild switch --flake ~/.config/nix#m3-work-laptop --option access-tokens "github.com=$GITHUB_TOKEN"
-            zsource
-          '';
         up = "nixup";
         neovide-ssh = # bash
           ''

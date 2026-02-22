@@ -526,12 +526,22 @@ in
             nix-collect-garbage -d
             nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
           '';
+        nixup =
+          let
+            switchCmd = if pkgs.stdenv.isDarwin then "sudo darwin-rebuild switch" else "home-manager switch";
+          in
+          # bash
+          ''
+            ghauth
+            nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
+            ${switchCmd} --flake ~/.config/nix#$_NIX_HOSTNAME --option access-tokens "github.com=$GITHUB_TOKEN"
+            zsource
+          '';
         v = "nvim";
         zsource = # bash
           ''
-            source "$ZDOTDIR/.zshrc"
             source "$ZDOTDIR/.zshenv"
-            omz reload''; # Cannot have newline at end of command or else it won't be chainable
+            source "$ZDOTDIR/.zshrc"''; # Cannot have newline at end of command or else it won't be chainable
       };
       plugins = [
         # zsh-vi-mode must come first to avoid overriding other keymaps

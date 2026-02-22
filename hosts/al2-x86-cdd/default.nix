@@ -62,13 +62,6 @@
       enable = true;
       shellAliases = {
         auth = "mwinit -o";
-        nixup = # bash
-          ''
-            ghauth
-            nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-            home-manager switch --flake ~/.config/nix#al2-x86-cdd --option access-tokens "github.com=$GITHUB_TOKEN"
-            zsource
-          '';
         up = "sudo yum upgrade -y && nixup";
         # Borrowed from https://github.com/shell-pool/shpool/issues/49#issue-2355077641
         shll = # bash
