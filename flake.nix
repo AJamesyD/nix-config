@@ -25,10 +25,6 @@
     };
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
@@ -60,7 +56,6 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    systems.url = "github:nix-systems/default";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
