@@ -131,6 +131,4 @@
       ];
     };
   };
-
-  targets.genericLinux.enable = true;
 }

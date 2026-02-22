@@ -74,6 +74,4 @@
       };
     };
   };
-
-  targets.genericLinux.enable = true;
 }
