@@ -135,9 +135,6 @@
   };
 
   system = {
-    # TODO: Borrow https://github.com/IvarWithoutBones/dotfiles/commit/0b3faad8bd1d0e1af6103caf59b206666ab742f4
-    # so Applications folders linked properly
-
     # Set Git commit hash for darwin-version.
     configurationRevision = self.rev or self.dirtyRev or null;
 

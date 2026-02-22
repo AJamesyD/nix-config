@@ -47,10 +47,6 @@
               postinstall = ''xargs npm i -g < "$MISE_NODE_DEFAULT_PACKAGES_FILE"'';
             in
             [
-              # TODO: move to aliases once RtxNode gets it together
-              # "lts-job" # v22
-              # "lts-iron" # v20
-              # "lts-hydrogen" # v18
               # NOTE: First one becomes default
               {
                 version = "lts";

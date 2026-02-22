@@ -157,7 +157,7 @@
     users.angaidan = import ./home.nix;
   };
 
-  # TODO: Is this safe to change?
+  # nix-darwin requires a hostname; this is the machine's hardware UUID
   networking.hostName = "80a99738471f";
 
   nix = {

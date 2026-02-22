@@ -76,8 +76,6 @@ in
           ]
           # bash
           ''
-            # TODO: Uncomment when working again
-            # run --quiet mise upgrade --yes --quiet
             run --quiet mise prune --yes --quiet
             run --quiet mise plugins update --yes --quiet
           '';
@@ -257,8 +255,6 @@ in
       # Theme set by $BAT_THEME
       extraPackages = with pkgs.bat-extras; [
         batdiff
-        # TODO: Re-enable once builds stop failing
-        # batgrep
         batman
         batpipe
       ];
@@ -374,8 +370,6 @@ in
           defaultBranch = "mainline";
         };
         merge = {
-          # TODO: Use zdiff3 when not using mergiraf
-          # conflictstyle = "zdiff3";
           tool = "nvim";
         };
         pull = {
@@ -494,7 +488,6 @@ in
     uv = {
       enable = true;
     };
-    # TODO: Topgrade
     yazi = {
       enable = true;
       enableZshIntegration = true;
