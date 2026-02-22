@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -259,12 +260,7 @@ in
       ];
       themes = {
         tokyonight-night = {
-          src = pkgs.fetchFromGitHub {
-            owner = "folke";
-            repo = "tokyonight.nvim";
-            rev = "v4.8.0";
-            sha256 = "sha256-5QeY3EevOQzz5PHDW2CUVJ7N42TRQdh7QOF9PH1YxkU=";
-          };
+          src = inputs.tokyonight-nvim;
           file = "extras/sublime/tokyonight_night.tmTheme";
         };
       };
@@ -553,12 +549,7 @@ in
         {
           name = "zsh-auto-notify";
           file = "auto-notify.plugin.zsh";
-          src = pkgs.fetchFromGitHub {
-            owner = "MichaelAquilina";
-            repo = "zsh-auto-notify";
-            rev = "27c07dddb42f05b199319a9b66473c8de7935856";
-            hash = "sha256-ScBwky33leI8mFMpAz3Ng2Z0Gbou4EWMOAhkcMZAWIc=";
-          };
+          src = inputs.zsh-auto-notify;
         }
         {
           name = "zsh-you-should-use";

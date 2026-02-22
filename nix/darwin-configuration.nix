@@ -33,14 +33,16 @@ let
                 p.flake = nixpkgs;
               };
             };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
           }
           inputs.home-manager.darwinModules.home-manager
         ];
         specialArgs = {
           hostType = type;
-          inherit (inputs)
-            self
-            ;
+          inherit (inputs) self;
+          inherit inputs;
         };
       }
     );
