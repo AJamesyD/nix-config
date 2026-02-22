@@ -1,13 +1,5 @@
+{ lib }:
 let
-  hasSuffix =
-    suffix: content:
-    let
-      inherit (builtins) stringLength substring;
-      lenContent = stringLength content;
-      lenSuffix = stringLength suffix;
-    in
-    lenContent >= lenSuffix && substring (lenContent - lenSuffix) lenContent content == suffix;
-
   mkHost =
     {
       type,
@@ -15,7 +7,7 @@ let
       username ? null,
     }:
     if type == "nix-darwin" then
-      assert (hasSuffix "darwin" hostPlatform);
+      assert (lib.hasSuffix "darwin" hostPlatform);
       {
         inherit
           type

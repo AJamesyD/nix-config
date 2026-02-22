@@ -87,7 +87,7 @@
         ];
 
         flake = {
-          hosts = import ./nix/hosts.nix;
+          hosts = import ./nix/hosts.nix { inherit (inputs.nixpkgs) lib; };
 
           darwinConfigurations = import ./nix/darwin-configuration.nix toplevel;
           homeConfigurations = import ./nix/home-configuration.nix toplevel;
