@@ -1,7 +1,6 @@
 {
   imports = [
     ./claude.nix
-    ./ollama.nix
   ];
 
   xdg.configFile = {
