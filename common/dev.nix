@@ -149,6 +149,7 @@ in
       stylua
 
       cargo-binstall
+      cargo-nextest
       rustup
       mdbook
       graphviz
@@ -181,9 +182,7 @@ in
       dua
       hyperfine
 
-      gum
       libnotify
-      sesh
       usage
     ];
 
