@@ -178,6 +178,8 @@ in
       docker
       docker-compose
 
+      lazyjj
+
       dust
       dua
       hyperfine
@@ -394,6 +396,22 @@ in
     };
     jq = {
       enable = true;
+    };
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Aidan De Angelis";
+          email = "angaidan@amazon.com";
+        };
+        ui.default-command = "log";
+        git = {
+          auto-local-bookmark = false;
+          push-bookmark-prefix = "angaidan/push-";
+        };
+        revsets.log = "present(trunk()) | mine()";
+        template-aliases."format_timestamp(timestamp)" = "timestamp.ago()";
+      };
     };
     lazydocker = {
       enable = true;
