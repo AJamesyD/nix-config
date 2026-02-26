@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    inputs.direnv-instant.homeModules.direnv-instant
     ./ai
     ./tmux.nix
     ./zellij.nix
@@ -288,8 +289,12 @@ in
     };
     direnv = {
       enable = true;
+      enableZshIntegration = false;
       mise.enable = true;
       nix-direnv.enable = true;
+    };
+    direnv-instant = {
+      enable = true;
     };
     eza = {
       enable = true;

@@ -22,6 +22,9 @@
         git-hooks.follows = "git-hooks-nix";
       };
     };
+    direnv-instant = {
+      url = "github:Mic92/direnv-instant";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
