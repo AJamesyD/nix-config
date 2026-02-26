@@ -515,7 +515,10 @@ in
     };
     zsh = {
       enable = true;
-      enableCompletion = true;
+      # Disabled — we provide a cached compinit at mkOrder 549 that uses
+      # compinit -C (skip security check + fpath scan) on most loads and only
+      # runs a full compinit when the dump is older than 24 hours.
+      enableCompletion = false;
       autosuggestion = {
         enable = true;
         strategy = [
@@ -596,6 +599,28 @@ in
             source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
         '')
+        (lib.mkOrder 549
+          # bash
+          ''
+            # PERF: compinit is expensive (~1.4s with ~3000 completions).
+            # Full compinit once per day; -C (cached, skip security check) otherwise.
+            autoload -U compinit
+            () {
+              setopt local_options extendedglob
+              if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+                compinit
+              else
+                compinit -C
+              fi
+            }
+            # Background-compile the dump for faster future loads
+            {
+              if [[ -s "''${ZDOTDIR}/.zcompdump" && (! -s "''${ZDOTDIR}/.zcompdump.zwc" || "''${ZDOTDIR}/.zcompdump" -nt "''${ZDOTDIR}/.zcompdump.zwc") ]]; then
+                zcompile "''${ZDOTDIR}/.zcompdump"
+              fi
+            } &!
+          ''
+        )
         (lib.mkOrder 550
           # bash
           ''
