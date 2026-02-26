@@ -79,7 +79,13 @@ in
           ''
             local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
             if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
+            	# PERF: brazil_completion.zsh calls compinit internally — suppress
+            	# the redundant call (already done earlier) but allow bashcompinit.
+            	functions[__saved_compinit]=$functions[compinit]
+            	compinit() { : }
             	source "$BRAZIL_ZSH_COMPLETION"
+            	functions[compinit]=$functions[__saved_compinit]
+            	unfunction __saved_compinit
             else
             	echo "WARNING: brazil zsh completions have not been set up"
             fi
