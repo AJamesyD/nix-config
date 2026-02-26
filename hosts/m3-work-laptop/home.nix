@@ -107,14 +107,6 @@
     };
     zsh = {
       enable = true;
-      initContent = lib.mkMerge [
-        (lib.mkOrder 550
-          # bash
-          ''
-            eval "$(brew shellenv)"
-          ''
-        )
-      ];
       shellAliases = {
         auth = "mwinit -f -s";
         up = "nixup";
