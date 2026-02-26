@@ -556,6 +556,7 @@ in
             ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
             ${switchCmd} --flake ~/.config/nix#$_NIX_HOSTNAME --option access-tokens "github.com=$GITHUB_TOKEN"
+            rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval" # nix store paths changed; force re-cache
             zsource
           '';
         v = "nvim";
@@ -599,6 +600,22 @@ in
             source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
         '')
+        (lib.mkOrder 548
+          # bash
+          ''
+            # PERF: cache eval output from tools whose init is static between rebuilds.
+            # Invalidated by nixup (which clears the cache dir before zsource).
+            _cache_eval() {
+              local name=$1; shift
+              local cache="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval/$name.zsh"
+              if [[ ! -f "$cache" ]]; then
+                mkdir -p "''${cache:h}"
+                "$@" > "$cache"
+              fi
+              source "$cache"
+            }
+          ''
+        )
         (lib.mkOrder 549
           # bash
           ''
@@ -646,10 +663,10 @@ in
 
           bindkey "^[[3;3~" kill-word
 
-          eval "$(${pkgs.bat-extras.batman}/bin/batman --export-env)"
+          _cache_eval batman ${pkgs.bat-extras.batman}/bin/batman --export-env
 
           # Requires nix-output-monitor
-          ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh | source /dev/stdin
+          _cache_eval nix-your-shell ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh
 
           local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
