@@ -35,7 +35,7 @@ in
       escapeTime = 0;
       historyLimit = 300000;
       keyMode = "vi";
-      mouse = false; # Will intercept hyperlink handling in Alacritty
+      mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
       newSession = true;
       plugins = with pkgs.tmuxPlugins; [
         {
@@ -86,7 +86,6 @@ in
           plugin = tmux-fzf;
           extraConfig = # tmux
             ''
-              # Avoid collision with tmux-fingers
               TMUX_FZF_LAUNCH_KEY="C-f"
             '';
         }
@@ -100,7 +99,7 @@ in
               set -g @tmux-which-key-xdg-enable 1
             '';
         }
-        # NOTE: continuum must come last to ovoid overrides of status-right
+        # NOTE: continuum must come last to avoid overrides of status-right
         {
           plugin = continuum;
           extraConfig = # tmux
@@ -134,39 +133,10 @@ in
           set -g status-right "#{E:@catppuccin_status_directory}"
           set -ag status-right "#{E:@catppuccin_status_session}"
 
-          setw -q -g utf8 on
-
           set -g status-interval 1
 
-          set -as terminal-features "alacritty*:RGB"
-          set -as terminal-features "alacritty*:clipboard"
-          set -as terminal-features "alacritty*:ccolour"
-          set -as terminal-features "alacritty*:cstyle"
-          set -as terminal-features "alacritty*:focus"
-          set -as terminal-features "alacritty*:hyperlinks"
-          set -as terminal-features "alacritty*:strikethrough"
-          set -as terminal-features "alacritty*:title"
-          set -as terminal-features "alacritty*:usstyle"
-
-          set -as terminal-features "xterm-kitty*:RGB"
-          set -as terminal-features "xterm-kitty*:clipboard"
-          set -as terminal-features "xterm-kitty*:ccolour"
-          set -as terminal-features "xterm-kitty*:cstyle"
-          set -as terminal-features "xterm-kitty*:focus"
-          set -as terminal-features "xterm-kitty*:hyperlinks"
-          set -as terminal-features "xterm-kitty*:strikethrough"
-          set -as terminal-features "xterm-kitty*:title"
-          set -as terminal-features "xterm-kitty*:usstyle"
-
-          set -as terminal-features "xterm-ghostty*:RGB"
-          set -as terminal-features "xterm-ghostty*:clipboard"
-          set -as terminal-features "xterm-ghostty*:ccolour"
-          set -as terminal-features "xterm-ghostty*:cstyle"
-          set -as terminal-features "xterm-ghostty*:focus"
-          set -as terminal-features "xterm-ghostty*:hyperlinks"
-          set -as terminal-features "xterm-ghostty*:strikethrough"
-          set -as terminal-features "xterm-ghostty*:title"
-          set -as terminal-features "xterm-ghostty*:usstyle"
+          set -as terminal-features "xterm-ghostty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
+          set -as terminal-features "xterm-kitty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000
@@ -180,8 +150,6 @@ in
           set -g visual-activity off
 
           set -g set-clipboard on
-
-          setw -g xterm-keys on
 
           # Enable image preview in yazi ( https://yazi-rs.github.io/docs/image-preview )
           set -g allow-passthrough on
