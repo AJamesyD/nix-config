@@ -213,6 +213,12 @@ in
 
           # -- Control --
           bind Enter copy-mode # enter copy mode
+
+          # Hint-based copy: extract URLs and git SHAs from pane, pick with fzf
+          set -g command-alias[201] copy-url-sha='run-shell "tmux capture-pane -J -p | grep -oE \"https?://[^ ]+|[0-9a-f]{7,40}\" | awk \"!seen[\\$0]++\" | fzf-tmux -p --no-sort --prompt=\"copy> \" | tr -d \"\\n\" | tmux load-buffer - && tmux display-message Copied"'
+          set -g command-alias[202] sesh-connect='display-popup -E -w 40% -h 50% "sesh connect \"$(sesh list -i | gum filter --limit 1 --height 50)\""'
+          set -g command-alias[203] tmux-cheatsheet='display-popup -E -w 80% -h 80% "tmux list-keys -N | less"'
+          bind F copy-url-sha
           bind p paste-buffer -p  # paste from the top paste buffer
           bind P choose-buffer    # choose which buffer to paste from
 
