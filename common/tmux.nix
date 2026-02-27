@@ -128,7 +128,7 @@ in
 
           # For Catppuccin
           set -g status-left-length 100
-          set -g status-left ""
+          set -g status-left "#{?client_prefix,#[bg=#{E:@thm_red},fg=#{E:@thm_crust}] PREFIX #[default] ,#{?pane_in_mode,#[bg=#{E:@thm_lavender},fg=#{E:@thm_crust}] COPY #[default] ,}}"
           set -g status-right-length 100
           set -g status-right "#{E:@catppuccin_status_directory}"
           set -ag status-right "#{E:@catppuccin_status_session}"
