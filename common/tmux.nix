@@ -109,6 +109,8 @@ in
             '';
         }
       ];
+      # NOTE: socket in /tmp — fine for single-user machines.
+      # On shared hosts, consider secureSocket = true (/run/user/$UID).
       secureSocket = false;
       shell = "${pkgs.zsh}/bin/zsh";
       shortcut = "a";
@@ -116,13 +118,11 @@ in
       extraConfig = # tmux
         ''
           # -- Options ----------------------------------------------------------------
-          # Experiment with 2nd prefix
+          # Secondary prefix — keeps default C-b as muscle memory fallback
           set-option -g prefix2 C-b
 
           # update the env when attaching to an existing session
           set -ga update-environment -r
-
-          set -g default-command ${(lib.getExe pkgs.zsh)}
 
           set -g status-position top
 
@@ -133,7 +133,7 @@ in
           set -g status-right "#{E:@catppuccin_status_directory}"
           set -ag status-right "#{E:@catppuccin_status_session}"
 
-          set -g status-interval 1
+          set -g status-interval 5
 
           set -as terminal-features "xterm-ghostty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
           set -as terminal-features "xterm-kitty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
@@ -157,8 +157,8 @@ in
           # skip "kill-pane 1? (y/n)" prompt
           bind-key x kill-pane
 
-          # don't exit from tmux when closing a session
-          set -g detach-on-destroy off
+          # Prefer next session on destroy; detach only when none left (tmux 3.4+)
+          set -g detach-on-destroy no-detached
 
 
           # -- Bindings ----------------------------------------------------------------
