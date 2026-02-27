@@ -556,7 +556,7 @@ in
             ghauth
             nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
             ${switchCmd} --flake ~/.config/nix#$_NIX_HOSTNAME --option access-tokens "github.com=$GITHUB_TOKEN"
-            rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval" # nix store paths changed; force re-cache
+            rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
             zsource
           '';
         v = "nvim";
