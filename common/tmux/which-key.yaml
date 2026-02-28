@@ -27,7 +27,7 @@ macros:
       - "respawnp -k -c #{pane_current_path}"
   - name: sesh-connect
     commands:
-      - 'display-popup -E -w 40% -h 50% "sesh connect \"$(sesh list -i | gum filter --limit 1 --height 50)\""'
+      - 'display-popup -E -w 40% -h 50% "sesh connect \"$(sesh list -t -c -i -H | gum filter --limit 1 --height 50)\""'
   - name: tmux-cheatsheet
     commands:
       - 'display-popup -E -w 80% -h 80% "tmux list-keys -N | less"'

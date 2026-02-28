@@ -18,6 +18,7 @@ in
     source = ./which-key.yaml;
     force = true; # Plugin creates this file on first run; force ensures Nix wins
   };
+  xdg.configFile."sesh/sesh.toml".source = ./sesh.toml;
 
   home = {
     packages = with pkgs; [

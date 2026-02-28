@@ -1,0 +1,7 @@
+[[session]]
+name = "nix config"
+path = "~/.config/nix"
+
+[[session]]
+name = "nvim config"
+path = "~/.config/nvim"
