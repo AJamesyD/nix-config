@@ -14,7 +14,10 @@ let
   };
 in
 {
-  xdg.configFile."tmux-plugins/tmux-which-key/config.yaml".source = ./which-key.yaml;
+  xdg.configFile."tmux-plugins/tmux-which-key/config.yaml" = {
+    source = ./which-key.yaml;
+    force = true; # Plugin creates this file on first run; force ensures Nix wins
+  };
 
   home = {
     packages = with pkgs; [
@@ -97,7 +100,7 @@ in
           extraConfig = # tmux
             ''
               set -g @tmux-which-key-xdg-plugin-path tmux-plugins/tmux-which-key
-              set -g @tmux-which-key-disable-autobuild 0
+              set -g @tmux-which-key-disable-autobuild 1
               set -g @tmux-which-key-xdg-enable 1
             '';
         }
@@ -115,13 +118,11 @@ in
       # On shared hosts, consider secureSocket = true (/run/user/$UID).
       secureSocket = false;
       shell = "${pkgs.zsh}/bin/zsh";
-      shortcut = "a";
+      # Prefix is C-b (default). C-a is freed for which-key root table binding.
       terminal = "tmux-256color";
       extraConfig = # tmux
         ''
           # -- Options --
-          # Secondary prefix — keeps default C-b as muscle memory fallback
-          set-option -g prefix2 C-b
 
           # update the env when attaching to an existing session
           set -ga update-environment -r
@@ -157,7 +158,7 @@ in
           set -g allow-passthrough on
 
           # skip "kill-pane 1? (y/n)" prompt
-          bind-key x kill-pane # Keep for C-b x (prefix2) to skip confirm prompt
+          bind-key x kill-pane
 
           # Prefer next session on destroy; detach only when none left (tmux 3.4+)
           set -g detach-on-destroy no-detached
