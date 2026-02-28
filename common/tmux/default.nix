@@ -14,7 +14,7 @@ let
   };
 in
 {
-  xdg.configFile."tmux-plugins/tmux-which-key/config.yaml".source = ./tmux-which-key.yaml;
+  xdg.configFile."tmux-plugins/tmux-which-key/config.yaml".source = ./which-key.yaml;
 
   home = {
     packages = with pkgs; [

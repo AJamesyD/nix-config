@@ -28,7 +28,7 @@ _:
     configFile = {
       "zellij" = {
         enable = true;
-        source = ../users/angaidan/.config/zellij;
+        source = ./config;
         recursive = true;
       };
     };

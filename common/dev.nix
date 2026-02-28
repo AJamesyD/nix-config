@@ -12,8 +12,8 @@ in
   imports = [
     inputs.direnv-instant.homeModules.direnv-instant
     ./ai
-    ./tmux.nix
-    ./zellij.nix
+    ./tmux
+    ./zellij
   ];
 
   editorconfig = {

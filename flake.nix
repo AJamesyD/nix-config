@@ -174,8 +174,7 @@
                 shellcheck = {
                   enable = true;
                   excludes = [
-                    "users/angaidan/.config/sketchybar/plugins/*"
-                    "users/angaidan/.config/sketchybar/*"
+                    "hosts/m3-work-laptop/sketchybar/**/*"
                   ];
                 };
                 shfmt = {

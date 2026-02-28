@@ -125,7 +125,7 @@
     configFile = {
       "aerospace/aerospace.toml" = {
         enable = true;
-        source = ../../users/angaidan/.config/aerospace/aerospace.toml;
+        source = ./aerospace/aerospace.toml;
         onChange = # bash
           ''
             export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
@@ -136,7 +136,7 @@
       "borders/bordersrc" = {
         enable = true;
         executable = true;
-        source = ../../users/angaidan/.config/borders/bordersrc;
+        source = ./borders/bordersrc;
         onChange = # bash
           ''
             export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
@@ -146,7 +146,7 @@
       };
       "ghostty" = {
         enable = true;
-        source = ../../users/angaidan/.config/ghostty;
+        source = ./ghostty;
         recursive = true;
       };
       "neovide/config.toml" = {
@@ -183,7 +183,7 @@
       };
       "sketchybar" = {
         enable = true;
-        source = ../../users/angaidan/.config/sketchybar;
+        source = ./sketchybar;
         recursive = true;
         onChange = # bash
           ''
