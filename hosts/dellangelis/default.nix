@@ -5,7 +5,7 @@
 {
   imports = [
     ../../common/dev.nix
-    ../../common/nix-hm.nix
+    ../../common/nix-common.nix
   ];
 
   fonts.fontconfig.enable = true;
