@@ -44,7 +44,6 @@
       email = "aidandeangelis@berkeley.edu";
     };
     mise = {
-      enable = true;
       globalConfig = {
         tools = {
           node = [

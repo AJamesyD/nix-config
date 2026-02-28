@@ -93,7 +93,6 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
     mise = {
-      enable = true;
       globalConfig = {
         tools = {
           node = [
