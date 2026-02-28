@@ -14,6 +14,8 @@ let
   };
 in
 {
+  xdg.configFile."tmux-plugins/tmux-which-key/config.yaml".source = ./tmux-which-key.yaml;
+
   home = {
     packages = with pkgs; [
       gum
@@ -95,7 +97,7 @@ in
           extraConfig = # tmux
             ''
               set -g @tmux-which-key-xdg-plugin-path tmux-plugins/tmux-which-key
-              set -g @tmux-which-key-disable-autobuild 1
+              set -g @tmux-which-key-disable-autobuild 0
               set -g @tmux-which-key-xdg-enable 1
             '';
         }
@@ -117,7 +119,7 @@ in
       terminal = "tmux-256color";
       extraConfig = # tmux
         ''
-          # -- Options ----------------------------------------------------------------
+          # -- Options --
           # Secondary prefix — keeps default C-b as muscle memory fallback
           set-option -g prefix2 C-b
 
@@ -155,36 +157,12 @@ in
           set -g allow-passthrough on
 
           # skip "kill-pane 1? (y/n)" prompt
-          bind-key x kill-pane
+          bind-key x kill-pane # Keep for C-b x (prefix2) to skip confirm prompt
 
           # Prefer next session on destroy; detach only when none left (tmux 3.4+)
           set -g detach-on-destroy no-detached
 
-
-          # -- Bindings ----------------------------------------------------------------
-          # -- Misc --
-          bind : command-prompt
-          bind r refresh-client
-
-
-          # -- Session --
-          # bind C-c new-session # create session
-          # bind C-f command-prompt -p find-session 'switch-client -t %%'
-          bind-key "K" display-popup -E -w 40% "sesh connect \"$(
-            sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
-          )\""
-
-
-          # -- Window --
-          bind C-p previous-window
-          bind C-b previous-window
-          bind C-n next-window
-          bind C-a next-window
-
-          # -- Pane --
-          unbind %
-          unbind '"'
-
+          # -- Root-table bindings (vim-aware, not prefix-triggered) --
           # https://github.com/mrjones2014/smart-splits.nvim?tab=readme-ov-file#tmux
           # Smart pane switching with awareness of Neovim splits.
           bind-key -n C-h if -F "#{@pane-is-vim}" 'send-keys C-h' 'select-pane -L'
@@ -198,36 +176,20 @@ in
           bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-k' 'resize-pane -U 3'
           bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-l' 'resize-pane -R 3'
 
-
-          # -- Layout --
-          bind + select-layout main-horizontal
-          bind = select-layout main-vertical
-
-
           # -- Scrolling --
           bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
           bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
           bind-key -T copy-mode-vi WheelUpPane send-keys -X halfpage-up
           bind-key -T copy-mode-vi WheelDownPane send-keys -X halfpage-down
 
-
-          # -- Control --
-          bind Enter copy-mode # enter copy mode
-
-          # Hint-based copy: extract URLs and git SHAs from pane, pick with fzf
-          set -g command-alias[201] copy-url-sha='run-shell "tmux capture-pane -J -p | grep -oE \"https?://[^ ]+|[0-9a-f]{7,40}\" | awk \"!seen[\\$0]++\" | fzf-tmux -p --no-sort --prompt=\"copy> \" | tr -d \"\\n\" | tmux load-buffer - && tmux display-message Copied"'
-          set -g command-alias[202] sesh-connect='display-popup -E -w 40% -h 50% "sesh connect \"$(sesh list -i | gum filter --limit 1 --height 50)\""'
-          set -g command-alias[203] tmux-cheatsheet='display-popup -E -w 80% -h 80% "tmux list-keys -N | less"'
-          bind F copy-url-sha
-          bind p paste-buffer -p  # paste from the top paste buffer
-          bind P choose-buffer    # choose which buffer to paste from
-
+          # -- Copy mode --
           bind -T copy-mode-vi v send -X begin-selection # start selecting text with "v"
           bind -T copy-mode-vi C-v send -X rectangle-toggle
           bind -T copy-mode-vi y send -X copy-selection-and-cancel # copy text with "y"
           bind -T copy-mode-vi Escape send -X cancel
           bind -T copy-mode-vi ^ send -X start-of-line
           bind -T copy-mode-vi $ send -X end-of-line
+
         '';
     };
   };
