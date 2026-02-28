@@ -368,7 +368,7 @@ in
           colorMovedWS = "allow-indentation-change";
         };
         init = {
-          defaultBranch = "mainline";
+          defaultBranch = lib.mkDefault "main";
         };
         merge = {
           tool = "nvim";
@@ -405,14 +405,9 @@ in
     jujutsu = {
       enable = true;
       settings = {
-        user = {
-          name = "Aidan De Angelis";
-          email = "angaidan@amazon.com";
-        };
         ui.default-command = "log";
         git = {
           auto-local-bookmark = false;
-          push-bookmark-prefix = "angaidan/push-";
         };
         revsets.log = "present(trunk()) | mine()";
         template-aliases."format_timestamp(timestamp)" = "timestamp.ago()";

@@ -39,6 +39,10 @@
         name = "Aidan De Angelis";
       };
     };
+    jujutsu.settings.user = {
+      name = "Aidan De Angelis";
+      email = "aidandeangelis@berkeley.edu";
+    };
     mise = {
       enable = true;
       globalConfig = {

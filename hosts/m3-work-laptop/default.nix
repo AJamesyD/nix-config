@@ -1,5 +1,4 @@
 {
-  self,
   pkgs,
   ...
 }:
@@ -16,16 +15,12 @@
   };
 
   homebrew = {
-    enable = true;
     taps = [
       {
         name = "caarlos0/tap";
       }
       {
         name = "FelixKratz/formulae";
-      }
-      {
-        name = "homebrew/services";
       }
       {
         name = "nikitabobko/tap";
@@ -105,19 +100,7 @@
         greedy = true;
       }
       {
-        name = "obsidian";
-        greedy = true;
-      }
-      {
         name = "orbstack";
-        greedy = true;
-      }
-      {
-        name = "raycast";
-        greedy = true;
-      }
-      {
-        name = "spotify";
         greedy = true;
       }
       {
@@ -138,10 +121,6 @@
       }
       {
         name = "zen";
-        greedy = true;
-      }
-      {
-        name = "zoom";
         greedy = true;
       }
       {
@@ -167,9 +146,6 @@
   };
 
   system = {
-    # Set Git commit hash for darwin-version.
-    configurationRevision = self.rev or self.dirtyRev or null;
-
     defaults = {
       dock = {
         persistent-apps = [
@@ -182,10 +158,6 @@
           "Applications/Zen.app"
           "Applications/Ghostty.app"
         ];
-      };
-      spaces = {
-        # This is for AeroSpace
-        spans-displays = true;
       };
     };
 

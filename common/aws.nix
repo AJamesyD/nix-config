@@ -67,10 +67,20 @@ in
 
   programs = {
     git = {
-      settings.user = {
-        email = "angaidan@amazon.com";
-        name = "Aidan De Angelis";
+      settings = {
+        user = {
+          email = "angaidan@amazon.com";
+          name = "Aidan De Angelis";
+        };
+        init.defaultBranch = "mainline";
       };
+    };
+    jujutsu.settings = {
+      user = {
+        name = "Aidan De Angelis";
+        email = "angaidan@amazon.com";
+      };
+      git.push-bookmark-prefix = "angaidan/push-";
     };
     zsh = {
       initContent = lib.mkMerge [
