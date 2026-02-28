@@ -160,6 +160,15 @@ in
           # skip "kill-pane 1? (y/n)" prompt
           bind-key x kill-pane
 
+          # Cycle windows
+          bind-key C-a next-window
+          bind-key C-b previous-window
+
+          # Smart split: horizontal if pane is wide, vertical otherwise
+          bind-key n if-shell '[ #{pane_width} -gt $((#{pane_height} * 2)) ]' \
+            'splitw -h -c "#{pane_current_path}"' \
+            'splitw -v -c "#{pane_current_path}"'
+
           # Prefer next session on destroy; detach only when none left (tmux 3.4+)
           set -g detach-on-destroy no-detached
 
