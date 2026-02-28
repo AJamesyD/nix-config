@@ -9,6 +9,8 @@ let
   zshcompdir = "${config.programs.zsh.dotDir}/completion/";
 in
 {
+  imports = [ inputs.direnv-instant.homeModules.direnv-instant ];
+
   programs.zsh = {
     enable = true;
     # Disabled — we provide a cached compinit at mkOrder 549 that uses
@@ -169,5 +171,117 @@ in
         [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
       ''
     ];
+  };
+
+  home.packages = with pkgs; [ nix-your-shell ];
+
+  home.activation.envSetup =
+    lib.hm.dag.entryAfter
+      [
+        "writeBoundary"
+      ]
+      (
+        # bash
+        ''
+          export ZDOTDIR="${config.programs.zsh.dotDir}"
+          export ZCOMPDIR="${zshcompdir}"
+          mkdir -p $ZCOMPDIR
+
+          export PATH="$PATH:${lib.concatStringsSep ":" config.home.sessionPath}"
+          export PATH="$PATH:${config.home.profileDirectory}/bin"
+          export PATH="$PATH:/usr/bin"
+          export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
+        ''
+        +
+          lib.strings.optionalString pkgs.stdenv.isDarwin # bash
+            ''
+              export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+            ''
+      );
+
+  # since zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
+  # random programs trying to append to it
+  home.file = {
+    ".zshrc" = {
+      text = # bash
+        ''
+          # This file is intentionally empty.
+
+          # When zsh.dotDir is set, still create ~/.zshrc so that it is write-protected against
+          # random programs trying to append to it
+        '';
+    };
+  };
+
+  programs = {
+    atuin = {
+      enable = true;
+      flags = [ "--disable-up-arrow" ];
+      settings = {
+        auto_sync = false;
+      };
+    };
+    dircolors = {
+      enable = true;
+    };
+    direnv = {
+      enable = true;
+      enableZshIntegration = false;
+      mise.enable = true;
+      nix-direnv.enable = true;
+    };
+    direnv-instant = {
+      enable = true;
+    };
+    fish = {
+      enable = true;
+    };
+    fzf = {
+      # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
+      enable = true;
+      # defaultCommand = "fd --type f";
+      defaultOptions = [
+        "--height 40%"
+        "--border"
+        "--inline-info"
+        "--reverse"
+      ];
+      changeDirWidgetCommand = "fd --type d";
+      changeDirWidgetOptions = [
+        "--walker-skip .git,node_modules,target"
+        "--preview 'tree -C {} | head -200'"
+      ];
+      fileWidgetCommand = "fd --type f";
+      fileWidgetOptions = [
+        "--walker-skip .git,node_modules,target"
+        "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+        "--preview-window '75%,~3'"
+        "--reverse"
+      ];
+      historyWidgetOptions = [
+        "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+        "--color header:italic"
+        "--header 'Press CTRL-Y to copy command into clipboard'"
+        "--sort"
+        "--exact"
+      ];
+      tmux = {
+        enableShellIntegration = true;
+      };
+    };
+    navi = {
+      enable = true;
+      settings = {
+        finder = {
+          command = "fzf";
+          client = {
+            tealdeer = true;
+          };
+        };
+      };
+    };
+    zoxide = {
+      enable = true;
+    };
   };
 }

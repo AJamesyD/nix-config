@@ -1,14 +1,11 @@
-{ inputs, ... }:
-{
+_: {
   imports = [
-    inputs.direnv-instant.homeModules.direnv-instant
-    ./activation.nix
     ./ai
-    ./editor.nix
+    ./cli.nix
+    ./containers.nix
+    ./editor
     ./git.nix
-    ./languages.nix
-    ./packages.nix
-    ./programs.nix
+    ./languages
     ./session.nix
     ./shell
     ./tmux

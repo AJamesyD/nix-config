@@ -1,5 +1,7 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
+  home.packages = with pkgs; [ lazyjj ];
+
   programs = {
     delta = {
       enable = true;
