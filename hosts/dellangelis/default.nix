@@ -18,7 +18,6 @@
 
       gcc
       gnumake
-      zig
 
       bitcoin
 

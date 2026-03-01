@@ -221,9 +221,6 @@ in
         auto_sync = false;
       };
     };
-    dircolors = {
-      enable = true;
-    };
     direnv = {
       enable = true;
       enableZshIntegration = false;
@@ -231,9 +228,6 @@ in
       nix-direnv.enable = true;
     };
     direnv-instant = {
-      enable = true;
-    };
-    fish = {
       enable = true;
     };
     fzf = {

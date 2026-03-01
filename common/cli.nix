@@ -23,13 +23,11 @@
     (lib.hiPrio ncurses)
     netcat-gnu
     rsync
-    squashfsTools
     wget
 
     parallel
 
     dust
-    dua
     hyperfine
 
     libnotify
@@ -67,16 +65,10 @@
         ".git/"
       ];
     };
-    htop = {
-      enable = true;
-    };
     jq = {
       enable = true;
     };
     less = {
-      enable = true;
-    };
-    lesspipe = {
       enable = true;
     };
     ripgrep = {
