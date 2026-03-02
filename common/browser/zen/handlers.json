@@ -33,10 +33,6 @@
         {
           "name": "Gmail",
           "uriTemplate": "https://mail.google.com/mail/?extsrc=mailto&url=%s"
-        },
-        {
-          "name": "outlook.office.com",
-          "uriTemplate": "https://outlook.office.com/mail/angaidan@amazon.mail.onmicrosoft.com/deeplink/compose?mailtouri=%s"
         }
       ],
       "action": 4,
@@ -46,9 +42,6 @@
       "action": 4
     },
     "slack": {
-      "action": 4
-    },
-    "acme": {
       "action": 4
     }
   },
