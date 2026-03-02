@@ -1,6 +1,6 @@
 # Zen Browser configuration via zen-browser-flake.
 # Binary installed via Homebrew cask; Nix manages config only.
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [ inputs.zen-browser.homeModules.default ];
 
@@ -20,6 +20,6 @@
     in
     {
       "${zenProfile}/zen-keyboard-shortcuts.json".source = ./zen-keyboard-shortcuts.json;
-      "${zenProfile}/handlers.json".source = ./handlers.json;
+      "${zenProfile}/handlers.json".text = lib.mkDefault (builtins.readFile ./handlers.json);
     };
 }
