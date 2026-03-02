@@ -50,6 +50,15 @@ items:
   - name: Copy mode
     key: c
     command: copy-mode
+  - name: Display panes
+    key: d
+    command: display-panes
+  - name: Paste
+    key: v
+    command: paste-buffer -p
+  - name: Reload config
+    key: R
+    macro: reload-config
   - separator: true
   - name: +Windows
     key: w
