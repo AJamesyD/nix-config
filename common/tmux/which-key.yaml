@@ -135,10 +135,19 @@ items:
       - name: Sesh (fuzzy)
         key: f
         macro: sesh-connect
+      - name: Rename
+        key: r
+        command: command-prompt -I "#S" "rename-session -- \"%%\""
+      - name: Kill
+        key: x
+        command: 'confirm -p "Kill session #S? (y/n)" kill-session'
       - name: Detach
         key: d
         command: detach
   - separator: true
+  - name: Command prompt
+    key: ":"
+    command: command-prompt
   - name: Cheatsheet
     key: "/"
     macro: tmux-cheatsheet
