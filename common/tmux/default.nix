@@ -12,6 +12,21 @@ let
     src = inputs.tmux-which-key;
     rtpFilePath = "plugin.sh.tmux";
   };
+  # Pre-build which-key init.tmux from config YAML at Nix build time so every
+  # machine gets a correct init.tmux without needing python3 at tmux runtime.
+  # The vendored pyyaml submodule is empty in the Nix source, so we patch the
+  # import to use the Nix-provided package instead.
+  tmux-which-key-init =
+    pkgs.runCommand "tmux-which-key-init"
+      {
+        nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.pyyaml ])) ];
+      }
+      ''
+        cp ${inputs.tmux-which-key}/plugin/build.py build.py
+        substituteInPlace build.py --replace-fail "from pyyaml.lib import yaml" "import yaml"
+        mkdir -p $out
+        python3 build.py ${./which-key.yaml} $out/init.tmux
+      '';
 in
 {
   xdg.configFile."tmux-plugins/tmux-which-key/config.yaml" = {
@@ -19,6 +34,10 @@ in
     force = true; # Plugin creates this file on first run; force ensures Nix wins
   };
   xdg.configFile."sesh/sesh.toml".source = ./sesh.toml;
+  xdg.dataFile."tmux-plugins/tmux-which-key/init.tmux" = {
+    source = "${tmux-which-key-init}/init.tmux";
+    force = true; # Plugin copies init.example.tmux on first run; force ensures Nix wins
+  };
 
   home = {
     packages = with pkgs; [
@@ -101,7 +120,7 @@ in
           extraConfig = # tmux
             ''
               set -g @tmux-which-key-xdg-plugin-path tmux-plugins/tmux-which-key
-              set -g @tmux-which-key-disable-autobuild 1
+              set -g @tmux-which-key-disable-autobuild 1  # Nix pre-builds init.tmux; no python3 needed at runtime
               set -g @tmux-which-key-xdg-enable 1
             '';
         }
