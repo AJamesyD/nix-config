@@ -112,6 +112,12 @@ items:
       - name: Zoom
         key: z
         command: resizep -Z
+      - name: Break to window
+        key: b
+        command: break-pane
+      - name: Clear history
+        key: c
+        command: clear-history
       - name: Kill
         key: x
         command: killp
