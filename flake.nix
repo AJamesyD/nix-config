@@ -76,6 +76,7 @@
       url = "github:catppuccin/tmux/v2.1.2";
       flake = false;
     };
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs =

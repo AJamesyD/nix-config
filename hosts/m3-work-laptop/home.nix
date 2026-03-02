@@ -6,6 +6,7 @@
 {
   imports = [
     ../../common/aws.nix
+    ../../common/browser
     ../../common/dev.nix
   ];
 
