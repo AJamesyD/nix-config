@@ -7,6 +7,7 @@
   imports = [
     ../../common/aws.nix
     ../../common/browser
+    ../../common/browser/zen/amazon.nix
     ../../common/dev.nix
   ];
 
