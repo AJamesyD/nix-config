@@ -6,6 +6,10 @@ options=(
 	inactive_color=0xee494d64
 	width=10.0
 	hidpi=on
+	ax_focus=on # NOTE: slower but more accurate focus detection with AeroSpace
+	# BUG(https://github.com/FelixKratz/JankyBorders/issues/191): memory leak
+	#   causes border misalignment after extended use. Restart periodically:
+	#   brew services restart felixkratz/formulae/borders
 )
 
 borders "${options[@]}"
