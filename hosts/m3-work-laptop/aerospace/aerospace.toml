@@ -264,12 +264,15 @@ run = "move-node-to-workspace ignored"
 [[on-window-detected]]
 run = "move-node-to-workspace 0-misc"
 
+# Monitor assignments
+# Work:  P32p-20 (2) = horizontal main, P32p-20 (1) = vertical, Built-in = laptop
+# Home:  P32p-20 (single, no suffix) = horizontal main, Dell = vertical, Built-in = laptop
 [workspace-to-monitor-force-assignment]
 0-misc = "built-in"
-1-dev = ["p32", "secondary"]
+1-dev = ['P32p-20 \(2\)', "P32p-20", "secondary"]
 2-browser = "built-in"
-3-admin = ["p27", "dell", "secondary"]
+3-admin = ['P32p-20 \(1\)', "dell", "secondary"]
 4-chat = "built-in"
 5-video-call = "built-in"
-9-entertainment = ["p27", "dell", "secondary"]
-ignored = ["p32", "secondary"]
+9-entertainment = ['P32p-20 \(1\)', "dell", "secondary"]
+ignored = ['P32p-20 \(2\)', "P32p-20", "secondary"]
