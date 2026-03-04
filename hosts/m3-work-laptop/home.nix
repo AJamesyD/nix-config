@@ -9,6 +9,7 @@
     ../../common/browser
     ../../common/browser/zen/amazon.nix
     ../../common/dev.nix
+    ../../common/ssh.nix
   ];
 
   home = {
