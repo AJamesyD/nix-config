@@ -84,6 +84,9 @@
       {
         name = "spotify";
         greedy = true;
+        args = {
+          no_quarantine = true;
+        };
       }
       {
         name = "zoom";
