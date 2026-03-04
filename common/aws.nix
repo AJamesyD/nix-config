@@ -6,9 +6,19 @@
 }:
 let
   brazilCompletionDir = "${config.home.homeDirectory}/.brazil_completion";
+  user = config.home.username;
 in
 {
   home = {
+    # Persistent socket avoids repeated auth handshakes for git operations
+    file.".ssh/config.d/aws.conf".text = ''
+      Host git.amazon.com
+        ControlMaster auto
+        ControlPath ~/.ssh/control-%C
+        ControlPersist 12h
+        User ${user}
+    '';
+
     activation = {
       builderToolbox =
         lib.hm.dag.entryAfter
