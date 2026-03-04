@@ -6,6 +6,7 @@
   imports = [
     ../../common/aws.nix
     ../../common/dev.nix
+    ../../common/ssh.nix
     ../../common/nix-common.nix
   ];
 
