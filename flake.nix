@@ -175,6 +175,7 @@
                 shellcheck = {
                   enable = true;
                   excludes = [
+                    "hosts/m3-work-laptop/sketchybar/*"
                     "hosts/m3-work-laptop/sketchybar/**/*"
                   ];
                 };
