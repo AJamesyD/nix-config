@@ -61,7 +61,7 @@ items:
     macro: reload-config
   - separator: true
   - name: +Windows
-    key: w
+    key: t
     menu:
       - name: Previous
         key: h
@@ -70,7 +70,7 @@ items:
         key: l
         command: next-window
       - name: New
-        key: c
+        key: n
         command: "neww -c #{pane_current_path}"
       - name: Rename
         key: r
@@ -78,6 +78,12 @@ items:
       - name: Kill
         key: x
         command: 'confirm -p "Kill window #W? (y/n)" killw'
+      - name: Swap left
+        key: H
+        command: swap-window -t -1
+      - name: Swap right
+        key: L
+        command: swap-window -t +1
       - separator: true
       - name: "1"
         key: "1"
@@ -145,10 +151,10 @@ items:
             command: resizep -R
             transient: true
   - name: +Sessions
-    key: s
+    key: o
     menu:
       - name: Sesh (fuzzy)
-        key: f
+        key: w
         macro: sesh-connect
       - name: Rename
         key: r
