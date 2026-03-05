@@ -93,6 +93,19 @@
   };
 
   programs = {
+    git = {
+      settings.user.email = "angaidan@amazon.com";
+      includes = [
+        {
+          condition = "gitdir:~/Code/";
+          contents.user.email = "aidandeangelis@berkeley.edu";
+        }
+        {
+          condition = "gitdir:~/.config/";
+          contents.user.email = "aidandeangelis@berkeley.edu";
+        }
+      ];
+    };
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
     mise = {
