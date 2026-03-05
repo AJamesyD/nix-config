@@ -61,7 +61,7 @@ in
       historyLimit = 300000;
       keyMode = "vi";
       mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
-      newSession = true;
+      newSession = false;
       plugins = with pkgs.tmuxPlugins; [
         {
           plugin = catppuccin.overrideAttrs (oldAttrs: {
