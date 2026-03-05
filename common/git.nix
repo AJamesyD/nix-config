@@ -20,6 +20,8 @@
     };
     git = {
       enable = true;
+      settings.user.name = "Aidan De Angelis";
+      settings.user.email = lib.mkDefault "aidandeangelis@berkeley.edu";
       lfs = {
         enable = true;
       };

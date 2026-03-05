@@ -32,12 +32,6 @@
   };
 
   programs = {
-    git = {
-      settings.user = {
-        email = "aidandeangelis@berkeley.edu";
-        name = "Aidan De Angelis";
-      };
-    };
     jujutsu.settings.user = {
       name = "Aidan De Angelis";
       email = "aidandeangelis@berkeley.edu";
