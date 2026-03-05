@@ -174,10 +174,7 @@
                 nixfmt.enable = true;
                 shellcheck = {
                   enable = true;
-                  excludes = [
-                    "hosts/m3-work-laptop/sketchybar/*"
-                    "hosts/m3-work-laptop/sketchybar/**/*"
-                  ];
+                  excludes = [ "**/sketchybar/**" ];
                 };
                 shfmt = {
                   enable = true;
