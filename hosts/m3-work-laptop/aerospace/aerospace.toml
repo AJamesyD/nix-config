@@ -258,10 +258,6 @@ if.app-id = "com.cisco.anyconnect.gui"
 run = ["layout floating", "move-node-to-workspace 0-misc"]
 
 [[on-window-detected]]
-if.app-id = "org.xquartz.X11"
-run = "move-node-to-workspace ignored"
-
-[[on-window-detected]]
 run = "move-node-to-workspace 0-misc"
 
 # Monitor assignments

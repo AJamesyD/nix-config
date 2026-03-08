@@ -7,12 +7,7 @@
     ../../common/darwin.nix
     ../../common/nix-common.nix
   ];
-  environment = {
-    systemPath = [
-      # Comes from XQuartz
-      "/opt/X11/bin"
-    ];
-  };
+  environment = { };
 
   homebrew = {
     taps = [
@@ -105,10 +100,6 @@
       }
       {
         name = "visual-studio-code";
-        greedy = true;
-      }
-      {
-        name = "xquartz";
         greedy = true;
       }
       {
