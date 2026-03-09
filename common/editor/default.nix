@@ -14,7 +14,7 @@
         luv
       ]
     ))
-    ast-grep
+    (ast-grep.overrideAttrs { doCheck = false; }) # TODO: revert once nixpkgs fixes locale-related test failure on macOS
     markdownlint-cli2
     mermaid-cli
     python313Packages.pylatexenc
