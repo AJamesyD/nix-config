@@ -55,6 +55,23 @@ in
             # Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
             run --silence brazil setup completion --shell zsh || true
           '';
+      # Point brazil package cache at the case-sensitive APFS volume.
+      # Without this, brazil defaults to ~/brazil-pkg-cache on the
+      # case-insensitive root volume and warns on every cache operation.
+      brazilPackageCache =
+        lib.hm.dag.entryAfter
+          [
+            "writeBoundary"
+            "brazil"
+          ] # bash
+          ''
+            if [[ -d /Volumes/brazil-pkg-cache ]]; then
+            	run brazil prefs --key packagecache.cacheRoot --value /Volumes/brazil-pkg-cache --global
+            	run brazil prefs --key packagecache.visibleCacheRoot --value /Volumes/brazil-pkg-cache --global
+            else
+            	warn "brazil-pkg-cache volume not found. Create it with: diskutil apfs addVolume \"\$(diskutil apfs list | awk -F: '/Container Reference/{gsub(\" \",\"\"); print \$2}')\" 'Case-sensitive APFS' brazil-pkg-cache"
+            fi
+          '';
     };
 
     packages = with pkgs; [
