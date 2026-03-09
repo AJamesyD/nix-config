@@ -94,6 +94,10 @@ in
     };
     zsh = {
       initContent = lib.mkMerge [
+        # Toolbox before nix-profile so Amazon tools take precedence
+        ''
+          path=("$HOME/.toolbox/bin" ''${path:#$HOME/.toolbox/bin})
+        ''
         (lib.mkOrder 550
           # bash
           ''
