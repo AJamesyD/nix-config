@@ -166,6 +166,7 @@ in
           ''
             nix-clean
             brazil-package-cache clean
+            brew cleanup --prune=all
             ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf
           '';
 
