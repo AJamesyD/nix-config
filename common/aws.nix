@@ -33,15 +33,15 @@ in
             run --quiet toolbox update
             run --quiet toolbox clean
 
-            if $(command -v axe 2>&1 >/dev/null); then
+            if command -v axe >/dev/null 2>&1; then
             	run --quiet axe completion zsh >"$ZCOMPDIR/_axe"
             fi
 
-            if $(command -v ada 2>&1 >/dev/null); then
+            if command -v ada >/dev/null 2>&1; then
             	run --quiet ada completion zsh >"$ZCOMPDIR/_ada"
             fi
 
-            if $(command -v eda 2>&1 >/dev/null); then
+            if command -v eda >/dev/null 2>&1; then
             	run --quiet eda completions zsh >"$ZCOMPDIR/_eda"
             fi
           '';
