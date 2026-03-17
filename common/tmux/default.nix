@@ -134,9 +134,7 @@ in
             '';
         }
       ];
-      # NOTE: socket in /tmp — fine for single-user machines.
-      # On shared hosts, consider secureSocket = true (/run/user/$UID).
-      secureSocket = false;
+      secureSocket = true;
       shell = "${pkgs.zsh}/bin/zsh";
       # Prefix is C-b (default). C-a is freed for which-key root table binding.
       terminal = "tmux-256color";
