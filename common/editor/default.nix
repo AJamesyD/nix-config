@@ -21,6 +21,7 @@
     graphviz
     pandoc
     ruff
+    ty
     shellcheck
     shfmt
     stylua
