@@ -47,8 +47,18 @@
         alias = {
           dag = "log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order";
         };
+        blame = {
+          # Harmless if the file doesn't exist in a given repo
+          ignoreRevsFile = ".git-blame-ignore-revs";
+        };
         branch = {
           sort = "-committerdate";
+        };
+        column = {
+          ui = "auto";
+        };
+        commit = {
+          verbose = true;
         };
         diff = {
           algorithm = "histogram";
@@ -61,6 +71,13 @@
           interHunkContext = 3;
           renameLimit = 5000;
           wsErrorHighlight = "all";
+        };
+        fetch = {
+          prune = true;
+          pruneTags = true;
+        };
+        help = {
+          autocorrect = "prompt";
         };
         init = {
           defaultBranch = lib.mkDefault "main";
@@ -84,24 +101,36 @@
         };
         push = {
           autoSetupRemote = true;
+          followTags = true;
+        };
+        rebase = {
+          autoSquash = true;
+          autoStash = true;
+          updateRefs = true;
         };
         rerere = {
           enabled = true;
+          autoUpdate = true;
+        };
+        ssh = {
+          variant = "ssh";
         };
         submodule = {
           recurse = true;
+        };
+        tag = {
+          sort = "version:refname";
         };
       };
     };
     jujutsu = {
       enable = true;
       settings = {
-        ui.default-command = "log";
-        git = {
-          auto-local-bookmark = false;
-        };
-        revsets.log = "present(trunk()) | mine()";
-        template-aliases."format_timestamp(timestamp)" = "timestamp.ago()";
+        # Diffs use difftastic (ui.diff-formatter set by HM); this covers jj log, jj show
+        ui.pager = [
+          "delta"
+          "--paging=always"
+        ];
         # Fallback to line-based diff (bypasses difftastic)
         aliases.linediff = [
           "diff"
@@ -118,6 +147,7 @@
           expandFocusedSidePanel = true;
           nerdFontsVersion = "3";
           showDivergenceFromBaseBranch = "onlyArrow";
+          showCommandLog = false;
         };
         git = {
           pagers = [
@@ -137,6 +167,7 @@
         update.method = "background";
         os.editPreset = "nvim-remote";
         notARepository = "quit";
+        promptToReturnFromSubprocess = false;
       };
       shellWrapperName = "lg";
     };

@@ -95,6 +95,11 @@ in
   programs = {
     git = {
       settings = {
+        # Read by the `cr` CLI (CRUX)
+        amazon = {
+          append-cr-url = true;
+          pull-request-by-default = true;
+        };
         user = {
           email = "angaidan@amazon.com";
           name = "Aidan De Angelis";
