@@ -2,6 +2,15 @@
 {
   home.packages = with pkgs; [ lazyjj ];
 
+  home.sessionVariables = {
+    # Default 0 is overly conservative: any parse error triggers fallback to
+    # line-oriented diff. Raising to 20 keeps structural diffing active for
+    # files with minor syntax issues (common in C/C++, generated code, Nix
+    # expressions with unusual patterns). Env var applies to all surfaces
+    # (git diff, jj diff, lazygit) since they all invoke difft as a subprocess.
+    DFT_PARSE_ERROR_LIMIT = "20";
+  };
+
   programs = {
     delta = {
       enable = true;
