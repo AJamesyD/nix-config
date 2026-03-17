@@ -6,13 +6,22 @@
     delta = {
       enable = true;
       enableGitIntegration = true;
-      enableJujutsuIntegration = true;
+      enableJujutsuIntegration = false; # conflicts with difftastic.jujutsu.enable on ui.diff-formatter
       options = {
         dark = true;
         # Increase contrast for line diffs
         minus-style = "normal darkred";
         plus-style = "normal darkgreen";
       };
+    };
+    difftastic = {
+      enable = true;
+      # git.enable intentionally omitted (defaults to false). HM enforces mutual
+      # exclusion with delta.enableGitIntegration (assertion in programs/git.nix).
+      # diff.external is set manually in programs.git.settings below. If future HM
+      # relaxes the assertion, switch to git.enable = true and remove the manual
+      # diff.external.
+      jujutsu.enable = true;
     };
     gh = {
       enable = true;
@@ -37,6 +46,9 @@
           colorMoved = "dimmed-zebra";
           colorMovedWS = "allow-indentation-change";
           context = 5;
+          # Manual wiring: depends on programs.difftastic.enable putting difft on $PATH.
+          # Replaces what difftastic.git.enable would set (blocked by HM assertion).
+          external = "difft";
           interHunkContext = 3;
           renameLimit = 5000;
           wsErrorHighlight = "all";
@@ -49,6 +61,9 @@
           tool = "nvim";
         };
         pager = {
+          # Bypass delta (core.pager) for git diff. Difftastic outputs ANSI-colored
+          # side-by-side format that delta would mangle. Coupled to diff.external:
+          # remove this override if diff.external = "difft" is removed.
           diff = "less -RFX";
         };
         pull = {
@@ -74,6 +89,12 @@
         };
         revsets.log = "present(trunk()) | mine()";
         template-aliases."format_timestamp(timestamp)" = "timestamp.ago()";
+        # Fallback to line-based diff (bypasses difftastic)
+        aliases.linediff = [
+          "diff"
+          "--tool"
+          ":git"
+        ];
       };
     };
     lazygit = {
@@ -87,6 +108,9 @@
         };
         git = {
           pagers = [
+            {
+              externalDiffCommand = "difft --color=always";
+            }
             {
               pager = "delta --dark --paging=never";
             }
