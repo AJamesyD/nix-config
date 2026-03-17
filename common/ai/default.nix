@@ -1,6 +1,13 @@
+{ pkgs, ... }:
 {
   imports = [
     ./claude.nix
+  ];
+
+  home.packages = [
+    pkgs.opencode
+    (pkgs.callPackage ../../pkgs/claude-code-acp { })
+    (pkgs.callPackage ../../pkgs/mcp-hub { })
   ];
 
   # OpenCode requires these env vars for features that have no config-file
@@ -9,15 +16,5 @@
   home.sessionVariables = {
     OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
     OPENCODE_ENABLE_EXA = "1";
-  };
-
-  xdg.configFile = {
-    "mise/default-node-packages" = {
-      text = ''
-        @zed-industries/claude-code-acp
-        mcp-hub
-        opencode-ai
-      '';
-    };
   };
 }
