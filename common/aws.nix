@@ -92,6 +92,13 @@ in
         ];
   };
 
+  # bemol: generate ty.toml alongside pyright/pylance for Brazil
+  # Python packages so ty can resolve third-party imports.
+  xdg.configFile."bemol/bemol.toml".text = ''
+    [Python]
+    language-servers = ['ty', 'pyright', 'pylance']
+  '';
+
   programs = {
     git = {
       settings = {
