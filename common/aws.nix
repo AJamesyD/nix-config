@@ -180,7 +180,7 @@ in
           ''
             nix-clean
             brazil-package-cache clean
-            brew cleanup --prune=all
+            ${lib.optionalString pkgs.stdenv.isDarwin "brew cleanup --prune=all"}
             npm cache clean --force
             uv cache clean
             ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf
