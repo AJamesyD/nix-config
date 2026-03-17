@@ -34,14 +34,22 @@
         };
         diff = {
           algorithm = "histogram";
-          colorMoved = "default";
+          colorMoved = "dimmed-zebra";
           colorMovedWS = "allow-indentation-change";
+          context = 5;
+          interHunkContext = 3;
+          renameLimit = 5000;
+          wsErrorHighlight = "all";
         };
         init = {
           defaultBranch = lib.mkDefault "main";
         };
         merge = {
+          conflictStyle = "zdiff3";
           tool = "nvim";
+        };
+        pager = {
+          diff = "less -RFX";
         };
         pull = {
           rebase = true;
