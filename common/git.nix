@@ -57,7 +57,11 @@
           defaultBranch = lib.mkDefault "main";
         };
         merge = {
-          conflictStyle = "zdiff3";
+          # mkForce: mergiraf HM module sets "diff3"; zdiff3 is a superset that
+          # adds common-ancestor context. Safe with mergiraf's merge driver (gets
+          # clean files, never reads this setting). Incompatible with `mergiraf solve`
+          # (parses conflict markers), but we don't use that workflow.
+          conflictStyle = lib.mkForce "zdiff3";
           tool = "nvim";
         };
         pager = {
