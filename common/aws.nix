@@ -81,17 +81,10 @@ in
       cdk
     ];
 
-    sessionPath =
-      if !pkgs.stdenv.isDarwin then
-        [
-          # Ensure consumed envs end up on PATH
-          "/apollo/env/bt-rust/bin"
-          "${config.home.homeDirectory}/.toolbox/bin"
-        ]
-      else
-        [
-          "${config.home.homeDirectory}/.toolbox/bin"
-        ];
+    sessionPath = [
+      "${config.home.homeDirectory}/.toolbox/bin"
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [ "/apollo/env/bt-rust/bin" ];
   };
 
   # bemol: generate ty.toml alongside pyright/pylance for Brazil
