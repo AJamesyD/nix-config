@@ -104,8 +104,12 @@ in
         }
         pain-control
         {
-          plugin = resurrect;
-
+          plugin = resurrect.overrideAttrs (_: {
+            src = inputs.tmux-resurrect;
+            # The github: fetcher doesn't fetch submodules, so lib/tmux-test is
+            # absent and its symlinks dangle. The test infra isn't needed at runtime.
+            dontCheckForBrokenSymlinks = true;
+          });
           extraConfig = # tmux
             ''
               set -g @resurrect-dir '${config.xdg.dataHome}/tmux/resurrect'
@@ -116,8 +120,9 @@ in
             '';
         }
         {
-          plugin = tmux-fzf;
-
+          plugin = tmux-fzf.overrideAttrs (_: {
+            src = inputs.tmux-fzf;
+          });
           extraConfig = # tmux
             ''
               TMUX_FZF_LAUNCH_KEY="C-f"
@@ -135,8 +140,9 @@ in
         # continuum must be the last plugin. It prepends #(continuum_save.sh)
         # to status-right at run-shell time. Any later status-right set kills auto-save.
         {
-          plugin = continuum;
-
+          plugin = continuum.overrideAttrs (_: {
+            src = inputs.tmux-continuum;
+          });
           extraConfig = # tmux
             ''
               set -g @continuum-restore 'on'

@@ -80,8 +80,20 @@
       url = "github:MichaelAquilina/zsh-auto-notify/27c07dddb42f05b199319a9b66473c8de7935856";
       flake = false;
     };
+    tmux-resurrect = {
+      url = "github:tmux-plugins/tmux-resurrect";
+      flake = false;
+    };
+    tmux-continuum = {
+      url = "github:tmux-plugins/tmux-continuum";
+      flake = false;
+    };
+    tmux-fzf = {
+      url = "github:sainnhe/tmux-fzf";
+      flake = false;
+    };
     catppuccin-tmux = {
-      url = "github:catppuccin/tmux/v2.1.2";
+      url = "github:catppuccin/tmux";
       flake = false;
     };
     zen-browser = {
@@ -151,6 +163,9 @@
                 nix-output-monitor
                 nix-tree
               ];
+              # devenv manages .pre-commit-config.yaml as a symlink to a nix store path.
+              # If hooks use stale tool versions, delete the symlink and re-enter the shell.
+              # Known cause: devenv:files race condition (git-hooks.nix #685).
               git-hooks = {
                 default_stages = [
                   "pre-commit"

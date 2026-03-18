@@ -94,16 +94,15 @@
     "catppuccin-tmux": {
       "flake": false,
       "locked": {
-        "lastModified": 1733626723,
-        "narHash": "sha256-vBYBvZrMGLpMU059a+Z4SEekWdQD0GrDqBQyqfkEHPg=",
+        "lastModified": 1759099898,
+        "narHash": "sha256-godCgBMgqzim+W3O2sHcgw91h7sHsKHjd02BdLuazZ8=",
         "owner": "catppuccin",
         "repo": "tmux",
-        "rev": "2c4cb5a07a3e133ce6d5382db1ab541a0216ddc7",
+        "rev": "8b0b9150f9d7dee2a4b70cdb50876ba7fd6d674a",
         "type": "github"
       },
       "original": {
         "owner": "catppuccin",
-        "ref": "v2.1.2",
         "repo": "tmux",
         "type": "github"
       }
@@ -938,6 +937,9 @@
         "nix-fast-build": "nix-fast-build",
         "nixd": "nixd_2",
         "nixpkgs": "nixpkgs_4",
+        "tmux-continuum": "tmux-continuum",
+        "tmux-fzf": "tmux-fzf",
+        "tmux-resurrect": "tmux-resurrect",
         "tmux-which-key": "tmux-which-key",
         "tokyonight-nvim": "tokyonight-nvim",
         "treefmt-nix": "treefmt-nix_2",
@@ -963,6 +965,54 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "tmux-continuum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705754277,
+        "narHash": "sha256-W71QyLwC/MXz3bcLR2aJeWcoXFI/A3itjpcWKAdVFJY=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-continuum",
+        "rev": "0698e8f4b17d6454c71bf5212895ec055c578da0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-continuum",
+        "type": "github"
+      }
+    },
+    "tmux-fzf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1758721802,
+        "narHash": "sha256-ay7z0MkeDCpxdwNTKFrkxi/hUE7a5K7P7oFhfn94aLA=",
+        "owner": "sainnhe",
+        "repo": "tmux-fzf",
+        "rev": "05af76daa2487575b93a4f604693b00969f19c2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sainnhe",
+        "repo": "tmux-fzf",
+        "type": "github"
+      }
+    },
+    "tmux-resurrect": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678098022,
+        "narHash": "sha256-FcSjYyWjXM1B+WmiK2bqUNJYtH7sJBUsY2IjSur5TjY=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-resurrect",
+        "rev": "cff343cf9e81983d3da0c8562b01616f12e8d548",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-resurrect",
         "type": "github"
       }
     },
