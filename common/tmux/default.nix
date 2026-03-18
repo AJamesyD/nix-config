@@ -62,6 +62,10 @@ in
       keyMode = "vi";
       mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
       newSession = false;
+      # HM ordering: for each plugin, extraConfig is emitted then run-shell.
+      # The main extraConfig block comes AFTER all plugins. Anything set there
+      # overwrites what plugins did in their run-shell. Set status-left/right
+      # in a plugin extraConfig (before continuum), not in the main block.
       plugins = with pkgs.tmuxPlugins; [
         {
           plugin = catppuccin.overrideAttrs (oldAttrs: {
@@ -132,7 +136,8 @@ in
               set -g @tmux-which-key-xdg-enable 1
             '';
         }
-        # NOTE: continuum must come last to avoid overrides of status-right
+        # continuum must be the last plugin. It prepends #(continuum_save.sh)
+        # to status-right at run-shell time. Any later status-right set kills auto-save.
         {
           plugin = continuum;
           extraConfig = # tmux
@@ -149,6 +154,9 @@ in
       extraConfig = # tmux
         ''
           # -- Options --
+          # WARNING: do not set status-left or status-right here. This block runs
+          # after all plugin run-shells, so it would overwrite continuum's save
+          # trigger. Set them in catppuccin's extraConfig above instead.
 
           # update the env when attaching to an existing session
           set -ga update-environment -r
