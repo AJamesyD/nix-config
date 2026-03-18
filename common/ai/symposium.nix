@@ -8,7 +8,11 @@
   home.file.".symposium/config/agent.json".text = builtins.toJSON {
     agent.local = {
       command = "kiro-cli";
-      args = [ "acp" ];
+      args = [
+        "acp"
+        "--agent"
+        "nvim"
+      ];
     };
   };
 }
