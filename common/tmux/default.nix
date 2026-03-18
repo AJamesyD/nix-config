@@ -58,6 +58,7 @@ in
       baseIndex = 1;
       clock24 = true;
       escapeTime = 0;
+      focusEvents = true;
       historyLimit = 300000;
       keyMode = "vi";
       mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
