@@ -31,6 +31,13 @@ window-padding-color = background
 macos-titlebar-style = tabs
 confirm-close-surface = true
 
+# Tiling WM (AeroSpace) compatibility
+# See: https://ghostty.org/docs/help/macos-tiling-wms
+# See: https://github.com/nikitabobko/AeroSpace/issues/68
+macos-window-shadow = false
+resize-overlay = never
+window-padding-balance = true
+
 # Mouse
 mouse-hide-while-typing = true
 
