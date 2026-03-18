@@ -179,6 +179,11 @@ run = "layout floating"
 if.app-id = "org.alacritty"
 run = "move-node-to-workspace 1-dev"
 
+# Ghostty uses native macOS tabs, which the macOS API exposes as separate
+# windows. AeroSpace tiles each tab as its own window without this workaround.
+# Float by default, then manually unfloat (cmd-shift-alt-slash) when needed.
+# Tracking: https://github.com/nikitabobko/AeroSpace/issues/68
+# See also: https://ghostty.org/docs/help/macos-tiling-wms
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
 run = ["layout floating", "move-node-to-workspace 1-dev"]
