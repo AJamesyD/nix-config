@@ -62,6 +62,7 @@ in
       historyLimit = 300000;
       keyMode = "vi";
       mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
+      disableConfirmationPrompt = true;
       newSession = false;
       # HM ordering: for each plugin, extraConfig is emitted then run-shell.
       # The main extraConfig block comes AFTER all plugins. Anything set there
@@ -82,9 +83,8 @@ in
               set -g @catppuccin_window_text "#{window_name}"
               set -g @catppuccin_window_current_text "#{window_name}#{?window_zoomed_flag,(),}"
 
-              set -g @truncated_directory_text "#{s|#{HOME}|~|;s|/local~|~|;s|/workplace/angaidan|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
+              set -g @truncated_directory_text "#{s|#{HOME}|~|;s|/local~|~|;s|/workplace/${config.home.username}|~|;s|/.*/([^/^~]*/)|/…/\\1|:pane_current_path}"
               set -g @catppuccin_directory_text "#{E:@truncated_directory_text}"
-              set -g @catppuccin_date_time_text "%H:%M"
 
               # More prefix modes
               set -g @prefix_mode_highlight "#{E:@thm_red}"
@@ -102,15 +102,10 @@ in
               set -ag status-right "#{E:@catppuccin_status_session}"
             '';
         }
-        {
-          plugin = pain-control;
-          extraConfig = # tmux
-            ''
-
-            '';
-        }
+        pain-control
         {
           plugin = resurrect;
+
           extraConfig = # tmux
             ''
               set -g @resurrect-dir '${config.xdg.dataHome}/tmux/resurrect'
@@ -122,12 +117,12 @@ in
         }
         {
           plugin = tmux-fzf;
+
           extraConfig = # tmux
             ''
               TMUX_FZF_LAUNCH_KEY="C-f"
             '';
         }
-        vim-tmux-navigator
         {
           plugin = tmux-which-key;
           extraConfig = # tmux
@@ -141,6 +136,7 @@ in
         # to status-right at run-shell time. Any later status-right set kills auto-save.
         {
           plugin = continuum;
+
           extraConfig = # tmux
             ''
               set -g @continuum-restore 'on'
@@ -180,21 +176,16 @@ in
           set -g visual-activity off
 
           set -g set-clipboard on
+          set -g extended-keys on
 
-          # Enable image preview in yazi ( https://yazi-rs.github.io/docs/image-preview )
+          # yazi image preview needs passthrough ( https://yazi-rs.github.io/docs/image-preview )
+          # Security tradeoff: any pane program can send arbitrary terminal escapes.
+          # tmux 3.7+ adds 'signed' mode; revisit when available.
           set -g allow-passthrough on
-
-          # skip "kill-pane 1? (y/n)" prompt
-          bind-key x kill-pane
 
           # Cycle windows
           bind-key C-a next-window
           bind-key C-b previous-window
-
-          # Smart split: horizontal if pane is wide, vertical otherwise
-          bind-key n if-shell '[ #{pane_width} -gt $((#{pane_height} * 2)) ]' \
-            'splitw -h -c "#{pane_current_path}"' \
-            'splitw -v -c "#{pane_current_path}"'
 
           # Prefer next session on destroy; detach only when none left (tmux 3.4+)
           set -g detach-on-destroy no-detached
@@ -212,12 +203,6 @@ in
           bind-key -n M-j if -F "#{@pane-is-vim}" 'send-keys M-j' 'resize-pane -D 3'
           bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-k' 'resize-pane -U 3'
           bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-l' 'resize-pane -R 3'
-
-          # -- Scrolling --
-          bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
-          bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
-          bind-key -T copy-mode-vi WheelUpPane send-keys -X halfpage-up
-          bind-key -T copy-mode-vi WheelDownPane send-keys -X halfpage-down
 
           # -- Copy mode --
           bind -T copy-mode-vi v send -X begin-selection # start selecting text with "v"
