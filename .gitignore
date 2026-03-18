@@ -1,6 +1,8 @@
 .direnv
 .devenv
 
+# Symlink to nix store, managed by devenv:git-hooks:install.
+# If stale: rm this file and re-enter the shell (see git-hooks.nix #685).
 .pre-commit-config.yaml
 
 nix.conf
