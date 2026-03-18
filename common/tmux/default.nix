@@ -87,6 +87,14 @@ in
               set -g @empty_mode_highlight "#{E:@thm_green}"
               set -g @fallback_mode_highlight "#{?pane_in_mode,#{E:@copy_mode_highlight},#{E:@empty_mode_highlight}}"
               set -g @catppuccin_session_color "#{?client_prefix,#{E:@prefix_mode_highlight},#{E:@fallback_mode_highlight}}"
+
+              # Status bar layout (set here, before continuum, so continuum can
+              # append its save trigger to status-right without being overwritten)
+              set -g status-left-length 100
+              set -g status-left "#{?client_prefix,#[bg=#{E:@thm_red},fg=#{E:@thm_crust}] PREFIX #[default] ,#{?pane_in_mode,#[bg=#{E:@thm_lavender},fg=#{E:@thm_crust}] COPY #[default] ,}}"
+              set -g status-right-length 100
+              set -g status-right "#{E:@catppuccin_status_directory}"
+              set -ag status-right "#{E:@catppuccin_status_session}"
             '';
         }
         {
@@ -146,14 +154,6 @@ in
           set -ga update-environment -r
 
           set -g status-position top
-
-          # For Catppuccin
-          set -g status-left-length 100
-          set -g status-left "#{?client_prefix,#[bg=#{E:@thm_red},fg=#{E:@thm_crust}] PREFIX #[default] ,#{?pane_in_mode,#[bg=#{E:@thm_lavender},fg=#{E:@thm_crust}] COPY #[default] ,}}"
-          set -g status-right-length 100
-          set -g status-right "#{E:@catppuccin_status_directory}"
-          set -ag status-right "#{E:@catppuccin_status_session}"
-
           set -g status-interval 5
 
           set -as terminal-features "xterm-ghostty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
