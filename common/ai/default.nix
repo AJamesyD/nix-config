@@ -2,6 +2,8 @@
 {
   imports = [
     ./claude.nix
+    ./rtk.nix
+    ./symposium.nix
   ];
 
   home.packages = [
