@@ -9,6 +9,11 @@
     # expressions with unusual patterns). Env var applies to all surfaces
     # (git diff, jj diff, lazygit) since they all invoke difft as a subprocess.
     DFT_PARSE_ERROR_LIMIT = "20";
+    # Match the 2-space indent convention used across this nix config.
+    DFT_TAB_WIDTH = "2";
+    # Explicitly set dark background so difftastic picks brighter colors,
+    # regardless of terminal profile detection.
+    DFT_BACKGROUND = "dark";
   };
 
   programs = {
