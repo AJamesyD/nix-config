@@ -26,6 +26,8 @@
         # Increase contrast for line diffs
         minus-style = "normal darkred";
         plus-style = "normal darkgreen";
+        # Enable n/N keybinds to jump between files in multi-file diffs
+        navigate = true;
       };
     };
     difftastic = {
@@ -83,6 +85,9 @@
         };
         help = {
           autocorrect = "prompt";
+        };
+        interactive = {
+          diffFilter = "delta --color-only";
         };
         init = {
           defaultBranch = lib.mkDefault "main";
