@@ -162,7 +162,7 @@
         git = {
           pagers = [
             {
-              externalDiffCommand = "difft --color=always";
+              externalDiffCommand = "difft --color=always --display=inline";
             }
             {
               pager = "delta --dark --paging=never";
