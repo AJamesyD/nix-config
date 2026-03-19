@@ -12,8 +12,6 @@
     curl
     findutils
     gawk
-    git
-    git-lfs
     gnugrep
     gnupg
     gnused
