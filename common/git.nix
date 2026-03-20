@@ -86,9 +86,7 @@
         help = {
           autocorrect = "prompt";
         };
-        interactive = {
-          diffFilter = "delta --color-only";
-        };
+        # interactive.diffFilter set by programs.delta (enableGitIntegration)
         init = {
           defaultBranch = lib.mkDefault "main";
         };
