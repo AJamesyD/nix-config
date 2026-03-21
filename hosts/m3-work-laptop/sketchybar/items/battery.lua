@@ -1,0 +1,1 @@
+-- Battery is part of the wifi.lua grouped widget

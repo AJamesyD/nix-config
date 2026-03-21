@@ -11,6 +11,7 @@
     ../../common/dev.nix
     ../../common/ssh.nix
     ../../modules/home-manager
+    ./sketchybar-theme.nix
   ];
 
   home = {
