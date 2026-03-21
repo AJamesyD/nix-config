@@ -31,7 +31,6 @@
     # over its own copies), OpenCode, and Kiro.
     bash-language-server
     lua-language-server
-    marksman
     taplo # also used by treefmt, but not on PATH as standalone until now
     ts_query_ls
     vscode-langservers-extracted # json, css, html language servers
