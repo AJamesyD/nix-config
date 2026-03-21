@@ -10,6 +10,7 @@
     ../../common/browser/zen/amazon.nix
     ../../common/dev.nix
     ../../common/ssh.nix
+    ../../modules/home-manager
   ];
 
   home = {

@@ -17,6 +17,8 @@
   };
 
   programs = {
+    worktrunk.enable = true;
+
     delta = {
       enable = true;
       enableGitIntegration = true;
