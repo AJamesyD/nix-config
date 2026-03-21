@@ -24,6 +24,7 @@
     ty
     shellcheck
     shfmt
+    selene
     stylua
 
     # LSP servers -- shared by neovim (Mason PATH = "append" prefers these
