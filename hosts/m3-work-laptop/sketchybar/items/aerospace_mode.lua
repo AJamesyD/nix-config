@@ -41,6 +41,13 @@ local mode_keys = {
     { key = "H/J/K/L", desc = "swap direction" },
     { key = "esc", desc = "back to main" },
   },
+  resize = {
+    { key = "h/j/k/l", desc = "resize width/height" },
+    { key = "-/=", desc = "resize smart" },
+    { key = "b", desc = "balance sizes" },
+    { key = "f", desc = "fullscreen" },
+    { key = "esc/enter", desc = "back to main" },
+  },
 }
 
 -- Create popup items for each mode
@@ -80,9 +87,9 @@ end
 -- Mode colors for visual feedback (analogous to tmux prefix/copy mode colors)
 local mode_colors = {
   service = colors.yellow,
+  resize = colors.blue,
 }
 
--- Neutral grey (JankyBorders default); change in sketchybar-theme.nix and borders/bordersrc too.
 local default_border_color = string.format("0xff%06x", colors.border_active % 0x01000000)
 
 -- Listen for mode change events
