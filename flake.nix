@@ -111,6 +111,7 @@
       toplevel@{ withSystem, ... }:
       {
         imports = [
+          ./nix/overlays.nix
           inputs.devenv.flakeModule
           inputs.git-hooks-nix.flakeModule
           inputs.treefmt-nix.flakeModule
@@ -142,14 +143,6 @@
             ...
           }:
           {
-            _module.args.pkgs = import inputs.nixpkgs {
-              config = {
-                allowUnfree = true;
-                allowAliases = true;
-              };
-              localSystem = system;
-            };
-
             devenv.shells.default = {
               name = "nix-config";
               languages = {
@@ -201,10 +194,7 @@
                 };
                 jsonfmt.enable = true;
                 nixfmt.enable = true;
-                shellcheck = {
-                  enable = true;
-                  excludes = [ "**/sketchybar/**" ];
-                };
+                shellcheck.enable = true;
                 shfmt = {
                   enable = true;
                   indent_size = 0;
@@ -216,6 +206,17 @@
                     "bool_simplification" # W18: wrong when comparing non-bool values
                     "manual_inherit_from" # W04: wrong with `or` fallback
                   ];
+                };
+                stylua = {
+                  enable = true;
+                  settings = {
+                    column_width = 120;
+                    line_endings = "Unix";
+                    indent_type = "Spaces";
+                    indent_width = 2;
+                    quote_style = "AutoPreferDouble";
+                    call_parentheses = "Always";
+                  };
                 };
                 taplo.enable = true;
               };

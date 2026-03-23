@@ -17,6 +17,9 @@
   };
 
   environment = {
+    # Make nix-managed binaries available to macOS GUI apps (Aerospace, etc.)
+    # via /etc/paths.d, which path_helper reads at login.
+    etc."paths.d/100-nix".text = "/run/current-system/sw/bin";
     enableAllTerminfo = true;
     extraSetup = # bash
       ''

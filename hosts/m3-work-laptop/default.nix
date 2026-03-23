@@ -15,9 +15,6 @@
         name = "caarlos0/tap";
       }
       {
-        name = "FelixKratz/formulae";
-      }
-      {
         name = "nikitabobko/tap";
       }
     ];
@@ -28,9 +25,6 @@
       {
         # TODO: Unfuck CargoBrazil integration
         name = "rust-analyzer";
-      }
-      {
-        name = "sketchybar";
       }
       # For mise python-build
       {
@@ -134,6 +128,8 @@
       trusted-users = [ "angaidan" ];
     };
   };
+
+  services.sketchybar.enable = true;
 
   system = {
     defaults = {

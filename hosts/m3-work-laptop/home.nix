@@ -202,12 +202,6 @@
         enable = true;
         source = ./sketchybar;
         recursive = true;
-        onChange = # bash
-          ''
-            export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
-
-            sketchybar --reload
-          '';
       };
     };
   };
