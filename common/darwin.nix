@@ -133,6 +133,33 @@
         "com.apple.sound.beep.sound" = "/System/Library/Sounds/Blow.aiff";
       };
       CustomUserPreferences = {
+        # Disable macOS screenshot shortcuts (Cmd+Shift+3/4/5)
+        # These conflict with Aerospace workspace switching on those numbers.
+        # Use Raycast screenshot commands instead.
+        "com.apple.symbolichotkeys" = {
+          AppleSymbolicHotKeys = {
+            # 28 = Screenshot full screen to file (Cmd+Shift+3)
+            "28" = {
+              enabled = false;
+            };
+            # 29 = Screenshot selection to file (Cmd+Shift+4)
+            "29" = {
+              enabled = false;
+            };
+            # 30 = Screenshot full screen to clipboard (Cmd+Ctrl+Shift+3)
+            "30" = {
+              enabled = false;
+            };
+            # 31 = Screenshot selection to clipboard (Cmd+Ctrl+Shift+4)
+            "31" = {
+              enabled = false;
+            };
+            # 184 = Screenshot/recording toolbar (Cmd+Shift+5)
+            "184" = {
+              enabled = false;
+            };
+          };
+        };
         "com.apple.controlcenter" = {
           BatteryShowPercentage = true;
         };
