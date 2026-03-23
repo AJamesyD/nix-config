@@ -118,7 +118,7 @@ cmd-shift-alt-down = "resize height +50"
 cmd-shift-alt-up = "resize height -50"
 cmd-shift-alt-right = "resize width +50"
 
-cmd-shift-alt-h = "exec-and-forget (aerospace move left --boundaries all-monitors-outer-frame ---boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window left --focus-follows-window"
+cmd-shift-alt-h = "exec-and-forget (aerospace move left --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window left --focus-follows-window"
 cmd-shift-alt-j = "exec-and-forget (aerospace move down --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window down --focus-follows-window"
 cmd-shift-alt-k = "exec-and-forget (aerospace move up --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window up --focus-follows-window"
 cmd-shift-alt-l = "exec-and-forget (aerospace move right --boundaries all-monitors-outer-frame --boundaries-action fail && aerospace move-mouse window-lazy-center) || move-node-to-window right --focus-follows-window"
