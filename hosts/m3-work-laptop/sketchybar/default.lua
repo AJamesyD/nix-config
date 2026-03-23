@@ -16,7 +16,7 @@ sbar.default({
   },
   label = {
     font = {
-      family = settings.font.nerd,
+      family = settings.font.label,
       style = settings.font.style.medium,
       size = settings.label_size,
     },
@@ -36,7 +36,7 @@ sbar.default({
       color = colors.popup.bg,
       border_color = colors.popup.border,
       border_width = 1,
-      corner_radius = 12,
+      corner_radius = settings.item_radius,
     },
     blur_radius = 20,
   },

@@ -21,18 +21,16 @@ local cal = sbar.add("item", "calendar", {
   label = {
     color = colors.fg,
     font = {
-      family = settings.font.nerd,
-      style = settings.font.style.semibold,
-      size = 14.0,
+      family = settings.font.label,
+      style = settings.font.style.medium,
+      size = settings.label_size,
     },
     padding_right = 10,
   },
   background = {
     color = colors.item_bg,
-    corner_radius = 15,
+    corner_radius = settings.item_radius,
     height = settings.item_height,
-    border_width = 1,
-    border_color = colors.fg_gutter,
   },
   padding_left = 4,
   padding_right = 4,

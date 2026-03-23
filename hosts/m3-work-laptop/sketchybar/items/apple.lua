@@ -10,7 +10,7 @@ local apple = sbar.add("item", "apple.logo", {
     font = {
       family = settings.font.nerd,
       style = settings.font.style.bold,
-      size = 22.0,
+      size = 28.0,
     },
     color = colors.fg,
     y_offset = 1,
@@ -63,7 +63,7 @@ for _, def in ipairs(popup_items) do
       string = def.label,
       color = colors.fg,
       font = {
-        family = settings.font.nerd,
+        family = settings.font.label,
         style = settings.font.style.medium,
         size = settings.label_size,
       },
@@ -71,7 +71,7 @@ for _, def in ipairs(popup_items) do
     },
     background = {
       color = colors.transparent,
-      height = 32,
+      height = settings.item_height,
       corner_radius = settings.item_radius - 3,
     },
   })

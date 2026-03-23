@@ -15,7 +15,7 @@ local front_app_icon = sbar.add("item", "front_app.icon", {
   },
   background = {
     color = colors.transparent,
-    image = { scale = 0.8 },
+    image = { scale = 0.9 },
     padding_left = 4,
     padding_right = 0,
   },
@@ -29,13 +29,13 @@ local front_app_name = sbar.add("item", "front_app.name", {
   label = {
     string = "…",
     font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = 13.0,
+      family = settings.font.label,
+      style = settings.font.style.semibold,
+      size = settings.label_size,
     },
     color = colors.fg_dim,
     padding_left = 0,
-    padding_right = 8,
+    padding_right = 10,
   },
   background = { color = colors.transparent },
   padding_left = 0,
@@ -49,7 +49,7 @@ sbar.add("bracket", "front_app.bracket", {
   background = {
     color = colors.item_bg,
     corner_radius = settings.item_radius,
-    height = settings.item_height + 2,
+    height = settings.item_height,
   },
 })
 

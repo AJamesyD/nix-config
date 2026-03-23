@@ -24,7 +24,7 @@ local wifi = sbar.add("item", "wifi", {
     string = "",
     color = colors.fg_dim,
     font = {
-      family = settings.font.text,
+      family = settings.font.label,
       style = settings.font.style.medium,
       size = settings.label_size,
     },
@@ -55,7 +55,7 @@ local battery = sbar.add("item", "battery", {
     string = "??%",
     color = colors.fg_dim,
     font = {
-      family = settings.font.nerd,
+      family = settings.font.label,
       style = settings.font.style.medium,
       size = settings.label_size,
     },
@@ -72,7 +72,7 @@ sbar.add("bracket", "net_bat", {
 }, {
   background = {
     color = colors.item_bg,
-    height = settings.item_height + 2,
+    height = settings.item_height,
     corner_radius = settings.item_radius,
   },
 })

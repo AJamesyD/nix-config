@@ -1,10 +1,8 @@
 return {
   font = {
-    text = "SF Pro",
-    numbers = "SF Mono",
-    icon = "sketchybar-app-font",
-    nerd = "BlexMono Nerd Font",
     label = "SF Pro",
+    -- BlexMono Nerd Font only for icon glyphs (nerd font codepoints)
+    nerd = "BlexMono Nerd Font",
     style = {
       regular = "Regular",
       medium = "Medium",
@@ -14,15 +12,13 @@ return {
     },
   },
 
-  paddings = 4,
-  group_paddings = 5,
+  paddings = 6,
 
-  icon_size = 18.0,
-  label_size = 13.0,
+  icon_size = 23.0,
+  label_size = 17.0,
 
-  -- Background pill sizing (FelixKratz default: 28)
-  item_height = 28,
-  item_radius = 9,
+  item_height = 36,
+  item_radius = 10,
 
   animation_duration = 15,
 }

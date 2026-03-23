@@ -2,12 +2,8 @@ local colors = require("colors")
 local icons = require("icons")
 local settings = require("settings")
 local sbar = require("sbar")
--- Loaded for future sleep-guard use once media polling is added
-local _utils = require("utils")
 
 local MAX_TITLE_LEN = 30
-
-local media_token = 0
 
 local media = sbar.add("item", "media", {
   position = "right",
@@ -27,7 +23,7 @@ local media = sbar.add("item", "media", {
     string = "",
     color = colors.fg_dim,
     font = {
-      family = settings.font.nerd,
+      family = settings.font.label,
       style = settings.font.style.medium,
       size = settings.label_size,
     },
@@ -45,9 +41,6 @@ local media = sbar.add("item", "media", {
 })
 
 media:subscribe("media_change", function(env)
-  media_token = media_token + 1
-  local _current = media_token
-
   if not env.INFO then
     media:set({ drawing = false })
     return

@@ -7,11 +7,13 @@ local mode_item = sbar.add("item", "aerospace_mode", {
   position = "left",
   drawing = false,
   updates = "on",
+  associated_display = 1,
+  ignore_association = true,
   icon = {
     font = {
-      family = settings.font.text,
+      family = settings.font.label,
       style = settings.font.style.bold,
-      size = 12.0,
+      size = 14.0,
     },
     color = colors.bg1,
   },
@@ -21,11 +23,11 @@ local mode_item = sbar.add("item", "aerospace_mode", {
     corner_radius = settings.item_radius,
     height = settings.item_height,
   },
-  padding_left = 4,
-  padding_right = 4,
+  padding_left = 6,
+  padding_right = 6,
   popup = {
     align = "left",
-    height = 28,
+    height = 30,
   },
 })
 
@@ -61,20 +63,20 @@ for mode_name, keys in pairs(mode_keys) do
       icon = {
         string = entry.key,
         font = {
-          family = settings.font.numbers,
+          family = settings.font.label,
           style = settings.font.style.bold,
-          size = 13.0,
+          size = 14.0,
         },
         color = colors.yellow,
-        width = 80,
+        width = 90,
         align = "right",
       },
       label = {
         string = entry.desc,
         font = {
-          family = settings.font.text,
+          family = settings.font.label,
           style = settings.font.style.regular,
-          size = 13.0,
+          size = 14.0,
         },
         color = colors.fg,
       },

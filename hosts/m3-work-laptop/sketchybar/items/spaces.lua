@@ -14,6 +14,8 @@ local space = sbar.add("item", "aerospace", {
     },
     color = colors.fg,
     y_offset = 1,
+    padding_left = 6,
+    padding_right = 6,
   },
   label = { drawing = false },
   background = {
@@ -21,8 +23,8 @@ local space = sbar.add("item", "aerospace", {
     corner_radius = settings.item_radius,
     height = settings.item_height,
   },
-  padding_left = 4,
-  padding_right = 4,
+  padding_left = 6,
+  padding_right = 6,
 })
 
 local function update_workspace(workspace_name)

@@ -32,7 +32,7 @@ local separator = sbar.add("item", "status.separator", {
     font = {
       family = settings.font.nerd,
       style = settings.font.style.bold,
-      size = 22.0,
+      size = settings.icon_size + 2,
     },
     y_offset = 1,
     padding_left = 8,
@@ -62,9 +62,9 @@ local stat_defaults = {
   },
   label = {
     font = {
-      family = settings.font.nerd,
-      style = settings.font.style.heavy,
-      size = 12.0,
+      family = settings.font.label,
+      style = settings.font.style.bold,
+      size = 14.0,
     },
     color = colors.fg_dim,
     padding_right = 4,
@@ -112,11 +112,12 @@ local disk = sbar.add(
 local net_down = sbar.add("item", "status.net_down", {
   position = "right",
   drawing = false,
-  y_offset = -7,
+  y_offset = -9,
   background = { padding_left = 0 },
   icon = {
     string = icons.status.network_down,
     color = colors.green,
+    width = 22,
     font = {
       family = settings.font.nerd,
       style = settings.font.style.bold,
@@ -124,12 +125,12 @@ local net_down = sbar.add("item", "status.net_down", {
     },
   },
   label = {
-    width = 55,
+    width = 65,
     align = "right",
     font = {
-      family = settings.font.nerd,
-      style = settings.font.style.heavy,
-      size = 10.0,
+      family = settings.font.label,
+      style = settings.font.style.bold,
+      size = 12.0,
     },
     color = colors.fg_dim,
   },
@@ -138,11 +139,12 @@ local net_down = sbar.add("item", "status.net_down", {
 local net_up = sbar.add("item", "status.net_up", {
   position = "right",
   drawing = false,
-  y_offset = 7,
-  background = { padding_right = -75 },
+  y_offset = 9,
+  background = { padding_right = -87 },
   icon = {
     string = icons.status.network_up,
     color = colors.green,
+    width = 22,
     font = {
       family = settings.font.nerd,
       style = settings.font.style.bold,
@@ -150,12 +152,12 @@ local net_up = sbar.add("item", "status.net_up", {
     },
   },
   label = {
-    width = 55,
+    width = 65,
     align = "right",
     font = {
-      family = settings.font.nerd,
-      style = settings.font.style.heavy,
-      size = 10.0,
+      family = settings.font.label,
+      style = settings.font.style.bold,
+      size = 12.0,
     },
     color = colors.fg_dim,
   },
@@ -168,7 +170,7 @@ local function close_stats()
     cpu:set({ background = { padding_right = -10 } })
     memory:set({ background = { padding_right = -50 } })
     disk:set({ background = { padding_right = -40 } })
-    net_up:set({ background = { padding_right = -75 } })
+    net_up:set({ background = { padding_right = -87 } })
     net_down:set({ background = { padding_right = -50 } })
   end)
   separator:set({ icon = { string = icons.status.separator } })
@@ -188,7 +190,7 @@ local function open_stats()
     cpu:set({ background = { padding_right = 0 } })
     memory:set({ background = { padding_right = 0 } })
     disk:set({ background = { padding_right = 0 } })
-    net_up:set({ background = { padding_right = -75 } })
+    net_up:set({ background = { padding_right = -87 } })
     net_down:set({ background = { padding_right = 0 } })
   end)
 end
