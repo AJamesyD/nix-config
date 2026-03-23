@@ -229,6 +229,9 @@ in
     };
     direnv-instant = {
       enable = true;
+      package = (pkgs.callPackage "${inputs.direnv-instant}/default.nix" { }).overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ../../patches/direnv-instant-always-async.patch ];
+      });
     };
     fzf = {
       # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
