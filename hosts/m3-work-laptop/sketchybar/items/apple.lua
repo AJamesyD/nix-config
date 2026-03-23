@@ -7,11 +7,7 @@ local apple = sbar.add("item", "apple.logo", {
   position = "left",
   icon = {
     string = icons.apple,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = 28.0,
-    },
+    font = settings.font.icon_large,
     color = colors.fg,
     y_offset = 1,
     padding_left = 10,
@@ -51,22 +47,14 @@ for _, def in ipairs(popup_items) do
     icon = {
       string = def.icon,
       color = colors.fg,
-      font = {
-        family = settings.font.nerd,
-        style = settings.font.style.medium,
-        size = settings.icon_size,
-      },
+      font = settings.font.icon,
       padding_left = 8,
       padding_right = 4,
     },
     label = {
       string = def.label,
       color = colors.fg,
-      font = {
-        family = settings.font.label,
-        style = settings.font.style.medium,
-        size = settings.label_size,
-      },
+      font = settings.font.label_medium,
       padding_right = 8,
     },
     background = {

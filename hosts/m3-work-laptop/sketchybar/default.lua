@@ -5,21 +5,13 @@ local sbar = require("sbar")
 sbar.default({
   updates = "when_shown",
   icon = {
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.regular,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon,
     color = colors.fg,
     padding_left = settings.paddings,
     padding_right = settings.paddings,
   },
   label = {
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.medium,
-      size = settings.label_size,
-    },
+    font = settings.font.label,
     color = colors.fg,
     padding_left = settings.paddings,
     padding_right = settings.paddings,

@@ -10,11 +10,7 @@ local media = sbar.add("item", "media", {
   icon = {
     string = icons.media.not_playing,
     color = colors.green,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.medium,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon,
     y_offset = 1,
     padding_left = 8,
     padding_right = 4,
@@ -22,11 +18,7 @@ local media = sbar.add("item", "media", {
   label = {
     string = "",
     color = colors.fg_dim,
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.medium,
-      size = settings.label_size,
-    },
+    font = settings.font.label,
     max_chars = MAX_TITLE_LEN,
     padding_right = 8,
   },

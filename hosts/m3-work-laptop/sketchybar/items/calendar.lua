@@ -9,22 +9,14 @@ local cal = sbar.add("item", "calendar", {
   icon = {
     string = icons.calendar,
     color = colors.orange,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.medium,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon,
     y_offset = 1,
     padding_left = 8,
     padding_right = 4,
   },
   label = {
     color = colors.fg,
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.medium,
-      size = settings.label_size,
-    },
+    font = settings.font.label,
     padding_right = 10,
   },
   background = {

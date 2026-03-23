@@ -11,11 +11,7 @@ local wifi = sbar.add("item", "wifi", {
   icon = {
     string = icons.wifi.connected,
     color = colors.yellow,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.regular,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon,
     y_offset = 1,
     padding_left = 8,
     padding_right = 2,
@@ -23,11 +19,7 @@ local wifi = sbar.add("item", "wifi", {
   label = {
     string = "",
     color = colors.fg_dim,
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.medium,
-      size = settings.label_size,
-    },
+    font = settings.font.label,
     padding_left = 4,
     padding_right = 6,
   },
@@ -42,11 +34,7 @@ local battery = sbar.add("item", "battery", {
   icon = {
     string = icons.battery._100,
     color = colors.green,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.semibold,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon_bold,
     y_offset = 1,
     padding_left = 6,
     padding_right = 2,
@@ -54,11 +42,7 @@ local battery = sbar.add("item", "battery", {
   label = {
     string = "??%",
     color = colors.fg_dim,
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.medium,
-      size = settings.label_size,
-    },
+    font = settings.font.label,
     padding_right = 8,
   },
   background = { color = colors.transparent },

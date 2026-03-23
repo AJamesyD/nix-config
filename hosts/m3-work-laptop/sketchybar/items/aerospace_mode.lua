@@ -10,11 +10,7 @@ local mode_item = sbar.add("item", "aerospace_mode", {
   associated_display = 1,
   ignore_association = true,
   icon = {
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.bold,
-      size = 14.0,
-    },
+    font = settings.font.label_bold,
     color = colors.bg1,
   },
   label = { drawing = false },
@@ -62,11 +58,7 @@ for mode_name, keys in pairs(mode_keys) do
       drawing = false,
       icon = {
         string = entry.key,
-        font = {
-          family = settings.font.label,
-          style = settings.font.style.bold,
-          size = 14.0,
-        },
+        font = settings.font.label_bold,
         color = colors.yellow,
         width = 90,
         align = "right",
@@ -74,8 +66,8 @@ for mode_name, keys in pairs(mode_keys) do
       label = {
         string = entry.desc,
         font = {
-          family = settings.font.label,
-          style = settings.font.style.regular,
+          family = settings.font.label.family,
+          style = settings.font.label.style,
           size = 14.0,
         },
         color = colors.fg,

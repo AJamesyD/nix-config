@@ -7,11 +7,7 @@ local space = sbar.add("item", "aerospace", {
   position = "left",
   icon = {
     string = icons.aerospace.default,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = settings.icon_size,
-    },
+    font = settings.font.icon_bold,
     color = colors.fg,
     y_offset = 1,
     padding_left = 6,

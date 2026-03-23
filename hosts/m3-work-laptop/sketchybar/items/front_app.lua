@@ -15,7 +15,7 @@ local front_app_icon = sbar.add("item", "front_app.icon", {
   },
   background = {
     color = colors.transparent,
-    image = { scale = 0.9 },
+    image = { scale = 1.0 },
     padding_left = 4,
     padding_right = 0,
   },
@@ -28,11 +28,7 @@ local front_app_name = sbar.add("item", "front_app.name", {
   icon = { drawing = false },
   label = {
     string = "…",
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.semibold,
-      size = settings.label_size,
-    },
+    font = settings.font.label_medium,
     color = colors.fg_dim,
     padding_left = 0,
     padding_right = 10,

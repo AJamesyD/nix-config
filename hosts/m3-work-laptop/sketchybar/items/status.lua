@@ -29,11 +29,7 @@ local separator = sbar.add("item", "status.separator", {
   icon = {
     string = icons.status.separator,
     color = colors.fg,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = settings.icon_size + 2,
-    },
+    font = settings.font.icon_bold,
     y_offset = 1,
     padding_left = 8,
     padding_right = 8,
@@ -51,21 +47,13 @@ local separator = sbar.add("item", "status.separator", {
 local stat_defaults = {
   position = "right",
   icon = {
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = settings.icon_size - 2,
-    },
+    font = settings.font.icon_small,
     y_offset = 1,
     padding_left = 4,
     padding_right = 2,
   },
   label = {
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.bold,
-      size = 14.0,
-    },
+    font = settings.font.label_bold,
     color = colors.fg_dim,
     padding_right = 4,
   },
@@ -118,20 +106,12 @@ local net_down = sbar.add("item", "status.net_down", {
     string = icons.status.network_down,
     color = colors.green,
     width = 22,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = settings.icon_size - 2,
-    },
+    font = settings.font.icon_small,
   },
   label = {
     width = 65,
     align = "right",
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.bold,
-      size = 12.0,
-    },
+    font = settings.font.label_small,
     color = colors.fg_dim,
   },
 })
@@ -145,20 +125,12 @@ local net_up = sbar.add("item", "status.net_up", {
     string = icons.status.network_up,
     color = colors.green,
     width = 22,
-    font = {
-      family = settings.font.nerd,
-      style = settings.font.style.bold,
-      size = settings.icon_size - 2,
-    },
+    font = settings.font.icon_small,
   },
   label = {
     width = 65,
     align = "right",
-    font = {
-      family = settings.font.label,
-      style = settings.font.style.bold,
-      size = 12.0,
-    },
+    font = settings.font.label_small,
     color = colors.fg_dim,
   },
 })

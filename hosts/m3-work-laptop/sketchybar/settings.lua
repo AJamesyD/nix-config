@@ -1,24 +1,30 @@
+local label_family = "SF Pro"
+local icon_family = "BlexMono Nerd Font"
+
+local icon_size = 23.0
+local label_size = 17.0
+
 return {
-  font = {
-    label = "SF Pro",
-    -- BlexMono Nerd Font only for icon glyphs (nerd font codepoints)
-    nerd = "BlexMono Nerd Font",
-    style = {
-      regular = "Regular",
-      medium = "Medium",
-      semibold = "Semibold",
-      bold = "Bold",
-      heavy = "Heavy",
-    },
-  },
-
   paddings = 6,
-
-  icon_size = 23.0,
-  label_size = 17.0,
-
+  icon_size = icon_size,
+  label_size = label_size,
   item_height = 36,
   item_radius = 10,
-
   animation_duration = 15,
+
+  -- Reusable font specs: items reference these instead of building inline tables.
+  -- Each is a complete { family, style, size } table ready for sketchybar's font property.
+  font = {
+    -- Labels (SF Pro)
+    label = { family = label_family, style = "Regular", size = label_size },
+    label_medium = { family = label_family, style = "Medium", size = label_size },
+    label_bold = { family = label_family, style = "Bold", size = 14.0 },
+    label_small = { family = label_family, style = "Bold", size = 12.0 },
+
+    -- Icons (Nerd Font glyphs)
+    icon = { family = icon_family, style = "Regular", size = icon_size },
+    icon_bold = { family = icon_family, style = "Bold", size = icon_size },
+    icon_small = { family = icon_family, style = "Bold", size = icon_size - 2 },
+    icon_large = { family = icon_family, style = "Bold", size = 28.0 },
+  },
 }
