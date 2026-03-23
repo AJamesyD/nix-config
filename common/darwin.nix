@@ -133,31 +133,32 @@
         "com.apple.sound.beep.sound" = "/System/Library/Sounds/Blow.aiff";
       };
       CustomUserPreferences = {
-        # Disable macOS screenshot shortcuts (Cmd+Shift+3/4/5)
-        # These conflict with Aerospace workspace switching on those numbers.
-        # Use Raycast screenshot commands instead.
+        # Disable macOS screenshot shortcuts (Cmd+Shift+3/4/5) to avoid conflict
+        # with Aerospace workspace switching on those numbers. Use Raycast instead.
+        #
+        # IDs from Apple's own DefaultShortcutsTable.xml:
+        #   /System/Library/ExtensionKit/Extensions/KeyboardSettings.appex/
+        #     Contents/Resources/en.lproj/DefaultShortcutsTable.xml
+        # Community mapping: https://github.com/andyjakubowski/dotfiles/blob/main/AppleSymbolicHotKeys%20Mappings
+        # Verify current state: defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
+        # GUI equivalent: System Settings > Keyboard > Keyboard Shortcuts > Screenshots
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
-            # 28 = Screenshot full screen to file (Cmd+Shift+3)
             "28" = {
               enabled = false;
-            };
-            # 29 = Screenshot selection to file (Cmd+Shift+4)
+            }; # Save picture of screen as file (Cmd+Shift+3)
             "29" = {
               enabled = false;
-            };
-            # 30 = Screenshot full screen to clipboard (Cmd+Ctrl+Shift+3)
+            }; # Save picture of selected area as file (Cmd+Shift+4)
             "30" = {
               enabled = false;
-            };
-            # 31 = Screenshot selection to clipboard (Cmd+Ctrl+Shift+4)
+            }; # Copy picture of screen to clipboard (Cmd+Ctrl+Shift+3)
             "31" = {
               enabled = false;
-            };
-            # 184 = Screenshot/recording toolbar (Cmd+Shift+5)
+            }; # Copy picture of selected area to clipboard (Cmd+Ctrl+Shift+4)
             "184" = {
               enabled = false;
-            };
+            }; # Screenshot and recording options (Cmd+Shift+5)
           };
         };
         "com.apple.controlcenter" = {
