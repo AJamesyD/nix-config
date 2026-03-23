@@ -77,6 +77,14 @@ for mode_name, keys in pairs(mode_keys) do
   end
 end
 
+-- Mode colors for visual feedback (analogous to tmux prefix/copy mode colors)
+local mode_colors = {
+  service = colors.yellow,
+}
+
+-- Default border color (must match bordersrc active_color)
+local default_border_color = "0xffe1e3e4"
+
 -- Listen for mode change events
 sbar.add("event", "aerospace_mode_change")
 
@@ -84,6 +92,7 @@ mode_item:subscribe("aerospace_mode_change", function(env)
   local mode = env.AEROSPACE_MODE or "main"
 
   if mode == "main" then
+    -- Restore defaults: hide indicator, dismiss popup, restore colors
     mode_item:set({
       drawing = false,
       popup = { drawing = false },
@@ -93,11 +102,18 @@ mode_item:subscribe("aerospace_mode_change", function(env)
         item:set({ drawing = false })
       end
     end
+    -- Restore bar and border colors
+    sbar.bar({ color = colors.bar.bg })
+    sbar.exec("borders active_color=" .. default_border_color)
   else
     local label = mode:upper():sub(1, 3)
+    local mode_color = mode_colors[mode] or colors.yellow
+    local mode_color_hex = string.format("0xff%06x", mode_color % 0x01000000)
+
     mode_item:set({
       drawing = true,
       icon = { string = label },
+      background = { color = mode_color },
       popup = { drawing = true },
     })
     for mode_name, items in pairs(popup_items) do
@@ -106,5 +122,8 @@ mode_item:subscribe("aerospace_mode_change", function(env)
         item:set({ drawing = show })
       end
     end
+    -- Tint bar and borders to match mode color
+    sbar.bar({ color = colors.with_alpha(mode_color, 0x44) })
+    sbar.exec("borders active_color=" .. mode_color_hex)
   end
 end)
