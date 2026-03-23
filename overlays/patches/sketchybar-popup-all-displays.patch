@@ -1,0 +1,55 @@
+Remove active_adid guards that prevent popups from rendering on
+non-focused displays. Upstream issues:
+- https://github.com/FelixKratz/SketchyBar/issues/316
+- https://github.com/FelixKratz/SketchyBar/issues/742
+
+Without this patch, popups only render on the display that currently
+has keyboard focus, making them useless for status indicators that
+should be visible regardless of which monitor you're working on.
+
+The three guards removed:
+  1. bar_draws_item(): skip popup child items on non-active display
+  2. bar_calculate_popup_anchor_for_bar_item(): skip anchor calc
+  3. bar_draw(): skip popup_draw() call
+  4. popup_calculate_popup_anchor_for_bar_item(): skip nested anchor calc
+
+--- a/src/bar.c
++++ b/src/bar.c
+@@ -31,9 +31,7 @@ bool bar_draws_item(struct bar* bar, struct bar_item* bar_item) {
+       return false;
+
+     if (bar_item->position == POSITION_POPUP
+-        && (!bar_item->parent
+-            || !bar_item->parent->popup.drawing
+-            || (bar->adid != g_bar_manager.active_adid)))
++        && (!bar_item->parent || !bar_item->parent->popup.drawing))
+       return false;
+
+     return true;
+@@ -41,7 +39,6 @@ bool bar_draws_item(struct bar* bar, struct bar_item* bar_item) {
+ }
+
+ static void bar_calculate_popup_anchor_for_bar_item(struct bar* bar, struct bar_item* bar_item) {
+-  if (bar->adid != g_bar_manager.active_adid) return;
+   struct window* window = bar_item_get_window(bar_item, bar->adid);
+
+   if (!bar_item->popup.overrides_cell_size) {
+@@ -179,7 +176,7 @@ bool bar_draws_item(struct bar* bar, struct bar_item* bar_item) {
+
+     bar_item_append_associated_bar(bar_item, bar->adid);
+
+-    if (bar_item->popup.drawing && bar->adid == g_bar_manager.active_adid)
++    if (bar_item->popup.drawing)
+       popup_draw(&bar_item->popup);
+
+     if (g_bar_manager.bar_needs_update) {
+--- a/src/popup.c
++++ b/src/popup.c
+@@ -72,7 +72,6 @@ static void popup_calculate_popup_anchor_for_bar_item(struct popup* popup, struc
+ }
+
+ static void popup_calculate_popup_anchor_for_bar_item(struct popup* popup, struct bar_item* bar_item, struct bar* bar) {
+-  if (popup->adid != g_bar_manager.active_adid) return;
+   struct window* window = bar_item_get_window(bar_item, popup->adid);
+
+   if (!bar_item->popup.overrides_cell_size)
