@@ -1,6 +1,7 @@
 -- Left items (order = left to right)
 require("items.apple")
 require("items.spaces")
+require("items.aerospace_mode")
 require("items.front_app")
 
 -- Right items (order = right to left, first added = rightmost)
