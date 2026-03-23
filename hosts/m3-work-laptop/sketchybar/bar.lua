@@ -18,5 +18,5 @@ sbar.bar({
   blur_radius = 20,
   notch_width = 200,
   notch_offset = 0,
-  display = "all",
+  display = "main",
 })
