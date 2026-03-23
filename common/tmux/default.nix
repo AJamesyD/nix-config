@@ -125,7 +125,7 @@ in
           });
           extraConfig = # tmux
             ''
-              TMUX_FZF_LAUNCH_KEY="C-f"
+              TMUX_FZF_LAUNCH_KEY="F"
             '';
         }
         {
