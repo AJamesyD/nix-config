@@ -144,21 +144,26 @@
         # GUI equivalent: System Settings > Keyboard > Keyboard Shortcuts > Screenshots
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
+            # 28: Save picture of screen as file (Cmd+Shift+3)
             "28" = {
               enabled = false;
-            }; # Save picture of screen as file (Cmd+Shift+3)
+            };
+            # 29: Save picture of selected area as file (Cmd+Shift+4)
             "29" = {
               enabled = false;
-            }; # Save picture of selected area as file (Cmd+Shift+4)
+            };
+            # 30: Copy picture of screen to clipboard (Cmd+Ctrl+Shift+3)
             "30" = {
               enabled = false;
-            }; # Copy picture of screen to clipboard (Cmd+Ctrl+Shift+3)
+            };
+            # 31: Copy picture of selected area to clipboard (Cmd+Ctrl+Shift+4)
             "31" = {
               enabled = false;
-            }; # Copy picture of selected area to clipboard (Cmd+Ctrl+Shift+4)
+            };
+            # 184: Screenshot and recording options (Cmd+Shift+5)
             "184" = {
               enabled = false;
-            }; # Screenshot and recording options (Cmd+Shift+5)
+            };
           };
         };
         "com.apple.controlcenter" = {

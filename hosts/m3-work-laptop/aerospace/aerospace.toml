@@ -46,9 +46,9 @@ exec-on-workspace-change = [
 
 # Notify Sketchybar about binding mode changes
 on-mode-changed = [
-  '/bin/bash',
-  '-c',
-  'sketchybar --trigger aerospace_mode_change AEROSPACE_MODE="$(aerospace list-modes --current 2>/dev/null || echo main)"',
+  "/bin/bash",
+  "-c",
+  "sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=\"$(aerospace list-modes --current 2>/dev/null || echo main)\"",
 ]
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -111,9 +111,8 @@ cmd-shift-e = "workspace 9-entertainment"
 cmd-shift-m = "workspace 0-misc"
 cmd-shift-i = "workspace ignored"
 
-# Toggle between current and previous workspace
-# cmd-shift-tab doesn't work: macOS Dock.app intercepts it for reverse app switcher
-cmd-shift-backtick = 'workspace-back-and-forth'
+# Toggle between current and previous workspace ("other")
+cmd-shift-o = 'workspace-back-and-forth'
 
 # Enter service mode (rare layout operations, see [mode.service.binding])
 cmd-shift-semicolon = 'mode service'
@@ -289,7 +288,7 @@ run = "move-node-to-workspace 0-misc"
 ignored = ['P32p-20 \(2\)', "P32p-20", "secondary"]
 
 # Service mode: one-shot commands for rare layout operations
-# Entry: Cmd+Shift+; (right pinky on CAGS, i3 convention)
+# Entry: Cmd+Shift+; (semicolon tap, right pinky home on split columnar)
 # All bindings auto-return to main mode. Sketchybar shows available keys.
 [mode.service.binding]
 esc = 'mode main'

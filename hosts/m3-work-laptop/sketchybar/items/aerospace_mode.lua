@@ -82,7 +82,8 @@ local mode_colors = {
   service = colors.yellow,
 }
 
--- Default border color (must match bordersrc active_color)
+-- Default border color: must match bordersrc active_color.
+-- If you change the border color there, update this too.
 local default_border_color = "0xffe1e3e4"
 
 -- Listen for mode change events
@@ -108,6 +109,7 @@ mode_item:subscribe("aerospace_mode_change", function(env)
   else
     local label = mode:upper():sub(1, 3)
     local mode_color = mode_colors[mode] or colors.yellow
+    -- Strip alpha byte for JankyBorders hex format (0xffRRGGBB)
     local mode_color_hex = string.format("0xff%06x", mode_color % 0x01000000)
 
     mode_item:set({
