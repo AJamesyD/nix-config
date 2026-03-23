@@ -44,6 +44,13 @@ exec-on-workspace-change = [
   "sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE",
 ]
 
+# Notify Sketchybar about binding mode changes
+on-mode-changed = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_mode_change AEROSPACE_MODE="$(aerospace list-modes --current 2>/dev/null || echo main)"',
+]
+
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -103,6 +110,12 @@ cmd-shift-v = "workspace 5-video-call"
 cmd-shift-e = "workspace 9-entertainment"
 cmd-shift-m = "workspace 0-misc"
 cmd-shift-i = "workspace ignored"
+
+# Toggle between current and previous workspace (like Alt-Tab for workspaces)
+cmd-shift-tab = 'workspace-back-and-forth'
+
+# Enter service mode (rare layout operations, see [mode.service.binding])
+cmd-shift-semicolon = 'mode service'
 
 
 ### Move windows within workspace ###
@@ -273,3 +286,26 @@ run = "move-node-to-workspace 0-misc"
 5-video-call = "built-in"
 9-entertainment = ['P32p-20 \(1\)', "dell", "secondary"]
 ignored = ['P32p-20 \(2\)', "P32p-20", "secondary"]
+
+# Service mode: one-shot commands for rare layout operations
+# Entry: Cmd+Shift+; (right pinky on CAGS, i3 convention)
+# All bindings auto-return to main mode. Sketchybar shows available keys.
+[mode.service.binding]
+esc = 'mode main'
+r = ['flatten-workspace-tree', 'mode main']
+b = ['balance-sizes', 'mode main']
+f = ['layout floating tiling', 'mode main']
+x = ['close-all-windows-but-current', 'mode main']
+n = ['macos-native-fullscreen', 'mode main']
+
+# Swap windows (Shift = "move" convention from main mode)
+shift-h = ['swap left', 'mode main']
+shift-j = ['swap down', 'mode main']
+shift-k = ['swap up', 'mode main']
+shift-l = ['swap right', 'mode main']
+
+# Join with direction (create nested containers)
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
