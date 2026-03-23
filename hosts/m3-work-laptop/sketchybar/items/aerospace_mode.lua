@@ -82,9 +82,8 @@ local mode_colors = {
   service = colors.yellow,
 }
 
--- Default border color: must match bordersrc active_color.
--- If you change the border color there, update this too.
-local default_border_color = "0xffe1e3e4"
+-- Neutral grey (JankyBorders default); change in sketchybar-theme.nix and borders/bordersrc too.
+local default_border_color = string.format("0xff%06x", colors.border_active % 0x01000000)
 
 -- Listen for mode change events
 sbar.add("event", "aerospace_mode_change")

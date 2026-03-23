@@ -79,6 +79,11 @@ let
       blue0 = ${c "blue0"},
       blue1 = ${c "blue1"},
       blue2 = ${c "blue2"},
+
+      -- Border active color for JankyBorders default state.
+      -- Neutral grey (not from palette), used by bordersrc and aerospace_mode.lua.
+      -- If changing, also update borders/bordersrc active_color.
+      border_active = 0xffe1e3e4,
     }
   '';
 
