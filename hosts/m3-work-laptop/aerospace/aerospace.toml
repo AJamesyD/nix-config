@@ -111,8 +111,9 @@ cmd-shift-e = "workspace 9-entertainment"
 cmd-shift-m = "workspace 0-misc"
 cmd-shift-i = "workspace ignored"
 
-# Toggle between current and previous workspace (like Alt-Tab for workspaces)
-cmd-shift-tab = 'workspace-back-and-forth'
+# Toggle between current and previous workspace
+# cmd-shift-tab doesn't work: macOS Dock.app intercepts it for reverse app switcher
+cmd-shift-backtick = 'workspace-back-and-forth'
 
 # Enter service mode (rare layout operations, see [mode.service.binding])
 cmd-shift-semicolon = 'mode service'
