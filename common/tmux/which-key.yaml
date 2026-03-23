@@ -59,6 +59,9 @@ items:
   - name: Reload config
     key: R
     macro: reload-config
+  - name: Sesh (fuzzy)
+    key: f
+    macro: sesh-connect
   - separator: true
   - name: +Windows
     key: t
