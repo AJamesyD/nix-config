@@ -73,10 +73,6 @@
     ];
     casks = [
       {
-        name = "karabiner-elements";
-        greedy = true;
-      }
-      {
         name = "obsidian";
         greedy = true;
       }
