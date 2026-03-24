@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -18,8 +17,6 @@
     username = "angaidan";
     homeDirectory = "/Users/angaidan";
 
-    # The home.packages option allows you to install Nix packages into your
-    # environment.
     packages = with pkgs; [
       # Fonts
       nerd-fonts.blex-mono
@@ -41,7 +38,7 @@
       }))
     ];
 
-    stateVersion = "25.11"; # Please read the comment before changing.
+    stateVersion = "25.11";
   };
 
   launchd = {
@@ -151,7 +148,6 @@
       };
     };
 
-    # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
     mise = {

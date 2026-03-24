@@ -102,7 +102,7 @@
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh = {
-    enable = true; # default shell on catalina
+    enable = true;
     # XXX: Disable completion in favor of home-manager setup
     enableBashCompletion = false;
     enableCompletion = false;
@@ -116,10 +116,9 @@
         touchIdAuth = true;
       };
     };
-    sudo.extraConfig = # bash
-      ''
-        Defaults timestamp_timeout = 2
-      '';
+    sudo.extraConfig = ''
+      Defaults timestamp_timeout = 2
+    '';
   };
 
   system = {
@@ -300,6 +299,8 @@
           FXRemoveOldTrashItems = true;
           _FXSortFoldersFirst = true;
         };
+        # CustomUserPreferences takes precedence over system.defaults.NSGlobalDomain
+        # because `defaults write` runs after nix-darwin's typed NSGlobalDomain attrs.
         NSGlobalDomain = {
           AppleMenuBarVisibleInFullscreen = false;
           AppleWindowTabbingMode = "always";
@@ -316,7 +317,6 @@
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         AppleShowScrollBars = "WhenScrolling";
-        InitialKeyRepeat = 25;
         KeyRepeat = 2;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
