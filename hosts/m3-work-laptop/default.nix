@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -130,6 +131,32 @@
   };
 
   services.sketchybar.enable = true;
+
+  # Point launchd at a stable .app bundle path so macOS TCC identifies
+  # sketchybar by CFBundleIdentifier (client_type=0) instead of bare nix
+  # store path. This makes Accessibility permission survive nix rebuilds.
+  # The activation script below keeps the bundle in sync with the nix store.
+  launchd.user.agents.sketchybar.serviceConfig.ProgramArguments = lib.mkForce [
+    "/Applications/SketchyBar.app/Contents/MacOS/sketchybar"
+  ];
+
+  # Copy the .app bundle from the nix store to /Applications and codesign it.
+  # The nix store is read-only, so codesign must target a mutable copy.
+  # rsync --checksum avoids unnecessary copies when the binary hasn't changed.
+  system.activationScripts.postActivation.text = ''
+    echo "syncing SketchyBar.app bundle..." >&2
+    ${pkgs.rsync}/bin/rsync \
+      --archive \
+      --checksum \
+      --copy-unsafe-links \
+      --delete \
+      "${pkgs.sketchybar}/Applications/SketchyBar.app/" \
+      "/Applications/SketchyBar.app/"
+
+    echo "codesigning SketchyBar.app bundle..." >&2
+    /usr/bin/codesign -fs - --identifier "com.local.sketchybar" \
+      "/Applications/SketchyBar.app" 2>&1 || true
+  '';
 
   system = {
     defaults = {
