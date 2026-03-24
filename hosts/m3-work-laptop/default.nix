@@ -21,9 +21,6 @@
     ];
     brews = [
       {
-        name = "borders";
-      }
-      {
         # TODO: Unfuck CargoBrazil integration
         name = "rust-analyzer";
       }
@@ -131,6 +128,23 @@
   };
 
   services.sketchybar.enable = true;
+
+  # JankyBorders: colored window borders. The nix-darwin module manages launchd
+  # lifecycle and passes all config as CLI args (no config file needed).
+  # Color values must stay in sync with sketchybar-theme.nix (border_active).
+  services.jankyborders = {
+    enable = true;
+    style = "round";
+    active_color = "0xffe1e3e4";
+    inactive_color = "0xee494d64";
+    width = 10.0;
+    hidpi = true;
+    # ax_focus uses the Accessibility API for focus detection, which is more
+    # accurate with AeroSpace but requires TCC permission. The nix store path
+    # changes on rebuild, invalidating path-based TCC grants. Disabled until
+    # a .app bundle wrapper (like sketchybar's) is added to stabilize TCC.
+    ax_focus = false;
+  };
 
   # Point launchd at a stable .app bundle path so macOS TCC identifies
   # sketchybar by CFBundleIdentifier (client_type=0) instead of bare nix

@@ -150,17 +150,6 @@
             aerospace reload-config
           '';
       };
-      "borders/bordersrc" = {
-        enable = true;
-        executable = true;
-        source = ./borders/bordersrc;
-        onChange = # bash
-          ''
-            export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
-
-            brew services restart borders
-          '';
-      };
       "ghostty" = {
         enable = true;
         source = ./ghostty;
