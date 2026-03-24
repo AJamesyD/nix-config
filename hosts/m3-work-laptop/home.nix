@@ -108,8 +108,52 @@
         }
       ];
     };
+
+    ghostty = {
+      enable = true;
+      package = null; # installed via Homebrew cask
+      settings = {
+        # Fonts
+        font-family = "IBM Plex Mono";
+        font-family-bold = "IBM Plex Mono";
+        font-family-italic = "Victor Mono";
+        font-family-bold-italic = "Victor Mono";
+        font-size = 16;
+        font-thicken = true;
+
+        # Appearance
+        theme = "Dark Pastel";
+        custom-shader = [
+          "~/.config/ghostty/shaders/cursor_blaze_no_trail.glsl"
+          "~/.config/ghostty/shaders/cursor_smear.glsl"
+        ];
+
+        # Window
+        window-padding-color = "background";
+        macos-titlebar-style = "tabs";
+        confirm-close-surface = true;
+
+        # Tiling WM (AeroSpace) compatibility
+        # https://ghostty.org/docs/help/macos-tiling-wms
+        # https://github.com/nikitabobko/AeroSpace/issues/68
+        macos-window-shadow = false;
+        resize-overlay = "never";
+        window-padding-balance = true;
+        window-step-resize = false;
+
+        # Mouse
+        mouse-hide-while-typing = true;
+
+        # Misc
+        auto-update = "check";
+        shell-integration-features = "cursor,sudo,ssh-env,ssh-terminfo";
+        working-directory = "home";
+      };
+    };
+
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
     mise = {
       globalConfig = {
         tools = {
@@ -119,6 +163,42 @@
             "22" # jod
             "20" # iron
           ];
+        };
+      };
+    };
+
+    neovide = {
+      enable = true;
+      package = null; # installed via Homebrew cask
+      settings = {
+        fork = true;
+        frame = "full";
+        no-multigrid = false;
+        title-hidden = true;
+        maximized = true;
+
+        font = {
+          size = 16.0;
+          edging = "subpixelantialias";
+
+          normal = [
+            {
+              family = "BlexMono Nerd Font";
+              style = "Regular";
+            }
+          ];
+          italic = {
+            family = "VictorMono Nerd Font";
+            style = "Italic";
+          };
+          bold = {
+            family = "BlexMono Nerd Font";
+            style = "Bold";
+          };
+          bold_italic = {
+            family = "VictorMono Nerd Font";
+            style = "Bold Italic";
+          };
         };
       };
     };
@@ -140,43 +220,13 @@
   xdg = {
     enable = true;
     configFile = {
-      "ghostty" = {
+      # Ghostty shader files (config managed by programs.ghostty)
+      "ghostty/shaders" = {
         enable = true;
-        source = ./ghostty;
+        source = ./ghostty/shaders;
         recursive = true;
       };
-      "neovide/config.toml" = {
-        enable = true;
-        text = # toml
-          ''
-            fork = true
-            frame = "full"
-            no-multigrid = false
-            title-hidden = true
-            maximized = true
 
-
-            [font]
-            size = 16.0
-            edging = "subpixelantialias"
-
-            [font.normal]
-            family = "BlexMono Nerd Font"
-            style = "Regular"
-
-            [font.italic]
-            family = "VictorMono Nerd Font"
-            style = "Italic"
-
-            [font.bold]
-            family = "BlexMono Nerd Font"
-            style = "Bold"
-
-            [font.bold_italic]
-            family = "VictorMono Nerd Font"
-            style = "Bold Italic"
-          '';
-      };
       "sketchybar" = {
         enable = true;
         source = ./sketchybar;
