@@ -140,16 +140,6 @@
   xdg = {
     enable = true;
     configFile = {
-      "aerospace/aerospace.toml" = {
-        enable = true;
-        source = ./aerospace/aerospace.toml;
-        onChange = # bash
-          ''
-            export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
-
-            aerospace reload-config
-          '';
-      };
       "ghostty" = {
         enable = true;
         source = ./ghostty;
