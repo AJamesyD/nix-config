@@ -29,9 +29,9 @@ local front_app_name = sbar.add("item", "front_app.name", {
   label = {
     string = "…",
     font = settings.font.label_medium,
-    color = colors.fg_dim,
+    color = colors.fg,
     padding_left = 0,
-    padding_right = 10,
+    padding_right = settings.label_right_padding,
   },
   background = { color = colors.transparent },
   padding_left = 0,

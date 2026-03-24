@@ -12,7 +12,7 @@ local media = sbar.add("item", "media", {
     color = colors.green,
     font = settings.font.icon,
     y_offset = 1,
-    padding_left = 8,
+    padding_left = settings.icon_padding,
     padding_right = 4,
   },
   label = {
@@ -20,10 +20,10 @@ local media = sbar.add("item", "media", {
     color = colors.fg_dim,
     font = settings.font.label,
     max_chars = MAX_TITLE_LEN,
-    padding_right = 8,
+    padding_right = settings.label_right_padding,
   },
   background = {
-    color = colors.transparent,
+    color = colors.item_bg,
     corner_radius = settings.item_radius,
     height = settings.item_height,
   },

@@ -48,18 +48,18 @@ for _, def in ipairs(popup_items) do
       string = def.icon,
       color = colors.fg,
       font = settings.font.icon,
-      padding_left = 8,
+      padding_left = settings.icon_padding,
       padding_right = 4,
     },
     label = {
       string = def.label,
       color = colors.fg,
       font = settings.font.label_medium,
-      padding_right = 8,
+      padding_right = settings.icon_padding,
     },
     background = {
       color = colors.transparent,
-      height = settings.item_height,
+      height = settings.popup_item_height,
       corner_radius = settings.item_radius - 3,
     },
   })

@@ -62,6 +62,7 @@ for mode_name, keys in pairs(mode_keys) do
         color = colors.yellow,
         width = 90,
         align = "right",
+        padding_left = settings.icon_padding,
       },
       label = {
         string = entry.desc,
@@ -71,8 +72,13 @@ for mode_name, keys in pairs(mode_keys) do
           size = 14.0,
         },
         color = colors.fg,
+        padding_right = settings.icon_padding,
       },
-      background = { color = colors.transparent },
+      background = {
+        color = colors.transparent,
+        height = settings.popup_item_height,
+        corner_radius = settings.item_radius - 3,
+      },
     })
     table.insert(popup_items[mode_name], item)
   end

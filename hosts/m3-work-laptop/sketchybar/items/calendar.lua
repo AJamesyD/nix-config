@@ -11,13 +11,13 @@ local cal = sbar.add("item", "calendar", {
     color = colors.orange,
     font = settings.font.icon,
     y_offset = 1,
-    padding_left = 8,
+    padding_left = settings.icon_padding,
     padding_right = 4,
   },
   label = {
-    color = colors.fg,
+    color = colors.fg_dim,
     font = settings.font.label,
-    padding_right = 10,
+    padding_right = settings.label_right_padding,
   },
   background = {
     color = colors.item_bg,

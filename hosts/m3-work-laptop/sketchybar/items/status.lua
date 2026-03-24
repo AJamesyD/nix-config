@@ -31,8 +31,8 @@ local separator = sbar.add("item", "status.separator", {
     color = colors.fg,
     font = settings.font.icon_bold,
     y_offset = 1,
-    padding_left = 8,
-    padding_right = 8,
+    padding_left = settings.icon_padding,
+    padding_right = settings.icon_padding,
   },
   label = { drawing = false },
   background = {
@@ -40,8 +40,8 @@ local separator = sbar.add("item", "status.separator", {
     corner_radius = settings.item_radius,
     height = settings.item_height,
   },
-  padding_left = 2,
-  padding_right = 2,
+  padding_left = 4,
+  padding_right = 4,
 })
 
 local stat_defaults = {
@@ -138,7 +138,7 @@ local net_up = sbar.add("item", "status.net_up", {
 local stat_items = { cpu, memory, disk, net_down, net_up }
 
 local function close_stats()
-  sbar.animate("tanh", 30, function()
+  sbar.animate("tanh", settings.animation_duration, function()
     cpu:set({ background = { padding_right = -10 } })
     memory:set({ background = { padding_right = -50 } })
     disk:set({ background = { padding_right = -40 } })
@@ -158,7 +158,7 @@ local function open_stats()
   for _, item in ipairs(stat_items) do
     item:set({ drawing = true })
   end
-  sbar.animate("tanh", 30, function()
+  sbar.animate("tanh", settings.animation_duration, function()
     cpu:set({ background = { padding_right = 0 } })
     memory:set({ background = { padding_right = 0 } })
     disk:set({ background = { padding_right = 0 } })
