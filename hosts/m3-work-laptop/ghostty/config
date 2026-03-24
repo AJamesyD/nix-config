@@ -37,6 +37,7 @@ confirm-close-surface = true
 macos-window-shadow = false
 resize-overlay = never
 window-padding-balance = true
+window-step-resize = false
 
 # Mouse
 mouse-hide-while-typing = true
