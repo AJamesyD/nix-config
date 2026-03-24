@@ -28,7 +28,7 @@ return {
     label_light = { family = label_family, style = "Light", size = label_size },
     label_medium = { family = label_family, style = "Medium", size = label_size },
     label_bold = { family = label_family, style = "Bold", size = 14.0 },
-    label_small = { family = label_family, style = "Bold", size = 12.0 },
+    label_small = { family = label_family, style = "Light", size = 12.0 },
 
     -- Icons (Nerd Font glyphs)
     icon = { family = icon_family, style = "Regular", size = icon_size },

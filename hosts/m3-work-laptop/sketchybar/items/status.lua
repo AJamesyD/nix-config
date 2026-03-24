@@ -53,7 +53,7 @@ local stat_defaults = {
     padding_right = 2,
   },
   label = {
-    font = settings.font.label_bold,
+    font = settings.font.label_light,
     color = colors.fg_dim,
     padding_right = 4,
   },
