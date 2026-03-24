@@ -3,7 +3,7 @@ local sbar = require("sbar")
 
 sbar.bar({
   topmost = "window",
-  height = 48,
+  height = 38,
   color = colors.bar.bg,
   border_color = colors.bar.border,
   border_width = 0,

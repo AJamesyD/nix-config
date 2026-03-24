@@ -100,7 +100,7 @@ local disk = sbar.add(
 local net_down = sbar.add("item", "status.net_down", {
   position = "right",
   drawing = false,
-  y_offset = -9,
+  y_offset = -7,
   background = { padding_left = 0 },
   icon = {
     string = icons.status.network_down,
@@ -119,7 +119,7 @@ local net_down = sbar.add("item", "status.net_down", {
 local net_up = sbar.add("item", "status.net_up", {
   position = "right",
   drawing = false,
-  y_offset = 9,
+  y_offset = 7,
   background = { padding_right = -87 },
   icon = {
     string = icons.status.network_up,

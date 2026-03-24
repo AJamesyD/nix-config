@@ -8,7 +8,7 @@ return {
   paddings = 6,
   icon_size = icon_size,
   label_size = label_size,
-  item_height = 36,
+  item_height = 32,
   popup_item_height = 28,
   item_radius = 10,
   group_paddings = 8,
