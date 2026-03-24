@@ -47,7 +47,7 @@ exec-on-workspace-change = [
 # Notify Sketchybar about binding mode changes
 # NOTE: on-mode-changed takes Aerospace commands (not a process array like exec-on-*).
 on-mode-changed = [
-  'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE="$(aerospace list-modes --current 2>/dev/null || echo main)"',
+  'exec-and-forget /run/current-system/sw/bin/sketchybar --trigger aerospace_mode_change AEROSPACE_MODE="$(/opt/homebrew/bin/aerospace list-modes --current 2>/dev/null || echo main)"',
 ]
 
 # Possible values: (qwerty|dvorak|colemak)
