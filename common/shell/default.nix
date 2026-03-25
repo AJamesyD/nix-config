@@ -58,6 +58,7 @@ in
           zsource
         '';
       v = "nvim";
+      gu = "gitui";
       zsource = # bash
         ''
           source "$ZDOTDIR/.zshenv"
@@ -148,7 +149,7 @@ in
       # bash
       ''
         # zsh-auto-notify
-        AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "fg" "tmux" "fzf")
+        AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "gitui" "fg" "tmux" "fzf")
 
         # Beloved key-binds
         bindkey "^[[1;3D" backward-word
