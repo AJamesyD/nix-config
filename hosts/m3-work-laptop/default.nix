@@ -62,8 +62,9 @@
       }
       {
         name = "xdg-open-svc";
-        restart_service = "changed";
-        start_service = true;
+        # Service auto-starts via LaunchAgent plist on login.
+        # start_service/restart_service trigger brew services JSON
+        # parsing that fails under darwin-rebuild's sudo context.
       }
     ];
     casks = [
