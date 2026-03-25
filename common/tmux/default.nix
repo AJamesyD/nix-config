@@ -161,8 +161,9 @@ in
           # after all plugin run-shells, so it would overwrite continuum's save
           # trigger. Set them in catppuccin's extraConfig above instead.
 
-          # update the env when attaching to an existing session
-          set -ga update-environment -r
+          # SSH_CLIENT is missing from tmux's default update-environment list,
+          # so it goes stale across attach cycles (SSH_CONNECTION is included by default).
+          set -ga update-environment SSH_CLIENT
 
           set -g status-position top
           set -g status-interval 5
