@@ -12,5 +12,6 @@ _: {
       IdentitiesOnly yes
       ServerAliveCountMax 5
       ServerAliveInterval 60
+      StrictHostKeyChecking accept-new
   '';
 }
