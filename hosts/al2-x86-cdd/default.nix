@@ -18,6 +18,8 @@
       ruby
 
       stylua
+
+      (callPackage ../../pkgs/zmx { })
     ];
     stateVersion = "25.11"; # Please read the comment before changing.
   };
@@ -93,6 +95,7 @@
   services.shpool = {
     enable = true;
     settings = {
+      prompt_prefix = "";
       session_restore_mode = "screen";
       keybinding = [
         {
