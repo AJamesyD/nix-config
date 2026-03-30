@@ -1,0 +1,2 @@
+[pre-merge]
+eval = "nix eval .#darwinConfigurations.m3-work-laptop.system && nix eval .#homeConfigurations.al2-x86-cdd.activationPackage && nix eval .#homeConfigurations.dellangelis.activationPackage"
