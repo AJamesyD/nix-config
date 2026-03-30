@@ -14,6 +14,10 @@
   };
 
   inputs = {
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     devenv = {
       url = "github:cachix/devenv";
