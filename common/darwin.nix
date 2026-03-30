@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./nix-sys.nix
+    ./nix-daemon.nix
   ];
 
   documentation = {
