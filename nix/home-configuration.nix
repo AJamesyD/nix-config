@@ -67,6 +67,8 @@ let
         inherit pkgs;
         modules = [
           (genModules hostName attrs)
+          inputs.nix-index-database.homeModules.default
+          { programs.nix-index-database.comma.enable = true; }
         ];
         extraSpecialArgs = {
           hostType = type;

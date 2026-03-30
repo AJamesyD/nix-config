@@ -38,6 +38,8 @@ let
             };
             home-manager.sharedModules = [
               inputs.mac-app-util.homeManagerModules.default
+              inputs.nix-index-database.homeModules.default
+              { programs.nix-index-database.comma.enable = true; }
             ];
           }
           inputs.home-manager.darwinModules.home-manager
