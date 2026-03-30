@@ -36,8 +36,12 @@ let
             home-manager.extraSpecialArgs = {
               inherit inputs;
             };
+            home-manager.sharedModules = [
+              inputs.mac-app-util.homeManagerModules.default
+            ];
           }
           inputs.home-manager.darwinModules.home-manager
+          inputs.mac-app-util.darwinModules.default
         ];
         specialArgs = {
           hostType = type;
