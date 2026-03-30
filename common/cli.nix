@@ -32,6 +32,7 @@
 
     cachix
     devenv
+    nh
     nix-output-monitor
     nix-update
     nixd
