@@ -8,7 +8,7 @@ let
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://zmx.sh/a/zmx-${version}-linux-x86_64.tar.gz";
-      hash = "sha256-Bq6e4QuEUZtPlGej+96IBxP1YvJqElxwrSOtDJ6L/uQ=";
+      hash = "sha256-JSPSkAbo4NdoyA9APK0pROkNWMuj9oqRJ3sLgNDB8jc=";
     };
     aarch64-linux = fetchurl {
       url = "https://zmx.sh/a/zmx-${version}-linux-aarch64.tar.gz";
