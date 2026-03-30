@@ -2,7 +2,7 @@
   nix = {
     gc = {
       automatic = true;
-      options = "--delete-older-than 28";
+      options = "--delete-older-than 28d";
     };
 
     settings = {
