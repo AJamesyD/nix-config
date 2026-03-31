@@ -6,6 +6,7 @@
 }:
 {
   home.packages = with pkgs; [
+    # Editor core
     neovim
     tree-sitter
     (luajit.withPackages (
@@ -15,27 +16,33 @@
       ]
     ))
     (ast-grep.overrideAttrs { doCheck = false; }) # TODO: revert once nixpkgs fixes locale-related test failure on macOS
+
+    # Formatters and linters
     markdownlint-cli2
-    mermaid-cli
-    python313Packages.pylatexenc
-    graphviz
-    pandoc
+    prettier
     ruff
-    ty
+    selene
     shellcheck
     shfmt
-    selene
     stylua
+    ty
 
-    # LSP servers -- shared by neovim (Mason PATH = "append" prefers these
-    # over its own copies), OpenCode, and Kiro.
+    # LSP servers (shared by neovim, Helix, OpenCode, and Kiro)
+    basedpyright
     bash-language-server
     lua-language-server
-    taplo # also used by treefmt, but not on PATH as standalone until now
+    marksman
+    taplo
     ts_query_ls
-    vscode-langservers-extracted # json, css, html language servers
+    vscode-langservers-extracted
     vtsls
     yaml-language-server
+
+    # Document generation
+    graphviz
+    mermaid-cli
+    pandoc
+    python313Packages.pylatexenc
   ];
 
   home.sessionVariables = {
