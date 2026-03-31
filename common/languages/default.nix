@@ -64,7 +64,7 @@
     go = {
       enable = true;
       env = {
-        goBin = ".local/bin.go";
+        GOBIN = ".local/bin.go";
       };
     };
     java = {
