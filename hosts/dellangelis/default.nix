@@ -6,6 +6,7 @@
   imports = [
     ../../common/dev.nix
     ../../common/nix-common.nix
+    ../../common/stylix.nix
   ];
 
   fonts.fontconfig.enable = true;

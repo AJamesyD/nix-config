@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -174,7 +175,7 @@
         maximized = true;
 
         font = {
-          size = 16.0;
+          size = lib.mkForce 16.0;
           edging = "subpixelantialias";
 
           normal = [

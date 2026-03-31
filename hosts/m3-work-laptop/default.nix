@@ -7,6 +7,7 @@
   imports = [
     ../../common/darwin.nix
     ../../common/nix-common.nix
+    ../../common/stylix.nix
     ./aerospace.nix
   ];
 
@@ -124,12 +125,9 @@
 
   # JankyBorders: colored window borders. The nix-darwin module manages launchd
   # lifecycle and passes all config as CLI args (no config file needed).
-  # Color values must stay in sync with sketchybar-theme.nix (border_active).
   services.jankyborders = {
     enable = true;
     style = "round";
-    active_color = "0xffe1e3e4";
-    inactive_color = "0xee494d64";
     width = 10.0;
     hidpi = true;
     # ax_focus uses the Accessibility API for focus detection, which is more

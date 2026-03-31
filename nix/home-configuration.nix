@@ -69,6 +69,7 @@ let
           (genModules hostName attrs)
           inputs.nix-index-database.homeModules.default
           { programs.nix-index-database.comma.enable = true; }
+          inputs.stylix.homeModules.stylix
         ];
         extraSpecialArgs = {
           hostType = type;

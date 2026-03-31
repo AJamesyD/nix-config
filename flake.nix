@@ -83,6 +83,10 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tokyonight-nvim = {
       url = "github:folke/tokyonight.nvim/v4.8.0";
       flake = false;

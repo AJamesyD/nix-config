@@ -8,6 +8,7 @@
     ../../common/dev.nix
     ../../common/ssh.nix
     ../../common/nix-common.nix
+    ../../common/stylix.nix
   ];
 
   home = {
