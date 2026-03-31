@@ -28,6 +28,8 @@
       sketchybar-app-font
       victor-mono
 
+      halloy
+
       qmk
       keymapviz
 
