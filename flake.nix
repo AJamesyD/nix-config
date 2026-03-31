@@ -55,25 +55,9 @@
     mac-app-util = {
       url = "github:hraban/mac-app-util";
     };
-    nixd = {
-      url = "github:nix-community/nixd";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-fast-build = {
-      url = "github:Mic92/nix-fast-build";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "treefmt-nix";
-      };
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -86,10 +70,6 @@
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    tokyonight-nvim = {
-      url = "github:folke/tokyonight.nvim/v4.8.0";
-      flake = false;
     };
     tmux-which-key = {
       url = "github:alexwforsythe/tmux-which-key/1f419775caf136a60aac8e3a269b51ad10b51eb6";

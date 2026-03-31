@@ -944,32 +944,6 @@
         "type": "github"
       }
     },
-    "nix-fast-build": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1774759198,
-        "narHash": "sha256-xl/XzBrlbELlqvuWLDvjqHRc61WR5SeYBMVJInhDuSA=",
-        "owner": "Mic92",
-        "repo": "nix-fast-build",
-        "rev": "bfc06c68a9c7ac7a931487d21aa7cf0fb29a75ae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "nix-fast-build",
-        "type": "github"
-      }
-    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -1033,32 +1007,6 @@
           "nixpkgs"
         ],
         "treefmt-nix": "treefmt-nix"
-      },
-      "locked": {
-        "lastModified": 1773634079,
-        "narHash": "sha256-49qb4QNMv77VOeEux+sMd0uBhPvvHgVc0r938Bulvbo=",
-        "owner": "nix-community",
-        "repo": "nixd",
-        "rev": "8ecf93d4d93745e05ea53534e8b94f5e9506e6bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixd",
-        "type": "github"
-      }
-    },
-    "nixd_2": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
       },
       "locked": {
         "lastModified": 1773634079,
@@ -1203,11 +1151,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1774701658,
-        "narHash": "sha256-CIS/4AMUSwUyC8X5g+5JsMRvIUL3YUfewe8K4VrbsSQ=",
+        "lastModified": 1774794121,
+        "narHash": "sha256-gih24b728CK8twDNU7VX9vVYK2tLEXvy9gm/GKq2VeE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b63fe7f000adcfa269967eeff72c64cafecbbebe",
+        "rev": "c397ef6af68c018462d786e1b65384abc472a907",
         "type": "github"
       },
       "original": {
@@ -1311,16 +1259,13 @@
         "home-manager": "home-manager",
         "mac-app-util": "mac-app-util",
         "nix-darwin": "nix-darwin",
-        "nix-fast-build": "nix-fast-build",
         "nix-index-database": "nix-index-database",
-        "nixd": "nixd_2",
         "nixpkgs": "nixpkgs_8",
         "stylix": "stylix",
         "tmux-continuum": "tmux-continuum",
         "tmux-fzf": "tmux-fzf",
         "tmux-resurrect": "tmux-resurrect",
         "tmux-which-key": "tmux-which-key",
-        "tokyonight-nvim": "tokyonight-nvim",
         "treefmt-nix": "treefmt-nix_4",
         "zen-browser": "zen-browser",
         "zsh-auto-notify": "zsh-auto-notify"
@@ -1569,23 +1514,6 @@
         "owner": "alexwforsythe",
         "repo": "tmux-which-key",
         "rev": "1f419775caf136a60aac8e3a269b51ad10b51eb6",
-        "type": "github"
-      }
-    },
-    "tokyonight-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721799858,
-        "narHash": "sha256-5QeY3EevOQzz5PHDW2CUVJ7N42TRQdh7QOF9PH1YxkU=",
-        "owner": "folke",
-        "repo": "tokyonight.nvim",
-        "rev": "2cd12582c98a3552032824ffa67fd44b4d81184a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "ref": "v4.8.0",
-        "repo": "tokyonight.nvim",
         "type": "github"
       }
     },
