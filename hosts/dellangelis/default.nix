@@ -35,6 +35,7 @@
   };
 
   programs = {
+    git.signing.format = null;
     jujutsu.settings.user = {
       name = "Aidan De Angelis";
       email = "aidandeangelis@berkeley.edu";
