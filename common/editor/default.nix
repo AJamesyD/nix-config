@@ -1,10 +1,10 @@
 {
-  config,
-  inputs,
   pkgs,
   ...
 }:
 {
+  stylix.targets.neovim.enable = false;
+
   home.packages = with pkgs; [
     # Editor core
     neovim
@@ -45,26 +45,14 @@
     python313Packages.pylatexenc
   ];
 
-  home.sessionVariables = {
-    # $BAT_THEME reused by git delta
-    BAT_THEME = "tokyonight-night";
-  };
-
   programs = {
     bat = {
       enable = true;
-      # Theme set by $BAT_THEME
       extraPackages = with pkgs.bat-extras; [
         batdiff
         batman
         batpipe
       ];
-      themes = {
-        tokyonight-night = {
-          src = inputs.tokyonight-nvim;
-          file = "extras/sublime/tokyonight_night.tmTheme";
-        };
-      };
     };
     bacon = {
       enable = true;
