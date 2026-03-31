@@ -13,6 +13,8 @@
     };
   };
 
+  stylix.targets.zen-browser.profileNames = [ "default" ];
+
   # Files not covered by zen-browser-flake's HM module
   home.file =
     let
