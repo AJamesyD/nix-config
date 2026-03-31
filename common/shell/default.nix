@@ -47,7 +47,11 @@ in
         '';
       nixup =
         let
-          switchCmd = if pkgs.stdenv.isDarwin then "nh darwin switch" else "nh home switch";
+          switchCmd =
+            if pkgs.stdenv.isDarwin then
+              "nh darwin switch"
+            else
+              "nh home switch --configuration \"$_NIX_HOSTNAME\"";
         in
         # bash
         ''
