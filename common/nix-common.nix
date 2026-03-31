@@ -6,6 +6,12 @@
     };
 
     settings = {
+      # Retain build outputs reachable from existing GC roots. Prevents
+      # nix-collect-garbage from deleting devshell tool binaries (treefmt,
+      # nil, etc.) that pre-commit hooks reference via store paths.
+      # Recommended by nix-direnv. Costs ~30% more store space.
+      keep-outputs = true;
+
       download-buffer-size = 500 * 1024 * 1024; # 500MB
       experimental-features = [
         "auto-allocate-uids"
