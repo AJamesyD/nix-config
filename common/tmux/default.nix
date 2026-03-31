@@ -29,6 +29,10 @@ let
       '';
 in
 {
+  # Catppuccin plugin handles tmux theming; stylix's base16 conf
+  # runs after catppuccin's run-shell and overwrites its colors.
+  stylix.targets.tmux.enable = false;
+
   xdg.configFile."tmux-plugins/tmux-which-key/config.yaml" = {
     source = ./which-key.yaml;
     force = true; # Plugin creates this file on first run; force ensures Nix wins
@@ -46,12 +50,6 @@ in
     ];
   };
   programs = {
-    fzf = {
-      enable = true;
-      tmux = {
-        enableShellIntegration = true;
-      };
-    };
     tmux = {
       enable = true;
       aggressiveResize = true;
