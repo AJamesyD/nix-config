@@ -149,8 +149,6 @@
       };
     };
 
-    home-manager.enable = true;
-
     mise = {
       globalConfig = {
         tools = {
