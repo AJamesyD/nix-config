@@ -11,6 +11,11 @@
     ../../common/stylix.nix
   ];
 
+  dconf.enable = false;
+  stylix.targets.gtk.enable = false;
+
+  gtk.gtk4.theme = null;
+
   home = {
     packages = with pkgs; [
       (lib.hiPrio opensshWithKerberos)
