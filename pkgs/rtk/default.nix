@@ -6,16 +6,16 @@
 # TODO: migrate to finalAttrs pattern (modern nixpkgs style) when upgrading all pkgs
 rustPlatform.buildRustPackage rec {
   pname = "rtk";
-  version = "0.30.1";
+  version = "0.34.2";
 
   src = fetchFromGitHub {
     owner = "rtk-ai";
     repo = "rtk";
     tag = "v${version}";
-    hash = "sha256-SIUtQ2y4O5F5ib8N9GKmsrd07CCtYco+Q3DInEd0uSw=";
+    hash = "sha256-oBaF3BdF4h7meP7+8gtqBSgOFn0wQq08bOkygpn/ukg=";
   };
 
-  cargoHash = "sha256-zJohVBlj6nFpfg6+E6Isnhxr9Tmhw5xW5tRF0HKmVXY=";
+  cargoHash = "sha256-o12ZlfUEzo/h1HuoqOY3BcpdLL+M8hJW7sJL+3dkflU=";
   doCheck = false;
 
   meta = {
