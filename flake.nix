@@ -156,8 +156,9 @@
                 nix-tree
               ];
               # devenv manages .pre-commit-config.yaml as a symlink to a nix store path.
-              # If hooks use stale tool versions, delete the symlink and re-enter the shell.
-              # Known cause: devenv:files race condition (git-hooks.nix #685).
+              # A race condition (git-hooks.nix #685) can replace the symlink with a
+              # regular file, breaking GC protection. .envrc auto-detects and removes
+              # the broken file; keep-outputs in nix.settings prevents most GC breakage.
               git-hooks = {
                 default_stages = [
                   "pre-commit"
