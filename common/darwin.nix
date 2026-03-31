@@ -317,7 +317,6 @@
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         AppleShowScrollBars = "WhenScrolling";
-        KeyRepeat = 2;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
         NSAutomaticWindowAnimationsEnabled = false;
