@@ -59,7 +59,8 @@ in
       focusEvents = true;
       historyLimit = 300000;
       keyMode = "vi";
-      mouse = false; # Keyboard-only workflow; links clickable natively with mouse off
+      # Keyboard-only workflow; links clickable natively with mouse off
+      mouse = false;
       disableConfirmationPrompt = true;
       newSession = false;
       # HM ordering: for each plugin, extraConfig is emitted then run-shell.
