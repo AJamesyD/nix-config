@@ -8,7 +8,7 @@ _: {
     # Security-hardened defaults — see Research Findings for rationale
     Host *
       AddKeysToAgent yes
-      ChallengeResponseAuthentication no
+      KbdInteractiveAuthentication no
       IdentitiesOnly yes
       ServerAliveCountMax 5
       ServerAliveInterval 60
