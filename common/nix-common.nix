@@ -6,7 +6,6 @@
     };
 
     settings = {
-      accept-flake-config = true;
       download-buffer-size = 500 * 1024 * 1024; # 500MB
       experimental-features = [
         "auto-allocate-uids"
