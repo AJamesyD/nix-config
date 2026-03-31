@@ -111,8 +111,7 @@
     users.angaidan = import ./home.nix;
   };
 
-  # nix-darwin requires a hostname; this is the machine's hardware UUID
-  networking.hostName = "80a99738471f";
+  networking.hostName = "m3-work-laptop";
 
   nix = {
     settings = {
