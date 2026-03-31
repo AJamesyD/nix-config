@@ -47,13 +47,13 @@ in
         '';
       nixup =
         let
-          switchCmd = if pkgs.stdenv.isDarwin then "sudo darwin-rebuild switch" else "home-manager switch";
+          switchCmd = if pkgs.stdenv.isDarwin then "nh darwin switch" else "nh home switch";
         in
         # bash
         ''
           ghauth
           nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
-          ${switchCmd} --flake ~/.config/nix#$_NIX_HOSTNAME --option access-tokens "github.com=$GITHUB_TOKEN"
+          ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN"
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
           zsource
         '';
