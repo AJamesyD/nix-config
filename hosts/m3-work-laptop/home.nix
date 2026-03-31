@@ -14,6 +14,8 @@
     ./sketchybar-theme.nix
   ];
 
+  gtk.gtk4.theme = null;
+
   home = {
     username = "angaidan";
     homeDirectory = "/Users/angaidan";
@@ -113,16 +115,12 @@
       enable = true;
       package = null; # installed via Homebrew cask
       settings = {
-        # Fonts
-        font-family = "IBM Plex Mono";
-        font-family-bold = "IBM Plex Mono";
+        # Stylix sets font-family (BlexMono Nerd Font) from stylix.fonts.monospace
         font-family-italic = "Victor Mono";
         font-family-bold-italic = "Victor Mono";
         font-size = 16;
         font-thicken = true;
 
-        # Appearance
-        theme = "Dark Pastel";
         custom-shader = [
           "~/.config/ghostty/shaders/cursor_blaze_no_trail.glsl"
           "~/.config/ghostty/shaders/cursor_smear.glsl"
