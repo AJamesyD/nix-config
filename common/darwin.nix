@@ -294,6 +294,12 @@
           springboard-page-duration = 1.0e-2;
           springboard-show-duration = 1.0e-2;
         };
+        "com.apple.AppleMultitouchTrackpad" = {
+          TrackpadFiveFingerPinchGesture = 0;
+        };
+        "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+          TrackpadFiveFingerPinchGesture = 0;
+        };
         "com.apple.finder" = {
           DisableAllAnimations = false;
           FXRemoveOldTrashItems = true;
@@ -348,6 +354,9 @@
         mru-spaces = false;
         orientation = "left";
         show-recents = false;
+        showAppExposeGestureEnabled = false;
+        showDesktopGestureEnabled = false;
+        showLaunchpadGestureEnabled = false;
         tilesize = 64;
         wvous-bl-corner = 1;
         wvous-br-corner = 1;
@@ -366,6 +375,14 @@
       spaces = {
         # This is for AeroSpace and SketchyBar
         spans-displays = true;
+      };
+      trackpad = {
+        # Horizontal swipes conflict with Aerospace workspace switching.
+        # Vertical swipes are left enabled for Mission Control (swipe up).
+        # 5-finger pinch: CustomUserPreferences (no typed option).
+        TrackpadThreeFingerHorizSwipeGesture = 0;
+        TrackpadFourFingerHorizSwipeGesture = 0;
+        TrackpadFourFingerPinchGesture = 0;
       };
       universalaccess = {
         reduceMotion = true;
