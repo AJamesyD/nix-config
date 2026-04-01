@@ -35,6 +35,9 @@ macros:
     commands:
       - "if-shell '[ #{pane_width} -gt $((#{pane_height} * 2)) ]' 'splitw -h -c \"#{pane_current_path}\"' 'splitw -v -c \"#{pane_current_path}\"'"
 items:
+  - name: Detach
+    key: C-q
+    command: detach-client
   - name: Split horizontal
     key: "|"
     command: "splitw -h -c #{pane_current_path}"
