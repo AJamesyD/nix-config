@@ -324,7 +324,7 @@
         "com.apple.keyboard.fnState" = false;
         "com.apple.sound.beep.feedback" = 1;
         "com.apple.sound.beep.volume" = 0.5;
-        "com.apple.trackpad.scaling" = 2.0;
+        "com.apple.trackpad.scaling" = 2.5;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
       WindowManager = {
