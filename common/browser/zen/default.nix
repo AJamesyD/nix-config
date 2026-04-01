@@ -10,10 +10,15 @@
     profiles.default = {
       isDefault = true;
       settings = import ./settings.nix;
+      userChrome = builtins.readFile ./zen-chrome.css;
+      userContent = builtins.readFile ./zen-content.css;
     };
   };
 
-  stylix.targets.zen-browser.profileNames = [ "default" ];
+  stylix.targets.zen-browser = {
+    profileNames = [ "default" ];
+    enableCss = false;
+  };
 
   # Files not covered by zen-browser-flake's HM module
   home.file =

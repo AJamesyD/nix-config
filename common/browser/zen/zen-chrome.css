@@ -1,0 +1,59 @@
+/*
+ * Safe Zen Browser chrome overrides (Tokyo Night).
+ *
+ * Only properties that Zen's workspace JS (ZenGradientGenerator.mjs)
+ * never touches via inline styles. Zen handles all background,
+ * toolbar, and text colors per-workspace; we theme everything else.
+ *
+ * Paired with stylix.targets.zen-browser.enableCss = false.
+ */
+
+/* Panel dropdowns (bookmarks, extensions, downloads) */
+:root {
+  --arrowpanel-color: #a9b1d6 !important;
+  --arrowpanel-background: #1a1b26 !important;
+}
+
+/* Permissions icon */
+#permissions-granted-icon { color: #a9b1d6 !important; }
+
+/* Swipe navigation arrows */
+#historySwipeAnimationPreviousArrow,
+#historySwipeAnimationNextArrow {
+  --swipe-nav-icon-primary-color: #7aa2f7 !important;
+  --swipe-nav-icon-accent-color: #1a1b26 !important;
+}
+
+/* URL bar selection highlight */
+#urlbar-input::selection {
+  background-color: #7aa2f7 !important;
+  color: #1a1b26 !important;
+}
+
+/* URL suggestions */
+.urlbarView-url { color: #7aa2f7 !important; }
+
+/* Bookmark edit panel */
+#zenEditBookmarkPanelFaviconContainer { background: #1a1b26 !important; }
+
+/* Media player progress track */
+#zen-media-controls-toolbar {
+  & #zen-media-progress-bar {
+    &::-moz-range-track { background: #2f3549 !important; }
+  }
+}
+
+/* Container identity tab colors */
+.identity-color-blue      { --identity-tab-color: #7aa2f7 !important; --identity-icon-color: #7aa2f7 !important; }
+.identity-color-turquoise { --identity-tab-color: #7dcfff !important; --identity-icon-color: #7dcfff !important; }
+.identity-color-green     { --identity-tab-color: #9ece6a !important; --identity-icon-color: #9ece6a !important; }
+.identity-color-yellow    { --identity-tab-color: #e0af68 !important; --identity-icon-color: #e0af68 !important; }
+.identity-color-orange    { --identity-tab-color: #ff9e64 !important; --identity-icon-color: #ff9e64 !important; }
+.identity-color-red       { --identity-tab-color: #f7768e !important; --identity-icon-color: #f7768e !important; }
+.identity-color-pink      { --identity-tab-color: #bb9af7 !important; --identity-icon-color: #bb9af7 !important; }
+.identity-color-purple    { --identity-tab-color: #d18616 !important; --identity-icon-color: #d18616 !important; }
+
+/* Context menu text */
+#contentAreaContextMenu menu,
+menuitem,
+menupopup { color: #a9b1d6 !important; }
