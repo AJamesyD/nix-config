@@ -1,7 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
+let
+  aerospace-swipe = pkgs.callPackage ../../pkgs/aerospace-swipe { };
+in
 {
   # AeroSpace: tiling window manager. The nix-darwin module generates TOML
   # from these settings and manages launchd lifecycle (start-at-login is
@@ -397,4 +401,37 @@
       };
     };
   };
+
+  launchd.user.agents.aerospace-swipe = {
+    serviceConfig = {
+      Label = "com.acsandmann.swipe";
+      ProgramArguments = [
+        "/Applications/AerospaceSwipe.app/Contents/MacOS/AerospaceSwipe"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      LimitLoadToSessionType = "Aqua";
+      ProcessType = "Interactive";
+      StandardOutPath = "/tmp/aerospace-swipe.out";
+      StandardErrorPath = "/tmp/aerospace-swipe.err";
+    };
+  };
+
+  # Sync .app bundle to /Applications so TCC permission survives nix rebuilds.
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    echo "syncing AerospaceSwipe.app bundle..." >&2
+    ${pkgs.rsync}/bin/rsync \
+      --archive \
+      --checksum \
+      --copy-unsafe-links \
+      --delete \
+      "${aerospace-swipe}/Applications/AerospaceSwipe.app/" \
+      "/Applications/AerospaceSwipe.app/"
+
+    echo "codesigning AerospaceSwipe.app bundle..." >&2
+    /usr/bin/codesign \
+      --entitlements "${aerospace-swipe}/share/aerospace-swipe/entitlements.plist" \
+      -fs - --identifier "com.acsandmann.swipe" \
+      "/Applications/AerospaceSwipe.app" 2>&1 || true
+  '';
 }
