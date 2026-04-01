@@ -60,6 +60,13 @@
     };
     zsh = {
       enable = true;
+      initContent = ''
+        # zmx has no configurable detach key (hardcoded ctrl+\).
+        # Map C-a C-q to `zmx detach` so it matches tmux/zellij/shpool.
+        zmx-detach() { [[ -n "$ZMX_SESSION" ]] && zmx detach; }
+        zle -N zmx-detach
+        bindkey '^A^Q' zmx-detach
+      '';
       shellAliases = {
         auth = "mwinit -o";
         up = "sudo yum upgrade -y && nixup";
