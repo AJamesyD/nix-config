@@ -176,6 +176,8 @@ in
             ${lib.optionalString pkgs.stdenv.isDarwin "brew cleanup --prune=all"}
             npm cache clean --force
             uv cache clean
+            toolbox clean
+            ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Caches/zen''}
             ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf
           '';
 
