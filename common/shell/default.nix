@@ -168,6 +168,27 @@ in
         local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
         [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
+
+        autoload -Uz add-zsh-hook
+
+        function _title_set() {
+          [[ -n "$TMUX" ]] && return
+          local prefix=""
+          if [[ -n "$SHPOOL_SESSION_NAME" ]]; then
+            prefix="shpool:''${SHPOOL_SESSION_NAME} | "
+          elif [[ -n "$ZMX_SESSION" ]]; then
+            prefix="zmx:''${ZMX_SESSION} | "
+          elif [[ -n "$SSH_CONNECTION" ]]; then
+            prefix="%n@%m:"
+          fi
+          print -Pn "\e]0;''${prefix}''${1}\a"
+        }
+
+        function _title_precmd()  { _title_set "%~" }
+        function _title_preexec() { _title_set "''${1[(wr)^(*=*|sudo|ssh|mosh|-*)]}" }
+
+        add-zsh-hook precmd  _title_precmd
+        add-zsh-hook preexec _title_preexec
       ''
       # Override atuin's unconditional prepend to put completion suggestions first
       (lib.mkAfter "ZSH_AUTOSUGGEST_STRATEGY=(completion atuin)")
