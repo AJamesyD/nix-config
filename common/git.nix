@@ -98,7 +98,7 @@
           # clean files, never reads this setting). Incompatible with `mergiraf solve`
           # (parses conflict markers), but we don't use that workflow.
           conflictStyle = lib.mkForce "zdiff3";
-          tool = "nvim";
+          tool = "nvimdiff";
         };
         pager = {
           # Bypass delta (core.pager) for git diff. Difftastic outputs ANSI-colored
