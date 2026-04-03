@@ -338,6 +338,11 @@
         AppWindowGroupingBehavior = true;
         AutoHide = true;
         EnableStandardClickToShowDesktop = false;
+        # AeroSpace handles tiling; disable macOS Sequoia built-in tiling gestures
+        EnableTiledWindowMargins = false;
+        EnableTilingByEdgeDrag = false;
+        EnableTilingOptionAccelerator = false;
+        EnableTopTilingByEdgeDrag = false;
       };
       dock = {
         appswitcher-all-displays = true;
