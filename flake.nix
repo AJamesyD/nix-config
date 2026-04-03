@@ -80,19 +80,19 @@
       flake = false;
     };
     tmux-resurrect = {
-      url = "github:tmux-plugins/tmux-resurrect";
+      url = "github:tmux-plugins/tmux-resurrect/cff343cf9e81983d3da0c8562b01616f12e8d548";
       flake = false;
     };
     tmux-continuum = {
-      url = "github:tmux-plugins/tmux-continuum";
+      url = "github:tmux-plugins/tmux-continuum/0698e8f4b17d6454c71bf5212895ec055c578da0";
       flake = false;
     };
     tmux-fzf = {
-      url = "github:sainnhe/tmux-fzf";
+      url = "github:sainnhe/tmux-fzf/05af76daa2487575b93a4f604693b00969f19c2f";
       flake = false;
     };
     catppuccin-tmux = {
-      url = "github:catppuccin/tmux";
+      url = "github:catppuccin/tmux/8b0b9150f9d7dee2a4b70cdb50876ba7fd6d674a";
       flake = false;
     };
     zen-browser = {
