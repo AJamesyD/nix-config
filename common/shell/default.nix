@@ -178,6 +178,11 @@ in
 
   xdg.configFile."zsh/.p10k.zsh".source = ./p10k.zsh;
 
+  programs.starship = {
+    enable = false;
+    settings = import ./starship.nix;
+  };
+
   home.activation.envSetup =
     lib.hm.dag.entryAfter
       [
