@@ -20,7 +20,6 @@ in
     autosuggestion = {
       enable = true;
       strategy = [
-        "history"
         "completion"
       ];
     };
@@ -175,6 +174,8 @@ in
 
         [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
       ''
+      # Override atuin's unconditional prepend to put completion suggestions first
+      (lib.mkAfter "ZSH_AUTOSUGGEST_STRATEGY=(completion atuin)")
     ];
   };
 
