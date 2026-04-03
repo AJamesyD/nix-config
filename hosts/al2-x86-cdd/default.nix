@@ -70,6 +70,22 @@
       shellAliases = {
         auth = "mwinit -o";
         up = "sudo yum upgrade -y && nixup";
+        spa = # bash
+          ''
+            shpool attach --force "$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
+          '';
+        spk = # bash
+          ''
+            shpool kill "$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='kill> ' --no-select-1 --no-exit-0)" 2>/dev/null
+          '';
+        zma = # bash
+          ''
+            zmx attach "$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
+          '';
+        zmk = # bash
+          ''
+            zmx kill "$(zmx list --short | fzf --prompt='kill> ' --no-select-1 --no-exit-0)" 2>/dev/null
+          '';
         # Borrowed from https://github.com/shell-pool/shpool/issues/49#issue-2355077641
         shll = # bash
           ''
