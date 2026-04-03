@@ -6,6 +6,9 @@ _: {
     Host dev-dsk-* *.amazon.com !git.amazon.com
       RemoteForward 2224 localhost:2224
       RemoteForward 2225 localhost:2225
+      ControlMaster auto
+      ControlPath ~/.ssh/control-%C
+      ControlPersist 12h
 
     Host *
       AddKeysToAgent yes
