@@ -173,15 +173,15 @@ in
 
         function _title_set() {
           [[ -n "$TMUX" ]] && return
-          local prefix=""
           if [[ -n "$SHPOOL_SESSION_NAME" ]]; then
-            prefix="shpool:''${SHPOOL_SESSION_NAME} | "
+            print -Pn "\e]0;''${SHPOOL_SESSION_NAME}\a"
           elif [[ -n "$ZMX_SESSION" ]]; then
-            prefix="zmx:''${ZMX_SESSION} | "
+            print -Pn "\e]0;''${ZMX_SESSION}\a"
           elif [[ -n "$SSH_CONNECTION" ]]; then
-            prefix="%n@%m:"
+            print -Pn "\e]0;%m: ''${1}\a"
+          else
+            print -Pn "\e]0;''${1}\a"
           fi
-          print -Pn "\e]0;''${prefix}''${1}\a"
         }
 
         function _title_precmd()  { _title_set "%~" }
