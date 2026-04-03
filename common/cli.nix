@@ -13,7 +13,6 @@
     findutils
     gawk
     gnugrep
-    gnupg
     gnused
     gnutar
     gnutls
@@ -63,6 +62,9 @@
       ignores = [
         ".git/"
       ];
+    };
+    gpg = {
+      enable = true;
     };
     jq = {
       enable = true;
