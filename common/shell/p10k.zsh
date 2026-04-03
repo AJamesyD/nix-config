@@ -41,6 +41,11 @@
     background_jobs
     nix_shell
     direnv
+    package
+    virtualenv
+    rust_version
+    aws
+    kubecontext
     my_session
     context
     newline
@@ -222,6 +227,23 @@
   typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=37
 
   typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=178
+
+  typeset -g POWERLEVEL9K_PACKAGE_FOREGROUND=117
+
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=37
+  typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
+  typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_WITH_PYENV=false
+
+  typeset -g POWERLEVEL9K_RUST_VERSION_FOREGROUND=208
+  typeset -g POWERLEVEL9K_RUST_VERSION_SHOW_ON_COMMAND='cargo|rustc|rustup'
+
+  typeset -g POWERLEVEL9K_AWS_FOREGROUND=208
+  typeset -g POWERLEVEL9K_AWS_SHOW_ON_COMMAND='aws|awless|cdk|terraform|pulumi|terragrunt'
+  typeset -g POWERLEVEL9K_AWS_CONTENT_EXPANSION='${P9K_CONTENT/default/}'
+
+  typeset -g POWERLEVEL9K_KUBECONTEXT_FOREGROUND=134
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|k9s|helmfile|flux|stern|kubeseal|skaffold'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_CONTENT_EXPANSION='${P9K_KUBECONTEXT_CLOUD_CLUSTER:-${P9K_KUBECONTEXT_NAME}}'
 
   #[ nix_shell: nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html) ]##
   typeset -g POWERLEVEL9K_NIX_SHELL_FOREGROUND=74
