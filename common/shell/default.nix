@@ -181,6 +181,8 @@ in
 
   home.packages = with pkgs; [ nix-your-shell ];
 
+  xdg.configFile."zsh/.p10k.zsh".source = ./p10k.zsh;
+
   home.activation.envSetup =
     lib.hm.dag.entryAfter
       [
