@@ -89,11 +89,6 @@ in
         file = "powerlevel10k.zsh-theme";
         src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
       }
-      {
-        name = "omz-git";
-        file = "plugins/git/git.plugin.zsh";
-        src = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
-      }
     ];
 
     initContent = lib.mkMerge [
