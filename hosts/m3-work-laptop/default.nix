@@ -18,10 +18,6 @@
       }
     ];
     brews = [
-      {
-        # TODO: Unfuck CargoBrazil integration
-        name = "rust-analyzer";
-      }
       # For mise python-build
       {
         name = "openssl";

@@ -38,6 +38,7 @@
       [
         libplist
         openssh
+        rust-analyzer
         vim
       ]
       ++ map (x: x.terminfo) (
