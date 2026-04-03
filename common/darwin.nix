@@ -332,7 +332,8 @@
         "com.apple.sound.beep.volume" = 0.5;
         "com.apple.trackpad.scaling" = 2.5;
       };
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+      # Conflicts with JAMF MDM update policy on managed machines
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
       WindowManager = {
         AppWindowGroupingBehavior = true;
         AutoHide = true;
