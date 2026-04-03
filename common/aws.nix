@@ -29,20 +29,22 @@ in
           ''
             export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
 
-            run --quiet toolbox completion zsh >"$ZCOMPDIR/_toolbox"
+            # Don't use `run --quiet` for completion generation: it redirects stdout
+            # to /dev/null internally, so `run --quiet cmd > file` produces empty files
+            toolbox completion zsh >"$ZCOMPDIR/_toolbox" 2>/dev/null
             run --quiet toolbox update
             run --quiet toolbox clean
 
             if command -v axe >/dev/null 2>&1; then
-            	run --quiet axe completion zsh >"$ZCOMPDIR/_axe"
+            	axe completion zsh >"$ZCOMPDIR/_axe" 2>/dev/null
             fi
 
             if command -v ada >/dev/null 2>&1; then
-            	run --quiet ada completion zsh >"$ZCOMPDIR/_ada"
+            	ada completion zsh >"$ZCOMPDIR/_ada" 2>/dev/null
             fi
 
             if command -v eda >/dev/null 2>&1; then
-            	run --quiet eda completions zsh >"$ZCOMPDIR/_eda"
+            	eda completions zsh >"$ZCOMPDIR/_eda" 2>/dev/null
             fi
           '';
       brazil =
