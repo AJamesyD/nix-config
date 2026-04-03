@@ -171,20 +171,32 @@ in
 
         autoload -Uz add-zsh-hook
 
-        function _title_set() {
-          [[ -n "$TMUX" ]] && return
-          if [[ -n "$SHPOOL_SESSION_NAME" ]]; then
-            print -Pn "\e]0;''${SHPOOL_SESSION_NAME}\a"
-          elif [[ -n "$ZMX_SESSION" ]]; then
-            print -Pn "\e]0;''${ZMX_SESSION}\a"
-          elif [[ -n "$SSH_CONNECTION" ]]; then
-            print -Pn "\e]0;%m: ''${1}\a"
+        function _title_name() {
+          if [[ "$PWD" == "$HOME" ]]; then
+            echo "~"
+          elif git rev-parse --is-inside-work-tree &>/dev/null; then
+            basename "$(git rev-parse --show-toplevel)"
+          elif [[ "$PWD" == "/" ]]; then
+            echo "/"
           else
-            print -Pn "\e]0;''${1}\a"
+            echo "''${PWD##*/}"
           fi
         }
 
-        function _title_precmd()  { _title_set "%~" }
+        function _title_set() {
+          [[ -n "$TMUX" ]] && return
+          if [[ -n "$SHPOOL_SESSION_NAME" ]]; then
+            print -n "\e]0;⚡ ''${SHPOOL_SESSION_NAME}\a"
+          elif [[ -n "$ZMX_SESSION" ]]; then
+            print -n "\e]0;⚡ ''${ZMX_SESSION}\a"
+          elif [[ -n "$SSH_CONNECTION" ]]; then
+            print -n "\e]0;🌐 ''${1}\a"
+          else
+            print -n "\e]0;''${1}\a"
+          fi
+        }
+
+        function _title_precmd()  { _title_set "$(_title_name)" }
         function _title_preexec() { _title_set "''${1[(wr)^(*=*|sudo|ssh|mosh|-*)]}" }
 
         add-zsh-hook precmd  _title_precmd
