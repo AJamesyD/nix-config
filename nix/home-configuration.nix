@@ -68,6 +68,7 @@ let
         ];
         extraSpecialArgs = {
           hostType = type;
+          inherit hostName;
           inherit (inputs) self;
           inherit inputs;
         };
