@@ -180,7 +180,7 @@ in
             uv cache clean
             toolbox clean
             ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Caches/zen''}
-            ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf
+            ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf {} 2>/dev/null
           '';
 
         al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
