@@ -128,7 +128,6 @@ in
   nix = {
     settings = {
       max-substitution-jobs = 20;
-      trusted-users = [ "angaidan" ];
     };
   };
 
