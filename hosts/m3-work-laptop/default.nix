@@ -4,6 +4,29 @@
   lib,
   ...
 }:
+let
+  mkTccApp =
+    {
+      src,
+      name,
+      identifier,
+      entitlements ? null,
+    }:
+    ''
+      echo "syncing ${name}.app bundle..." >&2
+      ${pkgs.rsync}/bin/rsync \
+        --archive --checksum --copy-unsafe-links --delete \
+        "${src}/" "/Applications/${name}.app/"
+
+      echo "codesigning ${name}.app bundle..." >&2
+      /usr/bin/codesign \
+        ${lib.optionalString (entitlements != null) "--entitlements \"${entitlements}\""} \
+        -fs - --identifier "${identifier}" \
+        "/Applications/${name}.app" 2>&1 || true
+    '';
+
+  aerospace-swipe = pkgs.callPackage ../../pkgs/aerospace-swipe { };
+in
 {
   imports = [
     ../../common/darwin.nix
@@ -129,10 +152,9 @@
     "/Applications/SketchyBar.app/Contents/MacOS/sketchybar"
   ];
 
-  # Same TCC stabilization as sketchybar: run from a stable .app bundle
-  # so Accessibility permission survives nix rebuilds.
-  # TODO: replace with a jankyborders overlay (like overlays/sketchybar.nix)
-  # to avoid duplicating the nix-darwin module's arg construction logic.
+  # TCC stabilization: run from a stable .app bundle so Accessibility
+  # permission survives nix rebuilds. Args duplicate the nix-darwin module's
+  # optionalArg construction because ProgramArguments can't self-reference.
   launchd.user.agents.jankyborders.serviceConfig.ProgramArguments =
     let
       cfg = config.services.jankyborders;
@@ -151,52 +173,23 @@
     ];
 
   system = {
-    # Copy the .app bundle from the nix store to /Applications and codesign it.
-    # The nix store is read-only, so codesign must target a mutable copy.
-    # rsync --checksum avoids unnecessary copies when the binary hasn't changed.
     activationScripts.postActivation.text = ''
-            echo "syncing SketchyBar.app bundle..." >&2
-            ${pkgs.rsync}/bin/rsync \
-              --archive \
-              --checksum \
-              --copy-unsafe-links \
-              --delete \
-              "${pkgs.sketchybar}/Applications/SketchyBar.app/" \
-              "/Applications/SketchyBar.app/"
-
-            echo "codesigning SketchyBar.app bundle..." >&2
-            /usr/bin/codesign -fs - --identifier "com.local.sketchybar" \
-              "/Applications/SketchyBar.app" 2>&1 || true
-
-            echo "syncing JankyBorders.app bundle..." >&2
-            mkdir -p /Applications/JankyBorders.app/Contents/MacOS
-            cat > /Applications/JankyBorders.app/Contents/Info.plist <<'PLIST'
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-      <dict>
-        <key>CFBundleExecutable</key>
-        <string>borders</string>
-        <key>CFBundleIdentifier</key>
-        <string>com.local.jankyborders</string>
-        <key>CFBundleName</key>
-        <string>JankyBorders</string>
-        <key>CFBundlePackageType</key>
-        <string>APPL</string>
-      </dict>
-      </plist>
-      PLIST
-            printf 'APPL????' > /Applications/JankyBorders.app/Contents/PkgInfo
-            ${pkgs.rsync}/bin/rsync \
-              --archive \
-              --checksum \
-              "${config.services.jankyborders.package}/bin/borders" \
-              "/Applications/JankyBorders.app/Contents/MacOS/borders"
-
-            echo "codesigning JankyBorders.app bundle..." >&2
-            /usr/bin/codesign -fs - --identifier "com.local.jankyborders" \
-              "/Applications/JankyBorders.app" 2>&1 || true
+      ${mkTccApp {
+        src = "${pkgs.sketchybar}/Applications/SketchyBar.app";
+        name = "SketchyBar";
+        identifier = "com.local.sketchybar";
+      }}
+      ${mkTccApp {
+        src = "${pkgs.jankyborders}/Applications/JankyBorders.app";
+        name = "JankyBorders";
+        identifier = "com.local.jankyborders";
+      }}
+      ${mkTccApp {
+        src = "${aerospace-swipe}/Applications/AerospaceSwipe.app";
+        name = "AerospaceSwipe";
+        identifier = "com.acsandmann.swipe";
+        entitlements = "${aerospace-swipe}/share/aerospace-swipe/entitlements.plist";
+      }}
     '';
 
     defaults = {
