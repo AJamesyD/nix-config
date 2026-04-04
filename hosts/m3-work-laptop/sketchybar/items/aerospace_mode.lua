@@ -87,7 +87,7 @@ end
 -- Mode colors for visual feedback (analogous to tmux prefix/copy mode colors)
 local mode_colors = {
   service = colors.yellow,
-  resize = colors.blue,
+  resize = colors.green,
 }
 
 local default_border_color = string.format("0xff%06x", colors.border_active % 0x01000000)
