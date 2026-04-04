@@ -20,6 +20,7 @@ in
     autosuggestion = {
       enable = true;
       strategy = [
+        "history"
         "completion"
       ];
     };
@@ -202,8 +203,8 @@ in
         add-zsh-hook precmd  _title_precmd
         add-zsh-hook preexec _title_preexec
       ''
-      # Override atuin's unconditional prepend to put completion suggestions first
-      (lib.mkAfter "ZSH_AUTOSUGGEST_STRATEGY=(completion atuin)")
+      # Override atuin's unconditional prepend to put history suggestions first
+      (lib.mkAfter "ZSH_AUTOSUGGEST_STRATEGY=(history completion atuin)")
     ];
   };
 

@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -117,11 +118,7 @@
     style = "round";
     width = 10.0;
     hidpi = true;
-    # ax_focus uses the Accessibility API for focus detection, which is more
-    # accurate with AeroSpace but requires TCC permission. The nix store path
-    # changes on rebuild, invalidating path-based TCC grants. Disabled until
-    # a .app bundle wrapper (like sketchybar's) is added to stabilize TCC.
-    ax_focus = false;
+    ax_focus = true;
   };
 
   # Point launchd at a stable .app bundle path so macOS TCC identifies
@@ -132,23 +129,74 @@
     "/Applications/SketchyBar.app/Contents/MacOS/sketchybar"
   ];
 
+  # Same TCC stabilization as sketchybar: run from a stable .app bundle
+  # so Accessibility permission survives nix rebuilds.
+  # TODO: replace with a jankyborders overlay (like overlays/sketchybar.nix)
+  # to avoid duplicating the nix-darwin module's arg construction logic.
+  launchd.user.agents.jankyborders.serviceConfig.ProgramArguments =
+    let
+      cfg = config.services.jankyborders;
+      bool = b: if b then "on" else "off";
+    in
+    lib.mkForce [
+      "/Applications/JankyBorders.app/Contents/MacOS/borders"
+      "style=${cfg.style}"
+      "width=${toString cfg.width}"
+      "hidpi=${bool cfg.hidpi}"
+      "active_color=${cfg.active_color}"
+      "inactive_color=${cfg.inactive_color}"
+      "ax_focus=${bool cfg.ax_focus}"
+      "blur_radius=${toString cfg.blur_radius}"
+      "order=${cfg.order}"
+    ];
+
   system = {
     # Copy the .app bundle from the nix store to /Applications and codesign it.
     # The nix store is read-only, so codesign must target a mutable copy.
     # rsync --checksum avoids unnecessary copies when the binary hasn't changed.
     activationScripts.postActivation.text = ''
-      echo "syncing SketchyBar.app bundle..." >&2
-      ${pkgs.rsync}/bin/rsync \
-        --archive \
-        --checksum \
-        --copy-unsafe-links \
-        --delete \
-        "${pkgs.sketchybar}/Applications/SketchyBar.app/" \
-        "/Applications/SketchyBar.app/"
+            echo "syncing SketchyBar.app bundle..." >&2
+            ${pkgs.rsync}/bin/rsync \
+              --archive \
+              --checksum \
+              --copy-unsafe-links \
+              --delete \
+              "${pkgs.sketchybar}/Applications/SketchyBar.app/" \
+              "/Applications/SketchyBar.app/"
 
-      echo "codesigning SketchyBar.app bundle..." >&2
-      /usr/bin/codesign -fs - --identifier "com.local.sketchybar" \
-        "/Applications/SketchyBar.app" 2>&1 || true
+            echo "codesigning SketchyBar.app bundle..." >&2
+            /usr/bin/codesign -fs - --identifier "com.local.sketchybar" \
+              "/Applications/SketchyBar.app" 2>&1 || true
+
+            echo "syncing JankyBorders.app bundle..." >&2
+            mkdir -p /Applications/JankyBorders.app/Contents/MacOS
+            cat > /Applications/JankyBorders.app/Contents/Info.plist <<'PLIST'
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleExecutable</key>
+        <string>borders</string>
+        <key>CFBundleIdentifier</key>
+        <string>com.local.jankyborders</string>
+        <key>CFBundleName</key>
+        <string>JankyBorders</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+      </dict>
+      </plist>
+      PLIST
+            printf 'APPL????' > /Applications/JankyBorders.app/Contents/PkgInfo
+            ${pkgs.rsync}/bin/rsync \
+              --archive \
+              --checksum \
+              "${config.services.jankyborders.package}/bin/borders" \
+              "/Applications/JankyBorders.app/Contents/MacOS/borders"
+
+            echo "codesigning JankyBorders.app bundle..." >&2
+            /usr/bin/codesign -fs - --identifier "com.local.jankyborders" \
+              "/Applications/JankyBorders.app" 2>&1 || true
     '';
 
     defaults = {

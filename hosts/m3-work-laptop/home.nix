@@ -44,6 +44,20 @@
     ];
 
     stateVersion = "25.11";
+
+    activation.loginItems = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      /usr/bin/osascript <<'APPLESCRIPT'
+        tell application "System Events"
+          set currentItems to the name of every login item
+          set desiredItems to {{name:"Raycast", path:"/Applications/Raycast.app"}, {name:"Obsidian", path:"/Applications/Obsidian.app"}, {name:"Slack", path:"/Applications/Slack.app"}, {name:"zoom.us", path:"/Applications/zoom.us.app"}, {name:"Microsoft Outlook", path:"/Applications/Microsoft Outlook.app"}, {name:"ACME", path:"/Applications/ACME.app"}}
+          repeat with desired in desiredItems
+            if (name of desired) is not in currentItems then
+              make login item at end with properties {path:path of desired, hidden:false}
+            end if
+          end repeat
+        end tell
+      APPLESCRIPT
+    '';
   };
 
   launchd = {

@@ -46,7 +46,7 @@ let
       blue = ${hex colors.base0D},
       magenta = ${hex colors.base0E},
 
-      border_active = ${hex colors.base06},
+      border_active = ${hex colors.base0D},
     }
   '';
 
