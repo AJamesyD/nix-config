@@ -9,4 +9,9 @@ stdenv.mkDerivation {
       cp * $out/bin
       ln -sf $out/bin/open $out/bin/xdg-open
     '';
+
+  meta = {
+    description = "Custom shell scripts";
+    mainProgram = "open";
+  };
 }

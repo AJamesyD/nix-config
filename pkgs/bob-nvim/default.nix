@@ -1,4 +1,5 @@
 {
+  lib,
   rustPlatform,
   fetchFromGitHub,
 }:
@@ -15,4 +16,11 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-YSZcYTGnMnN/srh8Z15toq+GIyRKfFd+pGkFQl5gCuo=";
   doCheck = false;
+
+  meta = {
+    description = "Neovim version manager";
+    homepage = "https://github.com/MordechaiHadad/bob";
+    license = lib.licenses.mit;
+    mainProgram = "bob";
+  };
 }

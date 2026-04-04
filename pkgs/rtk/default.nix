@@ -3,15 +3,14 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-# TODO: migrate to finalAttrs pattern (modern nixpkgs style) when upgrading all pkgs
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rtk";
   version = "0.34.2";
 
   src = fetchFromGitHub {
     owner = "rtk-ai";
     repo = "rtk";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-oBaF3BdF4h7meP7+8gtqBSgOFn0wQq08bOkygpn/ukg=";
   };
 
@@ -24,4 +23,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.mit;
     mainProgram = "rtk";
   };
-}
+})

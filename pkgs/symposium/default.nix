@@ -3,15 +3,14 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-# TODO: migrate to finalAttrs pattern (modern nixpkgs style) when upgrading all pkgs
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "symposium-acp-agent";
   version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "symposium-dev";
     repo = "symposium";
-    tag = "symposium-acp-agent-v${version}";
+    tag = "symposium-acp-agent-v${finalAttrs.version}";
     hash = "sha256-cjF8bzdQRDqanNt2gxbzPG5o5hQEy7i3NnRD/wW4DCk=";
   };
 
@@ -28,4 +27,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.asl20;
     mainProgram = "symposium-acp-agent";
   };
-}
+})

@@ -3,14 +3,14 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "claude-code-acp";
   version = "0.24.2";
 
   src = fetchFromGitHub {
     owner = "zed-industries";
     repo = "claude-code-acp";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-SRVbLcGrH5pJt6yfM0ObSso68M+yGateIVYf/kFVDhE=";
   };
 
@@ -25,4 +25,4 @@ buildNpmPackage rec {
     license = lib.licenses.mit;
     mainProgram = "claude-code-acp";
   };
-}
+})
