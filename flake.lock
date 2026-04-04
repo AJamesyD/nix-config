@@ -566,27 +566,6 @@
         "type": "github"
       }
     },
-    "flake-parts_6": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "stylix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775087534,
-        "narHash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": [
@@ -1299,7 +1278,9 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
-        "flake-parts": "flake-parts_6",
+        "flake-parts": [
+          "flake-parts"
+        ],
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"
@@ -1590,11 +1571,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775237696,
-        "narHash": "sha256-gECGt/SbcrGQZjeIYKY6WQtyaoLucOoEV8bpJaDVsEQ=",
+        "lastModified": 1775278263,
+        "narHash": "sha256-BgkUmlOuFaaZQCnlhXkQ3/Fng65aq00tJQkpoeTn7Mw=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "9968536e8ee4f715554dfc994b5399982bcec9e5",
+        "rev": "bb051d7a0f04356d42528bbb65dc014adf2dab66",
         "type": "github"
       },
       "original": {

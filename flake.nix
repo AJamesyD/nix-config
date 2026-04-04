@@ -69,7 +69,10 @@
     };
     stylix = {
       url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
     tmux-which-key = {
       url = "github:alexwforsythe/tmux-which-key/1f419775caf136a60aac8e3a269b51ad10b51eb6";
