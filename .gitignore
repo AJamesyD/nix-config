@@ -12,3 +12,4 @@ nixos.qcow2
 
 # Compiled event provider binaries
 hosts/m3-work-laptop/sketchybar/helpers/event_providers/*/bin/
+.kiro/
