@@ -6,9 +6,14 @@
     ./symposium.nix
   ];
 
+  programs.mcp = {
+    enable = true;
+  };
+
   home.packages = [
     pkgs.opencode
     (pkgs.callPackage ../../pkgs/claude-code-acp { })
+    # programs.mcp manages config only; mcp-hub provides the server binary
     (pkgs.callPackage ../../pkgs/mcp-hub { })
   ];
 
