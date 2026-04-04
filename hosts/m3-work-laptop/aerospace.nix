@@ -275,10 +275,6 @@
           ];
         }
         {
-          "if".app-id = "net.kovidgoyal.kitty";
-          run = "move-node-to-workspace 1-dev";
-        }
-        {
           "if".window-title-regex-substring = "neovide";
           run = [
             "layout floating"

@@ -25,6 +25,7 @@
       enableJujutsuIntegration = false; # conflicts with difftastic.jujutsu.enable on ui.diff-formatter
       options = {
         dark = true;
+        hyperlinks = true;
         # Increase contrast for line diffs
         minus-style = "normal darkred";
         plus-style = "normal darkgreen";
@@ -84,6 +85,7 @@
         fetch = {
           prune = true;
           pruneTags = true;
+          writeCommitGraph = true;
         };
         help = {
           autocorrect = "prompt";
@@ -131,11 +133,15 @@
         tag = {
           sort = "version:refname";
         };
+        transfer = {
+          fsckObjects = true;
+        };
       };
     };
     jujutsu = {
       enable = true;
       settings = {
+        merge.hunk-level = "word";
         # Diffs use difftastic (ui.diff-formatter set by HM); this covers jj log, jj show
         ui.pager = [
           "delta"

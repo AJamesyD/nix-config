@@ -77,6 +77,7 @@
       arguments = [
         "--follow"
         "--smart-case"
+        "--type-add=nix:*.nix"
       ];
     };
     tealdeer = {

@@ -168,7 +168,6 @@ in
           set -g status-interval 5
 
           set -as terminal-features "xterm-ghostty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
-          set -as terminal-features "xterm-kitty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
 
           set -g display-panes-time 800
           set -g display-time 1000

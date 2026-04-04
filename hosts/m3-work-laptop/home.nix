@@ -125,6 +125,17 @@
       ];
     };
 
+    jujutsu.settings."--scope" = [
+      {
+        condition.repositories = [ "~/Code/" ];
+        user.email = "aidandeangelis@berkeley.edu";
+      }
+      {
+        condition.repositories = [ "~/.config/" ];
+        user.email = "aidandeangelis@berkeley.edu";
+      }
+    ];
+
     ghostty = {
       enable = true;
       package = null; # installed via Homebrew cask
