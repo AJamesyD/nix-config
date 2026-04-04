@@ -1,5 +1,6 @@
 {
   config,
+  hostName,
   lib,
   pkgs,
   inputs,
@@ -210,7 +211,7 @@ in
 
   home.packages = with pkgs; [ nix-your-shell ];
 
-  xdg.configFile."zsh/.p10k.zsh".source = ./p10k.zsh;
+  xdg.configFile."zsh/.p10k.zsh".source = pkgs.replaceVars ./p10k.zsh { hostLabel = hostName; };
 
   home.activation.envSetup =
     lib.hm.dag.entryAfter

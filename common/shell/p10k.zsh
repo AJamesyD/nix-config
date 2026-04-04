@@ -248,14 +248,14 @@
   #[ nix_shell: nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html) ]##
   typeset -g POWERLEVEL9K_NIX_SHELL_FOREGROUND=74
 
-  ##################################[ context: user@hostname ]##################################
+  ##################################[ context: host label ]##################################
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=178
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=180
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
 
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B@hostLabel@'
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='@hostLabel@'
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='@hostLabel@'
 
   typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
 
