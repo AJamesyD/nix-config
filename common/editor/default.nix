@@ -15,7 +15,7 @@
         luv
       ]
     ))
-    (ast-grep.overrideAttrs { doCheck = false; }) # TODO: revert once nixpkgs fixes locale-related test failure on macOS
+    ast-grep
 
     # Formatters and linters
     markdownlint-cli2

@@ -19,10 +19,10 @@
       ];
       connect-timeout = 5;
       lint-url-literals = "warn";
-      # TODO: http-connections = 0 (unlimited) is broken since Nix 2.34.
-      #   PR #14993 computes maxQueueSize = httpConnections * 5, so 0 = no downloads.
+      # TODO: http-connections = 0 (unlimited) may cause issues on Nix 2.35+.
+      #   PR #14993 (merged 2026-01-14) limits active curl handles; 0 may mean
+      #   no queue. Default 25 is reasonable. Test before changing.
       #   https://github.com/NixOS/nix/pull/14993
-      #   Restore `http-connections = 0;` once fixed upstream.
     };
   };
 }

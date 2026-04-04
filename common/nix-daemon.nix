@@ -15,8 +15,8 @@
       Minute = 0;
     };
     # TODO: auto-optimise-store on darwin may hit NixOS/nix#7273
-    #   ("cannot link tmp-link to .links: File exists"). ryan4yin disables
-    #   it on darwin for this reason. Disable if the error appears in logs.
+    #   ("cannot link tmp-link to .links: File exists"). Fixed on master
+    #   (PR #14676, 2025-12-01) but not in 2.34.x. Remove after upgrading to 2.35+.
     optimise = {
       automatic = true;
     };
