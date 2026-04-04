@@ -32,8 +32,11 @@ in
             # Don't use `run --quiet` for completion generation: it redirects stdout
             # to /dev/null internally, so `run --quiet cmd > file` produces empty files
             toolbox completion zsh >"$ZCOMPDIR/_toolbox" 2>/dev/null
-            run --quiet toolbox update
-            run --quiet toolbox clean
+
+            if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
+            	run --quiet toolbox update
+            	run --quiet toolbox clean
+            fi
 
             if command -v axe >/dev/null 2>&1; then
             	axe completion zsh >"$ZCOMPDIR/_axe" 2>/dev/null
@@ -54,8 +57,10 @@ in
             "builderToolbox"
           ] # bash
           ''
-            # Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
-            run --silence brazil setup completion --shell zsh || true
+            if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
+            	# Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
+            	run --silence brazil setup completion --shell zsh || true
+            fi
           '';
       # Point brazil package cache at the case-sensitive APFS volume (macOS only).
       # Without this, brazil defaults to ~/brazil-pkg-cache on the

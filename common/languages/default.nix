@@ -32,8 +32,10 @@
         # bash
         ''
           run --quiet mise prune --yes --quiet
-          run --quiet mise plugins update --yes --quiet
-          run --quiet mise install --yes --quiet
+          if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
+          	run --quiet mise plugins update --yes --quiet
+          	run --quiet mise install --yes --quiet
+          fi
         '';
     rustup =
       lib.hm.dag.entryAfter
@@ -42,9 +44,11 @@
           "envSetup"
         ] # bash
         ''
-          run --quiet rustup toolchain install stable --component llvm-tools
-          run --quiet rustup toolchain install nightly
-          run --quiet rustup update
+          if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
+          	run --quiet rustup toolchain install stable --component llvm-tools
+          	run --quiet rustup toolchain install nightly
+          	run --quiet rustup update
+          fi
           run --quiet rustup completions zsh >"$ZCOMPDIR/_rustup"
           run --quiet rustup completions zsh cargo >"$ZCOMPDIR/_cargo"
         '';
