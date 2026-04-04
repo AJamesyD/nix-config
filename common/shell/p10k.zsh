@@ -161,7 +161,7 @@
 
   typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER_EXPANSION=
   #####################################[ vcs: git status ]######################################
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 
   function my_git_formatter() {
     emulate -L zsh
@@ -198,7 +198,7 @@
         ]]; then
       local tag=${(V)VCS_STATUS_TAG}
       (( $#tag > 32 )) && tag[13,-13]="…"
-      res+="${meta}#${clean}${tag//\%/%%}"
+      res+="${meta}"$'\uF02B '"${clean}${tag//\%/%%}"
     fi
 
     [[ -z $VCS_STATUS_LOCAL_BRANCH && -z $VCS_STATUS_TAG ]] &&
@@ -221,9 +221,9 @@
     (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}⇠${VCS_STATUS_PUSH_COMMITS_BEHIND}"
     (( VCS_STATUS_PUSH_COMMITS_AHEAD && !VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
     (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}"
-    (( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
+    (( VCS_STATUS_STASHES        )) && res+=" ${clean}"$'\uF01C '"${VCS_STATUS_STASHES}"
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
-    (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}"
+    (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}"$'\uF06A '"${VCS_STATUS_NUM_CONFLICTED}"
     (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}+${VCS_STATUS_NUM_STAGED}"
     (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}!${VCS_STATUS_NUM_UNSTAGED}"
     (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
