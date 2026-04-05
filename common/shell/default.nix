@@ -69,6 +69,14 @@ in
         '';
       v = "nvim";
       gu = "gitui";
+      zma = # bash
+        ''
+          zmx attach "$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
+        '';
+      zmk = # bash
+        ''
+          zmx kill "$(zmx list --short | fzf --prompt='kill> ' --no-select-1 --no-exit-0)" 2>/dev/null
+        '';
       zsource = # bash
         ''
           source "$ZDOTDIR/.zshenv"
@@ -163,6 +171,50 @@ in
 
         # Requires nix-output-monitor
         _cache_eval nix-your-shell ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh
+
+        if command -v zmx &>/dev/null; then
+          _cache_eval zmx zmx completions zsh
+
+          zmx-select() {
+            local display
+            display=$(zmx list 2>/dev/null | while IFS=$'\t' read -r name pid clients created dir; do
+              name=''${name#session_name=}
+              pid=''${pid#pid=}
+              clients=''${clients#clients=}
+              dir=''${dir#started_in=}
+              printf "%-20s  pid:%-8s  clients:%-2s  %s\n" "$name" "$pid" "$clients" "$dir"
+            done)
+
+            local output query key selected session_name
+            output=$({ [[ -n "$display" ]] && echo "$display"; } | fzf \
+              --print-query \
+              --expect=ctrl-n \
+              --height=80% \
+              --reverse \
+              --prompt="zmx> " \
+              --header="Enter: select | Ctrl-N: create new" \
+              --preview='zmx history {1}' \
+              --preview-window=right:60%:follow \
+            )
+            local rc=$?
+
+            query=$(echo "$output" | sed -n '1p')
+            key=$(echo "$output" | sed -n '2p')
+            selected=$(echo "$output" | sed -n '3p')
+
+            if [[ "$key" == "ctrl-n" && -n "$query" ]]; then
+              session_name="$query"
+            elif [[ $rc -eq 0 && -n "$selected" ]]; then
+              session_name=$(echo "$selected" | awk '{print $1}')
+            elif [[ -n "$query" ]]; then
+              session_name="$query"
+            else
+              return 130
+            fi
+
+            zmx attach "$session_name"
+          }
+        fi
 
         local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
