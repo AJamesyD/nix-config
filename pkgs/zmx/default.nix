@@ -14,6 +14,14 @@ let
       url = "https://zmx.sh/a/zmx-${version}-linux-aarch64.tar.gz";
       hash = "sha256-k23OdKSosGJEBKtTldXp3ksNpyn4dJkSdzeF18bfHJo=";
     };
+    aarch64-darwin = fetchurl {
+      url = "https://zmx.sh/a/zmx-${version}-macos-aarch64.tar.gz";
+      hash = "sha256-V9SYOm6n7VwEt4ebkNQ0zCAtwLY3ysgK59WuCbQesWA=";
+    };
+    x86_64-darwin = fetchurl {
+      url = "https://zmx.sh/a/zmx-${version}-macos-x86_64.tar.gz";
+      hash = "sha256-GunNG+i69eUaaci6kVZpip+DPgiRFmQoEbhaRE4mJ8c=";
+    };
   };
 in
 stdenvNoCC.mkDerivation {
@@ -40,6 +48,8 @@ stdenvNoCC.mkDerivation {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
     ];
   };
 }
