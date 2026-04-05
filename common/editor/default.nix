@@ -19,6 +19,8 @@
 
     # Formatters and linters
     markdownlint-cli2
+    oxfmt
+    oxlint
     prettier
     ruff
     selene
@@ -32,6 +34,7 @@
     bash-language-server
     lua-language-server
     marksman
+    tailwindcss-language-server
     taplo
     ts_query_ls
     vscode-langservers-extracted

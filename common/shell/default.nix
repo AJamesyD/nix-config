@@ -14,6 +14,11 @@ in
 
   programs.zsh = {
     enable = true;
+    # Puts mise shims on PATH in .zprofile (login shell) so GUI apps
+    # (Neovide, etc.) can find mise-managed tools like npm/node.
+    profileExtra = ''
+      eval "$(mise activate zsh --shims)"
+    '';
     # Disabled — we provide a cached compinit at mkOrder 549 that uses
     # compinit -C (skip security check + fpath scan) on most loads and only
     # runs a full compinit when the dump is older than 24 hours.
