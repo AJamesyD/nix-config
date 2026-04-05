@@ -82,11 +82,6 @@ in
         src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
       }
       {
-        name = "zsh-auto-notify";
-        file = "auto-notify.plugin.zsh";
-        src = inputs.zsh-auto-notify;
-      }
-      {
         name = "zsh-you-should-use";
         file = "you-should-use.plugin.zsh";
         src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
@@ -153,9 +148,6 @@ in
       )
       # bash
       ''
-        # zsh-auto-notify
-        AUTO_NOTIFY_IGNORE+=("navi" "lazygit" "gitui" "fg" "tmux" "fzf")
-
         # Beloved key-binds
         bindkey "^[[1;3D" backward-word
         bindkey "^[[1;3C" forward-word

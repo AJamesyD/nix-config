@@ -78,10 +78,6 @@
       url = "github:alexwforsythe/tmux-which-key/1f419775caf136a60aac8e3a269b51ad10b51eb6";
       flake = false;
     };
-    zsh-auto-notify = {
-      url = "github:MichaelAquilina/zsh-auto-notify/27c07dddb42f05b199319a9b66473c8de7935856";
-      flake = false;
-    };
     tmux-resurrect = {
       url = "github:tmux-plugins/tmux-resurrect/cff343cf9e81983d3da0c8562b01616f12e8d548";
       flake = false;
