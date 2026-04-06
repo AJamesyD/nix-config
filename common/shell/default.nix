@@ -34,6 +34,11 @@ in
     history = {
       append = true;
     };
+    setOptions = [
+      "HIST_REDUCE_BLANKS"
+      "HIST_VERIFY"
+      "NO_BEEP"
+    ];
     historySubstringSearch.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
@@ -156,6 +161,9 @@ in
       )
       # bash
       ''
+        WORDCHARS=''${WORDCHARS//[\/.]}
+        REPORTTIME=10
+
         # Beloved key-binds
         bindkey "^[[1;3D" backward-word
         bindkey "^[[1;3C" forward-word
@@ -306,6 +314,11 @@ in
       flags = [ "--disable-up-arrow" ];
       settings = {
         auto_sync = false;
+        filter_mode = "directory";
+        filter_mode_shell_up_key_binding = "directory";
+        search_mode = "fuzzy";
+        style = "compact";
+        inline_height = 20;
       };
     };
     direnv = {
