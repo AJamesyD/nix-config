@@ -226,6 +226,7 @@ in
 
         ai-search() {
           local query="''$1"
+          setopt local_options no_nomatch
           local search_paths=(
             /tmp/ai-research-*
             /tmp/ai-plan-*
