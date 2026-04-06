@@ -33,6 +33,7 @@ in
     ../../common/nix-common.nix
     ../../common/stylix.nix
     ./aerospace.nix
+    ./kanata.nix
   ];
 
   homebrew = {

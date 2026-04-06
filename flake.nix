@@ -48,6 +48,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kanata-darwin = {
+      url = "github:not-in-stock/kanata-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # No nixpkgs.follows: mac-app-util pins its own nixpkgs to a commit with
     # SBCL 2.4.10. Our nixpkgs has SBCL 2.6.x which breaks named-readtables,
     # causing fare-quasiquote build failures.
