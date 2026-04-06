@@ -68,10 +68,18 @@
           ### Move focus ###
           "cmd-shift-f" = "fullscreen";
 
-          "cmd-shift-h" = "focus left --boundaries all-monitors-outer-frame --boundaries-action stop";
-          "cmd-shift-j" = "focus down --boundaries all-monitors-outer-frame --boundaries-action stop";
-          "cmd-shift-k" = "focus up --boundaries all-monitors-outer-frame --boundaries-action stop";
-          "cmd-shift-l" = "focus right --boundaries all-monitors-outer-frame --boundaries-action stop";
+          # Skip floating windows during focus navigation. Native macOS tabs
+          # (e.g. Ghostty) appear as separate floating windows to AeroSpace,
+          # trapping focus in invisible tab-windows.
+          # https://github.com/nikitabobko/AeroSpace/issues/68
+          "cmd-shift-h" =
+            "focus --ignore-floating left --boundaries all-monitors-outer-frame --boundaries-action stop";
+          "cmd-shift-j" =
+            "focus --ignore-floating down --boundaries all-monitors-outer-frame --boundaries-action stop";
+          "cmd-shift-k" =
+            "focus --ignore-floating up --boundaries all-monitors-outer-frame --boundaries-action stop";
+          "cmd-shift-l" =
+            "focus --ignore-floating right --boundaries all-monitors-outer-frame --boundaries-action stop";
 
           "cmd-shift-1" = "workspace 1-dev";
           "cmd-shift-2" = "workspace 2-browser";
