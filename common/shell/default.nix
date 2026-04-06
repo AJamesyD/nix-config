@@ -224,6 +224,28 @@ in
           }
         fi
 
+        ai-search() {
+          local query="''$1"
+          local search_paths=(
+            /tmp/ai-research-*
+            /tmp/ai-plan-*
+            /tmp/ai-design-*
+            "''$HOME/Documents/research"
+          )
+          local existing_paths=()
+          for p in "''${search_paths[@]}"; do
+            [[ -e ''$p ]] && existing_paths+=("''$p")
+          done
+          [[ ''${#existing_paths[@]} -eq 0 ]] && { echo "No research files found"; return 1; }
+          if [[ -n "''$query" ]]; then
+            rg --no-heading --line-number --color=always "''$query" "''${existing_paths[@]}" | \
+              fzf --ansi --delimiter=: --preview='bat --color=always --highlight-line {2} {1}' --preview-window='+{2}-10'
+          else
+            rg --no-heading --line-number --color=always '.' "''${existing_paths[@]}" | \
+              fzf --ansi --delimiter=: --preview='bat --color=always --highlight-line {2} {1}' --preview-window='+{2}-10'
+          fi
+        }
+
         local P10K_PATH="''${ZDOTDIR:-~}/.p10k.zsh"
 
         [[ ! -f "$P10K_PATH" ]] || source "$P10K_PATH"
