@@ -29,6 +29,18 @@ _: {
   };
 
   home.file.".hammerspoon/init.lua".text = ''
+    -- Reload config when nix rebuild writes a new init.lua
+    local _reloadTimer
+    local _reloadWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", function(files)
+      for _, f in ipairs(files) do
+        if f:match("%.lua$") then
+          if _reloadTimer then _reloadTimer:stop() end
+          _reloadTimer = hs.timer.doAfter(1, hs.reload)
+          return
+        end
+      end
+    end):start()
+
     local log_path = os.getenv("HOME") .. "/.local/share/gym-nudge/log.csv"
 
     hs.urlevent.bind("gym-nudge", function()
