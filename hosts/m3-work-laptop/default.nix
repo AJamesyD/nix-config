@@ -90,10 +90,10 @@ in
     ];
     casks = [
       {
-        name = "ghostty";
+        name = "block-goose";
       }
       {
-        name = "block-goose";
+        name = "ghostty";
       }
       {
         name = "hammerspoon";
