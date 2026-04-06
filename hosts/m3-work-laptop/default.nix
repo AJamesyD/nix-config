@@ -96,6 +96,9 @@ in
         name = "block-goose";
       }
       {
+        name = "hammerspoon";
+      }
+      {
         name = "neovide-app";
       }
       {
