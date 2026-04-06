@@ -53,14 +53,14 @@ _: {
 
       local result = hs.dialog.blockAlert("Gym Day!", "Close all apps and head to the gym in 5 minutes?", "Let's go", "Not today")
       if result == "Let's go" then
-        hs.timer.doAfter(300, function()
+        local _delay = hs.timer.doAfter(300, function()
           for _, app in ipairs(hs.application.runningApplications()) do
             if app:bundleID() ~= "org.hammerspoon.Hammerspoon" and app:bundleID() ~= "com.apple.finder" then
               app:kill()
             end
           end
 
-          hs.timer.doAfter(2, function()
+          local _checkinDelay = hs.timer.doAfter(2, function()
             local checkin = hs.dialog.blockAlert("Gym Check-in", "Did you go to the gym?", "Yes", "No")
             local response
             if checkin == "Yes" then
