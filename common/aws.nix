@@ -179,7 +179,7 @@ in
         clean = # bash
           ''
             nix-clean
-            brazil-package-cache clean
+            brazil-package-cache clean --days=7
             ${lib.optionalString pkgs.stdenv.isDarwin "brew cleanup --prune=all"}
             npm cache clean --force
             uv cache clean
