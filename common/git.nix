@@ -106,9 +106,9 @@
           tool = "nvimdiff";
         };
         pager = {
-          # Bypass delta (core.pager) for git diff. Difftastic outputs ANSI-colored
-          # side-by-side format that delta would mangle. Coupled to diff.external:
-          # remove this override if diff.external = "difft" is removed.
+          # Bypass delta (core.pager) for diff/log/show. Difftastic outputs
+          # ANSI-colored side-by-side format that delta would mangle. Coupled
+          # to diff.external: remove if diff.external = "difft" is removed.
           diff = "less -RFX";
           log = "less -RFX";
           show = "less -RFX";
