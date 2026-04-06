@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
 {
-  home.packages = with pkgs; [ lazyjj ];
+  home.packages = with pkgs; [
+    git-absorb
+    lazyjj
+  ];
 
   home.sessionVariables = {
     # Default 0 is overly conservative: any parse error triggers fallback to
@@ -107,6 +110,8 @@
           # side-by-side format that delta would mangle. Coupled to diff.external:
           # remove this override if diff.external = "difft" is removed.
           diff = "less -RFX";
+          log = "less -RFX";
+          show = "less -RFX";
         };
         pull = {
           rebase = true;
@@ -114,6 +119,13 @@
         push = {
           autoSetupRemote = true;
           followTags = true;
+        };
+        maintenance = {
+          auto = true;
+          strategy = "incremental";
+        };
+        log = {
+          date = "iso";
         };
         rebase = {
           autoSquash = true;
