@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   kbdConfig = pkgs.writeText "kanata.kbd" ''
     (defcfg
@@ -61,4 +66,19 @@ in
     kanata-bar.settings.kanata_bar.autostart_kanata = true;
     configSource = kbdConfig;
   };
+
+  # The kanata-darwin module kills kanata-bar in preActivation but only
+  # restarts it when the launchd plist changes. Restart unconditionally
+  # so kbd config and config.toml changes take effect.
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    kanata_user="${config.services.kanata.user}"
+    kanata_uid=$(id -u -- "$kanata_user")
+    if launchctl asuser "$kanata_uid" sudo --user="$kanata_user" -- launchctl list com.kanata-bar.launchd &>/dev/null; then
+      echo "kanata: restarting kanata-bar"
+      launchctl asuser "$kanata_uid" sudo --user="$kanata_user" -- launchctl kickstart -k "gui/$kanata_uid/com.kanata-bar.launchd"
+    else
+      echo "kanata: starting kanata-bar"
+      launchctl asuser "$kanata_uid" sudo --user="$kanata_user" -- launchctl load -w ~"$kanata_user"/Library/LaunchAgents/com.kanata-bar.launchd.plist
+    fi
+  '';
 }
