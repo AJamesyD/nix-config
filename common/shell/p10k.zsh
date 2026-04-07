@@ -44,6 +44,8 @@
     package
     virtualenv
     rust_version
+    brazil_ws
+    brazil_pkg
     aws
     kubecontext
     my_session
@@ -316,13 +318,47 @@
 
   typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
 
+  ################################[ brazil_ws: workspace context ]################################
+  # 246 = light gray (dimmed context, shown when at ws root or ws != pkg)
+  typeset -g POWERLEVEL9K_BRAZIL_WS_FOREGROUND=246
+  typeset -g POWERLEVEL9K_BRAZIL_WS_SHOW_ON_UPGLOB='packageInfo'
+
+  function prompt_brazil_ws() {
+    [[ -n $_BRAZIL_WS ]] || return
+    # Hide when inside a package with the same name as the workspace dir
+    [[ -z $_BRAZIL_PKG || $_BRAZIL_WS != $_BRAZIL_PKG ]] || return
+    p10k segment -i '🇧🇷' -t "$_BRAZIL_WS"
+  }
+
+  function instant_prompt_brazil_ws() {
+    prompt_brazil_ws
+  }
+
+  #################################[ brazil_pkg: package context ]################################
+  # 214 = amber (bright, active package)
+  typeset -g POWERLEVEL9K_BRAZIL_PKG_FOREGROUND=214
+  typeset -g POWERLEVEL9K_BRAZIL_PKG_SHOW_ON_UPGLOB='packageInfo'
+
+  function prompt_brazil_pkg() {
+    [[ -n $_BRAZIL_PKG ]] || return
+    local text=$_BRAZIL_PKG
+    [[ -n $_BRAZIL_PKG_VER ]] && text+=-$_BRAZIL_PKG_VER
+    p10k segment -i '📦' -t "$text"
+  }
+
+  function instant_prompt_brazil_pkg() {
+    prompt_brazil_pkg
+  }
+
   ##################################[ my_session: shpool/zmx ]##################################
+  # 55 = dark purple (local), 53 = deeper purple (remote)
   typeset -g POWERLEVEL9K_MY_SESSION_BACKGROUND=55
   if [[ -n $SSH_CONNECTION ]]; then
     typeset -g POWERLEVEL9K_MY_SESSION_BACKGROUND=53
   fi
 
   function prompt_my_session() {
+    # Per-multiplexer colors: 115 = light green (shpool), 114 = light teal (zmx)
     if [[ -n $SHPOOL_SESSION_NAME ]]; then
       p10k segment -f 115 -i '󰖟' -t "$SHPOOL_SESSION_NAME"
     elif [[ -n $ZMX_SESSION ]]; then
