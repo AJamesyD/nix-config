@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./claude.nix
@@ -12,6 +12,12 @@
 
   programs.opencode = {
     enable = true;
+    tui.theme = "stylix";
+
+    # Stylix sets settings.theme; opencode >= 1.2.15 moved it to tui.json.
+    # Remove after: https://github.com/nix-community/stylix/issues/2264
+    # WARN: mkForce clears ALL settings, not just theme.
+    settings = lib.mkForce { };
   };
 
   home.packages = [
