@@ -47,6 +47,7 @@
     };
     gh = {
       enable = true;
+      extensions = [ pkgs.gh-dash ];
       settings.git_protocol = "ssh";
     };
     git = {
