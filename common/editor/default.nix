@@ -34,6 +34,7 @@
     bash-language-server
     lua-language-server
     marksman
+    markdown-oxide
     tailwindcss-language-server
     taplo
     ts_query_ls
