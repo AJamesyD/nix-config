@@ -50,6 +50,7 @@ in
   services.kanata = {
     enable = true;
     kanata-bar.enable = true;
+    kanata-bar.settings.kanata_bar.autostart_kanata = true;
     configSource = kbdConfig;
   };
 }
