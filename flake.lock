@@ -273,11 +273,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1775575460,
-        "narHash": "sha256-Y4Uo0T5f/0p88norCAEf3uxzuex29kyc/whAVl7wmI8=",
+        "lastModified": 1775585812,
+        "narHash": "sha256-/br4g2hAmCIPaMx3a8862AfcNyBGOgoqjke6X786s8A=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "6469c9c4b20bbd35dcce0fbcbb7681926720a49c",
+        "rev": "35b8c42eb10c196dc84611852325c722b6f10750",
         "type": "github"
       },
       "original": {
@@ -659,11 +659,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775577028,
-        "narHash": "sha256-DI6HgNGodleRAKI9MofG46lDaHOpsO7Ln8uLOTFCLvQ=",
+        "lastModified": 1775585728,
+        "narHash": "sha256-8Psjt+TWvE4thRKktJsXfR6PA/fWWsZ04DVaY6PUhr4=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "767fa1e97496c2c54c2bae2145f9920dfaf98aa5",
+        "rev": "580633fa3fe5fc0379905986543fd7495481913d",
         "type": "github"
       },
       "original": {
@@ -845,11 +845,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775556024,
-        "narHash": "sha256-j1u/859OVS54rGlsvFqJdwKPEnFYCI+4pyfTiSfv1Xc=",
+        "lastModified": 1775587248,
+        "narHash": "sha256-lMdrBTTTUprYOeoxRLmwtQAvyaxkWZtx+EEkeJHGxrY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4bdfeff1d9b7473e6e58f73f5809576e8a69e406",
+        "rev": "9cc761169a1bbf1d9787cdbe9abf07f4bae213a1",
         "type": "github"
       },
       "original": {
@@ -866,15 +866,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1774930051,
-        "narHash": "sha256-i+Nyq0tg/Uz7+HLPdtKGZhCqeKLxPu8eNcmm+8b+9fo=",
-        "owner": "not-in-stock",
+        "lastModified": 1775587325,
+        "narHash": "sha256-oCe5avBeP6zrVjAhm0188D1bWpQ0dOoxSfMHvP70cYI=",
+        "owner": "AJamesyD",
         "repo": "kanata-darwin",
-        "rev": "e48c11649e59a05d77331b30d0f1ebba226e528e",
+        "rev": "716900f75769b6f9c93fcde5db4bee928b500ccd",
         "type": "github"
       },
       "original": {
-        "owner": "not-in-stock",
+        "owner": "AJamesyD",
+        "ref": "fix/restart-kanata-bar-after-rebuild",
         "repo": "kanata-darwin",
         "type": "github"
       }
