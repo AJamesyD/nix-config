@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
@@ -66,11 +64,4 @@ in
     kanata-bar.settings.kanata_bar.autostart_kanata = true;
     configSource = kbdConfig;
   };
-
-  # Restart kanata-bar (killed in preActivation; nix-darwin skips
-  # launchd reload when the plist is unchanged).
-  system.activationScripts.postActivation.text = lib.mkAfter ''
-    launchctl kickstart -k "gui/$(id -u ${config.services.kanata.user})/com.kanata-bar.launchd" 2>/dev/null \
-      && echo "kanata-bar: restarted" || true
-  '';
 }
