@@ -12,7 +12,6 @@
 
   programs.opencode = {
     enable = true;
-    enableMcpIntegration = true;
   };
 
   home.packages = [
