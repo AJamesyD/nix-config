@@ -15,16 +15,24 @@ let
 
     (defalias
       ;; Left hand: CAGS
-      a (tap-hold-opposite-hand 250 a lctl (require-prior-idle 150) (unknown-hand hold))
-      s (tap-hold-opposite-hand 250 s lalt (require-prior-idle 150) (unknown-hand hold))
-      d (tap-hold-opposite-hand 200 d lmet (require-prior-idle 150) (unknown-hand hold))
-      f (tap-hold-opposite-hand 200 f lsft (require-prior-idle 150) (unknown-hand hold))
+      a (tap-hold-opposite-hand-release 250 a lctl
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      s (tap-hold-opposite-hand-release 250 s lalt
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      d (tap-hold-opposite-hand-release 200 d lmet
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      f (tap-hold-opposite-hand-release 200 f lsft
+        (same-hand tap) (timeout hold) (unknown-hand hold))
 
       ;; Right hand: mirrored CAGS
-      j (tap-hold-opposite-hand 200 j rsft (require-prior-idle 150) (unknown-hand hold))
-      k (tap-hold-opposite-hand 200 k rmet (require-prior-idle 150) (unknown-hand hold))
-      l (tap-hold-opposite-hand 250 l ralt (require-prior-idle 150) (unknown-hand hold))
-      ; (tap-hold-opposite-hand 250 ; rctl (require-prior-idle 150) (unknown-hand hold))
+      j (tap-hold-opposite-hand-release 200 j rsft
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      k (tap-hold-opposite-hand-release 200 k rmet
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      l (tap-hold-opposite-hand-release 250 l ralt
+        (same-hand tap) (timeout hold) (unknown-hand hold))
+      ; (tap-hold-opposite-hand-release 250 ; rctl
+        (same-hand tap) (timeout hold) (unknown-hand hold))
     )
 
     (defsrc
