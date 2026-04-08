@@ -38,7 +38,7 @@
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     status
     command_execution_time
-    background_jobs
+    my_jobs
     nix_shell
     direnv
     package
@@ -281,9 +281,30 @@
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION=
 
-  #######################[ background_jobs: presence of background jobs ]#######################
-  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
-  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=37
+  ######################[ my_jobs: adaptive background jobs (count + name) ]######################
+  typeset -g POWERLEVEL9K_MY_JOBS_FOREGROUND=37
+
+  function _update_my_jobs_info() {
+    _MY_JOBS_COUNT=${#jobstates}
+    _MY_JOBS_TOP=
+    (( _MY_JOBS_COUNT )) || return
+    local k
+    for k in ${(k)jobstates}; do
+      [[ ${jobstates[$k]} == *:+:* ]] && { _MY_JOBS_TOP=${jobtexts[$k]%% *}; break; }
+    done
+  }
+  precmd_functions+=(_update_my_jobs_info)
+
+  function prompt_my_jobs() {
+    (( _MY_JOBS_COUNT )) || return
+    local text=$_MY_JOBS_TOP
+    (( _MY_JOBS_COUNT > 1 )) && text="$_MY_JOBS_COUNT $text"
+    p10k segment -i $'\uF013' -t "$text"
+  }
+
+  function instant_prompt_my_jobs() {
+    prompt_my_jobs
+  }
 
   typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=178
 
