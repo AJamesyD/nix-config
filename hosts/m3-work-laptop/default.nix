@@ -145,6 +145,9 @@ in
     width = 10.0;
     hidpi = true;
     ax_focus = true;
+    # 50% alpha on inactive border so it fades into background.
+    # Uses stylix base03 (comments/muted) for theme durability.
+    inactive_color = lib.mkForce "0x80${config.lib.stylix.colors.base03}";
   };
 
   # Point launchd at a stable .app bundle path so macOS TCC identifies
