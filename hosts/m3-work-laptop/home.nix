@@ -196,21 +196,20 @@
           "ctrl+a>z=toggle_split_zoom"
           "ctrl+a>equal=equalize_splits"
 
-          # --- Split navigation (leader-based so Ctrl+h/j/k/l
-          #     passes through to Neovim/smart-splits first) ---
+          # --- Split navigation (bare keys after prefix) ---
 
-          "ctrl+a>ctrl+h=goto_split:left"
-          "ctrl+a>ctrl+j=goto_split:bottom"
-          "ctrl+a>ctrl+k=goto_split:top"
-          "ctrl+a>ctrl+l=goto_split:right"
+          "ctrl+a>h=goto_split:left"
+          "ctrl+a>j=goto_split:bottom"
+          "ctrl+a>k=goto_split:top"
+          "ctrl+a>l=goto_split:right"
 
           # --- Tabs (leader) ---
 
           "ctrl+a>c=new_tab"
           "ctrl+a>tab=last_tab"
           "ctrl+a>comma=prompt_tab_title"
-          "ctrl+a>h=previous_tab"
-          "ctrl+a>l=next_tab"
+          "ctrl+a>shift+h=previous_tab"
+          "ctrl+a>shift+l=next_tab"
 
           "ctrl+a>one=goto_tab:1"
           "ctrl+a>two=goto_tab:2"
