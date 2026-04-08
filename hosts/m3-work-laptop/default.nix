@@ -174,7 +174,6 @@ in
       "active_color=${cfg.active_color}"
       "inactive_color=${cfg.inactive_color}"
       "ax_focus=${bool cfg.ax_focus}"
-      "blur_radius=${toString cfg.blur_radius}"
       "order=${cfg.order}"
     ];
 
