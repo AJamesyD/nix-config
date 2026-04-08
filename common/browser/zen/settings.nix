@@ -9,6 +9,11 @@
   "zen.view.compact.toolbar-flash-popup" = true;
   "zen.view.use-single-toolbar" = false;
   "zen.view.window.scheme" = 0;
+  "zen.view.experimental-no-window-controls" = true;
+  "zen.view.grey-out-inactive-windows" = false;
+  "zen.view.compact.toolbar-hide-after-hover.duration" = 500;
+  "zen.theme.gradient.show-custom-colors" = true;
+  "zen.watermark.enabled" = false;
 
   # -- Browser behavior --
   "browser.contentblocking.category" = "strict";
@@ -44,6 +49,7 @@
   "layout.css.prefers-color-scheme.content-override" = 0;
   "nimbus.rollouts.enabled" = false;
   "sidebar.visibility" = "hide-sidebar";
+  "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
 
   # -- Zen sidebar mods --
   "uc.zen-sidebar.float-at-right-side" = true;
