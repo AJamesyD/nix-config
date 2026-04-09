@@ -11,7 +11,6 @@
     ../../common/dev.nix
     ../../common/ssh.nix
     ../../modules/home-manager
-    ./hammerspoon.nix
     ./sketchybar-theme.nix
   ];
 

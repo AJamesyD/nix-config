@@ -34,6 +34,7 @@ in
     ../../common/stylix.nix
     ./aerospace.nix
     ./kanata.nix
+    ./hammerspoon.nix
   ];
 
   homebrew = {
