@@ -6,36 +6,24 @@ let
   kbdConfig = pkgs.writeText "kanata.kbd" ''
     (defcfg
       process-unmapped-keys yes
+      tap-hold-require-prior-idle 150
       macos-dev-names-include (
         "Apple Internal Keyboard / Trackpad"
       )
     )
 
-    (defhands
-      (left q w e r t a s d f g z x c v b)
-      (right y u i o p h j k l ; n m , . /)
-    )
-
     (defalias
-      ;; Left hand: CAGS
-      a (tap-hold-opposite-hand-release 250 a lctl
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      s (tap-hold-opposite-hand-release 250 s lalt
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      d (tap-hold-opposite-hand-release 200 d lmet
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      f (tap-hold-opposite-hand-release 200 f lsft
-        (same-hand tap) (timeout hold) (unknown-hand hold))
+      ;; Left hand: CAGS (ctrl, alt, gui, shift)
+      a (tap-hold-release 200 200 a lctl)
+      s (tap-hold-release 200 200 s lalt)
+      d (tap-hold-release 200 200 d lmet)
+      f (tap-hold-release 200 200 f lsft)
 
-      ;; Right hand: mirrored CAGS
-      j (tap-hold-opposite-hand-release 200 j rsft
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      k (tap-hold-opposite-hand-release 200 k rmet
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      l (tap-hold-opposite-hand-release 250 l ralt
-        (same-hand tap) (timeout hold) (unknown-hand hold))
-      ; (tap-hold-opposite-hand-release 250 ; rctl
-        (same-hand tap) (timeout hold) (unknown-hand hold))
+      ;; Right hand: SGAC (shift, gui, alt, ctrl)
+      j (tap-hold-release 200 200 j rsft)
+      k (tap-hold-release 200 200 k rmet)
+      l (tap-hold-release 200 200 l ralt)
+      ; (tap-hold-release 200 200 ; rctl)
     )
 
     (defsrc
