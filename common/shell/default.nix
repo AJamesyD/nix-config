@@ -253,6 +253,91 @@ in
 
         autoload -Uz add-zsh-hook
 
+        # -- Terminal resilience --
+        # TUI programs (Bubble Tea, neovim, etc.) enable terminal modes
+        # via escape sequences. If the program crashes or SSH drops, the
+        # cleanup sequences never fire and the local shell is left with
+        # broken keybinds, mouse reporting, or garbled input. These
+        # named sequences, hooks, and wrappers recover from that.
+        #
+        # References:
+        #   Kitty keyboard protocol: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
+        #   Known leak reports: claude-code #39153, bubbletea #1014
+
+        # Named escape sequences for terminal mode resets.
+        # Each disables one mode that TUI programs commonly enable.
+        _seq_kitty_keyboard_pop='\e[<u'
+        _seq_mouse_button_off='\e[?1000l'
+        _seq_mouse_any_off='\e[?1003l'
+        _seq_mouse_sgr_off='\e[?1006l'
+        _seq_bracketed_paste_off='\e[?2004l'
+        _seq_altscreen_off='\e[?1049l'
+        _seq_soft_reset='\e[!p'
+
+        # Precmd subset: only modes that zsh does not re-enable itself.
+        # Excludes bracketed paste (zsh manages it) and alternate screen
+        # (switching screens on every prompt would flash).
+        _terminal_sanitize_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off"
+
+        # Full reset: all leaky modes. Used after SSH and in treset.
+        _terminal_reset_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_bracketed_paste_off"
+
+        # Minimum seconds connected before treating exit 255 as an
+        # involuntary disconnect worth notifying about. Below this
+        # threshold, exit 255 is likely an auth failure or config error.
+        _ssh_notify_min_seconds=5
+
+        _terminal_sanitize() {
+          printf "$_terminal_sanitize_seq"
+        }
+        add-zsh-hook precmd _terminal_sanitize
+
+        treset() {
+          printf "$_terminal_reset_seq"
+          printf "$_seq_altscreen_off"
+          printf "$_seq_soft_reset"
+          stty sane 2>/dev/null
+          echo "terminal reset complete"
+        }
+
+        ssh() {
+          local start=$SECONDS
+          command ssh "$@"
+          local ret=$?
+          local elapsed=$(( SECONDS - start ))
+
+          printf "$_terminal_reset_seq"
+          stty sane 2>/dev/null
+
+          local duration
+          if (( elapsed >= 3600 )); then
+            duration="$(( elapsed / 3600 ))h$(( (elapsed % 3600) / 60 ))m"
+          elif (( elapsed >= 60 )); then
+            duration="$(( elapsed / 60 ))m$(( elapsed % 60 ))s"
+          else
+            duration="''${elapsed}s"
+          fi
+
+          if (( ret == 0 )); then
+            printf '\e[2m[ssh] disconnected cleanly after %s\e[0m\n' "$duration"
+          elif (( ret == 255 )); then
+            printf '\e[31m[ssh] connection lost after %s (exit 255)\e[0m\n' "$duration"
+            # -group replaces any existing notification with the same ID,
+            # so simultaneous ControlMaster session drops collapse into one.
+            if (( elapsed > _ssh_notify_min_seconds )) && command -v terminal-notifier &>/dev/null; then
+              terminal-notifier \
+                -title "SSH disconnected" \
+                -message "Lost connection after $duration" \
+                -group "ssh-disconnect" \
+                -sound Basso &>/dev/null &!
+            fi
+          else
+            printf '\e[33m[ssh] exited with code %d after %s\e[0m\n' "$ret" "$duration"
+          fi
+
+          return $ret
+        }
+
         function _title_name() {
           if [[ "$PWD" == "$HOME" ]]; then
             echo "~"
