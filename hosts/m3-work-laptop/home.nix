@@ -41,6 +41,8 @@
           export PATH="$PATH:/usr/sbin"
         '';
       }))
+
+      xcodes
     ];
 
     stateVersion = "25.11";
