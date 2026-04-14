@@ -277,6 +277,49 @@
             "251" = {
               enabled = false;
             };
+
+            # === Input Sources ===
+            # Disabled: single keyboard layout (U.S.); prevents Ctrl+Space
+            # from being silently consumed if a second source is ever added.
+
+            # 60: Select previous input source (Ctrl+Space)
+            "60" = {
+              enabled = false;
+            };
+            # 61: Select next input source (Ctrl+Option+Space)
+            "61" = {
+              enabled = false;
+            };
+
+            # === Other ===
+            # Individually disabled shortcuts that don't fit the categories
+            # above. Each conflicts with Aerospace, Raycast, terminal usage,
+            # or Kanata, or is an accidental-activation risk.
+
+            # 52: Toggle Dock hiding (Cmd+Option+D)
+            "52" = {
+              enabled = false;
+            };
+            # 98: Show Help menu (Cmd+Shift+/)
+            "98" = {
+              enabled = false;
+            };
+            # 156: Trackpad Handwriting (Ctrl+Shift+Space)
+            "156" = {
+              enabled = false;
+            };
+            # 159: Contextual menu (Ctrl+Return)
+            "159" = {
+              enabled = false;
+            };
+            # 190: QuickNote (Fn+Q)
+            "190" = {
+              enabled = false;
+            };
+            # 260: Game Overlay (Cmd+Escape)
+            "260" = {
+              enabled = false;
+            };
           };
         };
         "com.apple.controlcenter" = {
@@ -298,6 +341,10 @@
           FXRemoveOldTrashItems = true;
           _FXSortFoldersFirst = true;
         };
+        "com.apple.HIToolbox" = {
+          # 0 = Do Nothing (default: 3 = Emoji picker). Kanata owns the Fn key.
+          AppleFnUsageType = 0;
+        };
         # CustomUserPreferences takes precedence over system.defaults.NSGlobalDomain
         # because `defaults write` runs after nix-darwin's typed NSGlobalDomain attrs.
         NSGlobalDomain = {
@@ -313,10 +360,12 @@
         AppleEnableMouseSwipeNavigateWithScrolls = false;
         AppleEnableSwipeNavigateWithScrolls = false;
         AppleInterfaceStyle = "Dark";
+        ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         AppleShowScrollBars = "WhenScrolling";
         NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
         NSAutomaticWindowAnimationsEnabled = false;
         NSWindowResizeTime = 1.0e-2;
