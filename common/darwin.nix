@@ -33,20 +33,12 @@
       bashInteractive
       zsh
     ];
-    systemPackages =
-      with pkgs;
-      [
-        libplist
-        openssh
-        rust-analyzer
-        vim
-      ]
-      ++ map (x: x.terminfo) (
-        with pkgs.pkgsBuildBuild;
-        [
-          alacritty
-        ]
-      );
+    systemPackages = with pkgs; [
+      libplist
+      openssh
+      rust-analyzer
+      vim
+    ];
     systemPath = lib.mkBefore [
       "/opt/homebrew/bin"
       "/opt/homebrew/sbin"
