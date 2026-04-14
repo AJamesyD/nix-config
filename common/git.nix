@@ -106,14 +106,8 @@
           conflictStyle = lib.mkForce "zdiff3";
           tool = "nvimdiff";
         };
-        pager = {
-          # Bypass delta (core.pager) for diff/log/show. Difftastic outputs
-          # ANSI-colored side-by-side format that delta would mangle. Coupled
-          # to diff.external: remove if diff.external = "difft" is removed.
-          diff = "less -RFX";
-          log = "less -RFX";
-          show = "less -RFX";
-        };
+        # pager.diff/log/show: set via iniContent below (mkForce needed to
+        # override delta.enableGitIntegration's diffPagerConfig).
         pull = {
           rebase = true;
         };
@@ -150,6 +144,11 @@
           fsckObjects = true;
         };
       };
+      # Bypass delta (core.pager) for diff/log/show. Difftastic outputs
+      # ANSI-colored side-by-side format that delta would mangle. mkForce
+      # overrides delta.enableGitIntegration's diffPagerConfig. Coupled to
+      # diff.external: remove if diff.external = "difft" is removed.
+      iniContent.pager = lib.genAttrs [ "diff" "log" "show" ] (_: lib.mkForce "less -RFX");
     };
     jujutsu = {
       enable = true;
