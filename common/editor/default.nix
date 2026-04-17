@@ -11,6 +11,7 @@
     tree-sitter
     (luajit.withPackages (
       ps: with ps; [
+        luacheck
         luarocks
         luv
       ]
