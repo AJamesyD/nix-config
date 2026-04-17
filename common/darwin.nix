@@ -48,6 +48,11 @@
       HOMEBREW_NO_ANALYTICS = "1";
       SHELL = lib.getExe pkgs.zsh;
     };
+    extraInit = ''
+      if [ -z "$SDKROOT" ] && /usr/bin/xcrun --show-sdk-path &>/dev/null; then
+        export SDKROOT=$(/usr/bin/xcrun --show-sdk-path)
+      fi
+    '';
   };
 
   homebrew = {
