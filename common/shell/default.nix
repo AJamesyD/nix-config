@@ -78,10 +78,6 @@ in
         ''
           zmx attach "$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
         '';
-      zmk = # bash
-        ''
-          zmx kill "$(zmx list --short | fzf --prompt='kill> ' --no-select-1 --no-exit-0)" 2>/dev/null
-        '';
       zsource = # bash
         ''
           source "$ZDOTDIR/.zshenv"
@@ -287,6 +283,8 @@ in
 
         session-restore() {
           local state_base="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions"
+          local quiet=0
+          [[ "$1" == -q ]] && { quiet=1; shift; }
           [[ -d "''${XDG_RUNTIME_DIR}" ]] || { echo "XDG_RUNTIME_DIR not set"; return 1; }
           exec {_sr_fd}>"''${XDG_RUNTIME_DIR}/session-restore.lock"
           flock -n $_sr_fd || { exec {_sr_fd}>&-; echo "session-restore already running"; return 1; }
@@ -330,11 +328,15 @@ in
           local d
           for d in "$state_base"/zmx/*(N/) "$state_base"/shpool/*(N/); do
             [[ $(find "$d/dir" -mtime +30 2>/dev/null) ]] || continue
+            local name=''${d:t} tool=''${d:h:t}
             rm -rf "$d"
+            [[ "$tool" == zmx ]] && rm -f "$state_base/zmx-scrollback/$name.txt"
             (( pruned++ ))
           done
 
-          echo "session-restore: restored=$restored skipped=$skipped pruned=$pruned"
+          if (( ! quiet || restored + pruned > 0 )); then
+            echo "session-restore: restored=$restored skipped=$skipped pruned=$pruned"
+          fi
           exec {_sr_fd}>&-
         }
 
@@ -351,6 +353,23 @@ in
           echo "Forgot $tool session: $name"
         }
 
+        _session-forget() {
+          if (( CURRENT == 2 )); then
+            compadd zmx shpool
+          elif (( CURRENT == 3 )); then
+            local tool=$words[2]
+            local state_base="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions"
+            compadd -- "$state_base/$tool"/*(N/:t)
+          fi
+        }
+        compdef _session-forget session-forget
+
+        zmk() {
+          local name
+          name=$(zmx list --short | fzf --prompt='kill> ' --no-select-1 --no-exit-0) || return
+          zmx kill "$name" 2>/dev/null && session-forget zmx "$name" 2>/dev/null
+        }
+
         # Restore sessions once per boot. XDG_RUNTIME_DIR is tmpfs,
         # so the flag file is absent after reboot.
         _session_restore_once() {
@@ -358,7 +377,7 @@ in
           [[ -f "$flag" ]] && return
           [[ -d "''${XDG_RUNTIME_DIR}" ]] || return
           touch "$flag"
-          session-restore
+          session-restore -q
         }
         add-zsh-hook precmd _session_restore_once
 

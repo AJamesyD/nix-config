@@ -63,9 +63,25 @@
       initContent = ''
         # zmx has no configurable detach key (hardcoded ctrl+\).
         # Map C-a C-q to `zmx detach` so it matches tmux/zellij/shpool.
-        zmx-detach() { [[ -n "$ZMX_SESSION" ]] && zmx detach; }
+        zmx-detach() {
+          [[ -n "$ZMX_SESSION" ]] || return
+          {
+            local d="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions/zmx-scrollback"
+            local f="$d/$ZMX_SESSION.txt"
+            [[ -d "$d" ]] || mkdir -p "$d"
+            timeout 5 zmx history "$ZMX_SESSION" |
+              tail -n "''${SESSION_PERSIST_SCROLLBACK_LINES:-10000}" > "$f.tmp" && mv "$f.tmp" "$f"
+          } &!
+          zmx detach
+        }
         zle -N zmx-detach
         bindkey '^A^Q' zmx-detach
+
+        spk() {
+          local name
+          name=$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='kill> ' --no-select-1 --no-exit-0) || return
+          shpool kill "$name" 2>/dev/null && session-forget shpool "$name" 2>/dev/null
+        }
       '';
       shellAliases = {
         auth = "mwinit -o";
@@ -73,10 +89,6 @@
         spa = # bash
           ''
             shpool attach --force "$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
-          '';
-        spk = # bash
-          ''
-            shpool kill "$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='kill> ' --no-select-1 --no-exit-0)" 2>/dev/null
           '';
         # Borrowed from https://github.com/shell-pool/shpool/issues/49#issue-2355077641
         shll = # bash
