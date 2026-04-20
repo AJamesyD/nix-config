@@ -280,7 +280,7 @@ in
           local d="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions/zmx-scrollback"
           local f="$d/$ZMX_SESSION.txt"
           [[ -d "$d" ]] || mkdir -p "$d"
-          zmx history "$ZMX_SESSION" | tail -n 10000 > "$f.tmp" && mv "$f.tmp" "$f"
+          timeout 5 zmx history "$ZMX_SESSION" | tail -n "''${SESSION_PERSIST_SCROLLBACK_LINES:-10000}" > "$f.tmp" && mv "$f.tmp" "$f"
         }
         [[ -n "$PERIOD" ]] || PERIOD=300
         add-zsh-hook periodic _session_persist_scrollback
@@ -350,6 +350,17 @@ in
           [[ "$tool" == zmx ]] && rm -f "$state_base/zmx-scrollback/$name.txt"
           echo "Forgot $tool session: $name"
         }
+
+        # Restore sessions once per boot. XDG_RUNTIME_DIR is tmpfs,
+        # so the flag file is absent after reboot.
+        _session_restore_once() {
+          local flag="''${XDG_RUNTIME_DIR}/.sessions-restored"
+          [[ -f "$flag" ]] && return
+          [[ -d "''${XDG_RUNTIME_DIR}" ]] || return
+          touch "$flag"
+          session-restore
+        }
+        add-zsh-hook precmd _session_restore_once
 
         # -- Terminal resilience --
         # TUI programs (Bubble Tea, neovim, etc.) enable terminal modes
