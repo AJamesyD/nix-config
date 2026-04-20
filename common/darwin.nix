@@ -94,6 +94,9 @@
 
   home-manager = {
     backupFileExtension = "bak";
+    sharedModules = [
+      { home.file.".hushlogin".text = ""; }
+    ];
     useGlobalPkgs = true;
     useUserPackages = true;
   };
