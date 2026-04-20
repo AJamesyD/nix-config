@@ -266,21 +266,24 @@ in
 
         # Named escape sequences for terminal mode resets.
         # Each disables one mode that TUI programs commonly enable.
-        _seq_kitty_keyboard_pop='\e[<u'
+        _seq_kitty_keyboard_pop='\e[<99u'
         _seq_mouse_button_off='\e[?1000l'
         _seq_mouse_any_off='\e[?1003l'
         _seq_mouse_sgr_off='\e[?1006l'
         _seq_bracketed_paste_off='\e[?2004l'
+        _seq_focus_reporting_off='\e[?1004l'
+        _seq_sync_output_off='\e[?2026l'
         _seq_altscreen_off='\e[?1049l'
         _seq_soft_reset='\e[!p'
+        _seq_cursor_shape_reset='\e[0 q'
 
         # Precmd subset: only modes that zsh does not re-enable itself.
         # Excludes bracketed paste (zsh manages it) and alternate screen
         # (switching screens on every prompt would flash).
-        _terminal_sanitize_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off"
+        _terminal_sanitize_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_focus_reporting_off$_seq_sync_output_off"
 
         # Full reset: all leaky modes. Used after SSH and in treset.
-        _terminal_reset_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_bracketed_paste_off"
+        _terminal_reset_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_focus_reporting_off$_seq_sync_output_off$_seq_bracketed_paste_off$_seq_soft_reset$_seq_cursor_shape_reset"
 
         # Minimum seconds connected before treating exit 255 as an
         # involuntary disconnect worth notifying about. Below this
@@ -295,7 +298,6 @@ in
         treset() {
           printf "$_terminal_reset_seq"
           printf "$_seq_altscreen_off"
-          printf "$_seq_soft_reset"
           stty sane 2>/dev/null
           echo "terminal reset complete"
         }
