@@ -253,6 +253,104 @@ in
 
         autoload -Uz add-zsh-hook
 
+        # -- Session persistence --
+        _session_persist_pwd() {
+          local tool name
+          if [[ -n "$ZMX_SESSION" ]]; then
+            tool=zmx name=$ZMX_SESSION
+          elif [[ -n "$SHPOOL_SESSION_NAME" ]]; then
+            tool=shpool name=$SHPOOL_SESSION_NAME
+          else
+            return
+          fi
+          [[ "$name" == */* ]] && return
+          local state_dir="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions/$tool/$name"
+          if [[ -z "$_session_persist_init" ]]; then
+            _session_persist_init=1
+            mkdir -p "$state_dir"
+          fi
+          local f="$state_dir/dir"
+          [[ "$PWD" == "$(cat "$f" 2>/dev/null)" ]] && return
+          printf '%s' "$PWD" > "$f.tmp" && mv "$f.tmp" "$f"
+        }
+        add-zsh-hook precmd _session_persist_pwd
+
+        _session_persist_scrollback() {
+          [[ -n "$ZMX_SESSION" ]] || return
+          local d="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions/zmx-scrollback"
+          local f="$d/$ZMX_SESSION.txt"
+          [[ -d "$d" ]] || mkdir -p "$d"
+          zmx history "$ZMX_SESSION" | tail -n 10000 > "$f.tmp" && mv "$f.tmp" "$f"
+        }
+        [[ -n "$PERIOD" ]] || PERIOD=300
+        add-zsh-hook periodic _session_persist_scrollback
+
+        session-restore() {
+          local state_base="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions"
+          [[ -d "''${XDG_RUNTIME_DIR}" ]] || { echo "XDG_RUNTIME_DIR not set"; return 1; }
+          exec {_sr_fd}>"''${XDG_RUNTIME_DIR}/session-restore.lock"
+          flock -n $_sr_fd || { exec {_sr_fd}>&-; echo "session-restore already running"; return 1; }
+          local restored=0 skipped=0 pruned=0
+
+          if command -v zmx &>/dev/null; then
+            local zmx_live
+            zmx_live=$(zmx list --short 2>/dev/null)
+            local d
+            for d in "$state_base"/zmx/*(N/); do
+              local name=''${d:t}
+              if echo "$zmx_live" | grep -qxF "$name"; then
+                (( skipped++ ))
+                continue
+              fi
+              local dir="$(cat "$d/dir" 2>/dev/null)"
+              [[ -d "$dir" ]] || dir=$HOME
+              (cd "$dir" && timeout 5 zmx run "$name" true) && (( restored++ ))
+            done
+          fi
+
+          if command -v shpool &>/dev/null; then
+            local shpool_live="" attempt
+            for attempt in 1 2 3; do
+              shpool_live=$(shpool list 2>/dev/null | tail -n +2 | cut -f1) && break
+              sleep 1
+            done
+            local d
+            for d in "$state_base"/shpool/*(N/); do
+              local name=''${d:t}
+              if echo "$shpool_live" | grep -qxF "$name"; then
+                (( skipped++ ))
+                continue
+              fi
+              local dir="$(cat "$d/dir" 2>/dev/null)"
+              [[ -d "$dir" ]] || dir=$HOME
+              timeout 5 shpool attach --dir "$dir" --background "$name" && (( restored++ ))
+            done
+          fi
+
+          local d
+          for d in "$state_base"/zmx/*(N/) "$state_base"/shpool/*(N/); do
+            [[ $(find "$d/dir" -mtime +30 2>/dev/null) ]] || continue
+            rm -rf "$d"
+            (( pruned++ ))
+          done
+
+          echo "session-restore: restored=$restored skipped=$skipped pruned=$pruned"
+          exec {_sr_fd}>&-
+        }
+
+        session-forget() {
+          local tool="$1" name="$2"
+          if [[ -z "$tool" || -z "$name" ]]; then
+            echo "Usage: session-forget <zmx|shpool> <name>"; return 1
+          fi
+          [[ "$tool" == zmx || "$tool" == shpool ]] || { echo "tool must be zmx or shpool"; return 1; }
+          [[ "$name" == */* ]] && { echo "invalid session name"; return 1; }
+          local state_base="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions"
+          rm -rf "$state_base/$tool/$name"
+          [[ "$tool" == zmx ]] && rm -f "$state_base/zmx-scrollback/$name.txt"
+          echo "Forgot $tool session: $name"
+        }
+
         # -- Terminal resilience --
         # TUI programs (Bubble Tea, neovim, etc.) enable terminal modes
         # via escape sequences. If the program crashes or SSH drops, the
