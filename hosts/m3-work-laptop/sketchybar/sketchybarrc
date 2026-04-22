@@ -4,9 +4,11 @@
 CONFIG_DIR="$HOME/.config/sketchybar"
 LUA="$HOME/.local/share/sketchybar_lua/lua5.5"
 
-# Build event providers (force clean to pick up nix-deployed source changes)
-(cd "$CONFIG_DIR/helpers/event_providers/cpu_load" && make clean && make) >/dev/null 2>&1
-(cd "$CONFIG_DIR/helpers/event_providers/network_load" && make clean && make) >/dev/null 2>&1
+# Build event providers (skip if binary is already up to date).
+# Avoid `make clean` here: hotload watches this directory tree, and
+# deleting/recreating binaries triggers a reload loop.
+(cd "$CONFIG_DIR/helpers/event_providers/cpu_load" && make) >/dev/null 2>&1
+(cd "$CONFIG_DIR/helpers/event_providers/network_load" && make) >/dev/null 2>&1
 
 # Launch the Lua config (Lua 5.5 matches SbarLua's ABI)
 cd "$CONFIG_DIR" || exit 1
