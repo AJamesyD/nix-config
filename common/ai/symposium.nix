@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
   home.packages = [
+    # ACP proxy agent (symposium-acp-agent binary)
     (pkgs.callPackage ../../pkgs/symposium { })
+    # CLI tool (cargo-agents binary)
+    (pkgs.callPackage ../../pkgs/symposium-cli { })
   ];
 
   # --- Path: v2.0.1 uses dirs::home_dir() -> ~/.symposium/ ---
