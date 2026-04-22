@@ -283,6 +283,10 @@
           ];
         }
         {
+          "if".app-id = "com.mytty.app";
+          run = "move-node-to-workspace 1-dev";
+        }
+        {
           "if".window-title-regex-substring = "neovide";
           run = [
             "layout floating"
