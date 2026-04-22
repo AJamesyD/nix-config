@@ -11,6 +11,7 @@ let
       name,
       identifier,
       entitlements ? null,
+      serviceLabel ? null,
     }:
     ''
       echo "syncing ${name}.app bundle..." >&2
@@ -23,6 +24,11 @@ let
         ${lib.optionalString (entitlements != null) "--entitlements \"${entitlements}\""} \
         -fs - --identifier "${identifier}" \
         "/Applications/${name}.app" 2>&1 || true
+
+      ${lib.optionalString (serviceLabel != null) ''
+        # Restart so the process loads the freshly-signed binary
+        launchctl kickstart -k "gui/$(id -u)/${serviceLabel}" 2>/dev/null || true
+      ''}
     '';
 
   aerospace-swipe = pkgs.callPackage ../../pkgs/aerospace-swipe { };
@@ -184,17 +190,20 @@ in
         src = "${pkgs.sketchybar}/Applications/SketchyBar.app";
         name = "SketchyBar";
         identifier = "com.local.sketchybar";
+        serviceLabel = "org.nixos.sketchybar";
       }}
       ${mkTccApp {
         src = "${pkgs.jankyborders}/Applications/JankyBorders.app";
         name = "JankyBorders";
         identifier = "com.local.jankyborders";
+        serviceLabel = "org.nixos.jankyborders";
       }}
       ${mkTccApp {
         src = "${aerospace-swipe}/Applications/AerospaceSwipe.app";
         name = "AerospaceSwipe";
         identifier = "com.acsandmann.swipe";
         entitlements = "${aerospace-swipe}/share/aerospace-swipe/entitlements.plist";
+        serviceLabel = "com.acsandmann.swipe";
       }}
     '';
 
