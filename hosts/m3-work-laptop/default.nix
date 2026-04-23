@@ -99,33 +99,43 @@ in
     casks = [
       {
         name = "block-goose";
+        greedy = true;
       }
       {
         name = "ghostty";
+        greedy = true;
       }
       {
         name = "hammerspoon";
+        greedy = true;
       }
       {
         name = "neovide-app";
+        greedy = true;
       }
       {
         name = "orbstack";
+        greedy = true;
       }
       {
         name = "visual-studio-code";
+        greedy = true;
       }
       {
         name = "zed";
+        greedy = true;
       }
       {
         name = "zed@preview";
+        greedy = true;
       }
       {
         name = "zen";
+        greedy = true;
       }
       {
         name = "zulip";
+        greedy = true;
       }
     ];
   };
