@@ -109,6 +109,7 @@
           };
         };
       };
+
     };
   };
 
@@ -171,6 +172,10 @@
 
         # Misc
         auto-update = "check";
+        # NOTE: tip channel gets the scrollback memory leak fix
+        #   (https://github.com/ghostty-org/ghostty/pull/10251) before 1.3.2
+        #   stable ships. Switch back to "stable" once 1.3.2 releases.
+        auto-update-channel = "tip";
         shell-integration-features = "cursor,sudo,ssh-env,ssh-terminfo";
         working-directory = "home";
 
