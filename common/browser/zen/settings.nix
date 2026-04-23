@@ -51,6 +51,18 @@
   "sidebar.visibility" = "hide-sidebar";
   "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
 
+  # -- Memory optimization --
+  # Reduce site-isolated content processes (default 4). Trades crash/security
+  # isolation for lower per-process memory overhead. Kept at 2 (not 1) because
+  # this machine handles AWS credentials via container tabs.
+  "dom.ipc.processCount.webIsolated" = 2;
+  "dom.ipc.processPrelaunch.fission.number" = 1;
+  # 5 minutes (in ms); default is 10 minutes
+  "browser.tabs.min_inactive_duration_before_unload" = 300000;
+  "browser.sessionhistory.max_total_viewers" = 4;
+  "browser.sessionhistory.max_entries" = 25;
+  "browser.sessionstore.max_tabs_undo" = 10;
+
   # -- Zen sidebar mods --
   "uc.zen-sidebar.float-at-right-side" = true;
   "uc.zen-sidebar.pin-at-right-side" = true;
