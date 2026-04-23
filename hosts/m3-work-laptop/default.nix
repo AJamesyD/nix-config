@@ -150,7 +150,9 @@ in
     enable = true;
     style = "round";
     width = 10.0;
-    hidpi = true;
+    # HiDPI quadruples per-border texture memory (~15 MB/window).
+    # Disabled to reduce ~310 MB baseline to ~80 MB across 20 windows.
+    hidpi = false;
     ax_focus = true;
     # 50% alpha on inactive border so it fades into background.
     # Uses stylix base03 (comments/muted) for theme durability.
