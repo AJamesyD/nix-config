@@ -1,0 +1,75 @@
+name: Build and cache
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions: {}
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: m3-work-laptop
+            runner: macos-15
+            attr: darwinConfigurations.m3-work-laptop.config.system.build.toplevel
+          - name: dellangelis
+            runner: ubuntu-24.04
+            attr: homeConfigurations.dellangelis.activationPackage
+          - name: al2-x86-cdd
+            runner: ubuntu-24.04
+            attr: homeConfigurations.al2-x86-cdd.activationPackage
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: DeterminateSystems/nix-installer-action@v17
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            always-allow-substitutes = true
+            max-jobs = auto
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/nix
+          key: nix-eval-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
+          restore-keys: nix-eval-${{ runner.os }}-${{ runner.arch }}-
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: nix-config
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          extraPullNames: nix-community
+
+      - name: Build
+        run: >-
+          nix run nixpkgs#nix-fast-build --
+          --no-nom
+          --skip-cached
+          --retries 3
+          --option accept-flake-config true
+          --flake 'git+file:.#${{ matrix.attr }}'
+
+  check:
+    if: always()
+    needs: [build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: re-actors/alls-green@v1.2.2
+        with:
+          jobs: ${{ toJSON(needs) }}

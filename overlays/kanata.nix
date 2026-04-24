@@ -4,22 +4,25 @@
 final: prev:
 let
   version = "1.12.0-prerelease-1";
-  src = prev.fetchFromGitHub {
-    owner = "jtroo";
-    repo = "kanata";
-    rev = "v${version}";
-    hash = "sha256-aYKjC4g3QKfTlZsI2axRNdKEzdW9VSb6o7EtRBmQiqY=";
+  kanata-prebuilt = prev.stdenvNoCC.mkDerivation {
+    pname = "kanata";
+    inherit version;
+    src = prev.fetchurl {
+      url = "https://github.com/jtroo/kanata/releases/download/v${version}/macos-binaries-arm64.zip";
+      hash = "sha256-8vep+XOwBl/E3heNwLmaYmspjMa6ttZo2cdRgIlyT1M=";
+    };
+    nativeBuildInputs = [ prev.unzip ];
+    sourceRoot = ".";
+    installPhase = ''
+      install -Dm755 kanata_macos_arm64 $out/bin/kanata
+    '';
   };
 in
-{
-  kanata = prev.kanata.overrideAttrs (old: {
-    inherit version src;
-    # Binary reports "kanata 1.12.0" without the prerelease suffix
-    doInstallCheck = false;
-    cargoDeps = prev.rustPlatform.fetchCargoVendor {
-      inherit src;
-      name = "kanata-${version}-vendor";
-      hash = "sha256-GhiPQO2kbx8Y5EnGP+XOa2HNLSuH/YW+Yrxffusnhfo=";
-    };
-  });
-}
+if prev.stdenvNoCC.hostPlatform.system == "aarch64-darwin" then
+  {
+    kanata = kanata-prebuilt;
+    # Prevent nixpkgs from building kanata-with-cmd from source
+    kanata-with-cmd = kanata-prebuilt;
+  }
+else
+  { }
