@@ -35,12 +35,7 @@
       qmk
       keymapviz
 
-      # https://github.com/nixos/nixpkgs/issues/456113
-      (cargo-nextest.overrideAttrs (prev: {
-        preConfigure = ''
-          export PATH="$PATH:/usr/sbin"
-        '';
-      }))
+      cargo-nextest
 
       xcodes
     ];

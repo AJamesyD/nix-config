@@ -1,25 +1,38 @@
 {
   lib,
-  rustPlatform,
-  fetchFromGitHub,
+  stdenvNoCC,
+  fetchurl,
 }:
-rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "symposium-cli";
+let
   version = "0.2.1";
-
-  src = fetchFromGitHub {
-    owner = "symposium-dev";
-    repo = "symposium";
-    tag = "symposium-v${finalAttrs.version}";
-    hash = "sha256-s0PYhsHnByHucNha86qdyNxFuHuV/QLZTea7pXkQUCA=";
+  sources = {
+    aarch64-darwin = fetchurl {
+      url = "https://github.com/symposium-dev/symposium/releases/download/symposium-v${version}/cargo-agents-aarch64-apple-darwin.tar.gz";
+      hash = "sha256-n84YzvrZnVvUM9UKTJu8gummMln/JCL30TJajMoI1wk=";
+    };
+    aarch64-linux = fetchurl {
+      url = "https://github.com/symposium-dev/symposium/releases/download/symposium-v${version}/cargo-agents-aarch64-unknown-linux-musl.tar.gz";
+      hash = "sha256-wQOd7ZmB7GW+sN9nc7RZbSfZxSG0uXfSQa5ln4aLYqE=";
+    };
+    x86_64-linux = fetchurl {
+      url = "https://github.com/symposium-dev/symposium/releases/download/symposium-v${version}/cargo-agents-x86_64-unknown-linux-musl.tar.gz";
+      hash = "sha256-5oOX0RkVO6t3pLDSLVS1P9193pghVoBkt65m9MFgLYc=";
+    };
   };
+in
+stdenvNoCC.mkDerivation {
+  pname = "symposium-cli";
+  inherit version;
 
-  cargoHash = "sha256-K81gw5Am+jhOrjsjL4yP/U6VRXtiH5kFLYvsb/bi/g0=";
-  cargoBuildFlags = [
-    "-p"
-    "symposium"
-  ];
-  doCheck = false;
+  src =
+    sources.${stdenvNoCC.hostPlatform.system}
+      or (throw "unsupported system: ${stdenvNoCC.hostPlatform.system}");
+
+  sourceRoot = ".";
+
+  installPhase = ''
+    install -Dm755 cargo-agents $out/bin/cargo-agents
+  '';
 
   meta = {
     description = "Symposium CLI for AI coding agents";
@@ -27,4 +40,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.asl20;
     mainProgram = "cargo-agents";
   };
-})
+}
