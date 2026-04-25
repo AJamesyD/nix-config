@@ -19,7 +19,8 @@
       ];
       connect-timeout = 5;
       # TODO: re-enable once Determinate Nix ships Nix 2.34+
-      #   (currently 2.33.4 in Determinate Nix 3.18.1)
+      #   (currently 2.33.4 in Determinate Nix 3.18.1). Check with:
+      #   `determinate-nixd version` or `nix config show lint-url-literals`
       # lint-url-literals = "warn";
       # TODO: http-connections = 0 (unlimited) may cause issues on Nix 2.35+.
       #   PR #14993 (merged 2026-01-14) limits active curl handles; 0 may mean
