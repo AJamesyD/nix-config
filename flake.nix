@@ -3,12 +3,12 @@
 
   nixConfig = rec {
     extra-substituters = [
-      "https://nix-config.cachix.org?priority=1"
+      "https://ajamesyd-nix-cache.cachix.org?priority=1"
       "https://nix-community.cachix.org?priority=2"
     ];
     extra-trusted-substituters = extra-substituters;
     extra-trusted-public-keys = [
-      "nix-config.cachix.org-1:Vd6raEuldeIZpttVQfrUbLvXJHzzzkS0pezXCVVjDG4="
+      "ajamesyd-nix-cache.cachix.org-1:Y0fyrCv5xarnB+awDmggLF6RL3RJtyxBDRjXo7xlsVw="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
