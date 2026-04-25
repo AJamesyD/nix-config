@@ -1,0 +1,26 @@
+name: Update flake inputs
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Sunday midnight UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: DeterminateSystems/nix-installer-action@v22
+
+      - uses: DeterminateSystems/update-flake-lock@v28
+        with:
+          pr-title: 'chore: update flake inputs'
+          pr-labels: |
+            dependencies
+            automated
