@@ -68,9 +68,31 @@ jobs:
           --option accept-flake-config true
           --flake 'git+file:.#${{ matrix.attr }}'
 
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: DeterminateSystems/nix-installer-action@v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/nix
+          key: nix-eval-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
+          restore-keys: nix-eval-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Check formatting
+        run: nix build .#checks.x86_64-linux.treefmt
+
   check:
     if: always()
-    needs: [build]
+    needs: [build, lint]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
