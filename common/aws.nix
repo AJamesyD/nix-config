@@ -115,6 +115,17 @@ in
         };
         init.defaultBranch = "mainline";
       };
+      includes =
+        let
+          personalDirs = [
+            "~/Code/"
+            "~/.config/"
+          ];
+        in
+        map (dir: {
+          condition = "gitdir:${dir}";
+          contents.user.email = "aidandeangelis@berkeley.edu";
+        }) personalDirs;
     };
     jujutsu.settings = {
       user = {
@@ -122,6 +133,16 @@ in
         email = "angaidan@amazon.com";
       };
       git.push-bookmark-prefix = "angaidan/push-";
+      "--scope" =
+        map
+          (dir: {
+            condition.repositories = [ dir ];
+            user.email = "aidandeangelis@berkeley.edu";
+          })
+          [
+            "~/Code/"
+            "~/.config/"
+          ];
     };
     zsh = {
       initContent = lib.mkMerge [

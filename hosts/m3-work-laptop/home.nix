@@ -109,31 +109,6 @@
   };
 
   programs = {
-    git = {
-      settings.user.email = "angaidan@amazon.com";
-      includes = [
-        {
-          condition = "gitdir:~/Code/";
-          contents.user.email = "aidandeangelis@berkeley.edu";
-        }
-        {
-          condition = "gitdir:~/.config/";
-          contents.user.email = "aidandeangelis@berkeley.edu";
-        }
-      ];
-    };
-
-    jujutsu.settings."--scope" = [
-      {
-        condition.repositories = [ "~/Code/" ];
-        user.email = "aidandeangelis@berkeley.edu";
-      }
-      {
-        condition.repositories = [ "~/.config/" ];
-        user.email = "aidandeangelis@berkeley.edu";
-      }
-    ];
-
     ghostty = {
       enable = true;
       package = null; # installed via Homebrew cask
