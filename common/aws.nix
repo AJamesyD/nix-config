@@ -123,7 +123,8 @@ in
           ];
         in
         map (dir: {
-          condition = "gitdir:${dir}";
+          # gitdir/i: for case-insensitive match (~/Code vs ~/code on Linux)
+          condition = "gitdir/i:${dir}";
           contents.user.email = "aidandeangelis@berkeley.edu";
         }) personalDirs;
     };
