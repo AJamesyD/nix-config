@@ -46,9 +46,9 @@
         ''
           if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
           	run --quiet rustup toolchain install stable --component llvm-tools
-          	run --quiet rustup toolchain install nightly
           	run --quiet rustup update
           fi
+          run --quiet rustup default stable
           run --quiet rustup completions zsh >"$ZCOMPDIR/_rustup"
           run --quiet rustup completions zsh cargo >"$ZCOMPDIR/_cargo"
         '';
