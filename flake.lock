@@ -908,11 +908,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777138498,
-        "narHash": "sha256-mZdL0akv+PiA9h4DXNVGCqUeV5NiODy5lzRWoDsYhtI=",
+        "lastModified": 1777218285,
+        "narHash": "sha256-d2FY71SBVKVbT1PsfXA71jz0vD520NijS4lrcvUMeGk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "026e21038902970e54226133e718e8c197fac799",
+        "rev": "c55c498c9aa205b16cca78b57a7275625726d532",
         "type": "github"
       },
       "original": {
@@ -929,16 +929,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1775587325,
+        "lastModified": 1776642498,
         "narHash": "sha256-oCe5avBeP6zrVjAhm0188D1bWpQ0dOoxSfMHvP70cYI=",
-        "owner": "AJamesyD",
+        "owner": "not-in-stock",
         "repo": "kanata-darwin",
-        "rev": "716900f75769b6f9c93fcde5db4bee928b500ccd",
+        "rev": "f7e3b58e872837cf494ec83457d2a0f228ea0295",
         "type": "github"
       },
       "original": {
-        "owner": "AJamesyD",
-        "ref": "fix/restart-kanata-bar-after-rebuild",
+        "owner": "not-in-stock",
         "repo": "kanata-darwin",
         "type": "github"
       }
@@ -1055,11 +1054,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776829403,
-        "narHash": "sha256-oHVcvP2Ahhj1KUsEzp+2BQF55/r5VSa3QxdPdwE1p00=",
+        "lastModified": 1777181277,
+        "narHash": "sha256-yVJbd07ortDRAttDFmDV5p220aOLTHgVAx//0nW/xW8=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "c43246d4e9e506178b69baed075d797ec2d873e2",
+        "rev": "b8eb7acee0f7604fe1bf6a5b3dcf5254369180fa",
         "type": "github"
       },
       "original": {
@@ -1750,11 +1749,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777138694,
-        "narHash": "sha256-yjAFuyqQyOtQ5entLYmSRf/1L0kuSDWQndS2QNBLQlc=",
+        "lastModified": 1777218171,
+        "narHash": "sha256-+JGU5Cw6Zm3XVl3xBCkbY7/lTxfLQpjuuhF0IB4dJ8k=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "5ceb2bfc5671bfca6b1b363669309d6871043d66",
+        "rev": "8a8e30610393c7f1a766a119dea37bf82d0ebcf6",
         "type": "github"
       },
       "original": {

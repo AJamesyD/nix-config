@@ -49,7 +49,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kanata-darwin = {
-      url = "github:AJamesyD/kanata-darwin/fix/restart-kanata-bar-after-rebuild";
+      url = "github:not-in-stock/kanata-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # No nixpkgs.follows: mac-app-util pins its own nixpkgs to a commit with
