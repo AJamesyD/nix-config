@@ -235,7 +235,13 @@ in
             npm cache clean --force
             uv cache clean
             toolbox clean
-            ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Caches/zen''}
+            rm -rf ~/.cache/nix ~/.cache/zig ~/.cache/bazel ~/.cache/puppeteer
+            rm -rf ~/.npm/_npx
+            rm -rf ~/.builder-mcp/logs
+            rm -rf ~/.local/share/opencode/log
+            rm -rf ~/.gradle/caches
+            go clean -modcache 2>/dev/null || true
+            ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Application\ Support/Spotify/PersistentCache ~/Library/Caches/zen ~/Library/Application\ Support/Slack/Cache ~/Library/Application\ Support/Slack/Service\ Worker ~/Library/Containers/com.apple.wallpaper.agent/Data ~/Library/Application\ Support/zoom.us/asr''}
             ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf {} 2>/dev/null
           '';
 
