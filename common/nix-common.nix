@@ -18,6 +18,9 @@
         "nix-command"
       ];
       connect-timeout = 5;
+      narinfo-cache-negative-ttl = 5 * 60;
+      stalled-download-timeout = 60;
+      tarball-ttl = 24 * 60 * 60;
       # TODO: re-enable once Determinate Nix ships Nix 2.34+
       #   (currently 2.33.4 in Determinate Nix 3.18.1). Check with:
       #   `determinate-nixd version` or `nix config show lint-url-literals`
