@@ -44,8 +44,6 @@
             # NOTE: First one becomes default
             "lts"
             "22"
-            "20"
-            "18"
           ];
         };
       };
