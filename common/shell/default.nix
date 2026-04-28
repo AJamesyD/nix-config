@@ -53,7 +53,7 @@ in
         '';
       nix-clean = # bash
         ''
-          nix-collect-garbage -d
+          nix-collect-garbage --delete-older-than 5d
           nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
         '';
       nixup =

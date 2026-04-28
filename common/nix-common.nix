@@ -2,7 +2,7 @@
   nix = {
     gc = {
       automatic = true;
-      options = "--delete-older-than 28d";
+      options = "--delete-older-than 5d";
     };
 
     settings = {
@@ -11,6 +11,13 @@
       # nil, etc.) that pre-commit hooks reference via store paths.
       # Recommended by nix-direnv. Costs ~30% more store space.
       keep-outputs = true;
+
+      # Trigger GC when free disk space drops below 10 GB. Daemon-side
+      # setting: on multi-user Linux installs (Determinate Nix), this
+      # only takes effect from /etc/nix/nix.conf or nix.custom.conf,
+      # not from the home-manager-generated ~/.config/nix/nix.conf.
+      # On nix-darwin, nix-daemon.nix writes it to /etc/nix/nix.conf.
+      min-free = 10 * 1024 * 1024 * 1024;
 
       download-buffer-size = 500 * 1024 * 1024; # 500MB
       experimental-features = [
