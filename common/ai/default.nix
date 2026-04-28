@@ -2,6 +2,7 @@
 {
   imports = [
     ./claude.nix
+    ./pi.nix
     ./rtk.nix
     ./symposium.nix
   ];
@@ -16,6 +17,8 @@
   ];
 
   home.sessionVariables = {
+    AWS_BEDROCK_FORCE_CACHE = "1";
+
     OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
     OPENCODE_ENABLE_EXA = "1";
     OPENCODE_DISABLE_AUTOUPDATE = "1";
