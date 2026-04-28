@@ -122,10 +122,6 @@ in
         greedy = true;
       }
       {
-        name = "zed";
-        greedy = true;
-      }
-      {
         name = "zed@preview";
         greedy = true;
       }
@@ -198,18 +194,21 @@ in
 
   system = {
     activationScripts.postActivation.text = ''
+
       ${mkTccApp {
         src = "${pkgs.sketchybar}/Applications/SketchyBar.app";
         name = "SketchyBar";
         identifier = "com.local.sketchybar";
         serviceLabel = "org.nixos.sketchybar";
       }}
+
       ${mkTccApp {
         src = "${pkgs.jankyborders}/Applications/JankyBorders.app";
         name = "JankyBorders";
         identifier = "com.local.jankyborders";
         serviceLabel = "org.nixos.jankyborders";
       }}
+
       ${mkTccApp {
         src = "${aerospace-swipe}/Applications/AerospaceSwipe.app";
         name = "AerospaceSwipe";
@@ -217,17 +216,16 @@ in
         entitlements = "${aerospace-swipe}/share/aerospace-swipe/entitlements.plist";
         serviceLabel = "com.acsandmann.swipe";
       }}
-
-      # HACK: neutralize Amazon Connections (no official opt-out exists).
-      #   ACME re-deploys the app, so this must re-apply on every rebuild.
-      #   Remove if Amazon adds an official disable mechanism.
-      #   Context: https://sage.amazon.com/posts/1459829
-      conn_main="/Applications/AmazonConnections.app/Contents/Resources/app/main.js"
-      if [ -f "$conn_main" ] && ! head -1 "$conn_main" | grep -q 'app.quit' 2>/dev/null; then
-        cp "$conn_main" "''${conn_main}.bak"
-        printf 'require("electron").app.quit();\n' > "$conn_main"
-        echo "neutralized Amazon Connections (backup at ''${conn_main}.bak)" >&2
-      fi
+            # HACK: neutralize Amazon Connections (no official opt-out exists).
+            #   ACME re-deploys the app, so this must re-apply on every rebuild.
+            #   Remove if Amazon adds an official disable mechanism.
+            #   Context: https://sage.amazon.com/posts/1459829
+            conn_main="/Applications/AmazonConnections.app/Contents/Resources/app/main.js"
+            if [ -f "$conn_main" ] && ! head -1 "$conn_main" | grep -q 'app.quit' 2>/dev/null; then
+            	cp "$conn_main" "''${conn_main}.bak"
+            	printf 'require("electron").app.quit();\n' >"$conn_main"
+            	echo "neutralized Amazon Connections (backup at ''${conn_main}.bak)" >&2
+            fi
     '';
 
     defaults = {
