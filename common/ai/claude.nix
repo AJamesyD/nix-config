@@ -19,5 +19,10 @@
     CLAUDE_CODE_TMUX_TRUECOLOR = "1";
     CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
     ANTHROPIC_MODEL = "us.anthropic.claude-opus-4-6-v1";
+    # Disable auto-compaction: prefer fresh sessions with handoff notes
+    DISABLE_AUTO_COMPACT = "1";
+    # Model picker and subagent defaults (us. prefix = US-geo CRIS routing)
+    ANTHROPIC_DEFAULT_OPUS_MODEL = "us.anthropic.claude-opus-4-6-v1";
+    ANTHROPIC_DEFAULT_SONNET_MODEL = "us.anthropic.claude-sonnet-4-6";
   };
 }
