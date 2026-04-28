@@ -201,7 +201,7 @@ in
       sessionVariables = {
         # From default .zshrc written by `brazil setup completion`
         # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
-        AWS_EC2_METADATA_DISABLED = true;
+        AWS_EC2_METADATA_DISABLED = "true";
         BRAZIL_PLATFORM_OVERRIDE =
           if pkgs.stdenv.hostPlatform.isAarch64 then
             "AL2_aarch64"
