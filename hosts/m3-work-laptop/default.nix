@@ -192,6 +192,36 @@ in
       "order=${cfg.order}"
     ];
 
+  # HACK: periodic restart of JankyBorders (memory leak,
+  #   https://github.com/FelixKratz/JankyBorders/pull/191) and orphaned ACME
+  #   AEA process cleanup (fixed in AEA v1.19.x).
+  #   Remove individual tasks as upstream fixes ship.
+  launchd.user.agents.cleanup = {
+    serviceConfig = {
+      Label = "local.cleanup";
+      ProgramArguments = [
+        "/bin/sh"
+        "-c"
+        ''
+          /usr/bin/pkill -x borders
+          /bin/sleep 2
+          /bin/launchctl kickstart "gui/$(/usr/bin/id -u)/org.nixos.jankyborders"
+          /bin/sleep 3
+          /usr/bin/pgrep -x borders >/dev/null || echo "borders did not restart" >&2
+
+          /usr/bin/pgrep -f '[a]cme_amazon_enterprise_access' | while read pid; do
+            ppid=$(/bin/ps -o ppid= -p "$pid" 2>/dev/null | /usr/bin/tr -d " ")
+            if [ "$ppid" = "1" ]; then kill "$pid"; fi
+          done
+        ''
+      ];
+      StartInterval = 28800;
+      ProcessType = "Background";
+      StandardOutPath = "/tmp/cleanup-agent.log";
+      StandardErrorPath = "/tmp/cleanup-agent.log";
+    };
+  };
+
   system = {
     activationScripts.postActivation.text = ''
 
