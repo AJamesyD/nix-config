@@ -33,7 +33,7 @@
         ''
           run --quiet mise prune --yes --quiet
           if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
-          	run --quiet mise plugins update --yes --quiet
+          	run --silence mise plugins update --yes --quiet
           	run --quiet mise install --yes --quiet
           fi
         '';
