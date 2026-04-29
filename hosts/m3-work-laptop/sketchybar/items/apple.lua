@@ -24,20 +24,23 @@ local apple = sbar.add("item", "apple.logo", {
 })
 
 local popup_items = {
-  { name = "preferences", label = "Preferences", icon = icons.preferences, cmd = "open -a 'System Preferences'" },
+  { name = "preferences", label = "System Settings", icon = icons.preferences, cmd = "open -a 'System Settings'" },
   { name = "activity", label = "Activity", icon = icons.activity, cmd = "open -a 'Activity Monitor'" },
-  { name = "lock", label = "Lock Screen", icon = icons.lock, cmd = "pmset displaysleepnow" },
+  -- NOTE: simulates ⌃⌘Q (Lock Screen). Requires Accessibility permission for sketchybar.
+  { name = "lock", label = "Lock Screen", icon = icons.lock, cmd = "osascript -e 'tell application \"System Events\" to keystroke \"q\" using {control down, command down}'" },
   {
     name = "restart",
     label = "Restart",
     icon = icons.power.restart,
-    cmd = "osascript -e 'tell app \"System Events\" to restart'",
+    -- NOTE: loginwindow «event aevtrrst» is the same Apple Event the menu bar uses.
+    --   Properly tears down KeepAlive launchd agents, unlike System Events.
+    cmd = "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'",
   },
   {
     name = "shutdown",
     label = "Shut Down",
     icon = icons.power.shutdown,
-    cmd = "osascript -e 'tell app \"System Events\" to shut down'",
+    cmd = "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'",
   },
 }
 
