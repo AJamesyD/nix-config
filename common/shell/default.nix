@@ -51,9 +51,17 @@ in
           unset GITHUB_TOKEN
           export GITHUB_TOKEN="$(gh auth token)"
         '';
-      nix-clean = # bash
+      nix-clean =
+        let
+          cleanCmd =
+            if pkgs.stdenv.isDarwin then
+              "sudo nh clean all --keep 5 --keep-since 14d"
+            else
+              "nh clean user --keep 5 --keep-since 14d";
+        in
+        # bash
         ''
-          nix-collect-garbage --delete-older-than 5d
+          ${cleanCmd}
           nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
         '';
       nixup =

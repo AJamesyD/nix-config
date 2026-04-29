@@ -1,13 +1,17 @@
 {
   nix = {
     gc = {
+      # NOTE: fallback only. Primary GC is `nh clean` (via nix-clean alias)
+      #   which supports generation-count retention. This threshold should
+      #   stay >= nh clean's --keep-since value to avoid deleting generations
+      #   that nh clean would preserve.
       automatic = true;
-      options = "--delete-older-than 5d";
+      options = "--delete-older-than 14d";
     };
 
     settings = {
       # Retain build outputs reachable from existing GC roots. Prevents
-      # nix-collect-garbage from deleting devshell tool binaries (treefmt,
+      # garbage collection from deleting devshell tool binaries (treefmt,
       # nil, etc.) that pre-commit hooks reference via store paths.
       # Recommended by nix-direnv. Costs ~30% more store space.
       keep-outputs = true;
