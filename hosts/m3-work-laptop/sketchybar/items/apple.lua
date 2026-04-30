@@ -27,7 +27,12 @@ local popup_items = {
   { name = "preferences", label = "System Settings", icon = icons.preferences, cmd = "open -a 'System Settings'" },
   { name = "activity", label = "Activity", icon = icons.activity, cmd = "open -a 'Activity Monitor'" },
   -- NOTE: simulates ⌃⌘Q (Lock Screen). Requires Accessibility permission for sketchybar.
-  { name = "lock", label = "Lock Screen", icon = icons.lock, cmd = "osascript -e 'tell application \"System Events\" to keystroke \"q\" using {control down, command down}'" },
+  {
+    name = "lock",
+    label = "Lock Screen",
+    icon = icons.lock,
+    cmd = 'osascript -e \'tell application "System Events" to keystroke "q" using {control down, command down}\'',
+  },
   {
     name = "restart",
     label = "Restart",
