@@ -222,6 +222,29 @@ in
     };
   };
 
+  # Weekly reset of Ava Reveal (FortiDLP) agent to prevent memory/thread bloat.
+  # The agent accumulates SQLite state over time, growing to 6+ GB RAM and 1000+
+  # threads. Reset clears state while preserving enrollment.
+  launchd.daemons.reveal-reset = {
+    serviceConfig = {
+      Label = "local.reveal-reset";
+      ProgramArguments = [
+        "/Library/Application Support/Ava/Reveal/agent/agent"
+        "reset"
+      ];
+      StartCalendarInterval = [
+        {
+          Weekday = 7;
+          Hour = 3;
+          Minute = 0;
+        }
+      ];
+      ProcessType = "Background";
+      StandardOutPath = "/tmp/reveal-reset.log";
+      StandardErrorPath = "/tmp/reveal-reset.log";
+    };
+  };
+
   system = {
     activationScripts.postActivation.text = ''
 
