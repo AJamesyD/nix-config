@@ -259,6 +259,9 @@ in
     '';
 
     defaults = {
+      CustomUserPreferences."com.apple.assistant.support" = {
+        "Assistant Enabled" = false;
+      };
       dock = {
         persistent-apps = [
           "Applications/Microsoft Outlook.app"
