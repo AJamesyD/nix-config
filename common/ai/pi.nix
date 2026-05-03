@@ -6,7 +6,7 @@
 }:
 {
   home.packages = [
-    inputs.llm-agents.packages.${pkgs.system}.pi
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
   home.sessionVariables = {
