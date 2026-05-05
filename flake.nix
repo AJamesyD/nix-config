@@ -113,6 +113,13 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    amzn-community = {
+      url = "git+ssh://git.amazon.com:2222/pkg/AmznNix-Community";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs =

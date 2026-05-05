@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    ../../common/aws.nix
+    ../../common/aws
     ../../common/dev.nix
     ../../common/ssh.nix
     ../../common/nix-common.nix
@@ -136,4 +136,6 @@
       ];
     };
   };
+
+  programs.toolbox.currentPlatform = "alinux";
 }

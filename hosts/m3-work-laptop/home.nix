@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ../../common/aws.nix
+    ../../common/aws
     ../../common/browser
     ../../common/browser/zen/amazon.nix
     ../../common/dev.nix
@@ -305,4 +305,6 @@
       };
     };
   };
+
+  programs.toolbox.currentPlatform = "osx";
 }

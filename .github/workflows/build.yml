@@ -67,6 +67,7 @@ jobs:
           --skip-cached
           --retries 3
           --option accept-flake-config true
+          --override-input amzn-community path:./ci/stub-amzn-community
           --cachix-cache ajamesyd-nix-cache
           --flake 'git+file:.#${{ matrix.attr }}'
 
@@ -90,7 +91,7 @@ jobs:
           restore-keys: nix-eval-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Check formatting
-        run: nix build .#checks.x86_64-linux.treefmt
+        run: nix build .#checks.x86_64-linux.treefmt --override-input amzn-community path:./ci/stub-amzn-community
 
   check:
     if: always()

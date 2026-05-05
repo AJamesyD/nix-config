@@ -9,6 +9,8 @@ let
   user = config.home.username;
 in
 {
+  imports = [ ./toolbox.nix ];
+
   home = {
     # Persistent socket avoids repeated auth handshakes for git operations
     file.".ssh/config.d/aws.conf".text = ''
