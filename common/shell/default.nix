@@ -64,7 +64,7 @@ in
           ${cleanCmd}
           nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
         '';
-      nixup =
+      nixswitch =
         let
           switchCmd =
             if pkgs.stdenv.isDarwin then
@@ -75,10 +75,15 @@ in
         # bash
         ''
           ghauth
-          nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
           ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN"
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
           zsource
+        '';
+      nixup = # bash
+        ''
+          ghauth
+          nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
+          nixswitch
         '';
       v = "nvim";
       gu = "gitui";
@@ -120,7 +125,7 @@ in
         # bash
         ''
           # PERF: cache eval output from tools whose init is static between rebuilds.
-          # Invalidated by nixup (which clears the cache dir before zsource).
+          # Invalidated by nixswitch (which clears the cache dir before zsource).
           _cache_eval() {
             local name=$1; shift
             local cache="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval/$name.zsh"
