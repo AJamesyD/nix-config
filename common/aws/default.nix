@@ -49,7 +49,7 @@ in
 
     packages = with pkgs; [
       awscli2
-      cdk
+      aws-cdk-cli
     ];
 
     sessionPath = lib.optionals pkgs.stdenv.isLinux [ "/apollo/env/bt-rust/bin" ];
