@@ -153,71 +153,7 @@ in
       shell = "${pkgs.zsh}/bin/zsh";
       # Prefix is C-b (default). C-a is freed for which-key root table binding.
       terminal = "tmux-256color";
-      extraConfig = # tmux
-        ''
-          # -- Options --
-          # WARNING: do not set status-left or status-right here. This block runs
-          # after all plugin run-shells, so it would overwrite continuum's save
-          # trigger. Set them in catppuccin's extraConfig above instead.
-
-          # SSH_CLIENT is missing from tmux's default update-environment list,
-          # so it goes stale across attach cycles (SSH_CONNECTION is included by default).
-          set -ga update-environment SSH_CLIENT
-
-          set -g status-position top
-          set -g status-interval 5
-
-          set -as terminal-features "xterm-ghostty:RGB:clipboard:ccolour:cstyle:focus:hyperlinks:strikethrough:title:usstyle"
-
-          set -g display-panes-time 800
-          set -g display-time 1000
-
-          setw -g automatic-rename on
-          set -g renumber-windows on
-          set -g set-titles on
-          set -g set-titles-string "#S / #W"
-
-          setw -g monitor-activity off
-          set -g visual-activity off
-
-          set -g set-clipboard on
-          set -g extended-keys on
-
-          # yazi image preview needs passthrough ( https://yazi-rs.github.io/docs/image-preview )
-          # Security tradeoff: any pane program can send arbitrary terminal escapes.
-          # tmux 3.7+ adds 'signed' mode; revisit when available.
-          set -g allow-passthrough on
-
-          # Cycle windows
-          bind-key C-a next-window
-          bind-key C-b previous-window
-
-          # Prefer next session on destroy; detach only when none left (tmux 3.4+)
-          set -g detach-on-destroy no-detached
-
-          # -- Root-table bindings (vim-aware, not prefix-triggered) --
-          # https://github.com/mrjones2014/smart-splits.nvim?tab=readme-ov-file#tmux
-          # Smart pane switching with awareness of Neovim splits.
-          bind-key -n C-h if -F "#{@pane-is-vim}" 'send-keys C-h' 'select-pane -L'
-          bind-key -n C-j if -F "#{@pane-is-vim}" 'send-keys C-j' "if '[ \"#{pane_current_command}\" = \"lazygit\" ] || [ \"#{pane_current_command}\" = \"gitui\" ]' 'send-keys C-j' 'select-pane -D'"
-          bind-key -n C-k if -F "#{@pane-is-vim}" 'send-keys C-k' "if '[ \"#{pane_current_command}\" = \"lazygit\" ] || [ \"#{pane_current_command}\" = \"gitui\" ]' 'send-keys C-k' 'select-pane -U'"
-          bind-key -n C-l if -F "#{@pane-is-vim}" 'send-keys C-l' 'select-pane -R'
-
-          # Smart pane resizing with awareness of Neovim splits.
-          bind-key -n M-h if -F "#{@pane-is-vim}" 'send-keys M-h' 'resize-pane -L 3'
-          bind-key -n M-j if -F "#{@pane-is-vim}" 'send-keys M-j' 'resize-pane -D 3'
-          bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-k' 'resize-pane -U 3'
-          bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-l' 'resize-pane -R 3'
-
-          # -- Copy mode --
-          bind -T copy-mode-vi v send -X begin-selection # start selecting text with "v"
-          bind -T copy-mode-vi C-v send -X rectangle-toggle
-          bind -T copy-mode-vi y send -X copy-selection-and-cancel # copy text with "y"
-          bind -T copy-mode-vi Escape send -X cancel
-          bind -T copy-mode-vi ^ send -X start-of-line
-          bind -T copy-mode-vi $ send -X end-of-line
-
-        '';
+      extraConfig = builtins.readFile ./extra.conf;
     };
   };
 }

@@ -199,52 +199,7 @@
     };
     gitui = {
       enable = true;
-      keyConfig = # ron
-        ''
-          (
-            // Vim-style movement (from vim preset)
-            open_help: Some(( code: F(1), modifiers: "")),
-            move_left: Some(( code: Char('h'), modifiers: "")),
-            move_right: Some(( code: Char('l'), modifiers: "")),
-            move_up: Some(( code: Char('k'), modifiers: "")),
-            move_down: Some(( code: Char('j'), modifiers: "")),
-            popup_up: Some(( code: Char('p'), modifiers: "CONTROL")),
-            popup_down: Some(( code: Char('n'), modifiers: "CONTROL")),
-            page_up: Some(( code: Char('b'), modifiers: "CONTROL")),
-            page_down: Some(( code: Char('f'), modifiers: "CONTROL")),
-            home: Some(( code: Char('g'), modifiers: "")),
-            end: Some(( code: Char('G'), modifiers: "SHIFT")),
-            shift_up: Some(( code: Char('K'), modifiers: "SHIFT")),
-            shift_down: Some(( code: Char('J'), modifiers: "SHIFT")),
-
-            // Lazygit-compatible: Space to stage (lazygit uses Space, gitui default is Enter)
-            stage_unstage_item: Some(( code: Char(' '), modifiers: "")),
-
-            // Lazygit-compatible: P to push, p to pull (gitui default is inverted: p=push, f=pull)
-            push: Some(( code: Char('P'), modifiers: "SHIFT")),
-            force_push: Some(( code: Char('P'), modifiers: "CONTROL")),
-            pull: Some(( code: Char('p'), modifiers: "")),
-
-            // Lazygit-compatible: e to edit file
-            edit_file: Some(( code: Char('e'), modifiers: "")),
-
-            // Lazygit-compatible: S to stash (lazygit uses 's' in stash menu)
-            stashing_save: Some(( code: Char('S'), modifiers: "SHIFT")),
-
-            // Discard changes: lazygit uses 'd'
-            status_reset_item: Some(( code: Char('d'), modifiers: "")),
-            diff_reset_lines: Some(( code: Char('d'), modifiers: "")),
-
-            // Abort merge: lazygit uses escape-based flow, map to Shift+A
-            abort_merge: Some(( code: Char('A'), modifiers: "SHIFT")),
-
-            // Log: mark commit with Space (matches lazygit's commit selection)
-            log_mark_commit: Some(( code: Char(' '), modifiers: "")),
-
-            // Undo commit: lazygit uses 'z', gitui uses Shift+U
-            undo_commit: Some(( code: Char('z'), modifiers: "")),
-          )
-        '';
+      keyConfig = builtins.readFile ./editor/gitui-keys.ron;
     };
     mergiraf = {
       enable = true;
