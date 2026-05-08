@@ -81,14 +81,17 @@
           name=$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='kill> ' --no-select-1 --no-exit-0) || return
           shpool kill "$name" 2>/dev/null && session-forget shpool "$name" 2>/dev/null
         }
+
+        spa() {
+          local name
+          name=$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='attach> ' --no-select-1 --no-exit-0) || return
+          _mux_attach "$name" shpool attach --force "$name" 2>/dev/null
+        }
       '';
       shellAliases = {
         auth = "mwinit -o";
         up = "sudo yum upgrade -y && nixup";
-        spa = # bash
-          ''
-            shpool attach --force "$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
-          '';
+
         # Borrowed from https://github.com/shell-pool/shpool/issues/49#issue-2355077641
         shll = lib.removeSuffix "\n" (builtins.readFile ./shll.sh);
       };

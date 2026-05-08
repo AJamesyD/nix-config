@@ -87,10 +87,6 @@ in
         '';
       v = "nvim";
       gu = "gitui";
-      zma = # bash
-        ''
-          zmx attach "$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0)" 2>/dev/null
-        '';
       zsource = # bash
         ''
           source "$ZDOTDIR/.zshenv"

@@ -38,7 +38,7 @@ if command -v zmx &>/dev/null; then
       return 130
     fi
 
-    zmx attach "$session_name"
+    _mux_attach "$session_name" zmx attach "$session_name"
   }
 fi
 
@@ -320,3 +320,16 @@ function _title_preexec() { _title_set "${1[(wr)^(*=*|sudo|ssh|mosh|-*)]}" }
 
 add-zsh-hook precmd  _title_precmd
 add-zsh-hook preexec _title_preexec
+
+_mux_attach() {
+  local name=$1; shift
+  print -n "\e]0;⚡ ${name}\a"
+  "$@"
+  _title_set "$(_title_name)"
+}
+
+zma() {
+  local name
+  name=$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0) || return
+  _mux_attach "$name" zmx attach "$name" 2>/dev/null
+}
