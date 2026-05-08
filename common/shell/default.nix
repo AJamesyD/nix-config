@@ -75,14 +75,14 @@ in
         # bash
         ''
           ghauth
-          ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN"
+          ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
           zsource
         '';
       nixup = # bash
         ''
           ghauth
-          nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN"
+          nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
           nixswitch
         '';
       v = "nvim";

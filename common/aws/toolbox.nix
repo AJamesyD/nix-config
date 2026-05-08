@@ -1,7 +1,8 @@
 # NOTE: Tools managed here must NOT also appear in home.packages.
 # Toolbox provides Amazon-specific wrappers (credentials, routing).
 # Nix manages open-source tools without Amazon integrations.
-_: {
+{ pkgs, ... }:
+{
   programs.toolbox = {
     enable = true;
 
@@ -11,7 +12,7 @@ _: {
     cr.enable = true;
     eda.enable = true;
     kiro.cli.enable = true;
-    rust-analyzer.enable = true;
+    rust-analyzer.enable = pkgs.stdenv.isLinux;
 
     registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
 
