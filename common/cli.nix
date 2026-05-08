@@ -43,6 +43,11 @@
   };
 
   programs = {
+    asciinema = {
+      enable = true;
+      package = pkgs.asciinema_3;
+      settings.cmd.idle_time_limit = 5;
+    };
     btop = {
       enable = true;
       settings = {
