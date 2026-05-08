@@ -12,6 +12,7 @@
     cr.enable = true;
     eda.enable = true;
     kiro.cli.enable = true;
+    # NOTE: toolbox rust-analyzer only supports AL2; nix provides it on darwin.
     rust-analyzer.enable = pkgs.stdenv.isLinux;
 
     registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";

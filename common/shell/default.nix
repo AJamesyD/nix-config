@@ -604,6 +604,10 @@ in
       enable = true;
       package = (pkgs.callPackage "${inputs.direnv-instant}/default.nix" { }).overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [ ../../patches/direnv-instant-always-async.patch ];
+        # HACK: skip all tests because ctrl_c_cancels_direnv_in_non_mux_mode
+        #   panics in the nix sandbox (no real terminal). Remove when upstream
+        #   gates that test on $IN_NIX_SANDBOX or similar.
+        doCheck = false;
       });
     };
     fzf = {

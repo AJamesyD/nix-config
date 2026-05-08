@@ -76,6 +76,15 @@ in
             "brazil"
           ] # bash
           ''
+            # HACK: amzn-community manages brazil.prefs as a read-only nix store
+            #   symlink, but brazil prefs --global needs to write it. Replace with
+            #   a writable copy. Remove when amzn-community exposes a prefs option.
+            _brazil_prefs="$HOME/.config/brazil/brazil.prefs"
+            if [[ -L "$_brazil_prefs" ]]; then
+            	cp --remove-destination "$(readlink "$_brazil_prefs")" "$_brazil_prefs"
+            	chmod 644 "$_brazil_prefs"
+            fi
+
             if [[ -d /Volumes/brazil-pkg-cache ]]; then
             	run brazil prefs --key packagecache.cacheRoot --value /Volumes/brazil-pkg-cache --global
             	run brazil prefs --key packagecache.visibleCacheRoot --value /Volumes/brazil-pkg-cache --global
