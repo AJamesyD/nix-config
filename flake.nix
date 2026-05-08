@@ -19,8 +19,11 @@
       flake = false;
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # HACK: pinned to last rev before workspace.nix added libghostty-vt dep
+    #   which breaks flakes integration (callPackageWith missing arg).
+    #   Unpin once cachix/devenv ships a fix.
     devenv = {
-      url = "github:cachix/devenv";
+      url = "github:cachix/devenv/046cd4c44e27cace2fdca06e2096d32597ebf9d2";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         git-hooks.follows = "git-hooks-nix";
