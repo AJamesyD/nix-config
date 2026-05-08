@@ -5,7 +5,6 @@
   ...
 }:
 let
-  brazilCompletionDir = "${config.home.homeDirectory}/.brazil_completion";
   user = config.home.username;
 in
 {
@@ -22,23 +21,17 @@ in
     '';
 
     activation = {
-      builderToolbox =
+      toolboxCompletions =
         lib.hm.dag.entryAfter
           [
             "writeBoundary"
             "envSetup"
+            "toolboxTools"
           ] # bash
           ''
-            export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
-
             # Don't use `run --quiet` for completion generation: it redirects stdout
             # to /dev/null internally, so `run --quiet cmd > file` produces empty files
             toolbox completion zsh >"$ZCOMPDIR/_toolbox" 2>/dev/null
-
-            if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
-            	run --quiet toolbox update
-            	run --quiet toolbox clean
-            fi
 
             if command -v axe >/dev/null 2>&1; then
             	axe completion zsh >"$ZCOMPDIR/_axe" 2>/dev/null
@@ -52,46 +45,6 @@ in
             	eda completions zsh >"$ZCOMPDIR/_eda" 2>/dev/null
             fi
           '';
-      brazil =
-        lib.hm.dag.entryAfter
-          [
-            "writeBoundary"
-            "builderToolbox"
-          ] # bash
-          ''
-            if curl -sf --max-time 2 https://nix-config.cachix.org >/dev/null 2>&1; then
-            	# Brazil will write ~/.brazil_completion/zsh_completion then fail to modify .zshrc
-            	run --silence brazil setup completion --shell zsh || true
-            fi
-          '';
-      # Point brazil package cache at the case-sensitive APFS volume (macOS only).
-      # Without this, brazil defaults to ~/brazil-pkg-cache on the
-      # case-insensitive root volume and warns on every cache operation.
-    }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      brazilPackageCache =
-        lib.hm.dag.entryAfter
-          [
-            "writeBoundary"
-            "brazil"
-          ] # bash
-          ''
-            # HACK: amzn-community manages brazil.prefs as a read-only nix store
-            #   symlink, but brazil prefs --global needs to write it. Replace with
-            #   a writable copy. Remove when amzn-community exposes a prefs option.
-            _brazil_prefs="$HOME/.config/brazil/brazil.prefs"
-            if [[ -L "$_brazil_prefs" ]]; then
-            	cp --remove-destination "$(readlink "$_brazil_prefs")" "$_brazil_prefs"
-            	chmod 644 "$_brazil_prefs"
-            fi
-
-            if [[ -d /Volumes/brazil-pkg-cache ]]; then
-            	run brazil prefs --key packagecache.cacheRoot --value /Volumes/brazil-pkg-cache --global
-            	run brazil prefs --key packagecache.visibleCacheRoot --value /Volumes/brazil-pkg-cache --global
-            else
-            	_iWarn "brazil-pkg-cache volume not found. Create it with: diskutil apfs addVolume \"\$(diskutil apfs list | awk -F: '/Container Reference/{gsub(\" \",\"\"); print \$2}')\" 'Case-sensitive APFS' brazil-pkg-cache"
-            fi
-          '';
     };
 
     packages = with pkgs; [
@@ -99,10 +52,7 @@ in
       cdk
     ];
 
-    sessionPath = [
-      "${config.home.homeDirectory}/.toolbox/bin"
-    ]
-    ++ lib.optionals pkgs.stdenv.isLinux [ "/apollo/env/bt-rust/bin" ];
+    sessionPath = lib.optionals pkgs.stdenv.isLinux [ "/apollo/env/bt-rust/bin" ];
   };
 
   # bemol: generate ty.toml alongside pyright/pylance for Brazil
@@ -166,17 +116,13 @@ in
         (lib.mkOrder 550
           # bash
           ''
-            local BRAZIL_ZSH_COMPLETION="${brazilCompletionDir}/zsh_completion"
-            if [[ -f "$BRAZIL_ZSH_COMPLETION" ]]; then
-            	# PERF: brazil_completion.zsh calls compinit internally — suppress
-            	# the redundant call (already done earlier) but allow bashcompinit.
+            local _bz_comp=(~/.toolbox/tools/brazilcli/*/bin/brazil_completion.zsh(NOm[1]))
+            if [[ -n "$_bz_comp" ]]; then
             	functions[__saved_compinit]=$functions[compinit]
             	compinit() { : }
-            	source "$BRAZIL_ZSH_COMPLETION"
+            	source "$_bz_comp"
             	functions[compinit]=$functions[__saved_compinit]
             	unfunction __saved_compinit
-            else
-            	echo "WARNING: brazil zsh completions have not been set up"
             fi
           ''
         )

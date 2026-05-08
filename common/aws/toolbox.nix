@@ -1,7 +1,7 @@
 # NOTE: Tools managed here must NOT also appear in home.packages.
 # Toolbox provides Amazon-specific wrappers (credentials, routing).
 # Nix manages open-source tools without Amazon integrations.
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.toolbox = {
     enable = true;
@@ -16,6 +16,15 @@
     rust-analyzer.enable = pkgs.stdenv.isLinux;
 
     registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
+
+    brazil-cli.settings = lib.optionalAttrs pkgs.stdenv.isDarwin {
+      # NOTE: lowercase `packagecache` is the host-side cache section.
+      # Distinct from the module's auto-generated `[packageCache]` (capital C) sandbox section.
+      packagecache = {
+        cacheRoot = "/Volumes/brazil-pkg-cache";
+        visibleCacheRoot = "/Volumes/brazil-pkg-cache";
+      };
+    };
 
     tools = {
       ada.enable = true;
