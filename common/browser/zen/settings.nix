@@ -51,6 +51,15 @@
   "sidebar.visibility" = "hide-sidebar";
   "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
 
+  # -- Power optimization --
+  # Throttle background tab JS timers from 1s to 10s. With 20+ tabs across
+  # workspaces (which Zen keeps fully loaded), this cuts CPU wake-ups
+  # significantly. Failure mode: stale data until tab is focused.
+  "dom.min_background_timeout_value" = 10000;
+  # Unload inactive tabs after 5 min (default 10). More aggressive given
+  # this machine regularly hits memory pressure with 20+ tabs.
+  "zen.tab-unloader.timeout-minutes" = 5;
+
   # -- Memory optimization --
   # Reduce site-isolated content processes (default 4). Trades crash/security
   # isolation for lower per-process memory overhead. Kept at 2 (not 1) because
