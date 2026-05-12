@@ -123,6 +123,10 @@
         home-manager.follows = "home-manager";
       };
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -175,7 +179,11 @@
                 nix-fast-build
                 nix-output-monitor
                 nix-tree
+                # Secrets
+                sops
+                age
               ];
+              env.SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
               # devenv manages .pre-commit-config.yaml as a symlink to a nix store path.
               # A race condition (git-hooks.nix #685) can replace the symlink with a
               # regular file, breaking GC protection. .envrc auto-detects and removes

@@ -7,6 +7,7 @@ _: {
     ./git.nix
     ./languages
     ./session.nix
+    ./secrets.nix
     ./shell
     ./tmux
     ./zellij

@@ -66,6 +66,7 @@ let
           { programs.nix-index-database.comma.enable = true; }
           inputs.stylix.homeModules.stylix
           inputs.amzn-community.homeModules.default
+          inputs.sops-nix.homeManagerModules.sops
         ];
         extraSpecialArgs = {
           hostType = type;

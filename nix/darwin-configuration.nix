@@ -41,12 +41,14 @@ let
               inputs.nix-index-database.homeModules.default
               { programs.nix-index-database.comma.enable = true; }
               inputs.amzn-community.homeModules.default
+              inputs.sops-nix.homeManagerModules.sops
             ];
           }
           inputs.home-manager.darwinModules.home-manager
           inputs.mac-app-util.darwinModules.default
           inputs.kanata-darwin.darwinModules.default
           inputs.stylix.darwinModules.stylix
+          inputs.sops-nix.darwinModules.sops
         ];
         specialArgs = {
           hostType = type;
