@@ -238,7 +238,6 @@ in
     fzf = {
       # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
       enable = true;
-      # defaultCommand = "fd --type f";
       defaultOptions = [
         "--height 40%"
         "--border"

@@ -20,7 +20,7 @@ let
         sessionVariables = {
           # NOTE: May have to chmod +x -R terminfo definitions (not sure why)
           TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
-          # WARN: Using this in Neovim nix lsp configs, until I can find something smarter
+          # NOTE: used by nixd LSP config and nh home switch on Linux
           _NIX_HOSTNAME = hostName;
         };
       };

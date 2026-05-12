@@ -22,7 +22,7 @@ let
           (../hosts + "/${hostName}")
           {
             environment.variables = {
-              # WARN: Using this in Neovim nix lsp configs, until I can find something smarter
+              # NOTE: used by nixd LSP config and nh home switch on Linux
               _NIX_HOSTNAME = hostName;
             };
             nix = {
@@ -48,6 +48,7 @@ let
           inputs.mac-app-util.darwinModules.default
           inputs.kanata-darwin.darwinModules.default
           inputs.stylix.darwinModules.stylix
+          # NOTE: system-level module for future darwin-scoped secrets (launchd env, etc.)
           inputs.sops-nix.darwinModules.sops
         ];
         specialArgs = {

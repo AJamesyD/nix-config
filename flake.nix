@@ -21,7 +21,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # HACK: pinned to last rev before workspace.nix added libghostty-vt dep
     #   which breaks flakes integration (callPackageWith missing arg).
-    #   Unpin once cachix/devenv ships a fix.
+    #   Unpin once cachix/devenv ships a fix. Test: `nix eval .#devShells.aarch64-darwin.default`
+    #   with the pin removed.
     devenv = {
       url = "github:cachix/devenv/046cd4c44e27cace2fdca06e2096d32597ebf9d2";
       inputs = {
@@ -179,7 +180,6 @@
                 nix-fast-build
                 nix-output-monitor
                 nix-tree
-                # Secrets
                 sops
                 age
               ];
