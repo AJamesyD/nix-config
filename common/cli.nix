@@ -45,7 +45,7 @@
   programs = {
     asciinema = {
       enable = true;
-      package = pkgs.asciinema_3;
+      package = pkgs.asciinema;
       settings.cmd.idle_time_limit = 5;
     };
     btop = {
