@@ -23,6 +23,14 @@
   k (tap-hold-opposite-hand 200 k rmet)
   l (tap-hold-opposite-hand 200 l ralt)
   ; (tap-hold-opposite-hand 200 ; rctl)
+
+  ;; Physical Cmd keys activate a layer that prevents repeat on dangerous shortcuts
+  lcmd (multi lmet (layer-while-held cmd-safe))
+  rcmd (multi rmet (layer-while-held cmd-safe))
+
+  ;; Single-fire: macro taps once then stops, preventing OS key repeat
+  cq (macro q)
+  cw (macro w)
 )
 
 (defsrc
@@ -40,5 +48,14 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps @a   @s   @d   @f   g    h    @j   @k   @l   @;   '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  fn   lctl lalt lmet           spc            rmet ralt
+  fn   lctl lalt @lcmd          spc            @rcmd ralt
+)
+
+(deflayer cmd-safe
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @cq  @cw  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _
 )
