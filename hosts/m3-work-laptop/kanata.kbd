@@ -6,18 +6,23 @@
   )
 )
 
+(defhands
+  (left  q w e r t a s d f g z x c v b)
+  (right y u i o p h j k l ; n m , . /)
+)
+
 (defalias
   ;; Left hand: CAGS (ctrl, alt, gui, shift)
-  a (tap-hold-release 200 200 a lctl)
-  s (tap-hold-release 200 200 s lalt)
-  d (tap-hold-release 200 200 d lmet)
-  f (tap-hold-release 200 200 f lsft)
+  a (tap-hold-opposite-hand 200 a lctl)
+  s (tap-hold-opposite-hand 200 s lalt)
+  d (tap-hold-opposite-hand 200 d lmet)
+  f (tap-hold-opposite-hand 200 f lsft)
 
   ;; Right hand: SGAC (shift, gui, alt, ctrl)
-  j (tap-hold-release 200 200 j rsft)
-  k (tap-hold-release 200 200 k rmet)
-  l (tap-hold-release 200 200 l ralt)
-  ; (tap-hold-release 200 200 ; rctl)
+  j (tap-hold-opposite-hand 200 j rsft)
+  k (tap-hold-opposite-hand 200 k rmet)
+  l (tap-hold-opposite-hand 200 l ralt)
+  ; (tap-hold-opposite-hand 200 ; rctl)
 )
 
 (defsrc
