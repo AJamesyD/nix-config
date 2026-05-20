@@ -168,6 +168,33 @@
             ...
           }:
           {
+            packages.bootstrap = pkgs.writeShellApplication {
+              name = "bootstrap";
+              runtimeInputs = [ pkgs.coreutils ];
+              text = ''
+                key_dir="$HOME/.config/sops/age"
+                key_file="$key_dir/keys.txt"
+
+                if [ -f "$key_file" ]; then
+                  echo "Key already exists at $key_file"
+                  exit 0
+                fi
+
+                mkdir -p "$key_dir"
+                echo "Paste your age secret key (starts with AGE-SECRET-KEY-), then press Enter:"
+                read -r key
+
+                if [[ ! "$key" =~ ^AGE-SECRET-KEY- ]]; then
+                  echo "Error: invalid age secret key format" >&2
+                  exit 1
+                fi
+
+                echo "$key" > "$key_file"
+                chmod 600 "$key_file"
+                echo "Key written to $key_file"
+              '';
+            };
+
             devenv.shells.default = {
               name = "nix-config";
               languages = {
