@@ -75,6 +75,10 @@ in
         # bash
         ''
           ghauth
+          if [ ! -f "''${XDG_CONFIG_HOME:-$HOME/.config}/sops/age/keys.txt" ]; then
+            echo "sops age key missing. Running bootstrap..."
+            nix run ~/.config/nix#bootstrap || return 1
+          fi
           ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
           zsource
