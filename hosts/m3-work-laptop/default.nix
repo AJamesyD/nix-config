@@ -48,6 +48,9 @@ in
       {
         name = "caarlos0/tap";
       }
+      {
+        name = "milch/mistty";
+      }
     ];
     brews = [
       # For mise python-build
@@ -107,6 +110,10 @@ in
       }
       {
         name = "hammerspoon";
+        greedy = true;
+      }
+      {
+        name = "mistty";
         greedy = true;
       }
       {
