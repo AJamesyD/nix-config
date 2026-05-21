@@ -53,9 +53,6 @@
       enable = true;
       enableDefaultConfig = false;
       includes = [ "config.d/*.conf" ];
-      # Defaults (AddKeysToAgent, IdentitiesOnly, StrictHostKeyChecking, etc.)
-      # live in config.d/base.conf via common/ssh.nix
-      matchBlocks."*" = { };
     };
     zsh = {
       enable = true;
