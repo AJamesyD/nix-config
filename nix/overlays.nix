@@ -22,7 +22,10 @@ in
           allowAliases = true;
         };
         localSystem = system;
-        overlays = [ inputs.self.overlays.default ];
+        overlays = [
+          inputs.zig-overlay.overlays.default
+          inputs.self.overlays.default
+        ];
       };
     };
 }
