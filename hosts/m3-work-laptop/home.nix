@@ -38,6 +38,9 @@
       cargo-nextest
 
       xcodes
+
+      # terminfo for Homebrew-managed Ghostty (programs.ghostty.package = null)
+      ghostty-bin.terminfo
     ];
 
     stateVersion = "25.11";
@@ -273,6 +276,7 @@
         };
       };
     };
+
     zsh = {
       enable = true;
       shellAliases = {

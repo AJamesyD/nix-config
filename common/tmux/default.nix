@@ -47,6 +47,7 @@ in
     packages = with pkgs; [
       gum
       sesh
+      tmux.terminfo
     ];
   };
   programs = {
