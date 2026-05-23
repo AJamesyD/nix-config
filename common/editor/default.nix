@@ -45,7 +45,6 @@
 
     # Document generation
     graphviz
-    mermaid-cli
     pandoc
     python313Packages.pylatexenc
   ];
