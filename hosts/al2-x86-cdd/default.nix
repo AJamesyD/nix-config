@@ -28,6 +28,9 @@
 
       (callPackage ../../pkgs/zmx { })
     ];
+    # nixpkgs-unstable bumped to 26.11 before home-manager updated its version string.
+    # Safe: our home-manager input follows our nixpkgs.
+    enableNixpkgsReleaseCheck = false;
     stateVersion = "25.11"; # Please read the comment before changing.
   };
 
