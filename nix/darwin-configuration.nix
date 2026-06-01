@@ -40,6 +40,7 @@ let
               inputs.mac-app-util.homeManagerModules.default
               inputs.nix-index-database.homeModules.default
               { programs.nix-index-database.comma.enable = true; }
+              { stylix.enableReleaseChecks = false; }
               inputs.amzn-community.homeModules.default
               inputs.sops-nix.homeManagerModules.sops
             ];
