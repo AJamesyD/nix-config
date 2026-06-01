@@ -14,10 +14,6 @@
   };
 
   inputs = {
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
-    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # HACK: pinned to last rev before workspace.nix added libghostty-vt dep
     #   which breaks flakes integration (callPackageWith missing arg).
