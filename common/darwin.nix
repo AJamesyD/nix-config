@@ -59,6 +59,7 @@
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
+      extraFlags = [ "--force" ];
       upgrade = true;
     };
     taps = [
