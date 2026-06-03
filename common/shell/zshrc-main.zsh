@@ -227,13 +227,15 @@ _seq_altscreen_off='\e[?1049l'
 _seq_soft_reset='\e[!p'
 _seq_cursor_shape_reset='\e[0 q'
 
-# Precmd subset: only modes that zsh does not re-enable itself.
+# Precmd subset: modes that can leak from crashed TUIs or dropped connections.
 # Excludes bracketed paste (zsh manages it) and alternate screen
 # (switching screens on every prompt would flash).
-_terminal_sanitize_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_focus_reporting_off$_seq_sync_output_off"
+# Cursor shape is safe to reset here: zsh-vi-mode re-asserts the
+# correct shape in zle-line-init before the user can type.
+_terminal_sanitize_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_focus_reporting_off$_seq_sync_output_off$_seq_cursor_shape_reset"
 
-# Full reset: all leaky modes. Used after SSH and in treset.
-_terminal_reset_seq="$_seq_kitty_keyboard_pop$_seq_mouse_button_off$_seq_mouse_any_off$_seq_mouse_sgr_off$_seq_focus_reporting_off$_seq_sync_output_off$_seq_bracketed_paste_off$_seq_soft_reset$_seq_cursor_shape_reset"
+# Full reset: sanitize + modes that only a full reset should touch.
+_terminal_reset_seq="$_terminal_sanitize_seq$_seq_bracketed_paste_off$_seq_soft_reset"
 
 # Minimum seconds connected before treating exit 255 as an
 # involuntary disconnect worth notifying about. Below this
