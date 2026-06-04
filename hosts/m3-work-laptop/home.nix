@@ -14,7 +14,7 @@
     ./sketchybar-theme.nix
   ];
 
-  gtk.gtk4.theme = null;
+  stylix.targets.gtk.enable = false;
 
   home = {
     username = "angaidan";

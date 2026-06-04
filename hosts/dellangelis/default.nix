@@ -12,7 +12,7 @@
 
   fonts.fontconfig.enable = true;
 
-  gtk.gtk4.theme = null;
+  stylix.targets.gtk.enable = false;
 
   home = {
     packages = with pkgs; [
