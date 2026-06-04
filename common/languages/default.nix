@@ -73,6 +73,7 @@
     };
     java = {
       enable = true;
+      package = pkgs.jdk25;
     };
     mise = {
       enable = true;
