@@ -58,9 +58,21 @@
     enable = true;
     onActivation = {
       autoUpdate = true;
+      # NOTE: This nix-darwin rev emits the deprecated `--cleanup --zap`; with
+      #   Homebrew Bundle 5.x that may no-op (zap cleanup silently skipped), not
+      #   just warn. Fixed upstream by PR #1789/#1774 (--force-cleanup). Recheck
+      #   after bumping nix-darwin. https://github.com/nix-darwin/nix-darwin/issues/1787
       cleanup = "zap";
       extraFlags = [ "--force" ];
       upgrade = true;
+      # HACK: Homebrew 5.1.x tap-trust refuses non-official taps (milch/mistty,
+      #   caarlos0/tap) non-interactively, breaking darwin-rebuild. Disable the
+      #   trust gate during activation. Replace with per-tap `trusted = true` once
+      #   nix-darwin PR #1789 lands and we bump the input.
+      #   https://github.com/nix-darwin/nix-darwin/issues/1794
+      extraEnv = {
+        HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
+      };
     };
     taps = [
       {
