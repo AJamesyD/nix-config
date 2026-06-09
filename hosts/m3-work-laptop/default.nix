@@ -72,18 +72,9 @@ in
       {
         name = "zlib";
       }
-      # For Ruby 2.7 build
+      # For MacTrampolineBuild
       {
-        name = "libffi";
-      }
-      {
-        name = "libyaml";
-      }
-      {
-        name = "rbenv";
-      }
-      {
-        name = "ruby-build";
+        name = "gmp";
       }
       # Other
       {
