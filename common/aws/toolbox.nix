@@ -26,6 +26,14 @@
       };
     };
 
+    # Node 24 for brazil-build (npm-pretty-much packages). Set declaratively because
+    # nix manages brazil.prefs as a read-only store symlink, so `brazil setup --node`
+    # (which writes cli.bin.node24x) fails with EACCES. Darwin-only: the CDD sources
+    # node from RtxNode via mise.
+    brazil-cli.runtimes = lib.optionalAttrs pkgs.stdenv.isDarwin {
+      node24x = "${pkgs.nodejs_24}/bin/node";
+    };
+
     tools = {
       ada.enable = true;
       barium.enable = true;

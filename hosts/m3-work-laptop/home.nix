@@ -233,7 +233,7 @@
         tools = {
           node = [
             # NOTE: First one becomes default
-            "lts"
+            "24" # krypton
             "22" # jod
             "20" # iron
           ];
