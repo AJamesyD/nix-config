@@ -20,6 +20,11 @@
 
     # https://github.com/jdx/mise/issues/3099
     MISE_LIBGIT2 = "false";
+
+    # mise 2026.6.5+ strips global-only settings (yes, paranoid, etc.) from
+    # config files it doesn't recognize as global; the home-manager-rendered
+    # config.toml is a Nix-store symlink, so set yes via env instead.
+    MISE_YES = "1";
   };
 
   home.activation = {
@@ -80,7 +85,6 @@
       globalConfig = {
         settings = {
           legacy_version_file = false;
-          yes = true;
         };
         tools = {
           # NOTE: First one becomes default
