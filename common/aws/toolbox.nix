@@ -16,6 +16,7 @@
     rust-analyzer.enable = pkgs.stdenv.isLinux;
 
     registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
+    registries.bh.uri = "s3://buildertoolbox-bh-us-west-2/tools.json";
 
     brazil-cli.settings = lib.optionalAttrs pkgs.stdenv.isDarwin {
       # NOTE: lowercase `packagecache` is the host-side cache section.
@@ -38,9 +39,17 @@
     tools = {
       ada.enable = true;
       barium.enable = true;
+      bh = {
+        enable = true;
+        extraFlags = lib.optionals pkgs.stdenv.isDarwin [
+          "--force-os"
+          "osx_arm64"
+        ];
+      };
       bemol.enable = true;
       builder-mcp.enable = true;
       claude-code.enable = true;
+      create.enable = true;
       cr-guide.enable = true;
       pipeline.enable = true;
     };
