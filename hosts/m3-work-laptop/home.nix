@@ -310,6 +310,12 @@
         source = ./sketchybar;
         recursive = true;
       };
+
+      "mistty" = {
+        enable = true;
+        source = ./mistty;
+        recursive = true;
+      };
     };
   };
 

@@ -1,0 +1,48 @@
+# Mistty configuration
+# Managed by nix (home-manager xdg.configFile)
+
+font_family = "IBM Plex Mono"
+font_size = 16
+
+cursor_style = "block"
+
+scrollback_lines = 10000
+
+# Sidebar visible on launch
+sidebar_visible = true
+
+[ui]
+# Show tab bar only when multiple tabs exist
+tab_bar_mode = "when_multiple_tabs"
+# Hidden title bar with traffic lights
+title_bar_style = "hidden_with_lights"
+
+[shortcuts]
+copy_mode = "ctrl+shift+c"
+yank_hints = "ctrl+shift+h"
+split_vertical = "ctrl+shift+d"
+toggle_tab_bar = "ctrl+shift+t"
+rename_tab = "ctrl+shift+r"
+rename_session = "ctrl+shift+s"
+
+[ghostty]
+# Font variants not covered by top-level font_family
+font-family-bold = "IBM Plex Mono"
+font-family-italic = "Victor Mono"
+font-family-bold-italic = "Victor Mono"
+font-thicken = true
+
+theme = "Dark Pastel"
+
+# Shaders (symlinked by home-manager via xdg.configFile."ghostty/shaders")
+custom-shader = [
+  "~/.config/ghostty/shaders/cursor_blaze_no_trail.glsl",
+  "~/.config/ghostty/shaders/cursor_smear.glsl",
+]
+
+window-padding-color = "background"
+
+mouse-hide-while-typing = true
+
+# Shell integration
+shell-integration-features = "cursor,sudo,ssh-env,ssh-terminfo"
