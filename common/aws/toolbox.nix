@@ -8,6 +8,11 @@
 
     # Specialized modules (handle registries, config files, defaults)
     aim.enable = true;
+    aim.mcpServers = {
+      cr-guide-mcp = { };
+      sage-plus-service-mcp = { };
+      slack-mcp = { };
+    };
     brazil-cli.enable = true;
     cr.enable = true;
     eda.enable = true;
@@ -38,6 +43,7 @@
 
     tools = {
       ada.enable = true;
+      axe.enable = true;
       barium.enable = true;
       bh = {
         enable = true;
@@ -49,8 +55,11 @@
       bemol.enable = true;
       builder-mcp.enable = true;
       claude-code.enable = true;
-      create.enable = true;
+      code-search.enable = true;
       cr-guide.enable = true;
+      create.enable = true;
+      gordian-knot.enable = true;
+      ion.enable = true;
       pipeline.enable = true;
     };
   };
