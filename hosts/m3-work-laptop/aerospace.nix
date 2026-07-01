@@ -287,6 +287,10 @@
           run = "move-node-to-workspace 1-dev";
         }
         {
+          "if".app-id = "com.mistty.app";
+          run = "move-node-to-workspace 1-dev";
+        }
+        {
           "if".window-title-regex-substring = "neovide";
           run = [
             "layout floating"
