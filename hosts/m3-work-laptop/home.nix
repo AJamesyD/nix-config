@@ -320,4 +320,5 @@
   };
 
   programs.toolbox.currentPlatform = "osx";
+  programs.toolbox.aim.mcpServers.aws-outlook-mcp = { };
 }
