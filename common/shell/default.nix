@@ -264,13 +264,16 @@ in
           "--reverse"
         ];
       };
-      historyWidget.options = [
-        "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
-        "--color header:italic"
-        "--header 'Press CTRL-Y to copy command into clipboard'"
-        "--sort"
-        "--exact"
-      ];
+      historyWidget = {
+        command = "";
+        options = [
+          "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+          "--color header:italic"
+          "--header 'Press CTRL-Y to copy command into clipboard'"
+          "--sort"
+          "--exact"
+        ];
+      };
       tmux = {
         enableShellIntegration = true;
       };
