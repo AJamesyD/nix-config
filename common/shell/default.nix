@@ -248,19 +248,23 @@ in
         "--inline-info"
         "--reverse"
       ];
-      changeDirWidgetCommand = "fd --type d";
-      changeDirWidgetOptions = [
-        "--walker-skip .git,node_modules,target"
-        "--preview 'tree -C {} | head -200'"
-      ];
-      fileWidgetCommand = "fd --type f";
-      fileWidgetOptions = [
-        "--walker-skip .git,node_modules,target"
-        "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-        "--preview-window '75%,~3'"
-        "--reverse"
-      ];
-      historyWidgetOptions = [
+      changeDirWidget = {
+        command = "fd --type d";
+        options = [
+          "--walker-skip .git,node_modules,target"
+          "--preview 'tree -C {} | head -200'"
+        ];
+      };
+      fileWidget = {
+        command = "fd --type f";
+        options = [
+          "--walker-skip .git,node_modules,target"
+          "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+          "--preview-window '75%,~3'"
+          "--reverse"
+        ];
+      };
+      historyWidget.options = [
         "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
         "--color header:italic"
         "--header 'Press CTRL-Y to copy command into clipboard'"
