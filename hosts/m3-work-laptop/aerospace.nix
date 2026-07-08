@@ -359,6 +359,17 @@
           run = "move-node-to-workspace 5-video-call";
         }
         {
+          "if" = {
+            app-id = "us.zoom.xos";
+            window-title-regex-substring = "Meeting";
+          };
+          run = [
+            "layout floating"
+            "fullscreen on --no-outer-gaps"
+            "move-node-to-workspace 5-video-call"
+          ];
+        }
+        {
           "if".app-id = "us.zoom.xos";
           run = "move-node-to-workspace 5-video-call";
         }
