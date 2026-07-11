@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   home.packages = [
     pkgs.ghostty-bin.terminfo # Homebrew-managed Ghostty has no nix package to provide this
