@@ -10,6 +10,7 @@
     ../../common/ssh.nix
     ../../common/nix-common.nix
     ../../common/stylix.nix
+    ../../common/zmx
   ];
 
   dconf.enable = false;
@@ -25,8 +26,6 @@
       ruby
 
       stylua
-
-      (callPackage ../../pkgs/zmx { })
     ];
     # nixpkgs-unstable bumped to 26.11 before home-manager updated its version string.
     # Safe: our home-manager input follows our nixpkgs.
@@ -60,22 +59,6 @@
     zsh = {
       enable = true;
       initContent = ''
-        # zmx has no configurable detach key (hardcoded ctrl+\).
-        # Map C-a C-q to `zmx detach` so it matches tmux/zellij/shpool.
-        zmx-detach() {
-          [[ -n "$ZMX_SESSION" ]] || return
-          {
-            local d="''${XDG_STATE_HOME:-$HOME/.local/state}/sessions/zmx-scrollback"
-            local f="$d/$ZMX_SESSION.txt"
-            [[ -d "$d" ]] || mkdir -p "$d"
-            timeout 5 zmx history "$ZMX_SESSION" |
-              tail -n "''${SESSION_PERSIST_SCROLLBACK_LINES:-10000}" > "$f.tmp" && mv "$f.tmp" "$f"
-          } &!
-          zmx detach
-        }
-        zle -N zmx-detach
-        bindkey '^A^Q' zmx-detach
-
         spk() {
           local name
           name=$(shpool list | tail -n +2 | cut -f1 | fzf --prompt='kill> ' --no-select-1 --no-exit-0) || return
