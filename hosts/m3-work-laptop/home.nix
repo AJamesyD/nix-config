@@ -10,6 +10,7 @@
     ../../common/browser/zen/amazon.nix
     ../../common/dev.nix
     ../../common/ssh.nix
+    ../../common/zmx
     ../../modules/home-manager
     ./ghostty
     ./sketchybar-theme.nix
