@@ -2,19 +2,15 @@
 # (client_type=0) instead of nix store path (client_type=1). This means
 # Accessibility permission survives nix rebuilds. Follows the same pattern
 # that makes AeroSpace immune to TCC re-grants.
-# See /tmp/ai-research-nix-darwin-tcc-issues.md for full analysis.
 #
-# Uses runCommand (not overrideAttrs) so the upstream binary is fetched
-# from cache.nixos.org. overrideAttrs changes the derivation hash,
-# forcing a local source build that hangs under the nix darwin sandbox
-# (private framework access: SkyLight, DisplayServices, MediaRemote).
-#
-# Patch: render popups on all displays, not just the focused one
-# - https://github.com/FelixKratz/SketchyBar/issues/316
-# - https://github.com/FelixKratz/SketchyBar/issues/742
+# TODO: re-enable popup patch once nixpkgs ships a cctools linker compatible
+# with macOS 26 (Tahoe). The patch forces a local build which hits BPT trap.
+# Tracked: https://github.com/NixOS/nixpkgs/issues/540303
+# Patch bug: https://github.com/FelixKratz/SketchyBar/issues/742
+# To re-enable: set enablePopupPatch = true
 final: prev:
 let
-  enablePopupPatch = true;
+  enablePopupPatch = false;
 
   base =
     if enablePopupPatch then
