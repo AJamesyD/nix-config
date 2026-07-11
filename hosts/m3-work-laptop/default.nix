@@ -31,7 +31,9 @@ let
       ''}
     '';
 
-  aerospace-swipe = pkgs.callPackage ../../pkgs/aerospace-swipe { };
+  # TODO: re-enable once nixpkgs ships a cctools linker compatible with macOS 26 (Tahoe).
+  # Tracked: https://github.com/NixOS/nixpkgs/issues/540303
+  # aerospace-swipe = pkgs.callPackage ../../pkgs/aerospace-swipe { };
 in
 {
   imports = [
@@ -250,7 +252,6 @@ in
 
   system = {
     activationScripts.postActivation.text = ''
-
       ${mkTccApp {
         src = "${pkgs.sketchybar}/Applications/SketchyBar.app";
         name = "SketchyBar";
@@ -265,23 +266,26 @@ in
         serviceLabel = "org.nixos.jankyborders";
       }}
 
-      ${mkTccApp {
-        src = "${aerospace-swipe}/Applications/AerospaceSwipe.app";
-        name = "AerospaceSwipe";
-        identifier = "com.acsandmann.swipe";
-        entitlements = "${aerospace-swipe}/share/aerospace-swipe/entitlements.plist";
-        serviceLabel = "com.acsandmann.swipe";
-      }}
-            # HACK: neutralize Amazon Connections (no official opt-out exists).
-            #   ACME re-deploys the app, so this must re-apply on every rebuild.
-            #   Remove if Amazon adds an official disable mechanism.
-            #   Context: https://sage.amazon.com/posts/1459829
-            conn_main="/Applications/AmazonConnections.app/Contents/Resources/app/main.js"
-            if [ -f "$conn_main" ] && ! head -1 "$conn_main" | grep -q 'app.quit' 2>/dev/null; then
-            	cp "$conn_main" "''${conn_main}.bak"
-            	printf 'require("electron").app.quit();\n' >"$conn_main"
-            	echo "neutralized Amazon Connections (backup at ''${conn_main}.bak)" >&2
-            fi
+      # TODO: re-enable once nixpkgs ships a cctools linker compatible with macOS 26 (Tahoe).
+      # Tracked: https://github.com/NixOS/nixpkgs/issues/540303
+      # ''${mkTccApp {
+      #   src = "''${aerospace-swipe}/Applications/AerospaceSwipe.app";
+      #   name = "AerospaceSwipe";
+      #   identifier = "com.acsandmann.swipe";
+      #   entitlements = "''${aerospace-swipe}/share/aerospace-swipe/entitlements.plist";
+      #   serviceLabel = "com.acsandmann.swipe";
+      # }}
+
+      # HACK: neutralize Amazon Connections (no official opt-out exists).
+      #   ACME re-deploys the app, so this must re-apply on every rebuild.
+      #   Remove if Amazon adds an official disable mechanism.
+      #   Context: https://sage.amazon.com/posts/1459829
+      conn_main="/Applications/AmazonConnections.app/Contents/Resources/app/main.js"
+      if [ -f "$conn_main" ] && ! head -1 "$conn_main" | grep -q 'app.quit' 2>/dev/null; then
+      	cp "$conn_main" "''${conn_main}.bak"
+      	printf 'require("electron").app.quit();\n' >"$conn_main"
+      	echo "neutralized Amazon Connections (backup at ''${conn_main}.bak)" >&2
+      fi
     '';
 
     defaults = {

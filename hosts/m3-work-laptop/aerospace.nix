@@ -421,19 +421,20 @@
     };
   };
 
-  launchd.user.agents.aerospace-swipe = {
-    serviceConfig = {
-      Label = "com.acsandmann.swipe";
-      ProgramArguments = [
-        "/Applications/AerospaceSwipe.app/Contents/MacOS/AerospaceSwipe"
-      ];
-      RunAtLoad = true;
-      KeepAlive = true;
-      LimitLoadToSessionType = "Aqua";
-      ProcessType = "Interactive";
-      StandardOutPath = "/tmp/aerospace-swipe.out";
-      StandardErrorPath = "/tmp/aerospace-swipe.err";
-    };
-  };
-
+  # TODO: re-enable once nixpkgs ships a cctools linker compatible with macOS 26 (Tahoe).
+  # Tracked: https://github.com/NixOS/nixpkgs/issues/540303
+  # launchd.user.agents.aerospace-swipe = {
+  #   serviceConfig = {
+  #     Label = "com.acsandmann.swipe";
+  #     ProgramArguments = [
+  #       "/Applications/AerospaceSwipe.app/Contents/MacOS/AerospaceSwipe"
+  #     ];
+  #     RunAtLoad = true;
+  #     KeepAlive = true;
+  #     LimitLoadToSessionType = "Aqua";
+  #     ProcessType = "Interactive";
+  #     StandardOutPath = "/tmp/aerospace-swipe.out";
+  #     StandardErrorPath = "/tmp/aerospace-swipe.err";
+  #   };
+  # };
 }
