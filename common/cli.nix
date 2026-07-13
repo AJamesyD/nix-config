@@ -74,6 +74,9 @@
     jq = {
       enable = true;
     };
+    jqp = {
+      enable = true;
+    };
     less = {
       enable = true;
     };
