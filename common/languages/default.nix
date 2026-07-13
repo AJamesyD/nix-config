@@ -54,8 +54,8 @@
           	run --quiet rustup update
           fi
           run --quiet rustup default stable
-          run --quiet rustup completions zsh >"$ZCOMPDIR/_rustup"
-          run --quiet rustup completions zsh cargo >"$ZCOMPDIR/_cargo"
+          rustup completions zsh >"$ZCOMPDIR/_rustup" 2>/dev/null
+          rustup completions zsh cargo >"$ZCOMPDIR/_cargo" 2>/dev/null
         '';
   };
 
