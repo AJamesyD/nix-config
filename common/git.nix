@@ -176,6 +176,7 @@
           nerdFontsVersion = "3";
           showDivergenceFromBaseBranch = "onlyArrow";
           showCommandLog = false;
+          shrinkSidePanelsToContent = true;
         };
         git = {
           pagers = [
