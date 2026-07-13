@@ -53,6 +53,7 @@
       quick-terminal-autohide = true;
 
       keybind = [
+        "super+enter=unbind"
         # Splits
         "ctrl+a>shift+backslash=new_split:right"
         "ctrl+a>minus=new_split:down"
