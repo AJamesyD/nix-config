@@ -20,7 +20,10 @@
   };
 
   programs = {
-    worktrunk.enable = true;
+    worktrunk = {
+      enable = true;
+      enableZshIntegration = false;
+    };
 
     delta = {
       enable = true;
