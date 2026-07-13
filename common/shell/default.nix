@@ -81,6 +81,8 @@ in
           fi
           ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
+          # Remove stale zcompdumps from prior hostname-suffixed config and manual .bak files
+          rm -f "''${ZDOTDIR}"/.zcompdump.*.*(N) "''${ZDOTDIR}"/.*.bak(N)
           zsource
         '';
       nixup = # bash
