@@ -9,7 +9,9 @@ _brazil_context_hook() {
       while [[ $d != "$dir" && $d != / ]]; do
         if [[ -f "$d/Config" ]]; then
           export _BRAZIL_PKG=${d:t}
-          export _BRAZIL_PKG_VER=$(awk -F'[();]' '/interfaces/{gsub(/ /,"",$2); print $2}' "$d/Config")
+          # Config format: interfaces ( VERSION ); -- extract VERSION without forking
+          local _cfg_line=${(M)${(f)"$(<$d/Config)"}:#*interfaces*}
+          export _BRAZIL_PKG_VER=${${${_cfg_line##*\(}%%[;\)]*}// /}
           break
         fi
         d=${d:h}

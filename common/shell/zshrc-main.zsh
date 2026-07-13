@@ -88,7 +88,7 @@ _session_persist_pwd() {
     mkdir -p "$state_dir"
   fi
   local f="$state_dir/dir"
-  [[ "$PWD" == "$(cat "$f" 2>/dev/null)" ]] && return
+  [[ -f "$f" && "$PWD" == "$(<$f)" ]] && return
   printf '%s' "$PWD" > "$f.tmp" && mv "$f.tmp" "$f"
 }
 add-zsh-hook precmd _session_persist_pwd
