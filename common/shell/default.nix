@@ -254,35 +254,6 @@ in
         "--inline-info"
         "--reverse"
       ];
-      changeDirWidget = {
-        command = "fd --type d";
-        options = [
-          "--walker-skip .git,node_modules,target"
-          "--preview 'tree -C {} | head -200'"
-        ];
-      };
-      fileWidget = {
-        command = "fd --type f";
-        options = [
-          "--walker-skip .git,node_modules,target"
-          "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-          "--preview-window '75%,~3'"
-          "--reverse"
-        ];
-      };
-      historyWidget = {
-        command = "";
-        options = [
-          "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
-          "--color header:italic"
-          "--header 'Press CTRL-Y to copy command into clipboard'"
-          "--sort"
-          "--exact"
-        ];
-      };
-      tmux = {
-        enableShellIntegration = true;
-      };
     };
     navi = {
       enable = true;
