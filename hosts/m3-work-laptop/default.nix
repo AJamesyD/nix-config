@@ -53,6 +53,9 @@ in
       {
         name = "milch/mistty";
       }
+      {
+        name = "felixkratz/formulae";
+      }
     ];
     brews = [
       # For mise python-build
@@ -84,6 +87,10 @@ in
       }
       {
         name = "terminal-notifier";
+      }
+      {
+        name = "sketchybar";
+        start_service = true;
       }
       {
         name = "xdg-open-svc";
@@ -148,7 +155,9 @@ in
     };
   };
 
-  services.sketchybar.enable = true;
+  # TODO: re-enable nix-managed sketchybar once nixpkgs cctools linker works on macOS 26.
+  # Tracked: https://github.com/NixOS/nixpkgs/issues/540303
+  # services.sketchybar.enable = true;
 
   # JankyBorders: colored window borders. The nix-darwin module manages launchd
   # lifecycle and passes all config as CLI args (no config file needed).
@@ -165,13 +174,10 @@ in
     inactive_color = lib.mkForce "0x80${config.lib.stylix.colors.base03}";
   };
 
-  # Point launchd at a stable .app bundle path so macOS TCC identifies
-  # sketchybar by CFBundleIdentifier (client_type=0) instead of bare nix
-  # store path. This makes Accessibility permission survive nix rebuilds.
-  # The activation script below keeps the bundle in sync with the nix store.
-  launchd.user.agents.sketchybar.serviceConfig.ProgramArguments = lib.mkForce [
-    "/Applications/SketchyBar.app/Contents/MacOS/sketchybar"
-  ];
+  # DISABLED: nix-managed sketchybar (cctools linker -- see TODO above)
+  # launchd.user.agents.sketchybar.serviceConfig.ProgramArguments = lib.mkForce [
+  #   "/Applications/SketchyBar.app/Contents/MacOS/sketchybar"
+  # ];
 
   # TCC stabilization: run from a stable .app bundle so Accessibility
   # permission survives nix rebuilds. Args duplicate the nix-darwin module's
@@ -252,12 +258,13 @@ in
 
   system = {
     activationScripts.postActivation.text = ''
-      ${mkTccApp {
-        src = "${pkgs.sketchybar}/Applications/SketchyBar.app";
-        name = "SketchyBar";
-        identifier = "com.local.sketchybar";
-        serviceLabel = "org.nixos.sketchybar";
-      }}
+      # DISABLED: nix-managed sketchybar (cctools linker -- see TODO above)
+      # ''${mkTccApp {
+      #   src = "''${pkgs.sketchybar}/Applications/SketchyBar.app";
+      #   name = "SketchyBar";
+      #   identifier = "com.local.sketchybar";
+      #   serviceLabel = "org.nixos.sketchybar";
+      # }}
 
       ${mkTccApp {
         src = "${pkgs.jankyborders}/Applications/JankyBorders.app";
