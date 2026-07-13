@@ -240,8 +240,8 @@ in
       });
     };
     fzf = {
-      # TODO: Alt-C keymap conflict with Aerospace. Use Meh and Hyper keys there
       enable = true;
+      enableZshIntegration = false;
       defaultOptions = [
         "--height 40%"
         "--border"
