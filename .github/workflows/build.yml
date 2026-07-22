@@ -3,14 +3,26 @@ name: Build and cache
 on:
   push:
     branches: [main]
+    # Build-inert files: docs, CI config (except self), git metadata.
+    # Everything else may affect nix build output (via readFile, home.file, etc).
+    paths-ignore:
+      - '**.md'
+      - '.github/dependabot.yml'
+      - '.github/workflows/update-flake.yml'
+      - '.gitignore'
+      - '.git-blame-ignore-revs'
+      - '.sops.yaml'
+      - 'LICENSE'
   pull_request:
     branches: [main]
-    paths:
-      - '**.nix'
-      - 'flake.lock'
-      - 'ci/**'
-      - 'patches/**'
-      - 'themes/**'
+    paths-ignore:
+      - '**.md'
+      - '.github/dependabot.yml'
+      - '.github/workflows/update-flake.yml'
+      - '.gitignore'
+      - '.git-blame-ignore-revs'
+      - '.sops.yaml'
+      - 'LICENSE'
   schedule:
     - cron: '0 6 * * 1'  # Monday 6 AM UTC
   workflow_dispatch:
