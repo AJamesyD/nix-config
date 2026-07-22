@@ -157,14 +157,17 @@ in
 
         cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
 
+        al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
+      };
+      siteFunctions = {
         clean = # bash
           ''
             nix-clean
-            brazil-package-cache clean --days=7
+            command -v brazil-package-cache &>/dev/null && brazil-package-cache clean --days=7
             ${lib.optionalString pkgs.stdenv.isDarwin "brew cleanup --prune=all"}
             npm cache clean --force
             uv cache clean
-            toolbox clean
+            command -v toolbox &>/dev/null && toolbox clean
             rm -rf ~/.cache/nix ~/.cache/zig ~/.cache/bazel ~/.cache/puppeteer
             rm -rf ~/.npm/_npx
             rm -rf ~/.builder-mcp/logs
@@ -174,8 +177,6 @@ in
             ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Application\ Support/Spotify/PersistentCache ~/Library/Caches/zen ~/Library/Application\ Support/Slack/Cache ~/Library/Application\ Support/Slack/Service\ Worker ~/Library/Containers/com.apple.wallpaper.agent/Data ~/Library/Application\ Support/zoom.us/asr''}
             ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf {} 2>/dev/null
           '';
-
-        al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
       };
     };
   };

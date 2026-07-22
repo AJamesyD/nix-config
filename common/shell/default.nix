@@ -46,10 +46,15 @@ in
       clip = "cargo clippy -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
       clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
       clr = "clear";
+      v = "nvim";
+      gu = "gitui";
+    };
+    siteFunctions = {
       ghauth = # bash
         ''
           unset GITHUB_TOKEN
-          export GITHUB_TOKEN="$(gh auth token)"
+          GITHUB_TOKEN="$(gh auth token)" || { echo "ghauth: gh auth token failed" >&2; return 1; }
+          export GITHUB_TOKEN
         '';
       nix-clean =
         let
@@ -61,8 +66,9 @@ in
         in
         # bash
         ''
-          ${cleanCmd}
-          nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'
+          ${cleanCmd} || return 1
+          # Repair nix store paths that optimise reports as corrupted
+          { nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'; } || echo "nix-clean: store repair had errors (non-fatal)" >&2
         '';
       nixswitch =
         let
@@ -74,29 +80,31 @@ in
         in
         # bash
         ''
-          ghauth
+          ghauth || return 1
           if [ ! -f "''${XDG_CONFIG_HOME:-$HOME/.config}/sops/age/keys.txt" ]; then
             echo "sops age key missing. Running bootstrap..."
             nix run ~/.config/nix#bootstrap || return 1
           fi
           ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
+          # Invalidate cached shell evals and stale zcompdumps from prior ZDOTDIR layouts
           rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
-          # Remove stale zcompdumps from prior hostname-suffixed config and manual .bak files
           rm -f "''${ZDOTDIR}"/.zcompdump.*.*(N) "''${ZDOTDIR}"/.*.bak(N)
           zsource
         '';
       nixup = # bash
         ''
-          ghauth
+          ghauth || return 1
           nix flake update --flake ~/.config/nix --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
           nixswitch
         '';
-      v = "nvim";
-      gu = "gitui";
+      # Replaces the current shell with a fresh login shell. Sourcing .zshrc
+      # in-place is unsafe (double-registered hooks, PATH clobbering, hangs).
+      # p10k renders a brief '}}' artifact on the first prompt due to stale
+      # terminal state — cosmetic only, clears on next keypress.
       zsource = # bash
         ''
-          source "$ZDOTDIR/.zshenv"
-          source "$ZDOTDIR/.zshrc"''; # Cannot have newline at end of command or else it won't be chainable
+          exec zsh -l
+        '';
     };
     plugins = [
       # zsh-vi-mode must come first to avoid overriding other keymaps

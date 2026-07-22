@@ -10,7 +10,7 @@ _:
       enableZshIntegration = false;
     };
     zsh = {
-      shellAliases = {
+      siteFunctions = {
         zja = # bash
           ''
             zellij a "$(zellij list-sessions --no-formatting --short | fzf --prompt='attach> ')"
