@@ -53,7 +53,10 @@ in
       ghauth = # bash
         ''
           unset GITHUB_TOKEN
-          GITHUB_TOKEN="$(gh auth token)" || { echo "ghauth: gh auth token failed" >&2; return 1; }
+          GITHUB_TOKEN="$(gh auth token)" || {
+          	echo "ghauth: gh auth token failed" >&2
+          	return 1
+          }
           export GITHUB_TOKEN
         '';
       nix-clean =
@@ -137,13 +140,14 @@ in
           # PERF: cache eval output from tools whose init is static between rebuilds.
           # Invalidated by nixswitch (which clears the cache dir before zsource).
           _cache_eval() {
-            local name=$1; shift
-            local cache="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval/$name.zsh"
-            if [[ ! -f "$cache" ]]; then
-              mkdir -p "''${cache:h}"
-              "$@" > "$cache"
-            fi
-            source "$cache"
+          	local name=$1
+          	shift
+          	local cache="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval/$name.zsh"
+          	if [[ ! -f "$cache" ]]; then
+          		mkdir -p "''${cache:h}"
+          		"$@" >"$cache"
+          	fi
+          	source "$cache"
           }
         ''
       )
