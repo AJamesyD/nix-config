@@ -250,6 +250,9 @@
       };
 
       on-window-detected = [
+        # WARN: in multi-command `run` blocks, `fullscreen on` must be LAST.
+        # Moving a window to a workspace with existing windows resets fullscreen.
+        # https://nikitabobko.github.io/AeroSpace/commands#fullscreen
         {
           "if".app-name-regex-substring = "SecurityAgent";
           run = "layout floating";
@@ -358,6 +361,9 @@
           "if".app-id = "com.amazon.Amazon-Chime";
           run = "move-node-to-workspace 5-video-call";
         }
+        # NOTE: float so the meeting overlays tiled windows (Zoom Workplace)
+        # rather than splitting the workspace. Move before fullscreen because
+        # arriving in a workspace with existing windows resets fullscreen state.
         {
           "if" = {
             app-id = "us.zoom.xos";
@@ -365,8 +371,8 @@
           };
           run = [
             "layout floating"
-            "fullscreen on --no-outer-gaps"
             "move-node-to-workspace 5-video-call"
+            "fullscreen on --no-outer-gaps"
           ];
         }
         {
