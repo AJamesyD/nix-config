@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    paths:
+      - '**.nix'
+      - 'flake.lock'
+      - 'ci/**'
+      - 'patches/**'
+      - 'themes/**'
   schedule:
     - cron: '0 6 * * 1'  # Monday 6 AM UTC
   workflow_dispatch:
@@ -39,6 +45,8 @@ jobs:
         with:
           persist-credentials: false
 
+      # accept-flake-config: trusts flake.nix's nixConfig, which declares
+      # ajamesyd-nix-cache and nix-community as substituters with public keys.
       - uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
           extra-conf: |
