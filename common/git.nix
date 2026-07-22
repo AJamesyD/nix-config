@@ -17,6 +17,9 @@
     # Explicitly set dark background so difftastic picks brighter colors,
     # regardless of terminal profile detection.
     DFT_BACKGROUND = "dark";
+    # Inline display fits terminal workflows better than side-by-side (no
+    # horizontal scroll, works in narrow panes).
+    DFT_DISPLAY = "inline";
   };
 
   programs = {
@@ -147,10 +150,9 @@
           fsckObjects = true;
         };
       };
-      # Bypass delta (core.pager) for diff/log/show. Difftastic outputs
-      # ANSI-colored side-by-side format that delta would mangle. mkForce
-      # overrides delta.enableGitIntegration's diffPagerConfig. Coupled to
-      # diff.external: remove if diff.external = "difft" is removed.
+      # Bypass delta for diff/log/show. Difftastic outputs pre-formatted
+      # ANSI that delta would mangle. mkForce overrides delta's diffPagerConfig.
+      # Coupled to diff.external: remove if diff.external = "difft" is removed.
       iniContent.pager = lib.genAttrs [ "diff" "log" "show" ] (_: lib.mkForce "less -RFX");
     };
     jujutsu = {
@@ -184,7 +186,9 @@
         git = {
           pagers = [
             {
-              externalDiffCommand = "difft --color=always --display=inline";
+              externalDiffCommand = "difft --color=always";
+            }
+            {
               pager = "delta --dark --paging=never";
             }
           ];
