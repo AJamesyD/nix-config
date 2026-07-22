@@ -18,8 +18,16 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v22
 
+      # WORKAROUND: update-flake-lock has no `exclude-inputs` option.
+      #   Build the input list dynamically, excluding unreachable private inputs.
+      #   Revisit when https://github.com/DeterminateSystems/update-flake-lock/issues/246 lands.
+      - id: inputs
+        run: |
+          echo "list=$(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[] | select(. != "amzn-community")' | xargs)" >> "$GITHUB_OUTPUT"
+
       - uses: DeterminateSystems/update-flake-lock@v28
         with:
+          inputs: ${{ steps.inputs.outputs.list }}
           pr-title: 'chore: update flake inputs'
           pr-labels: |
             dependencies
