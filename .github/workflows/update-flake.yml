@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
-      - uses: DeterminateSystems/nix-installer-action@v22
+      - uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
 
       # WORKAROUND: update-flake-lock has no `exclude-inputs` option.
       #   Build the input list dynamically, excluding unreachable private inputs.
@@ -25,7 +25,7 @@ jobs:
         run: |
           echo "list=$(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[] | select(. != "amzn-community")' | xargs)" >> "$GITHUB_OUTPUT"
 
-      - uses: DeterminateSystems/update-flake-lock@v28
+      - uses: DeterminateSystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
         with:
           inputs: ${{ steps.inputs.outputs.list }}
           pr-title: 'chore: update flake inputs'
