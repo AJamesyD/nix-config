@@ -250,9 +250,6 @@
       };
 
       on-window-detected = [
-        # WARN: in multi-command `run` blocks, `fullscreen on` must be LAST.
-        # Moving a window to a workspace with existing windows resets fullscreen.
-        # https://nikitabobko.github.io/AeroSpace/commands#fullscreen
         {
           "if".app-name-regex-substring = "SecurityAgent";
           run = "layout floating";
@@ -361,23 +358,16 @@
           "if".app-id = "com.amazon.Amazon-Chime";
           run = "move-node-to-workspace 5-video-call";
         }
-        # NOTE: float so the meeting overlays tiled windows (Zoom Workplace)
-        # rather than splitting the workspace. Move before fullscreen because
-        # arriving in a workspace with existing windows resets fullscreen state.
+        # Zoom sets the window title asynchronously after creation, so
+        # on-window-detected can't reliably match on title. Float all Zoom
+        # windows and defer fullscreen until the title settles.
         {
-          "if" = {
-            app-id = "us.zoom.xos";
-            window-title-regex-substring = "Meeting";
-          };
+          "if".app-id = "us.zoom.xos";
           run = [
             "layout floating"
             "move-node-to-workspace 5-video-call"
-            "fullscreen on --no-outer-gaps"
+            ''exec-and-forget sleep 2 && TITLE=$(aerospace list-windows --window-id $AEROSPACE_WINDOW_ID --format '%{window-title}') && echo "$TITLE" | grep -qi Meeting && aerospace fullscreen on --no-outer-gaps --window-id $AEROSPACE_WINDOW_ID''
           ];
-        }
-        {
-          "if".app-id = "us.zoom.xos";
-          run = "move-node-to-workspace 5-video-call";
         }
         {
           "if".app-id = "com.spotify.client";
