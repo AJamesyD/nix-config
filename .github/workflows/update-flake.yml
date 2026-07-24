@@ -5,9 +5,8 @@ on:
     - cron: '0 0 * * *' # Daily midnight UTC
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
+# All writes use secrets.PAT; GITHUB_TOKEN is intentionally unprivileged.
+permissions: {}
 
 jobs:
   update:
@@ -23,12 +22,28 @@ jobs:
       #   Revisit when https://github.com/DeterminateSystems/update-flake-lock/issues/246 lands.
       - id: inputs
         run: |
-          echo "list=$(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[] | select(. != "amzn-community")' | xargs)" >> "$GITHUB_OUTPUT"
+          list=$(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[] | select(. != "amzn-community")' | xargs)
+          echo "list=$list" >> "$GITHUB_OUTPUT"
 
+      # PAT used instead of GITHUB_TOKEN: PRs it creates don't trigger CI,
+      # so required checks never pass and auto-merge never fires.
       - uses: DeterminateSystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
+        id: update
         with:
           inputs: ${{ steps.inputs.outputs.list }}
+          token: ${{ secrets.PAT }}
           pr-title: 'chore: update flake inputs'
           pr-labels: |
             dependencies
             automated
+
+      # Requires branch protection on main:
+      #   - Required status check: "check" (from build.yml)
+      #   - "Do not allow bypassing" enabled
+      # PAT expires annually. If this step 401s, rotate at:
+      #   Settings > Secrets and variables > Actions > PAT
+      - name: Enable auto-merge
+        if: steps.update.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: gh pr merge ${{ steps.update.outputs.pull-request-number }} --auto --rebase --repo ${{ github.repository }}
