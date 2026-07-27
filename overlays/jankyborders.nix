@@ -1,4 +1,7 @@
-# .app bundle wrapper for TCC stabilization (same pattern as sketchybar.nix)
+# NOTE: .app bundle gives TCC (Accessibility permission) a stable identity.
+#   Bare nix-store binaries change path on every rebuild, causing macOS to
+#   revoke the Accessibility grant each time. The fixed CFBundleIdentifier
+#   survives rebuilds. This is permanent (not a workaround).
 final: prev: {
   jankyborders = final.runCommand "jankyborders-${prev.jankyborders.version}" { } ''
     mkdir -p $out/bin

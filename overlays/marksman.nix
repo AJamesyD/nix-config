@@ -1,10 +1,9 @@
-# Work around .NET/ICU crash on macOS 26: the nix-provided ICU 76
-# aborts inside icu::Locale::Payload::move during globalization init.
-# Invariant mode bypasses ICU entirely; marksman needs no locale support.
-#
-# Uses symlinkJoin (not overrideAttrs) so the upstream binary is fetched
-# from cache.nixos.org. overrideAttrs changes the derivation hash,
-# forcing a local .NET source build.
+# HACK(nixpkgs#512070): bypass ICU crash on macOS 26.
+#   .NET loads both Nix-provided ICU 76 and Apple's libicucore into the same
+#   process; incompatible internal structures cause SIGABRT in icu::Locale.
+#   Invariant mode bypasses ICU entirely; marksman needs no locale support.
+#   Uses symlinkJoin (not overrideAttrs) to preserve the cache.nixos.org hit.
+#   Remove when: nixpkgs#512070 is closed.
 final: prev: {
   marksman = final.symlinkJoin {
     name = "marksman-${prev.marksman.version}";
