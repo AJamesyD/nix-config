@@ -19,6 +19,8 @@
     ast-grep
 
     # Formatters and linters
+    actionlint
+    bazel-buildtools
     markdownlint-cli2
     oxfmt
     oxlint
@@ -36,13 +38,13 @@
     lua-language-server
     marksman
     markdown-oxide
+    starpls
     tailwindcss-language-server
     taplo
     ts_query_ls
     vscode-langservers-extracted
     vtsls
     yaml-language-server
-
     # Document generation
     graphviz
     pandoc
