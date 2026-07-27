@@ -335,3 +335,69 @@ zma() {
   name=$(zmx list --short | fzf --prompt='attach> ' --no-select-1 --no-exit-0) || return
   _mux_attach "$name" zmx attach "$name" 2>/dev/null
 }
+
+# -- Zoxide + pushd integration --
+# Zoxide's default z/zi use cd, losing the previous directory.
+# These variants use pushd so you can popd back through the trail.
+
+zp() {
+  if [[ "$#" -eq 0 ]]; then
+    pushd ~ > /dev/null
+  elif [[ "$#" -eq 1 ]] && [[ "$1" = '-' ]]; then
+    # OLDPWD may be unset in a fresh shell
+    [[ -n "${OLDPWD}" ]] || return 1
+    pushd "${OLDPWD}" > /dev/null
+  elif [[ "$#" -eq 2 ]] && [[ "$1" = '--' ]]; then
+    pushd -- "$2" > /dev/null
+  elif [[ "$#" -eq 1 ]] && { (\builtin cd -q -- "$1") &>/dev/null; }; then
+    # Literal path or stack index — skip zoxide query
+    pushd -- "$1" > /dev/null
+  else
+    local result
+    result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" || return $?
+    pushd "${result}" > /dev/null
+  fi
+}
+
+zpi() {
+  local result
+  result="$(\command zoxide query --interactive -- "$@")" || return $?
+  pushd "${result}" > /dev/null
+}
+
+# Same as zoxide's default zi, kept here for discoverability alongside zp/zpi.
+zi() {
+  local result
+  result="$(\command zoxide query --interactive -- "$@")" || return $?
+  \builtin cd -- "${result}"
+}
+
+# Completion for zp: mirrors __zoxide_z_complete but rewrites BUFFER
+# to 'zp' instead of 'z' so Space-Tab preserves pushd semantics.
+function __zoxide_zp_complete_helper() {
+  if [[ -n "${__zoxide_result}" ]]; then
+    BUFFER="zp ${(q-)__zoxide_result}"
+    __zoxide_result=''
+    \builtin zle reset-prompt
+    \builtin zle accept-line
+  else
+    \builtin zle reset-prompt
+  fi
+}
+\builtin zle -N __zoxide_zp_complete_helper
+
+function __zoxide_zp_complete() {
+  [[ "${#words[@]}" -eq "${CURRENT}" ]] || return 0
+  if [[ "${#words[@]}" -eq 2 ]]; then
+    _cd -/
+  elif [[ "${words[-1]}" == '' ]]; then
+    # shellcheck disable=SC2086
+    __zoxide_result="$(\command zoxide query --exclude "$(__zoxide_pwd || \builtin true)" --interactive -- ${words[2,-1]} 2>/dev/null)" || __zoxide_result=''
+    compadd -Q -S "" -- ""
+    \builtin bindkey '\e[0n' '__zoxide_zp_complete_helper'
+    \builtin printf '\e[5n'
+    return 0
+  fi
+}
+
+compdef __zoxide_zp_complete zp
