@@ -59,11 +59,14 @@ in
           }
           export GITHUB_TOKEN
         '';
+      # NOTE: nh self-elevates via sudo internally; no sudo prefix needed.
+      #   `all` (system+user profiles) on darwin; `user` on linux because
+      #   NFS+nosuid blocks sudo entirely on cloud desktops.
       nix-clean =
         let
           cleanCmd =
             if pkgs.stdenv.isDarwin then
-              "sudo nh clean all --keep 5 --keep-since 14d"
+              "nh clean all --keep 5 --keep-since 14d"
             else
               "nh clean user --keep 5 --keep-since 14d";
         in
