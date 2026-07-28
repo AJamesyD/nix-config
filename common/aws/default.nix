@@ -162,20 +162,41 @@ in
       siteFunctions = {
         clean = # bash
           ''
+            _timed() { timeout "$1" "''${@:2}" || { [[ $? -eq 124 ]] && printf '\e[33m  ↳ %s timed out after %ss\e[0m\n' "$2" "$1"; }; true; }
+
+            printf '\e[2m[clean] nix store\e[0m\n'
             nix-clean
-            command -v brazil-package-cache &>/dev/null && brazil-package-cache clean --days=7
-            ${lib.optionalString pkgs.stdenv.isDarwin "brew cleanup --prune=all"}
-            npm cache clean --force
-            uv cache clean
-            command -v toolbox &>/dev/null && toolbox clean
-            rm -rf ~/.cache/nix ~/.cache/zig ~/.cache/bazel ~/.cache/puppeteer
-            rm -rf ~/.npm/_npx
+
+            printf '\e[2m[clean] package manager caches\e[0m\n'
+            command -v brazil-package-cache &>/dev/null && _timed 60 brazil-package-cache clean --days=7
+            ${lib.optionalString pkgs.stdenv.isDarwin "_timed 60 brew cleanup --prune=all"}
+            _timed 60 npm cache clean --force
+            _timed 60 uv cache clean
+            command -v go &>/dev/null && _timed 60 go clean -modcache
+
+            printf '\e[2m[clean] dev tool caches\e[0m\n'
+            command -v toolbox &>/dev/null && _timed 60 toolbox clean
             rm -rf ~/.builder-mcp/logs
             rm -rf ~/.local/share/opencode/log
             rm -rf ~/.gradle/caches
-            go clean -modcache 2>/dev/null || true
-            ${lib.optionalString pkgs.stdenv.isDarwin ''rm -rf ~/Library/Caches/com.spotify.client ~/Library/Application\ Support/com.apple.wallpaper ~/Library/Application\ Support/Spotify/PersistentCache ~/Library/Caches/zen ~/Library/Application\ Support/Slack/Cache ~/Library/Application\ Support/Slack/Service\ Worker ~/Library/Containers/com.apple.wallpaper.agent/Data ~/Library/Application\ Support/zoom.us/asr''}
-            ${pkgs.fd}/bin/fd --changed-before 2d . /tmp | ${pkgs.parallel}/bin/parallel --will-cite rm -rf {} 2>/dev/null
+
+            printf '\e[2m[clean] temp files\e[0m\n'
+            rm -rf ~/.cache/nix ~/.cache/zig ~/.cache/bazel ~/.cache/puppeteer
+            rm -rf ~/.npm/_npx
+            # --print0/--null: space-safe, --will-cite: no nag, --owner: skip others' files
+            _timed 120 bash -c 'LC_ALL=C ${pkgs.fd}/bin/fd --changed-before 2d --print0 --owner $(id -u) . /tmp | ${pkgs.parallel}/bin/parallel --null --will-cite rm -rf {} 2>/dev/null'
+
+            ${lib.optionalString pkgs.stdenv.isDarwin ''
+              printf '\e[2m[clean] macOS app caches\e[0m\n'
+              rm -rf ~/Library/Caches/com.spotify.client
+              rm -rf ~/Library/Application\ Support/Spotify/PersistentCache
+              rm -rf ~/Library/Caches/zen
+              rm -rf ~/Library/Application\ Support/Slack/Cache
+              rm -rf ~/Library/Application\ Support/Slack/Service\ Worker
+              rm -rf ~/Library/Application\ Support/com.apple.wallpaper
+              rm -rf ~/Library/Containers/com.apple.wallpaper.agent/Data
+              rm -rf ~/Library/Application\ Support/zoom.us/asr
+            ''}
           '';
       };
     };
