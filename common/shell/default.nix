@@ -72,9 +72,7 @@ in
         in
         # bash
         ''
-          ${cleanCmd} || return 1
-          # Repair nix store paths that optimise reports as corrupted
-          { nix store optimise 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${pkgs.parallel}/bin/parallel --will-cite '${pkgs.nix}/bin/nix store repair {}'; } || echo "nix-clean: store repair had errors (non-fatal)" >&2
+          ${cleanCmd}
         '';
       nixswitch =
         let

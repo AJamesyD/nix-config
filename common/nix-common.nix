@@ -16,6 +16,11 @@
       # Recommended by nix-direnv. Costs ~30% more store space.
       keep-outputs = true;
 
+      # Inline deduplication via hardlinks on each store addition. Eliminates
+      # periodic `nix store optimise` full-scans. On darwin the daily optimise
+      # timer in nix-daemon.nix provides a redundant safety net.
+      auto-optimise-store = true;
+
       # Trigger GC when free disk space drops below 10 GB. Daemon-side
       # setting: on multi-user Linux installs (Determinate Nix), this
       # only takes effect from /etc/nix/nix.conf or nix.custom.conf,
