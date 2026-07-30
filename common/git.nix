@@ -7,20 +7,11 @@
   ];
 
   home.sessionVariables = {
-    # Default 0 is overly conservative: any parse error triggers fallback to
-    # line-oriented diff. Raising to 20 keeps structural diffing active for
-    # files with minor syntax issues (common in C/C++, generated code, Nix
-    # expressions with unusual patterns). Env var applies to all surfaces
-    # (git diff, jj diff, lazygit) since they all invoke difft as a subprocess.
-    DFT_PARSE_ERROR_LIMIT = "20";
-    # Match the 2-space indent convention used across this nix config.
-    DFT_TAB_WIDTH = "2";
-    # Explicitly set dark background so difftastic picks brighter colors,
-    # regardless of terminal profile detection.
-    DFT_BACKGROUND = "dark";
-    # Inline display fits terminal workflows better than side-by-side (no
-    # horizontal scroll, works in narrow panes).
     DFT_DISPLAY = "inline";
+    # Override default 0: structural diffs despite minor parse errors.
+    DFT_PARSE_ERROR_LIMIT = "20";
+    # PERF: default 3M causes multi-second hangs on complex Rust diffs.
+    DFT_GRAPH_LIMIT = "1500000";
   };
 
   programs = {
