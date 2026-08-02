@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ../../common/ai
     ../../common/aws
     ../../common/browser
     ../../common/browser/zen/amazon.nix

@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ../../common/ai
     ../../common/aws
     ../../common/dev.nix
     ../../common/ssh.nix
