@@ -5,9 +5,11 @@
 {
   imports = [
     ../../common/dev.nix
+    ../../common/ai/generic.nix
     ../../common/nix-common.nix
     ../../common/ssh.nix
     ../../common/stylix.nix
+    ../../modules/home-manager
   ];
 
   fonts.fontconfig.enable = true;
@@ -32,7 +34,7 @@
       mullvad-browser
       tor-browser
     ];
-    stateVersion = "24.05"; # Please read the comment before changing.
+    stateVersion = "24.05";
   };
 
   programs = {

@@ -29,7 +29,7 @@ let
       throw "unknown host type '${type}'";
 in
 {
-  dellangelis = mkHost {
+  dellangelis-hm = mkHost {
     type = "home-manager";
     hostPlatform = "x86_64-linux";
     username = "aidandeangelis";

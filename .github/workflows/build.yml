@@ -46,9 +46,9 @@ jobs:
             runner: macos-15
             timeout: 90
             attr: darwinConfigurations.m3-work-laptop.config.system.build.toplevel
-          - name: dellangelis
+          - name: dellangelis-hm
             runner: ubuntu-24.04
-            attr: homeConfigurations.dellangelis.activationPackage
+            attr: homeConfigurations.dellangelis-hm.activationPackage
           - name: al2-x86-cdd
             runner: ubuntu-24.04
             attr: homeConfigurations.al2-x86-cdd.activationPackage
