@@ -65,8 +65,8 @@
       cleanup = "zap";
       extraFlags = [ "--force" ];
       upgrade = true;
-      # HACK: Homebrew 5.1.x tap-trust refuses non-official taps (milch/mistty,
-      #   caarlos0/tap) non-interactively, breaking darwin-rebuild. Disable the
+      # HACK: Homebrew 5.1.x tap-trust refuses non-official taps (caarlos0/tap)
+      #   non-interactively, breaking darwin-rebuild. Disable the
       #   trust gate during activation. Replace with per-tap `trusted = true` once
       #   nix-darwin PR #1789 lands and we bump the input.
       #   https://github.com/nix-darwin/nix-darwin/issues/1794

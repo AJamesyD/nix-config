@@ -51,9 +51,6 @@ in
         name = "caarlos0/tap";
       }
       {
-        name = "milch/mistty";
-      }
-      {
         name = "felixkratz/formulae";
       }
     ];
@@ -110,10 +107,6 @@ in
       }
       {
         name = "hammerspoon";
-        greedy = true;
-      }
-      {
-        name = "mistty";
         greedy = true;
       }
       {
