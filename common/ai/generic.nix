@@ -23,7 +23,6 @@ in
     CLAUDE_CODE_EFFORT_LEVEL = mkDefault "high";
     CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS = mkDefault "1";
     CLAUDE_CODE_NO_FLICKER = mkDefault "1";
-    CLAUDE_CODE_TMUX_TRUECOLOR = mkDefault "1";
     CLAUDE_CONFIG_DIR = mkDefault "${config.xdg.configHome}/claude";
     ANTHROPIC_MODEL = mkDefault "claude-opus-4-6";
     DISABLE_AUTO_COMPACT = mkDefault "1";

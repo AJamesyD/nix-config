@@ -8,7 +8,6 @@ _: {
     ./session.nix
     ./secrets.nix
     ./shell
-    ./tmux
     ./zellij
   ];
 }

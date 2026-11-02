@@ -6,8 +6,7 @@
 
   programs.zsh.initContent = ''
     # zmx's built-in detach (ctrl+\) is hardcoded; remap to C-a C-q for
-    # consistency with tmux/zellij/shpool. Unreachable inside tmux (C-a is
-    # intercepted as prefix), but zmx sessions don't nest inside tmux.
+    # consistency with zellij/shpool.
     zmx-detach() {
       [[ -n "$ZMX_SESSION" ]] || return
       {
