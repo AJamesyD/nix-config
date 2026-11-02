@@ -15,11 +15,6 @@
   };
 
   programs = {
-    worktrunk = {
-      enable = true;
-      enableZshIntegration = false;
-    };
-
     delta = {
       enable = true;
       enableGitIntegration = true;

@@ -172,8 +172,6 @@ in
 
           _cache_eval zoxide ${pkgs.zoxide}/bin/zoxide init zsh
 
-          _cache_eval worktrunk ${pkgs.worktrunk}/bin/wt config shell init zsh
-
         ''
         + builtins.readFile ./zshrc-main.zsh
       )
@@ -231,7 +229,8 @@ in
 
   programs = {
     atuin = {
-      enable = true;
+      # TODO: Re-enable and diagnose build failures
+      # enable = true;
       flags = [ "--disable-up-arrow" ];
       settings = {
         auto_sync = false;
