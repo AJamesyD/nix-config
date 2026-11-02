@@ -84,7 +84,7 @@ for mode_name, keys in pairs(mode_keys) do
   end
 end
 
--- Mode colors for visual feedback (analogous to tmux prefix/copy mode colors)
+-- Mode colors for visual feedback (one color per aerospace mode)
 local mode_colors = {
   service = colors.yellow,
   resize = colors.green,

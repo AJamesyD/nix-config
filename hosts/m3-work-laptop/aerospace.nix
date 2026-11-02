@@ -291,13 +291,6 @@
           run = "move-node-to-workspace 1-dev";
         }
         {
-          "if".window-title-regex-substring = "neovide";
-          run = [
-            "layout floating"
-            "move-node-to-workspace 1-dev"
-          ];
-        }
-        {
           "if".app-id = "dev.kdrag0n.MacVirt";
           run = "move-node-to-workspace 1-dev";
         }

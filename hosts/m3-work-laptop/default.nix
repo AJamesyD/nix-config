@@ -117,10 +117,6 @@ in
         greedy = true;
       }
       {
-        name = "neovide-app";
-        greedy = true;
-      }
-      {
         name = "orbstack";
         greedy = true;
       }

@@ -125,53 +125,11 @@
       };
     };
 
-    neovide = {
-      enable = true;
-      package = null; # installed via Homebrew cask
-      settings = {
-        fork = true;
-        frame = "full";
-        no-multigrid = false;
-        title-hidden = true;
-        maximized = true;
-
-        font = {
-          size = lib.mkForce 16.0;
-          edging = "subpixelantialias";
-
-          normal = [
-            {
-              family = "BlexMono Nerd Font";
-              style = "Regular";
-            }
-          ];
-          italic = {
-            family = "VictorMono Nerd Font";
-            style = "Italic";
-          };
-          bold = {
-            family = "BlexMono Nerd Font";
-            style = "Bold";
-          };
-          bold_italic = {
-            family = "VictorMono Nerd Font";
-            style = "Bold Italic";
-          };
-        };
-      };
-    };
-
     zsh = {
       enable = true;
       shellAliases = {
         auth = "mwinit -f -s";
         up = "nixup";
-        neovide-ssh = # bash
-          ''
-            (ssh -L 6666:localhost:6666 "$CDD_HOSTNAME_AL2_X86" \
-            	'nvim --headless --listen localhost:6666' &) &&
-            	sleep 1s &&
-            	neovide --server=localhost:6666'';
       };
     };
   };

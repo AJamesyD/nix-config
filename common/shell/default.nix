@@ -15,7 +15,7 @@ in
   programs.zsh = {
     enable = true;
     # Puts mise shims on PATH in .zprofile (login shell) so GUI apps
-    # (Neovide, etc.) can find mise-managed tools like npm/node.
+    # (Zed, VS Code, etc.) can find mise-managed tools like npm/node.
     profileExtra = ''
       eval "$(mise activate zsh --shims)"
     '';
