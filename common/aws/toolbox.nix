@@ -48,13 +48,7 @@
       ada.enable = true;
       axe.enable = true;
       barium.enable = true;
-      bh = {
-        enable = true;
-        extraFlags = lib.optionals pkgs.stdenv.isDarwin [
-          "--force-os"
-          "osx_arm64"
-        ];
-      };
+      bh.enable = true;
       bemol.enable = true;
       builder-mcp.enable = true;
       claude-code.enable = true;
