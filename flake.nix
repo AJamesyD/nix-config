@@ -241,6 +241,7 @@
                     "collapsible_let_in" # W06: false positive with shadowed bindings
                     "bool_simplification" # W18: wrong when comparing non-bool values
                     "manual_inherit_from" # W04: wrong with `or` fallback
+                    "repeated_keys" # W20: intentional split of home.*/launchd.* into per-concern blocks
                   ];
                 };
                 stylua = {

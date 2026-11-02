@@ -45,12 +45,14 @@
     };
     git = {
       enable = true;
-      settings.user.name = "Aidan De Angelis";
-      settings.user.email = lib.mkDefault "aidandeangelis@berkeley.edu";
       lfs = {
         enable = true;
       };
       settings = {
+        user = {
+          name = "Aidan De Angelis";
+          email = lib.mkDefault "aidandeangelis@berkeley.edu";
+        };
         alias = {
           dag = "log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order";
         };

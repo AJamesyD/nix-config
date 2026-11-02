@@ -13,7 +13,6 @@
       sage-plus-service-mcp = { };
       slack-mcp = { };
     };
-    brazil-cli.enable = true;
     cr.enable = true;
     eda.enable = true;
     kiro.cli.enable = true;
@@ -23,22 +22,26 @@
     registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
     registries.bh.uri = "s3://buildertoolbox-bh-us-west-2/tools.json";
 
-    brazil-cli.settings = lib.optionalAttrs pkgs.stdenv.isDarwin {
-      # NOTE: lowercase `packagecache` is the host-side cache section.
-      # Distinct from the module's auto-generated `[packageCache]` (capital C) sandbox section.
-      packagecache = {
-        cacheRoot = "/Volumes/brazil-pkg-cache";
-        visibleCacheRoot = "/Volumes/brazil-pkg-cache";
-      };
-    };
+    brazil-cli = {
+      enable = true;
 
-    # NOTE: Node for brazil-build (npm-pretty-much / cdk-build), pinned to nixpkgs and set
-    # declaratively: brazil.prefs is a read-only nix store symlink, so `brazil setup --node`
-    # (which writes the same key) fails with EACCES. The `node<major>x` key under
-    # `[cli "bin"]` is brazil's scheme; add e.g. node22x the same way for another major.
-    # Darwin-only: the al2 CDD uses RtxNode via mise.
-    brazil-cli.runtimes = lib.optionalAttrs pkgs.stdenv.isDarwin {
-      node24x = "${pkgs.nodejs_24}/bin/node";
+      settings = lib.optionalAttrs pkgs.stdenv.isDarwin {
+        # NOTE: lowercase `packagecache` is the host-side cache section.
+        # Distinct from the module's auto-generated `[packageCache]` (capital C) sandbox section.
+        packagecache = {
+          cacheRoot = "/Volumes/brazil-pkg-cache";
+          visibleCacheRoot = "/Volumes/brazil-pkg-cache";
+        };
+      };
+
+      # NOTE: Node for brazil-build (npm-pretty-much / cdk-build), pinned to nixpkgs and set
+      # declaratively: brazil.prefs is a read-only nix store symlink, so `brazil setup --node`
+      # (which writes the same key) fails with EACCES. The `node<major>x` key under
+      # `[cli "bin"]` is brazil's scheme; add e.g. node22x the same way for another major.
+      # Darwin-only: the al2 CDD uses RtxNode via mise.
+      runtimes = lib.optionalAttrs pkgs.stdenv.isDarwin {
+        node24x = "${pkgs.nodejs_24}/bin/node";
+      };
     };
 
     tools = {
