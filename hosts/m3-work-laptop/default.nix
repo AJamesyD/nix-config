@@ -98,10 +98,6 @@ in
     ];
     casks = [
       {
-        name = "block-goose";
-        greedy = true;
-      }
-      {
         name = "ghostty";
         greedy = true;
       }

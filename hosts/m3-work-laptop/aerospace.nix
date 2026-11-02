@@ -291,10 +291,6 @@
           run = "move-node-to-workspace 1-dev";
         }
         {
-          "if".app-id = "com.electron.goose";
-          run = "move-node-to-workspace 1-dev";
-        }
-        {
           "if".app-id = "dev.zed.Zed-Preview";
           run = "move-node-to-workspace 1-dev";
         }
