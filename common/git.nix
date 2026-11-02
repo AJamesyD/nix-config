@@ -176,12 +176,13 @@
           shrinkSidePanelsToContent = true;
         };
         git = {
-          pagers = [
+          diffRenderers = [
             {
-              externalDiffCommand = "difft --color=always";
+              type = "extDiff";
+              command = "difft --color=always";
             }
             {
-              pager = "delta --dark --paging=never";
+              command = "delta --dark --paging=never";
             }
           ];
           mainBranches = [
