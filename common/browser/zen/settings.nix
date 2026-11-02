@@ -8,7 +8,8 @@
   "zen.view.compact.should-enable-at-startup" = true;
   "zen.view.compact.toolbar-flash-popup" = true;
   "zen.view.use-single-toolbar" = false;
-  "zen.view.window.scheme" = 0;
+  # TODO: Figure out why following causes conflict
+  # "zen.view.window.scheme" = 0;
   "zen.view.experimental-no-window-controls" = true;
   "zen.view.grey-out-inactive-windows" = false;
   "zen.view.compact.toolbar-hide-after-hover.duration" = 500;
