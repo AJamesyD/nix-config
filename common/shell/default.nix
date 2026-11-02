@@ -65,7 +65,7 @@ in
       nix-clean =
         let
           cleanCmd =
-            if pkgs.stdenv.isDarwin then
+            if pkgs.stdenv.hostPlatform.isDarwin then
               "nh clean all --keep 5 --keep-since 14d"
             else
               "nh clean user --keep 5 --keep-since 14d";
@@ -77,7 +77,7 @@ in
       nixswitch =
         let
           switchCmd =
-            if pkgs.stdenv.isDarwin then
+            if pkgs.stdenv.hostPlatform.isDarwin then
               "nh darwin switch"
             else
               "nh home switch --configuration \"$_NIX_HOSTNAME\"";
@@ -207,7 +207,7 @@ in
           export PATH="$PATH:${config.home.homeDirectory}/.toolbox/bin"
         ''
         +
-          lib.strings.optionalString pkgs.stdenv.isDarwin # bash
+          lib.strings.optionalString pkgs.stdenv.hostPlatform.isDarwin # bash
             ''
               export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
             ''

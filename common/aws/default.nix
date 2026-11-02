@@ -52,7 +52,7 @@ in
       aws-cdk-cli
     ];
 
-    sessionPath = lib.optionals pkgs.stdenv.isLinux [ "/apollo/env/bt-rust/bin" ];
+    sessionPath = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ "/apollo/env/bt-rust/bin" ];
   };
 
   # bemol: generate ty.toml alongside pyright/pylance for Brazil
@@ -169,7 +169,7 @@ in
 
             printf '\e[2m[clean] package manager caches\e[0m\n'
             command -v brazil-package-cache &>/dev/null && _timed 60 brazil-package-cache clean --days=7
-            ${lib.optionalString pkgs.stdenv.isDarwin "_timed 60 brew cleanup --prune=all"}
+            ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin "_timed 60 brew cleanup --prune=all"}
             _timed 60 npm cache clean --force
             _timed 60 uv cache clean
             command -v go &>/dev/null && _timed 60 go clean -modcache
@@ -186,7 +186,7 @@ in
             # --print0/--null: space-safe, --will-cite: no nag, --owner: skip others' files
             _timed 120 bash -c 'LC_ALL=C ${pkgs.fd}/bin/fd --changed-before 2d --print0 --owner $(id -u) . /tmp | ${pkgs.parallel}/bin/parallel --null --will-cite rm -rf {} 2>/dev/null'
 
-            ${lib.optionalString pkgs.stdenv.isDarwin ''
+            ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
               printf '\e[2m[clean] macOS app caches\e[0m\n'
               rm -rf ~/Library/Caches/com.spotify.client
               rm -rf ~/Library/Application\ Support/Spotify/PersistentCache
