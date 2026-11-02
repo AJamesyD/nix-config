@@ -10,7 +10,6 @@ let
     {
       imports = [
         (../hosts + "/${hostName}")
-        ../modules/home-manager
       ];
 
       home = {

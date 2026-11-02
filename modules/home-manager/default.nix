@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./bob-nvim.nix
-  ];
-}

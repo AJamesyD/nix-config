@@ -35,9 +35,6 @@
   };
 
   programs = {
-    bob-nvim = {
-      enable = true;
-    };
     mise = {
       globalConfig = {
         tool_alias = {

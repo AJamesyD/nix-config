@@ -9,7 +9,6 @@
     ../../common/nix-common.nix
     ../../common/ssh.nix
     ../../common/stylix.nix
-    ../../modules/home-manager
   ];
 
   fonts.fontconfig.enable = true;
