@@ -12,7 +12,6 @@ in
   programs.mcp.enable = true;
 
   home.packages = with pkgs; [
-    opencode
     (callPackage ../../pkgs/rtk { })
     (callPackage ../../pkgs/mcp-hub { })
     (callPackage ../../pkgs/claude-code-acp { })
@@ -28,12 +27,6 @@ in
     DISABLE_AUTO_COMPACT = mkDefault "1";
     ANTHROPIC_DEFAULT_OPUS_MODEL = mkDefault "claude-opus-4-6";
     ANTHROPIC_DEFAULT_SONNET_MODEL = mkDefault "claude-sonnet-4-6";
-
-    OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
-    OPENCODE_ENABLE_EXA = "1";
-    OPENCODE_DISABLE_AUTOUPDATE = "1";
-    OPENCODE_EXPERIMENTAL_PLAN_MODE = "1";
-    OPENCODE_DISABLE_LSP_DOWNLOAD = "1";
 
     PI_SKIP_VERSION_CHECK = "1";
     PI_TELEMETRY = "0";

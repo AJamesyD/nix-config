@@ -23,7 +23,7 @@
   #
   # --- Workspace mod guidance ---
   # Built-in recommendations auto-enable symposium-cargo and symposium-rust-analyzer
-  # for Rust workspaces. Both are REDUNDANT: kiro and opencode have native LSP and
+  # for Rust workspaces. Both are REDUNDANT: kiro has native LSP and
   # build tools. Starting a second rust-analyzer instance also wastes resources.
   # In workspace configs, set enabled: false on both (keep them present to suppress
   # the recommendation diff, which triggers interactive config mode that hangs in

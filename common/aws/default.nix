@@ -177,7 +177,6 @@ in
             printf '\e[2m[clean] dev tool caches\e[0m\n'
             command -v toolbox &>/dev/null && _timed 60 toolbox clean
             rm -rf ~/.builder-mcp/logs
-            rm -rf ~/.local/share/opencode/log
             rm -rf ~/.gradle/caches
 
             printf '\e[2m[clean] temp files\e[0m\n'

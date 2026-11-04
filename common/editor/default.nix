@@ -32,7 +32,7 @@
     stylua
     ty
 
-    # LSP servers (shared by neovim, Helix, OpenCode, and Kiro)
+    # LSP servers (shared by neovim, Helix, and Kiro)
     basedpyright
     bash-language-server
     lua-language-server
