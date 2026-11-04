@@ -42,16 +42,6 @@
       name = "Aidan De Angelis";
       email = "aidandeangelis@berkeley.edu";
     };
-    mise = {
-      globalConfig = {
-        tools = {
-          node = [
-            # NOTE: First one becomes default
-            "lts"
-          ];
-        };
-      };
-    };
     zsh = {
       enable = true;
       shellAliases = {

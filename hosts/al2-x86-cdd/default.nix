@@ -35,20 +35,6 @@
   };
 
   programs = {
-    mise = {
-      globalConfig = {
-        tool_alias = {
-          node = "node:ssh://git.amazon.com/pkg/RtxNode";
-        };
-        tools = {
-          node = [
-            # NOTE: First one becomes default
-            "lts"
-            "22"
-          ];
-        };
-      };
-    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;

@@ -7,20 +7,14 @@
     enable = true;
 
     # Specialized modules (handle registries, config files, defaults)
-    aim.enable = true;
-    aim.mcpServers = {
-      cr-guide-mcp = { };
-      sage-plus-service-mcp = { };
-      slack-mcp = { };
+    aim = {
+      enable = true;
+      mcpServers = {
+        cr-guide-mcp = { };
+        sage-plus-service-mcp = { };
+        slack-mcp = { };
+      };
     };
-    cr.enable = true;
-    eda.enable = true;
-    kiro.cli.enable = true;
-    # NOTE: toolbox rust-analyzer only supports AL2; nix provides it on darwin.
-    rust-analyzer.enable = pkgs.stdenv.hostPlatform.isLinux;
-
-    registries.cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
-    registries.bh.uri = "s3://buildertoolbox-bh-us-west-2/tools.json";
 
     brazil-cli = {
       enable = true;
@@ -34,14 +28,28 @@
         };
       };
 
-      # NOTE: Node for brazil-build (npm-pretty-much / cdk-build), pinned to nixpkgs and set
-      # declaratively: brazil.prefs is a read-only nix store symlink, so `brazil setup --node`
-      # (which writes the same key) fails with EACCES. The `node<major>x` key under
-      # `[cli "bin"]` is brazil's scheme; add e.g. node22x the same way for another major.
-      # Darwin-only: the al2 CDD uses RtxNode via mise.
+      # NOTE: Node/ruby for brazil-build (npm-pretty-much / cdk-build), pinned to nixpkgs and
+      # set declaratively: brazil.prefs is a read-only nix store symlink, so `brazil setup`
+      # (which writes the same keys) fails with EACCES. Keys follow brazil's `[cli "bin"]`
+      # scheme: node<major>x and ruby<major><minor>. Add e.g. node26x the same way for a new
+      # major. Darwin-only: this host-path override is only needed on macOS; the al2 CDD does
+      # not use it.
       runtimes = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
         node24x = "${pkgs.nodejs_24}/bin/node";
+        node22x = "${pkgs.nodejs_22}/bin/node";
+        ruby34 = "${pkgs.ruby_3_4}/bin/ruby";
       };
+    };
+
+    cr.enable = true;
+    eda.enable = true;
+    kiro.cli.enable = true;
+    # NOTE: toolbox rust-analyzer only supports AL2; nix provides it on darwin.
+    rust-analyzer.enable = pkgs.stdenv.hostPlatform.isLinux;
+
+    registries = {
+      bh.uri = "s3://buildertoolbox-bh-us-west-2/tools.json";
+      cr-guide.uri = "s3://code-review-guide-toolbox-registry/tools.json";
     };
 
     tools = {

@@ -55,33 +55,11 @@ in
       }
     ];
     brews = [
-      # For mise python-build
-      {
-        name = "openssl";
-      }
-      {
-        name = "readline";
-      }
-      {
-        name = "sqlite3";
-      }
-      {
-        name = "tcl-tk";
-      }
-      {
-        name = "xz";
-      }
-      {
-        name = "zlib";
-      }
       # For MacTrampolineBuild
       {
         name = "gmp";
       }
       # Other
-      {
-        name = "ruby@3.2";
-      }
       {
         name = "terminal-notifier";
       }

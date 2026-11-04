@@ -109,22 +109,6 @@
   };
 
   programs = {
-    mise = {
-      globalConfig = {
-        tools = {
-          # NOTE: interactive node only; brazil-build's node is pinned separately in
-          # common/aws/toolbox.nix (brazil-cli.runtimes). Editing this list does not
-          # change brazil's node.
-          node = [
-            # NOTE: First one becomes default
-            "24" # krypton
-            "22" # jod
-            "20" # iron
-          ];
-        };
-      };
-    };
-
     zsh = {
       enable = true;
       shellAliases = {
