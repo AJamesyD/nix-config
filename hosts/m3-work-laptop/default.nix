@@ -49,9 +49,11 @@ in
     taps = [
       {
         name = "caarlos0/tap";
+        trusted = true;
       }
       {
         name = "felixkratz/formulae";
+        trusted = true;
       }
     ];
     brews = [
