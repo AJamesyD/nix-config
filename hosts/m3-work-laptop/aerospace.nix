@@ -395,7 +395,7 @@
         "9-entertainment" = [
           "P32p-20 \\(1\\)"
           "dell"
-          "secondary"
+          "built-in"
         ];
         ignored = [
           "P32p-20 \\(2\\)"
