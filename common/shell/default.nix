@@ -42,7 +42,6 @@ in
       clipfix = "cargo clippy --fix --allow-dirty --allow-staged -- -Wclippy::pedantic -Wclippy::nursery -Wclippy::cargo";
       clr = "clear";
       v = "nvim";
-      gu = "gitui";
     };
     siteFunctions = {
       ghauth = # bash

@@ -195,10 +195,6 @@
       };
       shellWrapperName = "lg";
     };
-    gitui = {
-      enable = true;
-      keyConfig = builtins.readFile ./editor/gitui-keys.ron;
-    };
     mergiraf = {
       enable = true;
       enableGitIntegration = true;
