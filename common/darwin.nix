@@ -35,7 +35,6 @@
     systemPackages = with pkgs; [
       libplist
       openssh
-      rust-analyzer
       vim
     ];
     systemPath = lib.mkBefore [
@@ -80,6 +79,11 @@
       }
     ];
     brews = [
+      # HACK: Nix-provided rust-analyzer doesn't play nice with CargoBrazil. For now, brew provided version which works fine.
+      # TODO: Diagnose and fix issues with nix-provided rust-analyzer and CargoBrazil
+      {
+        name = "rust-analyzer";
+      }
     ];
     casks = [
       {
