@@ -1,5 +1,5 @@
 if command -v zmx &>/dev/null; then
-  _cache_eval zmx zmx completions zsh
+  _eval_init zmx completions zsh
 
   zmx-select() {
     local display

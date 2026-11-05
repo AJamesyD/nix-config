@@ -85,8 +85,7 @@ in
             nix run ~/.config/nix#bootstrap || return 1
           fi
           ${switchCmd} ~/.config/nix -- --option access-tokens "github.com=$GITHUB_TOKEN" || return 1
-          # Invalidate cached shell evals and stale zcompdumps from prior ZDOTDIR layouts
-          rm -rf "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
+          # Clear stale zcompdumps from prior ZDOTDIR layouts
           rm -f "''${ZDOTDIR}"/.zcompdump.*.*(N) "''${ZDOTDIR}"/.*.bak(N)
           zsource
         '';
@@ -130,23 +129,6 @@ in
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
       '')
-      (lib.mkOrder 548
-        # bash
-        ''
-          # PERF: cache eval output from tools whose init is static between rebuilds.
-          # Invalidated by nixswitch (which clears the cache dir before zsource).
-          _cache_eval() {
-          	local name=$1
-          	shift
-          	local cache="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval/$name.zsh"
-          	if [[ ! -f "$cache" ]]; then
-          		mkdir -p "''${cache:h}"
-          		"$@" >"$cache"
-          	fi
-          	source "$cache"
-          }
-        ''
-      )
       (lib.mkOrder 549 (builtins.readFile ./compinit.zsh))
       (lib.mkOrder 550
         # bash
@@ -160,12 +142,20 @@ in
       (
         builtins.readFile ./zshrc-prefix.zsh
         + ''
-          _cache_eval batman ${pkgs.bat-extras.batman}/bin/batman --export-env
+          # Eval each tool's init directly (no on-disk cache): a cached snippet can
+          # bake a store path that dangles after GC drops an old generation
+          # (nix-your-shell wraps `nix`, so that breaks rebuilds); current-generation
+          # paths do not. _eval_init runs the generator and evals its output only on
+          # exit 0, so a failed run can't inject a parse error into the shell; the
+          # generator's stderr stays visible on purpose.
+          _eval_init() { local out; out="$("$@")" && eval "$out"; }
+
+          _eval_init ${pkgs.bat-extras.batman}/bin/batman --export-env
 
           # Requires nix-output-monitor
-          _cache_eval nix-your-shell ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh
+          _eval_init ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh
 
-          _cache_eval zoxide ${pkgs.zoxide}/bin/zoxide init zsh
+          _eval_init ${pkgs.zoxide}/bin/zoxide init zsh
 
         ''
         + builtins.readFile ./zshrc-main.zsh
