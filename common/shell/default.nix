@@ -142,17 +142,13 @@ in
         builtins.readFile ./zshrc-prefix.zsh
         + ''
           # Eval each tool's init directly (no on-disk cache): a cached snippet can
-          # bake a store path that dangles after GC drops an old generation
-          # (nix-your-shell wraps `nix`, so that breaks rebuilds); current-generation
-          # paths do not. _eval_init runs the generator and evals its output only on
-          # exit 0, so a failed run can't inject a parse error into the shell; the
-          # generator's stderr stays visible on purpose.
+          # bake a store path that dangles after GC drops an old generation;
+          # current-generation paths do not. _eval_init runs the generator and
+          # evals its output only on exit 0, so a failed run can't inject a parse
+          # error into the shell; the generator's stderr stays visible on purpose.
           _eval_init() { local out; out="$("$@")" && eval "$out"; }
 
           _eval_init ${pkgs.bat-extras.batman}/bin/batman --export-env
-
-          # Requires nix-output-monitor
-          _eval_init ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh
 
           _eval_init ${pkgs.zoxide}/bin/zoxide init zsh
 
@@ -164,7 +160,11 @@ in
     ];
   };
 
-  home.packages = with pkgs; [ nix-your-shell ];
+  programs.nix-your-shell = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-output-monitor.enable = true;
+  };
 
   xdg.configFile."zsh/.p10k.zsh".source = pkgs.replaceVars ./p10k.zsh { hostLabel = hostName; };
 
