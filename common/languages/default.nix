@@ -15,8 +15,6 @@
   ];
 
   home.sessionVariables = {
-    BACON_PREFS = "${config.xdg.configHome}/bacon/prefs.toml";
-
     GOPROXY = "direct";
   };
 
