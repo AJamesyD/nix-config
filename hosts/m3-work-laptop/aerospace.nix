@@ -38,7 +38,7 @@
       # Notify Sketchybar about binding mode changes
       # on-mode-changed takes Aerospace commands (not a process array like exec-on-*).
       on-mode-changed = [
-        "exec-and-forget /run/current-system/sw/bin/sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=\"$(${pkgs.aerospace}/bin/aerospace list-modes --current 2>/dev/null || echo main)\""
+        "exec-and-forget /opt/homebrew/bin/sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=\"$(${pkgs.aerospace}/bin/aerospace list-modes --current 2>/dev/null || echo main)\""
       ];
 
       # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
