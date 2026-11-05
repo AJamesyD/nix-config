@@ -61,6 +61,9 @@ in
       {
         name = "gmp";
       }
+      {
+        name = "openssl";
+      }
       # Other
       {
         name = "terminal-notifier";
