@@ -3,8 +3,8 @@ name: Build and cache
 on:
   push:
     branches: [main]
-    # Build-inert files: docs, CI config (except self), git metadata.
-    # Everything else may affect nix build output (via readFile, home.file, etc).
+    # NOTE: only build-inert files: docs, CI config (except self), git metadata.
+    #   Everything else may affect nix build output (via readFile, home.file, etc).
     paths-ignore:
       - '**.md'
       - '.github/dependabot.yml'
@@ -13,18 +13,13 @@ on:
       - '.git-blame-ignore-revs'
       - '.sops.yaml'
       - 'LICENSE'
+  # NOTE: no paths-ignore on PRs. A workflow skipped by path filters never
+  # reports the required `check` status, so the PR can't merge.
   pull_request:
     branches: [main]
-    paths-ignore:
-      - '**.md'
-      - '.github/dependabot.yml'
-      - '.github/workflows/update-flake.yml'
-      - '.gitignore'
-      - '.git-blame-ignore-revs'
-      - '.sops.yaml'
-      - 'LICENSE'
   schedule:
-    - cron: '0 6 * * 1'  # Monday 6 AM UTC
+    # NOTE: Monday 06:23 UTC. Used random off-the-hour offset because GitHub may drop scheduled runs queued at :00.
+    - cron: '23 6 * * 1'
   workflow_dispatch:
 
 concurrency:
@@ -43,7 +38,7 @@ jobs:
       matrix:
         include:
           - name: m3-work-laptop
-            runner: macos-15
+            runner: macos-latest
             timeout: 90
             attr: darwinConfigurations.m3-work-laptop.config.system.build.toplevel
           - name: dellangelis-hm
@@ -55,10 +50,13 @@ jobs:
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
+          # NOTE: nix-eval-jobs (run by nix-fast-build) fails on a shallow git+file
+          # flake with "'revCount' is not available".
+          fetch-depth: 0
           persist-credentials: false
 
-      # accept-flake-config: trusts flake.nix's nixConfig, which declares
-      # ajamesyd-nix-cache and nix-community as substituters with public keys.
+      # NOTE: accept-flake-config trusts flake.nix's nixConfig, which declares
+      #   ajamesyd-nix-cache and nix-community as substituters with public keys.
       - uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
           extra-conf: |
@@ -67,11 +65,13 @@ jobs:
             builders-use-substitutes = true
             max-jobs = auto
 
+      # NOTE: key includes the job so lint's small cache can't claim the key first;
+      #   actions/cache never re-saves on an exact key hit.
       - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ~/.cache/nix
-          key: nix-eval-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
-          restore-keys: nix-eval-${{ runner.os }}-${{ runner.arch }}-
+          key: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
+          restore-keys: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-
 
       - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
         with:
@@ -80,16 +80,26 @@ jobs:
           extraPullNames: nix-community
           skipPush: true
 
+      # NOTE: --inputs-from . takes nix-fast-build from flake.lock's nixpkgs, not
+      #   the installer's flake registry, so tool upgrades arrive via flake.lock PRs.
       - name: Build
-        run: >-
-          nix run nixpkgs#nix-fast-build --
-          --no-nom
-          --skip-cached
-          --retries 3
-          --option accept-flake-config true
-          --override-input amzn-community path:./ci/stub-amzn-community
-          --cachix-cache ajamesyd-nix-cache
-          --flake 'git+file:.#${{ matrix.attr }}'
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          ATTR: ${{ matrix.attr }}
+        run: |
+          # NOTE: Dependabot and fork PRs can't read Actions secrets, so they build
+          # without pushing to Cachix.
+          push_args=()
+          if [ -n "$CACHIX_AUTH_TOKEN" ]; then
+            push_args=(--cachix-cache ajamesyd-nix-cache)
+          fi
+          nix run --inputs-from . nixpkgs#nix-fast-build -- \
+            --no-nom \
+            --skip-cached \
+            --option accept-flake-config true \
+            --override-input amzn-community path:./ci/stub-amzn-community \
+            "${push_args[@]}" \
+            --flake "git+file:.#$ATTR"
 
   lint:
     runs-on: ubuntu-24.04
@@ -107,8 +117,8 @@ jobs:
       - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ~/.cache/nix
-          key: nix-eval-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
-          restore-keys: nix-eval-${{ runner.os }}-${{ runner.arch }}-
+          key: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
+          restore-keys: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Check formatting
         run: nix build .#checks.x86_64-linux.treefmt --override-input amzn-community path:./ci/stub-amzn-community

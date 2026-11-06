@@ -14,6 +14,10 @@
   fonts.fontconfig.enable = true;
 
   stylix.targets.gtk.enable = false;
+  # Silences stylix's deprecated `programs.rofi.font` warning. Kept per-host because
+  # common/stylix.nix is also a nix-darwin module, where `targets.rofi` is undefined;
+  # branching that shared module's structure on platform caused an eval infinite recursion.
+  stylix.targets.rofi.enable = false;
 
   home = {
     packages = with pkgs; [
