@@ -213,8 +213,7 @@ in
 
   programs = {
     atuin = {
-      # TODO: Re-enable and diagnose build failures
-      # enable = true;
+      enable = true;
       flags = [ "--disable-up-arrow" ];
       settings = {
         auto_sync = false;
