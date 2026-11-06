@@ -23,7 +23,9 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.head_ref || github.ref_name }}
+  # NOTE: keyed by PR number (not head_ref) so a fork PR from a branch named
+  #   "main" can't share a group with main pushes and cancel their builds.
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions: {}

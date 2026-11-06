@@ -207,6 +207,18 @@
                   check-shebang-scripts-are-executable.enable = true;
                   check-toml.enable = true;
                   end-of-file-fixer.enable = true;
+                  eval-hosts = {
+                    enable = true;
+                    name = "evaluate host configurations";
+                    entry = "bash ci/eval-hosts.sh";
+                    # NOTE: pre-push only. A full eval of every host takes about a
+                    #   minute, too slow for pre-commit. always_run because a
+                    #   flake.lock bump (not just a .nix edit) can break evaluation,
+                    #   so file-based filtering would miss it.
+                    stages = [ "pre-push" ];
+                    always_run = true;
+                    pass_filenames = false;
+                  };
                   nil.enable = true;
                   treefmt = {
                     enable = true;
