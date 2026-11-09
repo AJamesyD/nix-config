@@ -10,18 +10,11 @@
     ../../common/dev.nix
     ../../common/ssh.nix
     ../../common/nix-common.nix
-    ../../common/stylix.nix
+    ../../common/stylix
     ../../common/zmx
   ];
 
   dconf.enable = false;
-  stylix.targets.gtk.enable = false;
-  # Silences stylix's deprecated `programs.rofi.font` warning. Kept per-host because
-  # common/stylix.nix is also a nix-darwin module, where `targets.rofi` is undefined;
-  # branching that shared module's structure on platform caused an eval infinite recursion.
-  stylix.targets.rofi.enable = false;
-
-  gtk.gtk4.theme = null;
 
   home = {
     packages = with pkgs; [

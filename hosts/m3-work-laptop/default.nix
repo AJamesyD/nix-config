@@ -39,7 +39,7 @@ in
   imports = [
     ../../common/darwin.nix
     ../../common/nix-common.nix
-    ../../common/stylix.nix
+    ../../common/stylix
     ./aerospace.nix
     ./kanata.nix
     ./hammerspoon.nix

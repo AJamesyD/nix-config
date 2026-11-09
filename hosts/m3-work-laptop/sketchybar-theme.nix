@@ -1,6 +1,6 @@
 # Generates colors.lua and wm_config.lua for sketchybar.
 # Colors are sourced from stylix's base16 scheme so changing the scheme
-# in common/stylix.nix updates sketchybar automatically.
+# in common/stylix/default.nix updates sketchybar automatically.
 #
 # Base16 accent mapping (standard convention):
 #   base08=red  base09=orange  base0A=yellow  base0B=green

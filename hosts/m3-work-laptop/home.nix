@@ -16,8 +16,6 @@
     ./sketchybar-theme.nix
   ];
 
-  stylix.targets.gtk.enable = false;
-
   home = {
     username = "angaidan";
     homeDirectory = "/Users/angaidan";
