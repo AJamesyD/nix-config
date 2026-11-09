@@ -36,7 +36,7 @@ jobs:
       # auto-merge never fires.
       # WARN: PAT expires annually. If this workflow 401s, rotate at
       # Settings > Secrets and variables > Actions > PAT.
-      - uses: DeterminateSystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
+      - uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
         id: update
         with:
           inputs: ${{ steps.inputs.outputs.list }}
