@@ -67,6 +67,7 @@ let
           ../common/stylix/home.nix
           inputs.amzn-community.homeModules.default
           inputs.sops-nix.homeManagerModules.sops
+          inputs.rex.homeManagerModules.default
         ];
         extraSpecialArgs = {
           hostType = type;

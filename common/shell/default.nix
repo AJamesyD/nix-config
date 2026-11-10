@@ -138,6 +138,17 @@ in
           local ZVM_INIT_MODE=sourcing
         ''
       )
+      (lib.mkOrder 551
+        # bash
+        ''
+          # NOTE: nix-darwin's /etc/zshenv resets PATH (via set-environment)
+          #   after Rex prepends its CLI dir, dropping `rex`.
+          #   https://www.superlogical.com/rex/docs/automate/cli.md#path
+          if [ -n "$REX_BIN_DIR" ]; then
+            export PATH="$REX_BIN_DIR:$PATH"
+          fi
+        ''
+      )
       (
         builtins.readFile ./zshrc-prefix.zsh
         + ''

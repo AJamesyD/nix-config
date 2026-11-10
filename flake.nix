@@ -67,6 +67,9 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # TODO: Pin the `stable` channel and add `inputs.nixpkgs.follows` once Rex
+    #   is GA. Today the flake has only `snapshot` and no nixpkgs input.
+    rex.url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

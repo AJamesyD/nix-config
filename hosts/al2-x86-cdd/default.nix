@@ -62,6 +62,16 @@
     };
   };
 
+  # NOTE: services.rex implies programs.rex, which installs the xterm-rex
+  #   terminfo entry for the Mac client's TERM. The server should bind only the
+  #   local rex.socket (ssh is the access boundary); do not add extraListen or
+  #   tailscale. Verify no non-loopback listener after deploy. Run
+  #   `loginctl enable-linger` once so it survives logout.
+  services.rex.enable = true;
+  # NOTE: AL2's OpenSSH 7.4 is below the 7.8 Rex's ssh guard needs, and this
+  #   host is not a Rex client.
+  programs.rex.sshGuard = false;
+
   services.shpool = {
     enable = true;
     settings = {
