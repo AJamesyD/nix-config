@@ -287,6 +287,10 @@
           run = "move-node-to-workspace 1-dev";
         }
         {
+          "if".app-id = "com.amazon.kiro.crew";
+          run = "move-node-to-workspace 1-dev";
+        }
+        {
           "if".app-id = "com.mytty.app";
           run = "move-node-to-workspace 1-dev";
         }

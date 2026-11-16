@@ -9,6 +9,11 @@
     # Specialized modules (handle registries, config files, defaults)
     aim = {
       enable = true;
+      agents.AmazonBuilderCoreAIAgents = { };
+      skills = {
+        AutoCRReviewerLocalSkill = { };
+        RustAISkillSet = { };
+      };
       mcpServers = {
         cr-guide-mcp = { };
         sage-plus-service-mcp = { };

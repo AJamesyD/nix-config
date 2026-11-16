@@ -6,19 +6,51 @@
 }:
 let
   user = config.home.username;
+  cddHostname = "dev-dsk-angaidan-2a-4351fd5e.us-west-2.amazon.com";
 in
 {
   imports = [ ./toolbox.nix ];
 
   home = {
-    # Persistent socket avoids repeated auth handshakes for git operations
-    file.".ssh/config.d/aws.conf".text = ''
-      Host git.amazon.com
-        ControlMaster auto
-        ControlPath ~/.ssh/control-%C
-        ControlPersist 12h
-        User ${user}
-    '';
+    file.".ssh/config.d/aws.conf".text =
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        ''
+          # NOTE: Interactive-only alias. Tools ssh by FQDN and get none of this:
+          #   Kiro Crew's tunnel sets ExitOnForwardFailure=yes, so one inherited
+          #   forward that is already bound kills it.
+          Host al2-x86-cdd
+            HostName ${cddHostname}
+            User ${user}
+            # NOTE: Host matches the typed name, so WSSH's dev-dsk-* block skips this.
+            ProxyCommand /usr/local/bin/wssh proxy %h
+
+            # pbcopy, pbpaste, and https://github.com/caarlos0/xdg-open-svc
+            RemoteForward 2224 127.0.0.1:2224
+            RemoteForward 2225 127.0.0.1:2225
+            RemoteForward 2226 127.0.0.1:2226
+            # markdown-preview.nvim on the cdd
+            LocalForward 8999 127.0.0.1:8999
+
+            # NOTE: %C hashes HostName, so it equals the FQDN's; %n keeps this master separate.
+            ControlMaster auto
+            ControlPath ~/.ssh/control-%n-%C
+            ControlPersist 12h
+
+          # NOTE: Restates WSSH's keepalive, which base.conf's Host * would override.
+          #   aws.conf sorts before base.conf, so this wins.
+          Host al2-x86-cdd dev-dsk-*.amazon.com *.corp.amazon.com
+            ServerAliveInterval 15
+            ServerAliveCountMax 44
+        ''
+      else
+        # NOTE: No WSSH on Linux; on the Mac its git.amazon.com block does this.
+        ''
+          Host git.amazon.com
+            ControlMaster auto
+            ControlPath ~/.ssh/control-%C
+            ControlPersist 12h
+            User ${user}
+        '';
 
     activation = {
       toolboxCompletions =
@@ -140,7 +172,7 @@ in
           else
             null;
 
-        CDD_HOSTNAME_AL2_X86 = "dev-dsk-angaidan-2a-4351fd5e.us-west-2.amazon.com";
+        CDD_HOSTNAME_AL2_X86 = cddHostname;
 
         KIROCREW_TELEMETRY_DISABLED = "1";
       };
@@ -158,8 +190,9 @@ in
         bbra = "bbr apollo-pkg";
 
         cb-dry-run = "/apollo/env/bt-rust/bin/rust-customer-dry-runs";
-
-        al2-x86-cdd = "ssh -t $CDD_HOSTNAME_AL2_X86 zsh -l";
+      }
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+        al2-x86-cdd = "ssh -t al2-x86-cdd zsh -l";
       };
       siteFunctions = {
         clean = # bash
