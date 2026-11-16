@@ -65,6 +65,7 @@
       create.enable = true;
       gordian-knot.enable = true;
       ion.enable = true;
+      kirocrew.enable = true;
       pipeline.enable = true;
     };
   };

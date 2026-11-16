@@ -141,6 +141,8 @@ in
             null;
 
         CDD_HOSTNAME_AL2_X86 = "dev-dsk-angaidan-2a-4351fd5e.us-west-2.amazon.com";
+
+        KIROCREW_TELEMETRY_DISABLED = "1";
       };
       shellAliases = {
         bb = "brazil-build";
