@@ -9,14 +9,17 @@
     # Specialized modules (handle registries, config files, defaults)
     aim = {
       enable = true;
-      agents.AmazonBuilderCoreAIAgents = { };
+      strict = true;
+      agents = {
+        AmazonBuilderCoreAIAgents = { };
+        AWSBuilderCoreAIAgents = { };
+      };
       skills = {
         AutoCRReviewerLocalSkill = { };
         RustAISkillSet = { };
+        AmazonBuilderCoreAISkillSet = { };
       };
       mcpServers = {
-        cr-guide-mcp = { };
-        sage-plus-service-mcp = { };
         slack-mcp = { };
       };
     };
@@ -72,6 +75,7 @@
       ion.enable = true;
       kirocrew.enable = true;
       pipeline.enable = true;
+      vault.enable = true;
     };
   };
 }
