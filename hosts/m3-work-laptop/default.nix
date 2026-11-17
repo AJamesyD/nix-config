@@ -115,7 +115,12 @@ in
     users.angaidan = import ./home.nix;
   };
 
-  networking.hostName = "m3-work-laptop";
+  # NOTE: must match the AD computer name (`scutil --get ComputerName`).
+  #   ACME's Management > Wi-Fi check requests a device cert with CN=hostname;
+  #   Amazon's CA rejects any other name (HTTP 403). The flake config keeps the
+  #   name m3-work-laptop; nixswitch selects it explicitly. A drift check runs
+  #   in postActivation below.
+  networking.hostName = "80a99738471f";
 
   nix = {
     settings = {
@@ -260,6 +265,12 @@ in
       	cp "$conn_main" "''${conn_main}.bak"
       	printf 'require("electron").app.quit();\n' >"$conn_main"
       	echo "neutralized Amazon Connections (backup at ''${conn_main}.bak)" >&2
+      fi
+
+      # NOTE: warn-only; IT owns ComputerName, so never overwrite it here.
+      ad_name="$(/usr/sbin/scutil --get ComputerName 2>/dev/null)"
+      if [ "$ad_name" != ${lib.escapeShellArg config.networking.hostName} ]; then
+      	echo "warning: ComputerName '$ad_name' != networking.hostName '${config.networking.hostName}'; ACME Wi-Fi cert renewal will fail" >&2
       fi
     '';
 
