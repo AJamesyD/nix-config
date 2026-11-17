@@ -19,7 +19,7 @@ let
         sessionVariables = {
           # NOTE: May have to chmod +x -R terminfo definitions (not sure why)
           TERMINFO_DIRS = "${config.home.profileDirectory}/share/terminfo:/etc/terminfo:/lib/terminfo:/usr/share/terminfo";
-          # NOTE: used by nixd LSP config and nh home switch on Linux
+          # NOTE: flake config name, for tooling (e.g. nixd LSP config)
           _NIX_HOSTNAME = hostName;
         };
       };

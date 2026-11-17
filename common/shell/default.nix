@@ -68,13 +68,15 @@ in
         ''
           ${cleanCmd}
         '';
+      # NOTE: select the flake config by its name (hostName), not the system
+      #   hostname; they differ on m3-work-laptop (see networking.hostName).
       nixswitch =
         let
           switchCmd =
             if pkgs.stdenv.hostPlatform.isDarwin then
-              "nh darwin switch"
+              "nh darwin switch --hostname ${lib.escapeShellArg hostName}"
             else
-              "nh home switch --configuration \"$_NIX_HOSTNAME\"";
+              "nh home switch --configuration ${lib.escapeShellArg hostName}";
         in
         # bash
         ''

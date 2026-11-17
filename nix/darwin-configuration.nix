@@ -22,7 +22,7 @@ let
           (../hosts + "/${hostName}")
           {
             environment.variables = {
-              # NOTE: used by nixd LSP config and nh home switch on Linux
+              # NOTE: flake config name, for tooling (e.g. nixd LSP config)
               _NIX_HOSTNAME = hostName;
             };
             nix = {
