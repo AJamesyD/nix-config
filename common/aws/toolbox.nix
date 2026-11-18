@@ -11,13 +11,13 @@
       enable = true;
       strict = true;
       agents = {
-        AmazonBuilderCoreAIAgents = { };
         AWSBuilderCoreAIAgents = { };
+        AmazonBuilderCoreAIAgents = { };
       };
       skills = {
+        AmazonBuilderCoreAISkillSet = { };
         AutoCRReviewerLocalSkill = { };
         RustAISkillSet = { };
-        AmazonBuilderCoreAISkillSet = { };
       };
       mcpServers = {
         slack-mcp = { };
