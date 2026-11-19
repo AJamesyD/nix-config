@@ -5,21 +5,20 @@
 {
   programs.toolbox = {
     enable = true;
+    strict = true;
 
     # Specialized modules (handle registries, config files, defaults)
     aim = {
       enable = true;
       strict = true;
-      agents = {
-        AWSBuilderCoreAIAgents = { };
-        AmazonBuilderCoreAIAgents = { };
-      };
+
       skills = {
         AmazonBuilderCoreAISkillSet = { };
         AutoCRReviewerLocalSkill = { };
         RustAISkillSet = { };
       };
       mcpServers = {
+        chorus-mcp = { };
         slack-mcp = { };
       };
     };
