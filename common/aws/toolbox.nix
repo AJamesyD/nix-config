@@ -61,6 +61,7 @@
 
     tools = {
       ada.enable = true;
+      aws-outlook-mcp.enable = true;
       axe.enable = true;
       barium.enable = true;
       bh.enable = true;
