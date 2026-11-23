@@ -64,7 +64,6 @@ let
           inputs.nix-index-database.homeModules.default
           { programs.nix-index-database.comma.enable = true; }
           inputs.stylix.homeModules.stylix
-          ../common/stylix/home.nix
           inputs.amzn-community.homeModules.default
           inputs.sops-nix.homeManagerModules.sops
           inputs.rex.homeManagerModules.default

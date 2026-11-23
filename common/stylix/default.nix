@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ ./follow-programs.nix ];
+
   stylix = {
     enable = true;
     enableReleaseChecks = false;
