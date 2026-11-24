@@ -97,6 +97,10 @@ in
         greedy = true;
       }
       {
+        name = "vorssaint";
+        greedy = true;
+      }
+      {
         name = "zed@preview";
         greedy = true;
       }
