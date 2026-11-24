@@ -3,6 +3,8 @@
   ...
 }:
 {
+  # NOTE: neovim is a raw package themed by tokyonight in ~/.config/nvim, not
+  #   programs.neovim. This stays correct after follow-programs.nix is deleted.
   stylix.targets.neovim.enable = false;
 
   home.packages = with pkgs; [
