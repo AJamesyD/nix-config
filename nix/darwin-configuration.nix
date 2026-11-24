@@ -41,8 +41,8 @@ let
               inputs.nix-index-database.homeModules.default
               { programs.nix-index-database.comma.enable = true; }
               { stylix.enableReleaseChecks = false; }
-              # NOTE: home-manager users here do not import common/stylix, which
-              #   brings the target policy everywhere else.
+              # NOTE: common/stylix is imported at system level only, so the
+              #   home-manager users get the target policy here.
               ../common/stylix/follow-programs.nix
               inputs.amzn-community.homeModules.default
               inputs.sops-nix.homeManagerModules.sops
