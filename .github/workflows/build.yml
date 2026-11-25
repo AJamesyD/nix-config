@@ -75,7 +75,7 @@ jobs:
           key: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock') }}
           restore-keys: nix-eval-${{ github.job }}-${{ runner.os }}-${{ runner.arch }}-
 
-      - uses: cachix/cachix-action@0203c83b2290520cb3784590a1283885371d5907 # v17
+      - uses: cachix/cachix-action@ae1cbf444b9889291590b7d87f4b676406df16aa # v17
         with:
           name: ajamesyd-nix-cache
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
