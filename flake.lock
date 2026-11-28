@@ -388,11 +388,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795676828,
-        "narHash": "sha256-5xXZjRoXm20Yu4bhM38E03iSGbJKvTNjCm0QxJz9Nt0=",
+        "lastModified": 1795850371,
+        "narHash": "sha256-sDHKEQw20pf8vrUvlwOvBk7PfueR5YkaeFWPtwnan70=",
         "owner": "Mic92",
         "repo": "direnv-instant",
-        "rev": "b225a32eec62b5cfd2f5e7d59b60fd6448edea7a",
+        "rev": "14ec477296476a0cb41d398bb3c2c78705e060d1",
         "type": "github"
       },
       "original": {
@@ -952,11 +952,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795748630,
-        "narHash": "sha256-J1iQ1QMnkFwZFXnlPt2t3Qx7TsGjw08/0L3QMqNt+Wg=",
+        "lastModified": 1795827905,
+        "narHash": "sha256-Udjs2j0EkvK+qGXKHRIQwXWRgzNBIl4oXSUktuOzbmQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "54f903fdaaf5d5720ed36706fe75332af69eb793",
+        "rev": "5f5abf5eb8de62d954232f3797b5bf4505656b91",
         "type": "github"
       },
       "original": {
@@ -1023,11 +1023,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795764997,
-        "narHash": "sha256-dkX4GGtumxtSOcdwTsS6Dy5LyPv9Nx6Ya6yRx1i3y1o=",
+        "lastModified": 1795831089,
+        "narHash": "sha256-cwO9VHA37d4DCJOCBOHL0eFNVL6jCjLCNcREc7S8N+g=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "ccf868b7a2a8de6713c0a572885657739a448cf0",
+        "rev": "512d27e2882c99d80648a121b88de0c4b0426119",
         "type": "github"
       },
       "original": {
@@ -1479,10 +1479,10 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1795752225,
-        "narHash": "sha256-LTxyo2c4z4a6lZ7tjjsSQy5hOyXZ60ThNz5M4dxn/bI=",
+        "lastModified": 1795838691,
+        "narHash": "sha256-IL0XDgRaew6gRZQtG6bBsNQ5G5yiRYx7ybK/HA+fXXE=",
         "type": "tarball",
-        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.1.0-snapshot.2683.tar.gz"
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.1.0-snapshot.2705.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -1862,11 +1862,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795762905,
-        "narHash": "sha256-tQ5YNz44fWJ7VWWia5ivfr5ZTlPR6GAxJkna4Z8j2bY=",
+        "lastModified": 1795828330,
+        "narHash": "sha256-MmyZZi9QR+5lxOsTdveDNNaf6OaIid0KbKyk3uB43eg=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "8fff5095fe8dcf614c2a4bec4ca346a800910e11",
+        "rev": "13e1ec4db3211a48e86665318d6e7732431d6093",
         "type": "github"
       },
       "original": {
@@ -1916,11 +1916,11 @@
         "systems": "systems_8"
       },
       "locked": {
-        "lastModified": 1795739464,
-        "narHash": "sha256-vJI3SsSKZq/Ku0VAGZkAw28sWoIwA+6bGXyVlv9zHnE=",
+        "lastModified": 1795825799,
+        "narHash": "sha256-u7ygngAN13N1hePxT7UYM2vkVgkbBWM2x019F2ZROyU=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "d1e999b61856aa0b12024b59eb41cb647429febd",
+        "rev": "d3f0eee5977d97e8c51a7d363ac081fdeaf9b8ae",
         "type": "github"
       },
       "original": {
